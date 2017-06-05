@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngine.Shared", "GameEngine\GameEngine.Shared\GameEngine.Shared.vcxitems", "{42C52168-967F-4340-9025-AC9F5AA0D518}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngine.Android", "GameEngine\GameEngine.Android\GameEngine.Android.vcxproj", "{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngine.iOS", "GameEngine\GameEngine.iOS\GameEngine.iOS.vcxproj", "{A86B2E5B-0197-46DE-B716-5926AB10A52F}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		GameEngine\GameEngine.Shared\GameEngine.Shared.vcxitems*{42c52168-967f-4340-9025-ac9f5aa0d518}*SharedItemsImports = 9
+		GameEngine\GameEngine.Shared\GameEngine.Shared.vcxitems*{a86b2e5b-0197-46de-b716-5926ab10a52f}*SharedItemsImports = 4
+		GameEngine\GameEngine.Shared\GameEngine.Shared.vcxitems*{eca95a4a-9531-4a41-9ff8-3c353f3adbdd}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Debug|ARM.ActiveCfg = Debug|ARM
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Debug|ARM.Build.0 = Debug|ARM
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Debug|ARM64.Build.0 = Debug|ARM64
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Debug|x64.ActiveCfg = Debug|x64
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Debug|x64.Build.0 = Debug|x64
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Debug|x86.ActiveCfg = Debug|x86
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Debug|x86.Build.0 = Debug|x86
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Release|ARM.ActiveCfg = Release|ARM
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Release|ARM.Build.0 = Release|ARM
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Release|ARM64.ActiveCfg = Release|ARM64
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Release|ARM64.Build.0 = Release|ARM64
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Release|x64.ActiveCfg = Release|x64
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Release|x64.Build.0 = Release|x64
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Release|x86.ActiveCfg = Release|x86
+		{ECA95A4A-9531-4A41-9FF8-3C353F3ADBDD}.Release|x86.Build.0 = Release|x86
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Debug|ARM.Build.0 = Debug|ARM
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Debug|ARM64.Build.0 = Debug|ARM64
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Debug|x64.ActiveCfg = Debug|x64
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Debug|x64.Build.0 = Debug|x64
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Debug|x86.ActiveCfg = Debug|x86
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Debug|x86.Build.0 = Debug|x86
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Release|ARM.ActiveCfg = Release|ARM
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Release|ARM.Build.0 = Release|ARM
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Release|ARM64.ActiveCfg = Release|ARM64
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Release|ARM64.Build.0 = Release|ARM64
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Release|x64.ActiveCfg = Release|x64
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Release|x64.Build.0 = Release|x64
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Release|x86.ActiveCfg = Release|x86
+		{A86B2E5B-0197-46DE-B716-5926AB10A52F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

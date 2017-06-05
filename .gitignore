@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Directories
+ARM/
+ARM64/
+x64/
+x86/
+Debug/
+Release/
