@@ -1,0 +1,885 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		0FB47FA9F0E6441AAA667CCF /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6C6B7AB6A63945ED8064F00D /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				A55E5653547D4743A5850D53 /* CMake Rules */,
+			);
+			dependencies = (
+				52F7341D24F9484D982B8FA9 /* PBXTargetDependency */,
+				7F5D1D0968AD4A4BBA94D475 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		64365B12A2264B51A86F0CDF /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 96E0CCB0B7444795BCE868D2 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				4D5951FAA0C148179CD7AFB4 /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+		B171B18E0CEA4320A330AE0E /* install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D9D91A367A8242A18E80B817 /* Build configuration list for PBXAggregateTarget "install" */;
+			buildPhases = (
+				3056006FF26B448698BC133A /* CMake PostBuild Rules */,
+			);
+			dependencies = (
+				CAF7A1BA54424C65A47300B5 /* PBXTargetDependency */,
+			);
+			name = install;
+			productName = install;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0D2D6F39F0B54B44B03DD52E /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/Scene.cpp */ = {isa = PBXBuildFile; fileRef = B84817E06F7F46D681971476 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/Scene.cpp */; };
+		2C321F8140C243968E1752B5 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/SceneManager.cpp */ = {isa = PBXBuildFile; fileRef = 1FF574B85E474105857B910C /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/SceneManager.cpp */; };
+		3A5C3C3F098C495E85B4B777 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/game-engine.macOS/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = CCE483182F2C4F5C8CB11C86 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/game-engine.macOS/CMakeLists.txt */; };
+		49C8C7BB49A74AD09C1C4668 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/CoreModule.h */ = {isa = PBXBuildFile; fileRef = 9E82ECEF41DA4BFB991796D1 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/CoreModule.h */; };
+		4D90D6AFDCC042F3AB3BC987 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Graphics.h */ = {isa = PBXBuildFile; fileRef = 0B594E441C054C86A801618F /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Graphics.h */; };
+		5E3E30B6B01B43B088383542 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Graphics.cpp */ = {isa = PBXBuildFile; fileRef = ABE7588B787F47B59FE86F19 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Graphics.cpp */; };
+		710776B9CEF14DA99A0794F7 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/CoreModule.cpp */ = {isa = PBXBuildFile; fileRef = C2CC4CBFD3AA41A4B67D860D /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/CoreModule.cpp */; };
+		75CE62C7E99A4A8CB27DE0A6 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Shader.h */ = {isa = PBXBuildFile; fileRef = 4C0BC103DA6846D983592820 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Shader.h */; };
+		8EF03A7C8A204AA9957A7052 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Defines/OpenGL.h */ = {isa = PBXBuildFile; fileRef = BA4F6AADFA264634A1DF2F94 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Defines/OpenGL.h */; };
+		936E25CCCBB54427BD423A94 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Scene/Scene.h */ = {isa = PBXBuildFile; fileRef = E33F304043484B76A7D28D58 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Scene/Scene.h */; };
+		9790C63ED21D44179D2DA8CF /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Scene/SceneManager.h */ = {isa = PBXBuildFile; fileRef = 9C30C74B2B3A46C5919DCC2E /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Scene/SceneManager.h */; };
+		9CCE29B4BC214BC9ADDA5F14 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Engine/Engine.cpp */ = {isa = PBXBuildFile; fileRef = C29CBDCABABC4D6693B10420 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Engine/Engine.cpp */; };
+		9FCF817BB5FD43008AA913EF /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Geometry.cpp */ = {isa = PBXBuildFile; fileRef = 0E0F1992E32B4F85AFEBBBAD /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Geometry.cpp */; };
+		A97A70CBA01246FD961054E5 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Vertex.h */ = {isa = PBXBuildFile; fileRef = B421E37A73CF4C63B91CF5B6 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Vertex.h */; };
+		BABB17965A2D402E9073A1BE /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Geometry.h */ = {isa = PBXBuildFile; fileRef = 84D32D2659F74E599076A8B9 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Geometry.h */; };
+		D7F46ECBA9424F4CA9C66C24 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Engine/Engine.h */ = {isa = PBXBuildFile; fileRef = 71B39106FA9C477CB74D60CA /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Engine/Engine.h */; };
+		D80A5B63FC3B4153A2C48DEB /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Shader.cpp */ = {isa = PBXBuildFile; fileRef = 443913B0DD554CCFB2B4B650 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Shader.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		5232431A143A404E86C2094D /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		5623F7B96BA14965932BCD4C = {
+			isa = PBXBuildStyle;
+		};
+		767D2C27FDEF42C2B9947BF4 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		82CE25043ECF4B04AF971B4F /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		DD19A376F42C4D4591027C77 /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		186ADC9592834DED9A8671E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A72E8F84E2D3434699EC74C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64365B12A2264B51A86F0CDF;
+			remoteInfo = ZERO_CHECK;
+		};
+		83041D9A7A814BF29DFE8A83 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A72E8F84E2D3434699EC74C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64365B12A2264B51A86F0CDF;
+			remoteInfo = ZERO_CHECK;
+		};
+		8C7511FCBC4B41448CF0D0A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A72E8F84E2D3434699EC74C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94048E2A96B942C8B96C6F5C;
+			remoteInfo = libGameEngine.macOS;
+		};
+		B68DAEBCE6D4459B9A1B2170 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A72E8F84E2D3434699EC74C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0FB47FA9F0E6441AAA667CCF;
+			remoteInfo = ALL_BUILD;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0B594E441C054C86A801618F /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Graphics.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Graphics.h; path = include/Core/Modules/Graphics/Graphics.h; sourceTree = SOURCE_ROOT; };
+		0E0F1992E32B4F85AFEBBBAD /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Geometry.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Geometry.cpp; path = src/Core/Modules/Graphics/Geometry.cpp; sourceTree = SOURCE_ROOT; };
+		1014782ADF88405AA77FD21A /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		1FF574B85E474105857B910C /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/SceneManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = SceneManager.cpp; path = src/Core/Scene/SceneManager.cpp; sourceTree = SOURCE_ROOT; };
+		443913B0DD554CCFB2B4B650 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Shader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Shader.cpp; path = src/Core/Modules/Graphics/Shader.cpp; sourceTree = SOURCE_ROOT; };
+		4C0BC103DA6846D983592820 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Shader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Shader.h; path = include/Core/Modules/Graphics/Shader.h; sourceTree = SOURCE_ROOT; };
+		71B39106FA9C477CB74D60CA /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Engine/Engine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Engine.h; path = include/Core/Engine/Engine.h; sourceTree = SOURCE_ROOT; };
+		83E36C46885142D09DFC809F /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		84D32D2659F74E599076A8B9 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Geometry.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Geometry.h; path = include/Core/Modules/Graphics/Geometry.h; sourceTree = SOURCE_ROOT; };
+		9C30C74B2B3A46C5919DCC2E /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Scene/SceneManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = SceneManager.h; path = include/Core/Scene/SceneManager.h; sourceTree = SOURCE_ROOT; };
+		9E82ECEF41DA4BFB991796D1 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/CoreModule.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = CoreModule.h; path = include/Core/Modules/CoreModule.h; sourceTree = SOURCE_ROOT; };
+		ABE7588B787F47B59FE86F19 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Graphics.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Graphics.cpp; path = src/Core/Modules/Graphics/Graphics.cpp; sourceTree = SOURCE_ROOT; };
+		B421E37A73CF4C63B91CF5B6 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Vertex.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Vertex.h; path = include/Core/Modules/Graphics/Vertex.h; sourceTree = SOURCE_ROOT; };
+		B84817E06F7F46D681971476 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/Scene.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Scene.cpp; path = src/Core/Scene/Scene.cpp; sourceTree = SOURCE_ROOT; };
+		BA4F6AADFA264634A1DF2F94 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Defines/OpenGL.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = OpenGL.h; path = include/Defines/OpenGL.h; sourceTree = SOURCE_ROOT; };
+		C29CBDCABABC4D6693B10420 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Engine/Engine.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Engine.cpp; path = src/Core/Engine/Engine.cpp; sourceTree = SOURCE_ROOT; };
+		C2CC4CBFD3AA41A4B67D860D /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/CoreModule.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CoreModule.cpp; path = src/Core/Modules/CoreModule.cpp; sourceTree = SOURCE_ROOT; };
+		CCE483182F2C4F5C8CB11C86 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/game-engine.macOS/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = "game-engine.macOS/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+		E33F304043484B76A7D28D58 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Scene/Scene.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Scene.h; path = include/Core/Scene/Scene.h; sourceTree = SOURCE_ROOT; };
+		EEA02BAF20614DA6A44FFCA1 /* libGameEngine.macOS */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liblibGameEngine.macOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		65365C9601854E218961A090 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				71B39106FA9C477CB74D60CA /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Engine/Engine.h */,
+				9E82ECEF41DA4BFB991796D1 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/CoreModule.h */,
+				84D32D2659F74E599076A8B9 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Geometry.h */,
+				0B594E441C054C86A801618F /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Graphics.h */,
+				4C0BC103DA6846D983592820 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Shader.h */,
+				B421E37A73CF4C63B91CF5B6 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Modules/Graphics/Vertex.h */,
+				E33F304043484B76A7D28D58 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Scene/Scene.h */,
+				9C30C74B2B3A46C5919DCC2E /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Core/Scene/SceneManager.h */,
+				BA4F6AADFA264634A1DF2F94 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include/Defines/OpenGL.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		6601CF7B87B544A1B91B247E /* ZERO_CHECK */ = {
+			isa = PBXGroup;
+			children = (
+				6D9A027D90B44AC9B23B0B90 /* CMake Rules */,
+				1014782ADF88405AA77FD21A /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/CMakeLists.txt */,
+			);
+			name = ZERO_CHECK;
+			sourceTree = "<group>";
+		};
+		6D9A027D90B44AC9B23B0B90 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		8696A4C5918A420FB1CA006B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EEA02BAF20614DA6A44FFCA1 /* libGameEngine.macOS */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		872A78B82A81410EB6D61FF5 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				AB873873898942BEB3CF88DD /* ALL_BUILD */,
+				6601CF7B87B544A1B91B247E /* ZERO_CHECK */,
+				D590A074DACC4C5182634BD7 /* libGameEngine.macOS */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		88E7D6FEE94C4D958A991BFD = {
+			isa = PBXGroup;
+			children = (
+				872A78B82A81410EB6D61FF5 /* Sources */,
+				F059CA06F0074783B82291F2 /* Resources */,
+				8696A4C5918A420FB1CA006B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB873873898942BEB3CF88DD /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				CD678D47A04B414F983104B4 /* CMake Rules */,
+				83E36C46885142D09DFC809F /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		BD6282F71E084AD3AE9AB3F2 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				C29CBDCABABC4D6693B10420 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Engine/Engine.cpp */,
+				C2CC4CBFD3AA41A4B67D860D /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/CoreModule.cpp */,
+				0E0F1992E32B4F85AFEBBBAD /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Geometry.cpp */,
+				ABE7588B787F47B59FE86F19 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Graphics.cpp */,
+				443913B0DD554CCFB2B4B650 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Shader.cpp */,
+				B84817E06F7F46D681971476 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/Scene.cpp */,
+				1FF574B85E474105857B910C /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/SceneManager.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		CD678D47A04B414F983104B4 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		D590A074DACC4C5182634BD7 /* libGameEngine.macOS */ = {
+			isa = PBXGroup;
+			children = (
+				65365C9601854E218961A090 /* Header Files */,
+				BD6282F71E084AD3AE9AB3F2 /* Source Files */,
+				CCE483182F2C4F5C8CB11C86 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/game-engine.macOS/CMakeLists.txt */,
+			);
+			name = libGameEngine.macOS;
+			sourceTree = "<group>";
+		};
+		F059CA06F0074783B82291F2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		94048E2A96B942C8B96C6F5C /* libGameEngine.macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E709AC8419B141A89F70448C /* Build configuration list for PBXNativeTarget "libGameEngine.macOS" */;
+			buildPhases = (
+				D12A2D76C7AD418D8701BEB4 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				06A2190FCEA046C885E28D5C /* PBXTargetDependency */,
+			);
+			name = libGameEngine.macOS;
+			productName = libGameEngine.macOS;
+			productReference = EEA02BAF20614DA6A44FFCA1 /* libGameEngine.macOS */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A72E8F84E2D3434699EC74C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0830;
+			};
+			buildConfigurationList = 18074B18BD654481A4212ADA /* Build configuration list for PBXProject "game-engine" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				767D2C27FDEF42C2B9947BF4 /* Debug */,
+				DD19A376F42C4D4591027C77 /* Release */,
+				5232431A143A404E86C2094D /* MinSizeRel */,
+				82CE25043ECF4B04AF971B4F /* RelWithDebInfo */,
+			);
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = 88E7D6FEE94C4D958A991BFD;
+			projectDirPath = ../;
+			projectRoot = "";
+			targets = (
+				0FB47FA9F0E6441AAA667CCF /* ALL_BUILD */,
+				64365B12A2264B51A86F0CDF /* ZERO_CHECK */,
+				B171B18E0CEA4320A330AE0E /* install */,
+				94048E2A96B942C8B96C6F5C /* libGameEngine.macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20C589C83CEB4B4EAB529C0B = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		3056006FF26B448698BC133A /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build -f /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		3785543165044ED99933DF74 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		4D5951FAA0C148179CD7AFB4 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build -f /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		A55E5653547D4743A5850D53 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build -f /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		BCBBA9740E7340F589D33C13 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D12A2D76C7AD418D8701BEB4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CCE29B4BC214BC9ADDA5F14 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Engine/Engine.cpp */,
+				710776B9CEF14DA99A0794F7 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/CoreModule.cpp */,
+				9FCF817BB5FD43008AA913EF /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Geometry.cpp */,
+				5E3E30B6B01B43B088383542 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Graphics.cpp */,
+				D80A5B63FC3B4153A2C48DEB /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Modules/Graphics/Shader.cpp */,
+				0D2D6F39F0B54B44B03DD52E /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/Scene.cpp */,
+				2C321F8140C243968E1752B5 /* /Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/src/Core/Scene/SceneManager.cpp */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		06A2190FCEA046C885E28D5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64365B12A2264B51A86F0CDF /* ZERO_CHECK */;
+			targetProxy = 83041D9A7A814BF29DFE8A83 /* PBXContainerItemProxy */;
+		};
+		52F7341D24F9484D982B8FA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94048E2A96B942C8B96C6F5C /* libGameEngine.macOS */;
+			targetProxy = 8C7511FCBC4B41448CF0D0A9 /* PBXContainerItemProxy */;
+		};
+		7F5D1D0968AD4A4BBA94D475 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64365B12A2264B51A86F0CDF /* ZERO_CHECK */;
+			targetProxy = 186ADC9592834DED9A8671E6 /* PBXContainerItemProxy */;
+		};
+		CAF7A1BA54424C65A47300B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0FB47FA9F0E6441AAA667CCF /* ALL_BUILD */;
+			targetProxy = B68DAEBCE6D4459B9A1B2170 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		03EE35A3EB914D2E888CB68A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		13334306918A459FA5AE87D2 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",__macOS__);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include",/usr/local/include);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = libGameEngine.macOS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/game-engine.macOS";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		2E6D30E418EF4190AE660DD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		42CA5C45BF8644598EDCADD6 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		4CAEF109C03048689072D538 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/build";
+			};
+			name = Debug;
+		};
+		5CBF05E48368414CAF66C84B /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",__macOS__);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include",/usr/local/include);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = libGameEngine.macOS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/game-engine.macOS";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		935EA185255248E697B83D2B /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		99A696A21FDF409EA54DEF61 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/build";
+			};
+			name = RelWithDebInfo;
+		};
+		9CE1E208547C41B49D7DA5CD /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		9FF65A3C244446238469326A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		ACCFF9BAD23C4CC39312928D /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		B4291F70665C44158300FE4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",__macOS__);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include",/usr/local/include);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = libGameEngine.macOS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/game-engine.macOS";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		B823C7DDFA5D479B95422B03 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/build";
+			};
+			name = MinSizeRel;
+		};
+		BBD83B94CAEA4187ACB03325 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		D42D9AAFC32349FF9F7EF69A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",__macOS__);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include",/usr/local/include);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = libGameEngine.macOS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/game-engine.macOS";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		D45661090A9648E69E8BABD1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		DB035FDD0B7B47DFAB39083C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/build";
+			};
+			name = Release;
+		};
+		E14018171B9341488A3EF322 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		F49391F0B7DD4FFFB53A8CE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		FDEB1DEE07EA4EE6943B0B59 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/include");
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18074B18BD654481A4212ADA /* Build configuration list for PBXProject "game-engine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CAEF109C03048689072D538 /* Debug */,
+				DB035FDD0B7B47DFAB39083C /* Release */,
+				B823C7DDFA5D479B95422B03 /* MinSizeRel */,
+				99A696A21FDF409EA54DEF61 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6C6B7AB6A63945ED8064F00D /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E14018171B9341488A3EF322 /* Debug */,
+				9FF65A3C244446238469326A /* Release */,
+				FDEB1DEE07EA4EE6943B0B59 /* MinSizeRel */,
+				42CA5C45BF8644598EDCADD6 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		96E0CCB0B7444795BCE868D2 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45661090A9648E69E8BABD1 /* Debug */,
+				2E6D30E418EF4190AE660DD2 /* Release */,
+				ACCFF9BAD23C4CC39312928D /* MinSizeRel */,
+				935EA185255248E697B83D2B /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D9D91A367A8242A18E80B817 /* Build configuration list for PBXAggregateTarget "install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F49391F0B7DD4FFFB53A8CE8 /* Debug */,
+				03EE35A3EB914D2E888CB68A /* Release */,
+				BBD83B94CAEA4187ACB03325 /* MinSizeRel */,
+				9CE1E208547C41B49D7DA5CD /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E709AC8419B141A89F70448C /* Build configuration list for PBXNativeTarget "libGameEngine.macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D42D9AAFC32349FF9F7EF69A /* Debug */,
+				B4291F70665C44158300FE4C /* Release */,
+				5CBF05E48368414CAF66C84B /* MinSizeRel */,
+				13334306918A459FA5AE87D2 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A72E8F84E2D3434699EC74C3 /* Project object */;
+}

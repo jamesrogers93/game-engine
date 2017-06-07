@@ -1,8 +1,12 @@
-# iOS Executable
+# iOS Library
 
-add_definitions(-D__APPLE__)
+#add_definitions(-D__iOS__)
 
-add_library(libGameEngine.iOS ${INC_FILES} ${SRC_FILES})
+# Include GLM
+#find_package (glm REQUIRED)
+#include_directories(${GLM_INCLUDE_DIRS})
 
-install(TARGETS libGameEngine.iOS DESTINATION lib)
-install(FILES ${INC_FILES} DESTINATION include)
+#add_library(libGameEngine.iOS ${INC_FILES} ${SRC_FILES})
+
+#install(TARGETS libGameEngine.iOS DESTINATION lib)
+#install(FILES ${INC_FILES} DESTINATION include)
