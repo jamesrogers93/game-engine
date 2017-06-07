@@ -1,5 +1,0 @@
-/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/CMakeFiles/install.dir
-/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/CMakeFiles/ALL_BUILD.dir
-/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/CMakeFiles/ZERO_CHECK.dir
-/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/game-engine.macOS/CMakeFiles/install.dir
-/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/game-engine/build/game-engine.macOS/CMakeFiles/libGameEngine.macOS.dir
