@@ -5,11 +5,11 @@
 #include <GLES3/gl3.h>
 #include <EGL/egl.h>
 
-#elif __iOS__
+#elif __IOS__
 #define GL_GLEXT_PROTOTYPES
 #include <OpenGLES/ES3/gl.h>
 
-#elif __macOS__
+#elif __MACOS__
 #include <OpenGL/gl3.h>
 
 #endif
