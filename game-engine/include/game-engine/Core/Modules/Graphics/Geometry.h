@@ -3,7 +3,7 @@
 // STL
 #include <vector>
 
-#include "Defines/OpenGL.h"
+#include "game-engine/Defines/OpenGL.h"
 
 class Geometry
 {

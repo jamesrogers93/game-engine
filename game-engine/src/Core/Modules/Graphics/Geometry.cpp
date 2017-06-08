@@ -1,6 +1,6 @@
-#include "Core/Modules/Graphics/Geometry.h"
-#include "Core/Modules/Graphics/Vertex.h"
-#include "Core/Modules/Graphics/Shader.h"
+#include "game-engine/Core/Modules/Graphics/Geometry.h"
+#include "game-engine/Core/Modules/Graphics/Vertex.h"
+#include "game-engine/Core/Modules/Graphics/Shader.h"
 
 
 

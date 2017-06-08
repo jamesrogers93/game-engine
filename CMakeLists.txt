@@ -29,7 +29,7 @@ include_directories(${CMAKE_SOURCE_DIR}/game-engine/include)
 
 
 # Find all source files
-file(GLOB_RECURSE INC_FILES ${PROJECT_SOURCE_DIR}/game-engine/include/*.h)
+file(GLOB_RECURSE INC_FILES ${PROJECT_SOURCE_DIR}/game-engine/include/game-engine/*.h)
 file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/game-engine/src/*.cpp)
 
 

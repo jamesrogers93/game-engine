@@ -1,5 +1,5 @@
-#include "Core/Modules/Graphics/Graphics.h"
-#include "Core/Modules/Graphics/Geometry.h"
+#include "game-engine/Core/Modules/Graphics/Graphics.h"
+#include "game-engine/Core/Modules/Graphics/Geometry.h"
 
 bool Graphics::initalise()
 {

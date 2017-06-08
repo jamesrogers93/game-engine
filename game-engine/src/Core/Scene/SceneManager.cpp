@@ -1,5 +1,5 @@
-#include "Core/Scene/SceneManager.h"
-#include "Core/Scene/Scene.h"
+#include "game-engine/Core/Scene/SceneManager.h"
+#include "game-engine/Core/Scene/Scene.h"
 
 SceneManager::SceneManager()
 {

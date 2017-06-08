@@ -8,7 +8,7 @@
 #include <vector>
 #include <map>
 
-#include "Defines/OpenGL.h"
+#include "game-engine/Defines/OpenGL.h"
 
 class Shader
 {

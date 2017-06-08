@@ -1,5 +1,5 @@
-Copyright (c) 2016, Bogdan Cristea <cristeab@gmail.com>
-All rights reserved.
+# Copyright (c) 2016, Bogdan Cristea <cristeab@gmail.com>
+# All rights reserved.
 
 # This file is based off of the Platform/Darwin.cmake and Platform/UnixPaths.cmake
 # files which are included with CMake 2.8.4

@@ -5,8 +5,8 @@
 #include <map>
 
 // Engine
-#include "Core/Scene/SceneManager.h"
-#include "Core/Modules/CoreModule.h"
+#include "game-engine/Core/Scene/SceneManager.h"
+#include "game-engine/Core/Modules/CoreModule.h"
 
 //class CoreModule;
 //enum CoreModuleType;

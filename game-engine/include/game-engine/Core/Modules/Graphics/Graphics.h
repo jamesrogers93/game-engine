@@ -7,7 +7,7 @@
 // GLM
 #include <glm/glm.hpp>
 
-#include "Core/Modules/CoreModule.h"
+#include "game-engine/Core/Modules/CoreModule.h"
 
 class Geometry;
 class Shader;
