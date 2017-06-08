@@ -1,4 +1,11 @@
 
+# include game-engine directories
+include_directories(${CMAKE_SOURCE_DIR}/game-engine/include)
+
+# Finds all header and source files and places in GAME_ENGINE_INC and GAME_ENGINE_SRC respectively
+include(include/CMakeLists.txt)
+include(src/CMakeLists.txt)
+
 # Add platform specific definitions
 if(IOS)
 	add_definitions(-D__IOS__)
@@ -37,7 +44,33 @@ include_directories(${GLM_INCLUDE_DIRS})
 #set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/toolchains)
 #endif()
 
-add_library(GameEngine ${INC_FILES} ${SRC_FILES})
+add_library(GameEngine ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
+
+## Group files
+
+# Macro to take the file directories of the files and add them to groups to maintain the folder structure in an IDE.
+macro(build_groups FILES_LIST)
+	foreach(FILE ${FILES_LIST}) 
+  		get_filename_component(PARENT_DIR "${FILE}" PATH)
+
+  		# skip src or include and changes /'s to \\'s
+  		string(REGEX REPLACE "(\\./)?(src|include|game-engine)/?" "" GROUP "${PARENT_DIR}")
+  		string(REPLACE "/" "\\" GROUP "${GROUP}")
+
+  		# group into "Source Files" and "Header Files"
+  		if ("${FILE}" MATCHES ".*\\.cpp")
+  	  		set(GROUP "Source Files\\${GROUP}")
+  		elseif("${FILE}" MATCHES ".*\\.h")
+  	  		set(GROUP "Header Files\\${GROUP}")
+  		endif()
+
+  		source_group("${GROUP}" FILES "${FILE}")
+	endforeach()
+endmacro()
+
+# Call the macro above
+build_groups("${GAME_ENGINE_INC}")
+build_groups("${GAME_ENGINE_SRC}")
 
 install(TARGETS GameEngine DESTINATION ../lib/$(PLATFORM))
 install(FILES ${INC_FILES} DESTINATION include)
