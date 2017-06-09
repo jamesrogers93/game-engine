@@ -18,9 +18,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 # cmake modules
-set(CMAKE_MODULE_PATH
-    "${CMAKE_SOURCE_DIR}/cmake/modules"
-)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
 
 add_subdirectory(game-engine)
