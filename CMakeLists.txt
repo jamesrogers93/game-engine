@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8.4)
 
-project(game-engine)
-
 # Options
 #option(THIS_SYSTEM "Build for this system" ON)
 #option(IOS "Build for iOS" OFF)

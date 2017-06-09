@@ -1,6 +1,8 @@
 
+project(game-engine)
+
 # include game-engine directories
-include_directories(${CMAKE_SOURCE_DIR}/game-engine/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Finds all header and source files and places in GAME_ENGINE_INC and GAME_ENGINE_SRC respectively
 include(include/CMakeLists.txt)
@@ -9,13 +11,13 @@ include(src/CMakeLists.txt)
 # Add platform specific definitions
 if(IOS)
 	add_definitions(-D__IOS__)
-	set(PLATFORM “iOS”)
+	set(PLATFORM "iOS")
 elseif(ANDROID)
 	add_definitions(-D__ANDROID__)
-	set(PLATFORM “android”)
+	set(PLATFORM "android")
 else()
 	add_definitions(-D__MACOS__)
-	set(PLATFORM “macOS”)
+	set(PLATFORM "macOS")
 endif()
 
 # Platform specific external libraries
@@ -44,7 +46,7 @@ include_directories(${GLM_INCLUDE_DIRS})
 #set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/toolchains)
 #endif()
 
-add_library(GameEngine ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
+add_library(GameEngine STATIC ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
 
 ## Group files
 
@@ -72,10 +74,10 @@ endmacro()
 build_groups("${GAME_ENGINE_INC}")
 build_groups("${GAME_ENGINE_SRC}")
 
-install(TARGETS GameEngine DESTINATION ../lib/$(PLATFORM))
-install(FILES ${INC_FILES} DESTINATION include)
+install(TARGETS GameEngine DESTINATION lib/$(PLATFORM))
+install(FILES ${GAME_ENGINE_INC} DESTINATION include)
 
 # Link Libraries
-#target_link_libraries(GameEngine ${PLATFORM_LIBRARIES})
+target_link_libraries(GameEngine ${PLATFORM_LIBRARIES})
 
 
