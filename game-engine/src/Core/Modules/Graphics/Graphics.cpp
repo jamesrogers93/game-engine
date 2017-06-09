@@ -18,7 +18,7 @@ bool Graphics::draw(const std::string &name)
 {
 	if (this->geometry.find(name) != this->geometry.end())
 	{
-		Geometry *go = &this->geometry[name];
+		Geometry *go = this->geometry[name];
 
 		glBindVertexArray(go->VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -30,7 +30,7 @@ bool Graphics::draw(const std::string &name)
 	return false;
 }
 
-bool Graphics::addGeometry(std::string name, Geometry geometry)
+bool Graphics::addGeometry(std::string name, Geometry *geometry)
 {
 	if (this->geometry.find(name) == this->geometry.end())
 	{

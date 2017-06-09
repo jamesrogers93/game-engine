@@ -10,7 +10,7 @@ class Geometry
 public:
 	GLuint VAO, VBO, EBO;
 
-	Geometry() {}
+    Geometry() : VAO(0), VBO(0), EBO(0) {}
 	Geometry(const GLuint VAO, const GLuint VBO, const GLuint EBO) : VAO(VAO), VBO(VBO), EBO(EBO) {}
 };
 
