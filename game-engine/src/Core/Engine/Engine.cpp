@@ -30,3 +30,19 @@ const T* Engine::getCoreModule(const CoreModuleType &module)
 		return mPtr;
 
 }
+
+void Engine::updateAll()
+{
+    // MUST IMPLEMENT
+}
+
+void Engine::updateIncluding(const std::vector<CoreModuleType> modules)
+{
+    // MUST IMPLEMENT
+}
+
+void Engine::updateExcluding(const std::vector<CoreModuleType> modules)
+{
+    // MUST IMPLEMENT
+}
+

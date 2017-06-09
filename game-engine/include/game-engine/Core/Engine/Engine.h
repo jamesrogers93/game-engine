@@ -3,6 +3,7 @@
 
 // STL
 #include <map>
+#include <vector>
 
 // Engine
 #include "game-engine/Core/Scene/SceneManager.h"
@@ -21,18 +22,22 @@ public:
 
 		return engine;
 	}
-
+    
 	bool addCoreModule(CoreModule* module);
 	bool removeCoreModule(CoreModule* module);
 
 	template<typename T>
 	const T* getCoreModule(const CoreModuleType &module);
+    
+    void updateAll();
+    void updateIncluding(const std::vector<CoreModuleType> modules);
+    void updateExcluding(const std::vector<CoreModuleType> modules);
 
 private:
 	Engine();
 	~Engine();
 
-	SceneManager* sceneManager;
+	SceneManager *sceneManager;
 	std::map<CoreModuleType, CoreModule*> modules;
 
 };
