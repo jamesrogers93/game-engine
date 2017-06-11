@@ -3,23 +3,26 @@
 
 enum CoreModuleType
 {
-	CMT_GRAPHICS,
-	CMT_AUDIO,
-	CMT_PHYICS,
-	CMT_INPUT,
+	CM_GRAPHICS,
+	CM_AUDIO,
+	CM_PHYICS,
+	CM_INPUT,
 };
 
 
 class CoreModule
 {
 public:
-	CoreModule(CoreModuleType type) : moduleType(type) {}
+	CoreModule(CoreModuleType type) : type(type) {}
 
 	virtual bool initalise() = 0;
 	virtual bool deinitalise() = 0;
+    virtual bool update() = 0;
+    
+    const CoreModuleType& getType() { return this->type; }
 
 private:
-	CoreModuleType moduleType;
+	CoreModuleType type;
 
 };
 

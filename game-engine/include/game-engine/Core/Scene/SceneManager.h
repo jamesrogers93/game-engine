@@ -12,7 +12,7 @@ class SceneManager
 {
 public:
 
-	SceneManager& getInstance()
+	static SceneManager& getInstance()
 	{
 		static SceneManager instance;
 

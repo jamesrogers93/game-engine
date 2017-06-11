@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "game-engine/Core/Entity/ENode.h"
+
 class Scene
 {
 public:

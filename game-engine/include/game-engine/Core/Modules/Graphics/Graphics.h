@@ -21,6 +21,7 @@ public:
 
 	bool initalise();
 	bool deinitalise();
+    bool update();
 
 	bool draw(const std::string &name);
 
@@ -34,7 +35,7 @@ private:
 	std::map<std::string, Geometry*> geometry;
 	//std::map<std::string, GLuint> textures;
 
-	Graphics() : CoreModule(CMT_GRAPHICS){}
+	Graphics() : CoreModule(CM_GRAPHICS){}
 	Graphics(Graphics const&);              // Don't Implement
 	void operator=(Graphics const&);		// Don't implement
 };

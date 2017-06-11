@@ -1,20 +1,40 @@
 #include "game-engine/Core/Engine/Engine.h"
 
+// Engine
+#include "game-engine/Core/Scene/SceneManager.h"
+
 Engine::Engine()
 {
+    this->sceneManager = &SceneManager::getInstance();
 }
 
 Engine::~Engine()
 {
 }
 
-bool Engine::addCoreModule(CoreModule *)
+bool Engine::addCoreModule(CoreModule *module)
 {
+    CoreModule* mPtr = this->modules.at(module->getType());
+    
+    if(mPtr == NULL)
+    {
+        this->modules[module->getType()] = module;
+        return true;
+    }
+    
 	return false;
 }
 
-bool Engine::removeCoreModule(CoreModule *)
+bool Engine::removeCoreModule(const CoreModuleType &module)
 {
+    CoreModule* mPtr = this->modules.at(module);
+    
+    if(mPtr != NULL)
+    {
+        this->modules.erase(module);
+        return true;
+    }
+    
 	return false;
 }
 

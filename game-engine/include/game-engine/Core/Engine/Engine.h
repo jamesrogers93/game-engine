@@ -6,11 +6,9 @@
 #include <vector>
 
 // Engine
-#include "game-engine/Core/Scene/SceneManager.h"
 #include "game-engine/Core/Modules/CoreModule.h"
 
-//class CoreModule;
-//enum CoreModuleType;
+class SceneManager;
 
 class Engine
 {
@@ -24,7 +22,7 @@ public:
 	}
     
 	bool addCoreModule(CoreModule* module);
-	bool removeCoreModule(CoreModule* module);
+	bool removeCoreModule(const CoreModuleType &module);
 
 	template<typename T>
 	const T* getCoreModule(const CoreModuleType &module);
