@@ -1,8 +1,10 @@
-#pragma once
+#ifndef _GEOMETRY_H
+#define _GEOMETRY_H
 
 // STL
 #include <vector>
 
+// Engine defines
 #include "game-engine/Defines/OpenGL.h"
 
 class Geometry
@@ -17,7 +19,7 @@ public:
 struct Vertex3DPN;
 struct Vertex3DPNT;
 
-static Geometry loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices);
-static Geometry loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices);
+static Geometry* loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices);
+static Geometry* loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices);
 
-
+#endif /* _GEOMETRY_H */

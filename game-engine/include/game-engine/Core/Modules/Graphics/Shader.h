@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SHADER_H
+#define _SHADER_H
 
 #include <string>
 #include <fstream>
@@ -33,3 +34,5 @@ public:
 const GLuint POSITION_ATTRIB = 0;
 const GLuint NORMAL_ATTRIB = 0;
 const GLuint TEXCOORD_ATTRIB = 0;
+
+#endif /* _SHADER_H */

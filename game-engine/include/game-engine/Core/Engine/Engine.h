@@ -25,7 +25,7 @@ public:
 	bool removeCoreModule(const CoreModuleType &module);
 
 	template<typename T>
-	const T* getCoreModule(const CoreModuleType &module);
+    T* getCoreModule(const CoreModuleType &module);
     
     void updateAll();
     void updateIncluding(const std::vector<CoreModuleType> modules);

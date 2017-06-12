@@ -4,7 +4,7 @@
 
 
 
-Geometry loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices)
+Geometry* loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices)
 {
 	GLuint VAO, VBO, EBO;
 
@@ -33,10 +33,10 @@ Geometry loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int
 
 	glBindVertexArray(0);
 
-	return Geometry(VAO, VBO, EBO);
+	return new Geometry(VAO, VBO, EBO);
 }
 
-Geometry loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices)
+Geometry* loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices)
 {
 	GLuint VAO, VBO, EBO;
 
@@ -69,7 +69,7 @@ Geometry loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned in
 
 	glBindVertexArray(0);
 
-	return Geometry(VAO, VBO, EBO);
+	return new Geometry(VAO, VBO, EBO);
 }
 
 

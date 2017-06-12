@@ -1,26 +1,31 @@
 #ifndef _SCENE_H
 #define _SCENE_H
 
+// STD
 #include <string>
+#include <vector>
 
-#include "game-engine/Core/Entity/ENode.h"
+class ENode;
 
 class Scene
 {
 public:
+    
+    Scene(std::string name) : name(name) {}
+    ~Scene() {}
 
-	virtual void initalise() = 0;
-	virtual void deinitalise() = 0;
-	virtual std::string update() = 0;
+    void initalise();
+    void deinitalise(){}
 
 	const std::string& getName();
+    
+    void addEntity(ENode *entity) {   this->entities.push_back(entity);   }
 
-protected:
-	Scene(std::string name) : name(name) {}
-	~Scene() {}
+//protected:
 
 private:
 	std::string name;
+    std::vector<ENode*> entities;
 };
 
 #endif /* _SCENE_H */

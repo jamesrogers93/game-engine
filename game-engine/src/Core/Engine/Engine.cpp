@@ -39,7 +39,7 @@ bool Engine::removeCoreModule(const CoreModuleType &module)
 }
 
 template<typename T>
-const T* Engine::getCoreModule(const CoreModuleType &module)
+T* Engine::getCoreModule(const CoreModuleType &module)
 {
 
 	T* mPtr = static_cast<T>(this->modules.at(module));
@@ -53,7 +53,10 @@ const T* Engine::getCoreModule(const CoreModuleType &module)
 
 void Engine::updateAll()
 {
-    // MUST IMPLEMENT
+    for(auto const &module : this->modules)
+    {
+        module.second->update();
+    }
 }
 
 void Engine::updateIncluding(const std::vector<CoreModuleType> modules)

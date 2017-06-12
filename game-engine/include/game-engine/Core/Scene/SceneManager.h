@@ -21,7 +21,8 @@ public:
 
 	bool addScene(Scene* scene);
 	bool removeScene(Scene* scene);
-	Scene* getScene(std::string name);
+	Scene* getScene(const std::string &name);
+    bool makeActiveScene(const std::string &name);
 
 	void update();
 

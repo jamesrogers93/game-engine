@@ -15,6 +15,7 @@ bool SceneManager::addScene(Scene *scene)
 
 	if (sPtr == NULL)
 	{
+        sPtr->initalise();
 		this->scenes[scene->getName()] = scene;
 		return true;
 	}
@@ -36,7 +37,7 @@ bool SceneManager::removeScene(Scene * scene)
 	return false;
 }
 
-Scene * SceneManager::getScene(std::string name)
+Scene * SceneManager::getScene(const std::string &name)
 {
 	Scene *sPtr = this->scenes.at(name);
 
@@ -46,6 +47,19 @@ Scene * SceneManager::getScene(std::string name)
 	}
 
 	return sPtr;
+}
+
+bool SceneManager::makeActiveScene(const std::string &name)
+{
+    Scene *sPtr = this->scenes.at(name);
+    
+    if (sPtr != NULL)
+    {
+        this->activeScene = name;
+        return true;
+    }
+    
+    return false;
 }
 
 void SceneManager::update()
@@ -58,7 +72,7 @@ void SceneManager::update()
 	}
 	else
 	{
-		sPtr->update();
+		//sPtr->update();
 	}
 }
 
