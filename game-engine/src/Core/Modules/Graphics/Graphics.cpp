@@ -1,6 +1,7 @@
 #include "game-engine/Core/Modules/Graphics/Graphics.h"
 #include "game-engine/Core/Modules/Graphics/Geometry.h"
 #include "game-engine/Core/Modules/Graphics/GeometryEntity.h"
+#include "game-engine/Core/Modules/Graphics/Material.h"
 
 bool Graphics::initalise()
 {
@@ -20,22 +21,29 @@ bool Graphics::update()
     
     for(auto const &entity : this->geometryEntites)
     {
-        entity.second->getGeometryKey();
-        
-        
-        
+        if(!this->draw(entity.second))
+        {
+            return false;
+        }
     }
     
     return true;
 }
 
-bool Graphics::draw(const std::string &geometryKey, const std::string &materialKey)
+bool Graphics::draw(GeometryEntity* entity)
 {
-	if (this->geometry.find(geometryKey) != this->geometry.end() && this->materials.find(materialKey) != this->materials.end())
+    
+	if (this->geometry.find(entity->getGeometryKey()) != this->geometry.end() &&
+        this->materials.find(entity->getMaterialKey()) != this->materials.end() &&
+        this->shaders.find(entity->getShaderKey()) != this->shaders.end())
 	{
-		Geometry *go = this->geometry[geometryKey];
-        Material *m  = this->materials[materialKey];
+		Geometry *go = this->geometry[entity->getGeometryKey()];
+        Material *m  = this->materials[entity->getMaterialKey()];
+        Shader   *s  = this->shaders[entity->getShaderKey()];
 
+        // Load the material data into shader
+        m->loadToShader(s);
+        
 		glBindVertexArray(go->VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
@@ -90,7 +98,7 @@ bool Graphics::addMaterial(const std::string& name, Material *material)
     return false;
 }
 
-const Shader* Graphics::getShader(const std::string& name)
+Shader* Graphics::getShader(const std::string& name)
 {
 	if (this->shaders.find(name) != this->shaders.end())
 	{
@@ -99,3 +107,15 @@ const Shader* Graphics::getShader(const std::string& name)
 
 	return NULL;
 }
+
+Texture* Graphics::getTexture(const std::string &name)
+{
+    if (this->textures.find(name) != this->textures.end())
+    {
+        return this->textures[name];
+    }
+    
+    return NULL;
+}
+
+

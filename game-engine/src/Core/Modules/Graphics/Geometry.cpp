@@ -4,7 +4,7 @@
 
 
 
-Geometry* loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices)
+Geometry* Geometry::loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices)
 {
 	GLuint VAO, VBO, EBO;
 
@@ -24,19 +24,19 @@ Geometry* loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned in
 	// Set the vertex attribute pointers
 
 	// Vertex Positions
-	glEnableVertexAttribArray(POSITION_ATTRIB);
-	glVertexAttribPointer(POSITION_ATTRIB, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPN), (GLvoid*)0);
+	glEnableVertexAttribArray(ATTRIB_POSITION);
+	glVertexAttribPointer(ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPN), (GLvoid*)0);
 
 	// Vertex Normals
-	glEnableVertexAttribArray(NORMAL_ATTRIB);
-	glVertexAttribPointer(NORMAL_ATTRIB, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPN), (GLvoid*)sizeof(glm::vec3));
+	glEnableVertexAttribArray(ATTRIB_NORMAL);
+	glVertexAttribPointer(ATTRIB_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPN), (GLvoid*)sizeof(glm::vec3));
 
 	glBindVertexArray(0);
 
 	return new Geometry(VAO, VBO, EBO);
 }
 
-Geometry* loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices)
+Geometry* Geometry::loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices)
 {
 	GLuint VAO, VBO, EBO;
 
@@ -56,16 +56,16 @@ Geometry* loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned i
 	// Set the vertex attribute pointers
 
 	// Vertex Positions
-	glEnableVertexAttribArray(POSITION_ATTRIB);
-	glVertexAttribPointer(POSITION_ATTRIB, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPNT), (GLvoid*)0);
+	glEnableVertexAttribArray(ATTRIB_POSITION);
+	glVertexAttribPointer(ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPNT), (GLvoid*)0);
 
 	// Vertex Normals
-	glEnableVertexAttribArray(NORMAL_ATTRIB);
-	glVertexAttribPointer(NORMAL_ATTRIB, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPNT), (GLvoid*)sizeof(glm::vec3));
+	glEnableVertexAttribArray(ATTRIB_NORMAL);
+	glVertexAttribPointer(ATTRIB_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPNT), (GLvoid*)sizeof(glm::vec3));
 
 	// Texture Coordinates
-	glEnableVertexAttribArray(TEXCOORD_ATTRIB);
-	glVertexAttribPointer(TEXCOORD_ATTRIB, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPNT), (GLvoid*)(sizeof(glm::vec3)*2));
+	glEnableVertexAttribArray(ATTRIB_TEXCOORD);
+	glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex3DPNT), (GLvoid*)(sizeof(glm::vec3)*2));
 
 	glBindVertexArray(0);
 

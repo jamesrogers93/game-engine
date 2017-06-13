@@ -9,6 +9,7 @@
 #include <vector>
 #include <map>
 
+// Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
 
 class Shader
@@ -26,13 +27,14 @@ private:
 public:
 
 	const GLuint& getProgram();
+    GLint* getUniformLocation(const std::string &name);
 
 	void use();
-	static Shader* loadShader(const std::string *vertex, const std::string *fragment, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames);
+	static Shader* loadShader(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames);
 };
 
-const GLuint POSITION_ATTRIB = 0;
-const GLuint NORMAL_ATTRIB = 0;
-const GLuint TEXCOORD_ATTRIB = 0;
+const GLuint ATTRIB_POSITION = 0;
+const GLuint ATTRIB_NORMAL = 1;
+const GLuint ATTRIB_TEXCOORD = 2;
 
 #endif /* _SHADER_H */

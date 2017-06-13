@@ -32,7 +32,8 @@ public:
 	bool addGeometry(const std::string& name, Geometry *geometry);
     bool addMaterial(const std::string& name, Material *material);
     
-	const Shader* getShader(const std::string& name);
+	Shader* getShader(const std::string& name);
+    Texture* getTexture(const std::string &name);
 
 private:
     std::map<std::string, GeometryEntity*> geometryEntites;
@@ -45,7 +46,7 @@ private:
 	Graphics(Graphics const&);              // Don't Implement
 	void operator=(Graphics const&);		// Don't implement
     
-    bool draw(const std::string &geometryKey, const std::string &materialKey);
+    bool draw(GeometryEntity* entity);
 };
 
 #endif /* _GRAPHICS_H */

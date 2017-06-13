@@ -21,7 +21,17 @@ const GLuint& Shader::getProgram()
 	return this->program;
 }
 
-Shader* Shader::loadShader(const std::string *vertexPath, const std::string *fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames)
+GLint* Shader::getUniformLocation(const std::string &name)
+{
+    if (this->uniforms.find(name) != this->uniforms.end())
+    {
+        return &this->uniforms[name];
+    }
+    
+    return NULL;
+}
+
+Shader* Shader::loadShader(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames)
 {
 	GLuint program = 0;
 	GLuint vertShader = 0;
@@ -40,8 +50,8 @@ Shader* Shader::loadShader(const std::string *vertexPath, const std::string *fra
 	//try
 	//{
 		//Open the files.
-		vShaderFile.open(vertexPath->c_str());
-		fShaderFile.open(fragmentPath->c_str());
+		vShaderFile.open(vertexPath.c_str());
+		fShaderFile.open(fragmentPath.c_str());
 
 		std::stringstream vShaderStream, fShaderStream;
 

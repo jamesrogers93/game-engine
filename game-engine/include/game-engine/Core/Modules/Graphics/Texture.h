@@ -9,10 +9,10 @@ public:
     Texture(const GLuint &textureID) : textureID(textureID) {}
     ~Texture(){}
     
-    const &GLuint getTextureID()    {   return this->textureID; }
+    const GLuint& getTextureID()    {   return this->textureID; }
     
 private:
     GLuint textureID;
 };
 
-#endif _TEXTURE_H
+#endif /* _TEXTURE_H */
