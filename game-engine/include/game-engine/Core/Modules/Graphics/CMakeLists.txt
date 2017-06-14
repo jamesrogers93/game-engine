@@ -1,4 +1,5 @@
 list(APPEND GAME_ENGINE_INC
+	"include/game-engine/Core/Modules/Graphics/CameraEntity.h"
 	"include/game-engine/Core/Modules/Graphics/Geometry.h"
 	"include/game-engine/Core/Modules/Graphics/GeometryEntity.h"
 	"include/game-engine/Core/Modules/Graphics/Graphics.h"

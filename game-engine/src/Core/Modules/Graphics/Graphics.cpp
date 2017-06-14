@@ -33,6 +33,8 @@ bool Graphics::update()
 
 bool Graphics::draw(GeometryEntity* entity)
 {
+    glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
 	if (this->geometry.find(entity->getGeometryKey()) != this->geometry.end() &&
         this->materials.find(entity->getMaterialKey()) != this->materials.end() &&
