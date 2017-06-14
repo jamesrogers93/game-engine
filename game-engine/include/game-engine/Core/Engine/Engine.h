@@ -24,8 +24,9 @@ public:
 	bool addCoreModule(CoreModule* module);
 	bool removeCoreModule(const CoreModuleType &module);
 
-	template<typename T>
-    T* getCoreModule(const CoreModuleType &module);
+	//template<typename T>
+    //T* getCoreModule(const CoreModuleType &module);
+    CoreModule* getCoreModule(const CoreModuleType &module);
     
     void updateAll();
     void updateIncluding(const std::vector<CoreModuleType> modules);

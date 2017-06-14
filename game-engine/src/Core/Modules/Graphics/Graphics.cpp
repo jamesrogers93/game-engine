@@ -2,6 +2,7 @@
 #include "game-engine/Core/Modules/Graphics/Geometry.h"
 #include "game-engine/Core/Modules/Graphics/GeometryEntity.h"
 #include "game-engine/Core/Modules/Graphics/Material.h"
+#include "game-engine/Core/Modules/Graphics/Shader.h"
 
 bool Graphics::initalise()
 {
@@ -41,6 +42,7 @@ bool Graphics::draw(GeometryEntity* entity)
         Material *m  = this->materials[entity->getMaterialKey()];
         Shader   *s  = this->shaders[entity->getShaderKey()];
 
+        s->use();
         // Load the material data into shader
         m->loadToShader(s);
         

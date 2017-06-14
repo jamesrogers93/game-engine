@@ -21,7 +21,7 @@ private:
 	Shader();
 	Shader(const GLuint program, std::map<std::string, GLint> uniforms);
 
-	static bool compileShader(GLuint *shader, const int type, std::string *file);
+	static bool compileShader(GLuint *shader, const int &type, std::string *file);
 	static bool linkProgram(GLuint *program);
 
 public:
@@ -30,7 +30,9 @@ public:
     GLint* getUniformLocation(const std::string &name);
 
 	void use();
-	static Shader* loadShader(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames);
+	static Shader* loadShaderFromFile(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames);
+    
+    static Shader* loadShaderFromString(const std::string &vertex, const std::string &fragment, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames);
 };
 
 const GLuint ATTRIB_POSITION = 0;

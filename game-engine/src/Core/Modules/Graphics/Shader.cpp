@@ -31,48 +31,55 @@ GLint* Shader::getUniformLocation(const std::string &name)
     return NULL;
 }
 
-Shader* Shader::loadShader(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames)
+Shader* Shader::loadShaderFromFile(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames)
+{
+    std::string vertexCode, fragmentCode;
+    std::ifstream vShaderFile, fShaderFile;
+    
+    //For throwing exceptions
+    vShaderFile.exceptions(std::ifstream::badbit);
+    fShaderFile.exceptions(std::ifstream::badbit);
+    
+    //try
+    //{
+    //Open the files.
+    vShaderFile.open(vertexPath.c_str());
+    fShaderFile.open(fragmentPath.c_str());
+    
+    std::stringstream vShaderStream, fShaderStream;
+    
+    //Read buffer contents in to streams.
+    vShaderStream << vShaderFile.rdbuf();
+    fShaderStream << fShaderFile.rdbuf();
+    
+    //Close files.
+    vShaderFile.close();
+    fShaderFile.close();
+    
+    //Convert stream to string
+    vertexCode = vShaderStream.str();
+    fragmentCode = fShaderStream.str();
+    //}
+    //catch (std::ifstream::failure e)
+    //{
+    //	std::cout << "ERROR, shader file could not be read" << std::endl;
+    //	return NULL;
+    //}
+    
+    return loadShaderFromString(vertexCode, fragmentCode, vertexAttribs, uniformNames);
+}
+
+Shader* Shader::loadShaderFromString(const std::string &vertex, const std::string &fragment, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames)
 {
 	GLuint program = 0;
 	GLuint vertShader = 0;
 	GLuint fragShader = 0;
 
+    std::string vertexCode = vertex;
+    std::string fragmentCode = fragment;
+    
 	// Create shader program
 	program = glCreateProgram();
-
-	std::string vertexCode, fragmentCode;
-	std::ifstream vShaderFile, fShaderFile;
-
-	//For throwing exceptions
-	vShaderFile.exceptions(std::ifstream::badbit);
-	fShaderFile.exceptions(std::ifstream::badbit);
-
-	//try
-	//{
-		//Open the files.
-		vShaderFile.open(vertexPath.c_str());
-		fShaderFile.open(fragmentPath.c_str());
-
-		std::stringstream vShaderStream, fShaderStream;
-
-		//Read buffer contents in to streams.
-		vShaderStream << vShaderFile.rdbuf();
-		fShaderStream << fShaderFile.rdbuf();
-
-		//Close files.
-		vShaderFile.close();
-		fShaderFile.close();
-
-		//Convert stream to string
-		vertexCode = vShaderStream.str();
-		fragmentCode = fShaderStream.str();
-	//}
-	//catch (std::ifstream::failure e)
-	//{
-	//	std::cout << "ERROR, shader file could not be read" << std::endl;
-	//	return NULL;
-	//}
-
 
 	if (!compileShader(&vertShader, GL_VERTEX_SHADER, &vertexCode))
 	{
@@ -136,14 +143,17 @@ Shader* Shader::loadShader(const std::string &vertexPath, const std::string &fra
 }
 
 
-bool Shader::compileShader(GLuint *shader, const int type, std::string *file)
+bool Shader::compileShader(GLuint *shader, const int &type, std::string *file)
 {
 
-	if (type != GL_VERTEX_SHADER || type != GL_FRAGMENT_SHADER)
+	/*if (type != GL_VERTEX_SHADER || type != GL_FRAGMENT_SHADER)
 	{
 		std::cout << "Incorrect Shader Type" << std::endl;
+        
+        std::cout << type << std::endl;
+        std::cout << GL_VERTEX_SHADER << std::endl;
 		return false;
-	}
+	}*/
 
 	GLint success;
 	GLchar infoLog[512];

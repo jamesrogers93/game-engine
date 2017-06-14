@@ -14,41 +14,60 @@ Engine::~Engine()
 
 bool Engine::addCoreModule(CoreModule *module)
 {
-    CoreModule* mPtr = this->modules.at(module->getType());
-    
-    if(mPtr == NULL)
+    if ( this->modules.find(module->getType()) != this->modules.end() )
     {
+        // found
+        return false;
+        
+    } else
+    {
+        // not found
         this->modules[module->getType()] = module;
         return true;
     }
-    
-	return false;
 }
 
 bool Engine::removeCoreModule(const CoreModuleType &module)
 {
-    CoreModule* mPtr = this->modules.at(module);
-    
-    if(mPtr != NULL)
+    if ( this->modules.find(module) != this->modules.end() )
     {
+        // found
         this->modules.erase(module);
         return true;
+        
+    } else
+    {
+        // not found
+        return false;
     }
-    
-	return false;
 }
 
-template<typename T>
+/*template<typename T>
 T* Engine::getCoreModule(const CoreModuleType &module)
 {
 
-	T* mPtr = static_cast<T>(this->modules.at(module));
+ // CHANGE map.at TO map.find
+	T* mPtr = static_cast<T*>(this->modules.at(module));
 
 	if (mPtr == NULL)
 		return NULL;
 	else
 		return mPtr;
 
+}*/
+
+CoreModule* Engine::getCoreModule(const CoreModuleType &module)
+{
+    if ( this->modules.find(module) != this->modules.end() )
+    {
+        // found
+        return this->modules.at(module);
+        
+    } else
+    {
+        // not found
+        return NULL;
+    }
 }
 
 void Engine::updateAll()
@@ -61,7 +80,13 @@ void Engine::updateAll()
 
 void Engine::updateIncluding(const std::vector<CoreModuleType> modules)
 {
-    // MUST IMPLEMENT
+    for(auto const &module : modules)
+    {
+        if(this->modules.find(module) != this->modules.end())
+        {
+            this->modules.at(module)->update();
+        }
+    }
 }
 
 void Engine::updateExcluding(const std::vector<CoreModuleType> modules)
