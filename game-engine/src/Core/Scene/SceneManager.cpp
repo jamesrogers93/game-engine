@@ -69,11 +69,11 @@ void SceneManager::update()
 {
     if(this->scenes.find(this->activeScene) != this->scenes.end())
     {
-        //this->scenes.at(this->activeScene)->update();
+        this->scenes.at(this->activeScene)->update();
     
     } else
     {
-            // LOG
+        // LOG
     }
 }
 

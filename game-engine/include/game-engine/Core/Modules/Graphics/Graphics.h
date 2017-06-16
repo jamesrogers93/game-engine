@@ -9,6 +9,7 @@
 #include "game-engine/Core/Modules/CoreModule.h"
 
 class GeometryEntity;
+class CameraEntity;
 class Shader;
 class Geometry;
 class Material;
@@ -28,19 +29,25 @@ public:
     bool update();
 
     bool addGeometryEntity(const std::string& name, GeometryEntity* geometryEntity);
+    bool addCameraEntity(const std::string& name, CameraEntity* cameraEntity);
     bool addShader(const std::string& name, Shader *shader);
 	bool addGeometry(const std::string& name, Geometry *geometry);
     bool addMaterial(const std::string& name, Material *material);
     
 	Shader* getShader(const std::string& name);
     Texture* getTexture(const std::string &name);
+    
+    bool setActiveCameraEntity(const std::string &name);
 
 private:
     std::map<std::string, GeometryEntity*> geometryEntites;
+    std::map<std::string, CameraEntity*> cameraEntites;
 	std::map<std::string, Shader*> shaders;
 	std::map<std::string, Geometry*> geometry;
     std::map<std::string, Material*> materials;
 	std::map<std::string, Texture*> textures;
+    
+    std::string activeCameraEntity;
 
 	Graphics() : CoreModule(CM_GRAPHICS){}
 	Graphics(Graphics const&);              // Don't Implement

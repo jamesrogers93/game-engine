@@ -5,9 +5,13 @@ static const std::string basicVertex =
 "// In variables\n"
 "in vec3 position;\n"
 "in vec3 normal;\n"
+"// Uniform variables\n"
+"uniform mat4 projection;\n"
+"uniform mat4 view;\n"
+"uniform mat4 model;\n"
 "void main()\n"
 "{\n"
-"    gl_Position = vec4(position, 1.0);\n"
+"    gl_Position = projection * view * model * vec4(position, 1.0);\n"
 "}\n\0";
 
 static const std::string basicFragment =

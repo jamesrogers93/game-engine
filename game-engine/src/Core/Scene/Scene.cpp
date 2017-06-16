@@ -16,3 +16,12 @@ void Scene::initalise()
         this->entities[i]->attachToEngine();
     }
 }
+
+void Scene::update()
+{
+    
+    for(auto &entity : this->entities)
+    {
+        entity->updateGlobalModel();
+    }
+}

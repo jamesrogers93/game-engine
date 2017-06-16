@@ -21,6 +21,7 @@ public:
     
     void addEntity(ENode *entity) {   this->entities.push_back(entity);   }
 
+    void update();
 //protected:
 
 private:

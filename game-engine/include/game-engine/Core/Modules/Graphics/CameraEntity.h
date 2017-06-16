@@ -7,32 +7,40 @@
 // GLM
 #include <glm/glm.hpp>
 
+class Shader;
+
 class CameraEntity : public ENode
 {
 public:
-    CameraEntity(const std::string &name, const glm::vec3 &position, const glm::vec3 &up = DEFAULT_UP, const float &yaw = DEFAULT_YAW, const float &pitch = DEFAULT_PITCH)
-    : ENode(name, position), up(up), yaw(yaw), pitch(pitch)
-    {
-        this->update();
-    }
+    CameraEntity(const std::string &name, const glm::mat4& projection, const glm::vec3 &position, const glm::vec3 &front = DEFAULT_FRONT);
     
-    void update();
+    CameraEntity(const std::string &name, const glm::mat4& projection, const float &posX, const float &posY, const float &posZ, const glm::vec3 &front = DEFAULT_FRONT);
     
+    void updateView();
     const glm::mat4& getView();
+    void loadToShader(Shader *shader);
+    
+    static glm::mat4 perspectiveMatrix(const unsigned int &screenWidth, const unsigned int &screenHeight, const float &fov = DEFAULT_FOV, const float &clipNear = DEFAULT_CLIPNEAR, const float &clipMFAR = DEFAULT_CLIPFAR);
     
 private:
     
     static const glm::vec3 DEFAULT_UP;
+    static const glm::vec3 DEFAULT_FRONT;
     static const glm::vec3 DEFAULT_WORLDUP;
-    static const float DEFAULT_YAW;
-    static const float DEFAULT_PITCH;
+    static const float DEFAULT_FOV;
+    static const float DEFAULT_CLIPNEAR;
+    static const float DEFAULT_CLIPFAR;
     
+    glm::mat4 view;
+    glm::mat4 projection;
+    glm::vec3 position;
     glm::vec3 front;
     glm::vec3 up;
-    glm::mat4 view;
     
-    float yaw;
-    float pitch;
+    //float yaw;
+    //float pitch;
+    
+    void attachToEngine();
 };
 
 #endif /* _CAMERAENTITY_H */
