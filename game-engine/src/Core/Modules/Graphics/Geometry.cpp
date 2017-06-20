@@ -33,7 +33,7 @@ Geometry* Geometry::loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<u
 
 	glBindVertexArray(0);
 
-	return new Geometry(VAO, VBO, EBO);
+	return new Geometry(VAO, VBO, EBO, indices.size());
 }
 
 Geometry* Geometry::loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices)
@@ -69,7 +69,15 @@ Geometry* Geometry::loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<
 
 	glBindVertexArray(0);
 
-	return new Geometry(VAO, VBO, EBO);
+	return new Geometry(VAO, VBO, EBO, indices.size());
+}
+
+Geometry* Geometry::loadGeometry(const std::string &file)
+{
+    
+    
+    
+    return new Geometry();
 }
 
 

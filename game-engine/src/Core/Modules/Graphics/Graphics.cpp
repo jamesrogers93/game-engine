@@ -60,7 +60,7 @@ bool Graphics::draw(GeometryEntity* entity)
         
         // Draw the geometry
 		glBindVertexArray(go->VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, go->indexCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
 		return true;
