@@ -1,6 +1,18 @@
 #include "game-engine/Core/Entity/ENode.h"
 
+// STD
+#include <algorithm>
+
 const glm::vec3 ENode::DEFAULT_POSITION = glm::vec3(0.0);
+
+ENode::ENode(const std::string &name, glm::vec3 position) : name(name), parent(NULL)
+{
+    // Make name lower case
+    std::transform(this->name.begin(), this->name.end(), this->name.begin(), ::tolower);
+    
+    // Create the translation matrix from position
+    this->translate(position);
+}
 
 void ENode::addChild(ENode *child)
 {
@@ -11,6 +23,7 @@ void ENode::addChild(ENode *child)
 const void ENode::translate(const glm::vec3 &p)
 {
     this->localModel = glm::translate(this->localModel, p);
+    this->position += p;
 }
 
 const void ENode::translate(const float &x, const float &y, const float &z)

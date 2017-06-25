@@ -19,6 +19,8 @@ public:
     Geometry() : VAO(0), VBO(0), EBO(0) {}
 	Geometry(const GLuint VAO, const GLuint VBO, const GLuint EBO, const unsigned int &indexCount) : VAO(VAO), VBO(VBO), EBO(EBO), indexCount(indexCount) {}
     
+    void draw();
+    
     static Geometry* loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices);
     static Geometry* loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices);
     static Geometry* loadGeometry(const std::string &file);

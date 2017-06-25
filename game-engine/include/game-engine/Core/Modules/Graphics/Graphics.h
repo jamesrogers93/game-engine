@@ -10,6 +10,7 @@
 
 class GeometryEntity;
 class CameraEntity;
+class LightEntity;
 class Shader;
 class Geometry;
 class Material;
@@ -18,6 +19,8 @@ class Texture;
 class Graphics : public CoreModule
 {
 public:
+    static const unsigned int MAX_LIGHTS;
+    
 	static Graphics& getInstance()
 	{
 		static Graphics    instance;
@@ -30,6 +33,7 @@ public:
 
     bool addGeometryEntity(const std::string& name, GeometryEntity* geometryEntity);
     bool addCameraEntity(const std::string& name, CameraEntity* cameraEntity);
+    bool addLightEntity(const std::string& name, LightEntity* lightEntity);
     bool addShader(const std::string& name, Shader *shader);
 	bool addGeometry(const std::string& name, Geometry *geometry);
     bool addMaterial(const std::string& name, Material *material);
@@ -40,8 +44,10 @@ public:
     bool setActiveCameraEntity(const std::string &name);
 
 private:
+    
     std::map<std::string, GeometryEntity*> geometryEntites;
     std::map<std::string, CameraEntity*> cameraEntites;
+    std::map<std::string, LightEntity*> lightEntites;
 	std::map<std::string, Shader*> shaders;
 	std::map<std::string, Geometry*> geometry;
     std::map<std::string, Material*> materials;

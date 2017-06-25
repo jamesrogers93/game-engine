@@ -19,13 +19,11 @@ protected:
     std::string name;
     std::vector<ENode*> children;
     ENode* parent;
+    glm::vec3 position;
     glm::mat4 localModel;
     glm::mat4 globalModel;
     
-    ENode(const std::string &name, glm::vec3 position = DEFAULT_POSITION) : name(name), parent(NULL)
-    {
-        this->translate(position);
-    }
+    ENode(const std::string &name, glm::vec3 position = DEFAULT_POSITION);
     ~ENode(){}
     
     virtual void attachToEngine() = 0;
@@ -46,7 +44,7 @@ public:
 private:
     static const glm::vec3 DEFAULT_POSITION;
     
-     void updateGlobalModel();
+    void updateGlobalModel();
     
 };
 

@@ -2,7 +2,12 @@
 #include "game-engine/Core/Modules/Graphics/Vertex.h"
 #include "game-engine/Core/Modules/Graphics/Shader.h"
 
-
+void Geometry::draw()
+{
+    glBindVertexArray(this->VAO);
+    glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+}
 
 Geometry* Geometry::loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices)
 {
@@ -33,7 +38,7 @@ Geometry* Geometry::loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<u
 
 	glBindVertexArray(0);
 
-	return new Geometry(VAO, VBO, EBO, indices.size());
+	return new Geometry(VAO, VBO, EBO, (unsigned int)indices.size());
 }
 
 Geometry* Geometry::loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices)
@@ -69,7 +74,7 @@ Geometry* Geometry::loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<
 
 	glBindVertexArray(0);
 
-	return new Geometry(VAO, VBO, EBO, indices.size());
+	return new Geometry(VAO, VBO, EBO, (unsigned int)indices.size());
 }
 
 Geometry* Geometry::loadGeometry(const std::string &file)

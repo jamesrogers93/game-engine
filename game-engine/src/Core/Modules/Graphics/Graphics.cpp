@@ -2,8 +2,11 @@
 #include "game-engine/Core/Modules/Graphics/Geometry.h"
 #include "game-engine/Core/Modules/Graphics/GeometryEntity.h"
 #include "game-engine/Core/Modules/Graphics/CameraEntity.h"
+#include "game-engine/Core/Modules/Graphics/LightEntity.h"
 #include "game-engine/Core/Modules/Graphics/Material.h"
 #include "game-engine/Core/Modules/Graphics/Shader.h"
+
+const unsigned int Graphics::MAX_LIGHTS = 4;
 
 bool Graphics::initalise()
 {
@@ -49,6 +52,22 @@ bool Graphics::draw(GeometryEntity* entity)
 
         s->use();
         
+        // Add lights to the shader
+        unsigned int lightCount = 0;
+        for(auto light : this->lightEntites)
+        {
+            if(lightCount > MAX_LIGHTS)
+            {
+                break;
+            }
+            
+            if(light.second->isOn())
+            {
+                light.second->loadToShader(s, lightCount++);
+            }
+        }
+        LightEntity::loadNumLightsToShader(s, lightCount);
+        
         // Load the camera data to the shader
         c->loadToShader(s);
         
@@ -59,9 +78,7 @@ bool Graphics::draw(GeometryEntity* entity)
         m->loadToShader(s);
         
         // Draw the geometry
-		glBindVertexArray(go->VAO);
-		glDrawElements(GL_TRIANGLES, go->indexCount, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+        go->draw();
 
 		return true;
 	}
@@ -71,9 +88,13 @@ bool Graphics::draw(GeometryEntity* entity)
 
 bool Graphics::addGeometryEntity(const std::string& name, GeometryEntity* geometryEntity)
 {
-    if (this->geometryEntites.find(name) == this->geometryEntites.end())
+    // Make name lower case
+    std::string nameLow = name;
+    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    
+    if (this->geometryEntites.find(nameLow) == this->geometryEntites.end())
     {
-        this->geometryEntites[name] = geometryEntity;
+        this->geometryEntites[nameLow] = geometryEntity;
         return true;
     }
     
@@ -82,9 +103,28 @@ bool Graphics::addGeometryEntity(const std::string& name, GeometryEntity* geomet
 
 bool Graphics::addCameraEntity(const std::string& name, CameraEntity* cameraEntity)
 {
-    if (this->cameraEntites.find(name) == this->cameraEntites.end())
+    // Make name lower case
+    std::string nameLow = name;
+    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    
+    if (this->cameraEntites.find(nameLow) == this->cameraEntites.end())
     {
-        this->cameraEntites[name] = cameraEntity;
+        this->cameraEntites[nameLow] = cameraEntity;
+        return true;
+    }
+    
+    return false;
+}
+
+bool Graphics::addLightEntity(const std::string& name, LightEntity* lightEntity)
+{
+    // Make name lower case
+    std::string nameLow = name;
+    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    
+    if (this->lightEntites.find(nameLow) == this->lightEntites.end())
+    {
+        this->lightEntites[nameLow] = lightEntity;
         return true;
     }
     
@@ -93,9 +133,13 @@ bool Graphics::addCameraEntity(const std::string& name, CameraEntity* cameraEnti
 
 bool Graphics::addShader(const std::string& name, Shader *shader)
 {
-    if (this->shaders.find(name) == this->shaders.end())
+    // Make name lower case
+    std::string nameLow = name;
+    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    
+    if (this->shaders.find(nameLow) == this->shaders.end())
     {
-        this->shaders[name] = shader;
+        this->shaders[nameLow] = shader;
         return true;
     }
     
@@ -104,9 +148,13 @@ bool Graphics::addShader(const std::string& name, Shader *shader)
 
 bool Graphics::addGeometry(const std::string& name, Geometry *geometry)
 {
-	if (this->geometry.find(name) == this->geometry.end())
+    // Make name lower case
+    std::string nameLow = name;
+    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    
+	if (this->geometry.find(nameLow) == this->geometry.end())
 	{
-		this->geometry[name] = geometry;
+		this->geometry[nameLow] = geometry;
 		return true;
 	}
 
@@ -115,9 +163,13 @@ bool Graphics::addGeometry(const std::string& name, Geometry *geometry)
 
 bool Graphics::addMaterial(const std::string& name, Material *material)
 {
-    if (this->materials.find(name) == this->materials.end())
+    // Make name lower case
+    std::string nameLow = name;
+    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    
+    if (this->materials.find(nameLow) == this->materials.end())
     {
-        this->materials[name] = material;
+        this->materials[nameLow] = material;
         return true;
     }
     
@@ -146,12 +198,16 @@ Texture* Graphics::getTexture(const std::string &name)
 
 bool Graphics::setActiveCameraEntity(const std::string &name)
 {
-    if(this->cameraEntites.find(name) != this->cameraEntites.end())
+    // Make name lower case
+    std::string nameLow = name;
+    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    
+    if(this->cameraEntites.find(nameLow) != this->cameraEntites.end())
     {
         return false;
     }
     
-    this->activeCameraEntity = name;
+    this->activeCameraEntity = nameLow;
     return true;
 }
 

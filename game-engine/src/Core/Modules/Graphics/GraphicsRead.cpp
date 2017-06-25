@@ -33,6 +33,8 @@ bool GraphicsRead::readJMPFile(const std::string &filePath)
         }
     }
     
+    file.close();
+    
     return true;
 }
 

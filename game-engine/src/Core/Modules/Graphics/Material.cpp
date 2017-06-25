@@ -11,7 +11,13 @@
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
-const float Material::SHININESS_DEFAULT = 1.0;
+const float Material::SHININESS_DEFAULT = 16.0;
+
+const std::string Material::SHADER_DIFF_TEX_NAME = "material.diffuseMap";
+const std::string Material::SHADER_SPEC_TEX_NAME = "material.specularMap";
+const std::string Material::SHADER_DIFF_SOLID_NAME = "material.diffuse";
+const std::string Material::SHADER_SPEC_SOLID_NAME = "material.specular";
+const std::string Material::SHADER_SHININESS_NAME = "material.shininess";
 
 bool Material::loadToShader(Shader *shader)
 {
@@ -21,9 +27,9 @@ bool Material::loadToShader(Shader *shader)
         return false;
     }
     
-    if(this->isDiffuseTexture)
+    /*if(this->isDiffuseTexture)
     {
-        GLint *loc = shader->getUniformLocation("diffuseTexture");
+        GLint *loc = shader->getUniformLocation(SHADER_DIFF_TEX_NAME);
         if(loc != NULL)
         {
             Texture *tex = Graphics::getInstance().getTexture("");
@@ -39,7 +45,7 @@ bool Material::loadToShader(Shader *shader)
     
     if(this->isSpecularTexture)
     {
-        GLint *loc = shader->getUniformLocation("specularTexture");
+        GLint *loc = shader->getUniformLocation(SHADER_SPEC_TEX_NAME);
         if(loc != NULL)
         {
             Texture *tex = Graphics::getInstance().getTexture("");
@@ -51,11 +57,11 @@ bool Material::loadToShader(Shader *shader)
                 glBindTexture(GL_TEXTURE_2D, tex->getTextureID());
             }
         }
-    }
+    }*/
     
     if(this->isDiffuseSolid)
     {
-        GLint *loc = shader->getUniformLocation("diffuseSolid");
+        GLint *loc = shader->getUniformLocation(SHADER_DIFF_SOLID_NAME);
         if(loc != NULL)
         {
             glUniform4fv(*loc, 1, glm::value_ptr(this->diffuseSolid));
@@ -64,14 +70,14 @@ bool Material::loadToShader(Shader *shader)
     
     if(this->isSpecularSolid)
     {
-        GLint *loc = shader->getUniformLocation("specularSolid");
+        GLint *loc = shader->getUniformLocation(SHADER_SPEC_SOLID_NAME);
         if(loc != NULL)
         {
             glUniform4fv(*loc, 1, glm::value_ptr(this->specularSolid));
         }
     }
     
-    GLint *shininess = shader->getUniformLocation("shininess");
+    GLint *shininess = shader->getUniformLocation(SHADER_SHININESS_NAME);
     if(shininess != NULL)
     {
         glUniform1f(*shininess, this->shininess);
@@ -79,3 +85,14 @@ bool Material::loadToShader(Shader *shader)
     
     return true;
 }
+
+
+void Material::fillUniformNames(std::vector<std::string> &uniformNames)
+{
+    uniformNames.push_back(SHADER_DIFF_TEX_NAME);
+    uniformNames.push_back(SHADER_SPEC_TEX_NAME);
+    uniformNames.push_back(SHADER_DIFF_SOLID_NAME);
+    uniformNames.push_back(SHADER_SPEC_SOLID_NAME);
+    uniformNames.push_back(SHADER_SHININESS_NAME);
+}
+

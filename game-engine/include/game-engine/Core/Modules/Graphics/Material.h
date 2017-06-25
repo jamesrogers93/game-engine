@@ -3,6 +3,7 @@
 
 // STD
 #include <string>
+#include <vector>
 
 //GLM
 #include <glm/glm.hpp>
@@ -13,6 +14,12 @@ class Material
 {
 private:
     static const float SHININESS_DEFAULT;
+    
+    static const std::string SHADER_DIFF_TEX_NAME;
+    static const std::string SHADER_SPEC_TEX_NAME;
+    static const std::string SHADER_DIFF_SOLID_NAME;
+    static const std::string SHADER_SPEC_SOLID_NAME;
+    static const std::string SHADER_SHININESS_NAME;
     
 public:
     Material(const std::string &diffuseTexture, const std::string &specularTexture, const float &shininess = SHININESS_DEFAULT)
@@ -31,6 +38,8 @@ public:
     {}
     
     bool loadToShader(Shader *shader);
+    
+    static void fillUniformNames(std::vector<std::string> &uniformNames);
     
 private:
     
