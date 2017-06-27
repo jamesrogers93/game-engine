@@ -19,7 +19,6 @@ class Texture;
 class Graphics : public CoreModule
 {
 public:
-    static const unsigned int MAX_LIGHTS;
     
 	static Graphics& getInstance()
 	{

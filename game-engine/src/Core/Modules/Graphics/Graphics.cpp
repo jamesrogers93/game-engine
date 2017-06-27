@@ -3,10 +3,10 @@
 #include "game-engine/Core/Modules/Graphics/GeometryEntity.h"
 #include "game-engine/Core/Modules/Graphics/CameraEntity.h"
 #include "game-engine/Core/Modules/Graphics/LightEntity.h"
+#include "game-engine/Core/Modules/Graphics/PointLightEntity.h"
+#include "game-engine/Core/Modules/Graphics/DirectionalLightEntity.h"
 #include "game-engine/Core/Modules/Graphics/Material.h"
 #include "game-engine/Core/Modules/Graphics/Shader.h"
-
-const unsigned int Graphics::MAX_LIGHTS = 4;
 
 bool Graphics::initalise()
 {
@@ -50,20 +50,46 @@ bool Graphics::draw(GeometryEntity* entity)
         s->use();
         
         // Add lights to the shader
-        unsigned int lightCount = 0;
+        unsigned int pointLightCount = 0;
+        unsigned int dirLightCount = 0;
         for(auto light : this->lightEntites)
         {
-            if(lightCount > MAX_LIGHTS)
+            switch(light.second->getType())
             {
-                break;
-            }
-            
-            if(light.second->isOn())
-            {
-                light.second->loadToShader(s, lightCount++);
+                case LightEntity::POINT:
+                {
+                    if(pointLightCount > PointLightEntity::MAX_LIGHTS)
+                    {
+                        continue;
+                    }
+                    else if(light.second->isOn())
+                    {
+                        light.second->loadToShader(s, pointLightCount++);
+                    }
+                    break;
+                }
+                case LightEntity::DIRECTIONAL:
+                {
+                    if(dirLightCount > DirectionalLightEntity::MAX_LIGHTS)
+                    {
+                        continue;
+                    }
+                    else if(light.second->isOn())
+                    {
+                        light.second->loadToShader(s, dirLightCount++);
+                    }
+                    break;
+                }
+                case LightEntity::UNDEFINED:
+                default:
+                {
+                    break;
+                }
             }
         }
-        LightEntity::loadNumLightsToShader(s, lightCount);
+        
+        PointLightEntity::loadNumLightsToShader(s, pointLightCount);
+        DirectionalLightEntity::loadNumLightsToShader(s, dirLightCount);
         
         // Load the camera data to the shader
         c->loadToShader(s);
