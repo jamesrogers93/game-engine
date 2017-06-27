@@ -23,5 +23,6 @@ void Scene::update()
     for(auto &entity : this->entities)
     {
         entity->updateGlobalModel();
+        entity->update();
     }
 }

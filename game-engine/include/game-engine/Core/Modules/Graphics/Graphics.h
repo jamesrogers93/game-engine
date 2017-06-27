@@ -42,6 +42,8 @@ public:
     Texture* getTexture(const std::string &name);
     
     bool setActiveCameraEntity(const std::string &name);
+    
+    void enableBackfaceCulling();
 
 private:
     

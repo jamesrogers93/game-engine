@@ -28,7 +28,9 @@ const void ENode::translate(const glm::vec3 &p)
 
 const void ENode::translate(const float &x, const float &y, const float &z)
 {
-    this->localModel = glm::translate(this->localModel, glm::vec3(x,y,z));
+    glm::vec3 p(x,y,z);
+    this->localModel = glm::translate(this->localModel, p);
+    this->position += p;
 }
 
 const void ENode::scale(const glm::vec3 &s)
@@ -57,9 +59,14 @@ void ENode::updateGlobalModel()
     {
         this->globalModel = this->parent->globalModel * this->localModel;
     }
+    else
+    {
+        this->globalModel = this->localModel;
+    }
     
     for(auto &child : this->children)
     {
+        
         child->updateGlobalModel();
     }
 }

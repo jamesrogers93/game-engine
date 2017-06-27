@@ -45,6 +45,7 @@ private:
     static const glm::vec3 DEFAULT_POSITION;
     
     void updateGlobalModel();
+    virtual void update(){}
     
 };
 

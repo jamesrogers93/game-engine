@@ -51,6 +51,11 @@ private:
     //float pitch;
     
     void attachToEngine();
+    
+    void update()
+    {
+        this->updateView();
+    }
 };
 
 #endif /* _CAMERAENTITY_H */
