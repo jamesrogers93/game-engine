@@ -8,6 +8,7 @@
 #include "game-engine/Defines/OpenGL.h"
 
 struct Vertex3DPN;
+struct Vertex3DPT;
 struct Vertex3DPNT;
 
 class Geometry
@@ -22,6 +23,7 @@ public:
     void draw();
     
     static Geometry* loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices);
+    static Geometry* loadGeometry(std::vector<Vertex3DPT> vertices, std::vector<unsigned int> indices);
     static Geometry* loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices);
     static Geometry* loadGeometry(const std::string &file);
 };

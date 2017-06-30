@@ -41,11 +41,6 @@ endif()
 find_package (glm REQUIRED)
 include_directories(${GLM_INCLUDE_DIRS})
 
-# Platform specific toolchain
-#if(IOS)
-#set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/toolchains)
-#endif()
-
 add_library(GameEngine STATIC ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
 
 ## Group files
