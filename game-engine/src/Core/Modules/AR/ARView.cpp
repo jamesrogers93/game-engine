@@ -7,6 +7,11 @@
 #include "game-engine/Core/Modules/Graphics/Shader.h"
 #include "game-engine/Core/Modules/Graphics/Geometry.h"
 #include "game-engine/Core/Modules/Graphics/Vertex.h"
+#include "game-engine/Core/Modules/AR/AREntity.h"
+#include "game-engine/Defines/CameraCapture.h"
+
+const std::string ARView::SHADER_LUMA_NAME = "luma_texture";
+const std::string ARView::SHADER_CHROMA_NAME = "chroma_texture";
 
 const std::string ARView::SHADER_VERTEX =
 "#version 300 es\n"
@@ -31,7 +36,7 @@ const std::string ARView::SHADER_FRAGMENT =
 "in mediump vec2 TexCoord;\n"
 "\n"
 "// Out variables\n"
-"out mediump vec4 colour;\n"
+"out highp vec4 colour;\n"
 "\n"
 "// Uniform variables\n"
 "uniform sampler2D " + SHADER_LUMA_NAME + ";\n"
@@ -39,11 +44,17 @@ const std::string ARView::SHADER_FRAGMENT =
 "\n"
 "void main()\n"
 "{\n"
-"   colour = vec4(1.0, 0.0, 0.0, 1.0);\n"
+"   mediump vec3 yuv;\n"
+"   lowp vec3 rgb;\n"
+"   \n"
+"   yuv.x = texture(" + SHADER_LUMA_NAME + ", TexCoord).r;\n"
+"   yuv.yz = texture(" + SHADER_CHROMA_NAME + ", TexCoord).ra - vec2(0.5, 0.5);\n"
+"   \n"
+"   rgb = mat3( 1,       1,       1,       \n"
+"               0,       -.18732, 1.8556,  \n"
+"               1.57481, -.46813, 0) * yuv;\n"
+"   colour = vec4(rgb, 1.0);\n"
 "}\n";
-
-const std::string ARView::SHADER_LUMA_NAME = "luma_texture";
-const std::string ARView::SHADER_CHROMA_NAME = "chroma_texture";
 
 ARView::ARView()
 {
@@ -68,11 +79,12 @@ void ARView::initalise(const unsigned int &screenWidth, const unsigned int &scre
 
     // Init geometry
     std::vector<Vertex3DPT> vertices;
-    //                            Position         Texture
-    vertices.push_back(Vertex3DPT(-1.0, -1.0, 0.0, 0.0, 0.0));
-    vertices.push_back(Vertex3DPT(-1.0,  1.0, 0.0, 0.0, 1.0));
-    vertices.push_back(Vertex3DPT( 1.0,  1.0, 0.0, 1.0, 1.0));
-    vertices.push_back(Vertex3DPT( 1.0, -1.0, 0.0, 1.0, 0.0));
+    //                           | Position      | Texture |
+    //                           | x     y    z  | u    v  |
+    vertices.push_back(Vertex3DPT(-1.0, -1.0, 0.0, 0.0, 1.0));
+    vertices.push_back(Vertex3DPT(-1.0,  1.0, 0.0, 0.0, 0.0));
+    vertices.push_back(Vertex3DPT( 1.0,  1.0, 0.0, 1.0, 0.0));
+    vertices.push_back(Vertex3DPT( 1.0, -1.0, 0.0, 1.0, 1.0));
     
     std::vector<unsigned int> indices;
     indices.push_back(0); indices.push_back(1); indices.push_back(2);
@@ -87,12 +99,21 @@ void ARView::deinitialise()
     //this->geometry->
 }
 
-void ARView::draw()
+void ARView::draw(AREntity *entity)
 {
+    glDisable( GL_DEPTH_TEST );
+    
     shader->use();
     
-    glUniform1i(*shader->getUniformLocation(SHADER_LUMA_NAME),   GL_TEXTURE0);
-    glUniform1i(*shader->getUniformLocation(SHADER_CHROMA_NAME), GL_TEXTURE1);
+    glActiveTexture(GL_TEXTURE0);
+    glUniform1i(*shader->getUniformLocation(SHADER_LUMA_NAME), 0);
+    glBindTexture(GL_TEXTURE_2D, entity->getCameraCapture().getLumaTextureID());
+    
+    glActiveTexture(GL_TEXTURE1);
+    glUniform1i(*shader->getUniformLocation(SHADER_CHROMA_NAME), 1);
+    glBindTexture(GL_TEXTURE_2D, entity->getCameraCapture().getChromaTextureID());
     
     geometry->draw();
+    
+    glEnable( GL_DEPTH_TEST );
 }

@@ -25,9 +25,9 @@ bool AR::update()
     
     if(this->arEntities.find(this->activeAREntity) != this->arEntities.end())
     {
-        this->arEntities[this->activeAREntity]->getCameraCapture().bindTextures();
+        //this->arEntities[this->activeAREntity]->getCameraCapture().bindTextures();
         
-        this->view.draw();
+        this->view.draw(this->arEntities[this->activeAREntity]);
     }
     
     return true;

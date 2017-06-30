@@ -2,6 +2,8 @@
 #import "game-engine/Core/Modules/AR/CameraCapture-iOS.h"
 #import "game-engine/Core/Modules/AR/CameraCaptureInterface-iOS.h"
 
+#import "game-engine/Core/Modules/Graphics/Context-iOS.h"
+
 @interface CameraCaptureConcrete()
 {
     AVCaptureSession *_captureSession;
@@ -85,6 +87,19 @@ GLuint CameraCapture::getChromaTextureID(void)
 
 -(int)initialise
 {
+    //-- Create CVOpenGLESTextureCacheRef for optimal CVImageBufferRef to GLES texture conversion.
+    #if COREVIDEO_USE_EAGLCONTEXT_CLASS_IN_API
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, [ContextiOS currentContext], NULL, &_videoTextureCache);
+    #else
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge void *)[ContextiOS currentContext], NULL, &_videoTextureCache);
+    #endif
+    
+    if (err)
+    {
+        NSLog(@"Error at CVOpenGLESTextureCacheCreate %d", err);
+        return false;
+    }
+    
     _captureSession = [[AVCaptureSession alloc] init];
     AVCaptureDevice *device = nil;
     NSError *error = nil;
@@ -135,7 +150,7 @@ GLuint CameraCapture::getChromaTextureID(void)
     dataOutput.alwaysDiscardsLateVideoFrames = YES;
     
     NSMutableDictionary *videoSettings = [[NSMutableDictionary alloc] init];
-    videoSettings[(NSString *)kCVPixelBufferPixelFormatTypeKey] = [NSNumber numberWithUnsignedInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange];
+    videoSettings[(NSString *)kCVPixelBufferPixelFormatTypeKey] = [NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange];
     dataOutput.videoSettings = videoSettings;
     
     //_backgroundqueue = dispatch_queue_create("bgqueue", NULL);
@@ -175,6 +190,66 @@ GLuint CameraCapture::getChromaTextureID(void)
 {
 
     CVReturn err;
+    CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    _width = CVPixelBufferGetWidth(pixelBuffer);
+    _height = CVPixelBufferGetHeight(pixelBuffer);
+    
+    // Do something with data
+    if (!_videoTextureCache)
+    {
+        NSLog(@"No video texture cache");
+        return;
+    }
+    
+    [self cleanUpTextures];
+    
+    // Y-plane
+    glActiveTexture(GL_TEXTURE0);
+    err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                       _videoTextureCache,
+                                                       pixelBuffer,
+                                                       NULL,
+                                                       GL_TEXTURE_2D,
+                                                       GL_LUMINANCE,
+                                                       _width,
+                                                       _height,
+                                                       GL_LUMINANCE,
+                                                       GL_UNSIGNED_BYTE,
+                                                       0,
+                                                       &_lumaTexture);
+    if (err)
+    {
+        NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+    }
+    
+    glBindTexture(CVOpenGLESTextureGetTarget(_lumaTexture), CVOpenGLESTextureGetName(_lumaTexture));
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    
+    // UV-plane
+    glActiveTexture(GL_TEXTURE1);
+    err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                       _videoTextureCache,
+                                                       pixelBuffer,
+                                                       NULL,
+                                                       GL_TEXTURE_2D,
+                                                       GL_LUMINANCE_ALPHA,
+                                                       _width/2,
+                                                       _height/2,
+                                                       GL_LUMINANCE_ALPHA,
+                                                       GL_UNSIGNED_BYTE,
+                                                       1,
+                                                       &_chromaTexture);
+    if (err)
+    {
+        NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+    }
+    
+    glBindTexture(CVOpenGLESTextureGetTarget(_chromaTexture), CVOpenGLESTextureGetName(_chromaTexture));
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    
+    /*CVReturn err;
     finished = NO;
     
     CFRetain(sampleBuffer);
@@ -202,7 +277,7 @@ GLuint CameraCapture::getChromaTextureID(void)
         NSData *ypData =        [NSData dataWithBytesNoCopy:ypBuffer length:CVPixelBufferGetDataSize(pixBuffer) freeWhenDone:NO];
         NSData *cbCrData =      [NSData dataWithBytesNoCopy:cbCrBuffer length:CVPixelBufferGetDataSize(pixBuffer) freeWhenDone:NO];
         
-        
+     
         // Do something with data
         if (!_videoTextureCache)
         {
@@ -267,7 +342,7 @@ GLuint CameraCapture::getChromaTextureID(void)
     
     CFRelease(imageBuffer);
     CFRelease(sampleBuffer);
-    finished = YES;
+    finished = YES;*/
 }
 
 - (void)cleanUpTextures

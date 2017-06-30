@@ -10,6 +10,7 @@
 
 class Shader;
 class Geometry;
+class AREntity;
 
 class ARView
 {
@@ -31,7 +32,7 @@ public:
     
     void initalise(const unsigned int &screenWidth, const unsigned int &screenHeight);
     void deinitialise();
-    void draw();
+    void draw(AREntity *entity);
 };
 
 #endif /* _ARVIEW_H */
