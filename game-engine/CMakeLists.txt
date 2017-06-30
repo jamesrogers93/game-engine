@@ -60,7 +60,9 @@ macro(build_groups FILES_LIST)
   		string(REPLACE "/" "\\" GROUP "${GROUP}")
 
   		# group into "Source Files" and "Header Files"
-  		if ("${FILE}" MATCHES ".*\\.cpp")
+  		if ("${FILE}" MATCHES ".*\\.cpp" 
+		  OR "${FILE}" MATCHES ".*\\.mm"
+		  OR "${FILE}" MATCHES ".*\\.m")
   	  		set(GROUP "Source Files\\${GROUP}")
   		elseif("${FILE}" MATCHES ".*\\.h")
   	  		set(GROUP "Header Files\\${GROUP}")

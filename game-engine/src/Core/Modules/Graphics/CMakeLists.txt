@@ -12,3 +12,9 @@ list(APPEND GAME_ENGINE_SRC
 	"src/Core/Modules/Graphics/Shader.cpp"
 	"src/Core/Modules/Graphics/Texture.cpp"
 )
+
+if(IOS)
+	list(APPEND GAME_ENGINE_SRC
+		"src/Core/Modules/Graphics/Context-iOS.mm"
+	)
+endif()

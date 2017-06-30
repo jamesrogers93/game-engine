@@ -16,9 +16,17 @@ class Geometry;
 class Material;
 class Texture;
 
+// TEST
+#include "game-engine/Core/Modules/Graphics/Context.h"
+// END TEST
+
 class Graphics : public CoreModule
 {
 public:
+    
+    // TEST
+    Context context;
+    // END TEST
     
 	static Graphics& getInstance()
 	{
@@ -45,7 +53,6 @@ public:
     void enableBackfaceCulling();
 
 private:
-    
     std::map<std::string, GeometryEntity*> geometryEntites;
     std::map<std::string, CameraEntity*> cameraEntites;
     std::map<std::string, LightEntity*> lightEntites;
