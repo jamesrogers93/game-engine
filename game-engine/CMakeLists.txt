@@ -41,11 +41,6 @@ endif()
 find_package (glm REQUIRED)
 include_directories(${GLM_INCLUDE_DIRS})
 
-# Platform specific toolchain
-#if(IOS)
-#set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/toolchains)
-#endif()
-
 add_library(GameEngine STATIC ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
 
 ## Group files
@@ -60,7 +55,9 @@ macro(build_groups FILES_LIST)
   		string(REPLACE "/" "\\" GROUP "${GROUP}")
 
   		# group into "Source Files" and "Header Files"
-  		if ("${FILE}" MATCHES ".*\\.cpp")
+  		if ("${FILE}" MATCHES ".*\\.cpp" 
+		  OR "${FILE}" MATCHES ".*\\.mm"
+		  OR "${FILE}" MATCHES ".*\\.m")
   	  		set(GROUP "Source Files\\${GROUP}")
   		elseif("${FILE}" MATCHES ".*\\.h")
   	  		set(GROUP "Header Files\\${GROUP}")

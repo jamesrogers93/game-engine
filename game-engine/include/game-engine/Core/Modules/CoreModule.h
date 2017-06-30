@@ -4,6 +4,7 @@
 enum CoreModuleType
 {
 	CM_GRAPHICS,
+    CM_AR,
 	CM_AUDIO,
 	CM_PHYICS,
 	CM_INPUT,

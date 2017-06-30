@@ -31,4 +31,18 @@ struct Vertex3DPNT : Vertex3DPN
 	glm::vec2 texCoord;
 };
 
+struct Vertex3DPT
+{
+    Vertex3DPT(const glm::vec3 &position, const glm::vec2 &uv)
+    : position(position), uv(uv)
+    {}
+    
+    Vertex3DPT(const float &px, const float &py, const float &pz, const float &u, const float &v)
+    : position(glm::vec3(px, py, pz)), uv(glm::vec2(u, v))
+    {}
+    
+    glm::vec3 position;
+    glm::vec2 uv;
+};
+
 #endif /* _VERTEX_H */
