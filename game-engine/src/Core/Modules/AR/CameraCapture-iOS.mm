@@ -4,6 +4,8 @@
 
 #import "game-engine/Core/Modules/Graphics/Context-iOS.h"
 
+#import "game-engine/Core/Engine/System.h"
+
 @interface CameraCaptureConcrete()
 {
     AVCaptureSession *_captureSession;
@@ -35,37 +37,35 @@ int CameraCapture::initialise(const CameraFace &face)
 {
     bool status = [(id)self initialise];
     
-    this->width = [(id)self width];
-    this->height = [(id)self height];
+    this->cameraWidth = [(id)self camWidth];
+    this->cameraHeight = [(id)self camHeight];
+    unsigned int screenWidth = System::screenWidth;
+    unsigned int screenHeight = System::screenHeight;
     
-    // Get min dim
-    float min;
-    if(this->width < this->height)
+    // Check if aspect ratio of camera image is different from screen
+    float cameraAspectRatio = (float)cameraWidth / (float)cameraHeight;
+    float screenAspectRatio = (float)screenWidth / (float)screenHeight;
+    if( cameraAspectRatio != screenAspectRatio)
     {
-        min = this->width;
+        
+        // Scale camera so that it's entire image fits the screen
+        float heightScale = (float)screenHeight / (float)cameraHeight;
+        float widthScale = (float)screenWidth / (float)cameraWidth;
+        
+        float w = 1.0, h = 1.0;
+        if(widthScale < heightScale)
+        {
+            float width = (float)cameraWidth * heightScale;
+            w = width / (float)screenWidth;
+        }
+        else
+        {
+            float height = (float)cameraHeight * widthScale;
+            h = height / (float)screenHeight;
+        }
+        
+        this->scale = glm::scale(glm::mat4(), glm::vec3(w, h, 1.0));
     }
-    else
-    {
-        min = this->height;
-    }
-    
-    float w = min / this->width;
-    float h = min / this->height;
-    
-    if(w < h)
-    {
-        float per = (1-w) / w;
-        h += h * per;
-        w = 1.0;
-    }
-    else
-    {
-        float per = (1-h) / h;
-        w += w * per;
-        h = 1.0;
-    }
-    
-    this->scale = glm::scale(glm::mat4(), glm::vec3(w, h, 1.0));
     
     return status;
 }
@@ -194,10 +194,13 @@ GLuint CameraCapture::getChromaTextureID(void)
     [_captureSession addInput:deviceInput];
     [_captureSession addOutput:dataOutput];
     
-    _captureSession.sessionPreset = AVCaptureSessionPreset640x480;
+    //_captureSession.sessionPreset = AVCaptureSessionPreset640x480;
+    _captureSession.sessionPreset = AVCaptureSessionPreset1920x1080;
     
-    _width = 640;
-    _height = 480;
+    //_camWidth = 640;
+    //_camHeight = 480;
+    _camWidth = 1920;
+    _camHeight = 1080;
     //_delegates = [NSArray new];
     
     return true;
@@ -225,8 +228,8 @@ GLuint CameraCapture::getChromaTextureID(void)
 
     CVReturn err;
     CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    _width = CVPixelBufferGetWidth(pixelBuffer);
-    _height = CVPixelBufferGetHeight(pixelBuffer);
+    _camWidth = CVPixelBufferGetWidth(pixelBuffer);
+    _camHeight = CVPixelBufferGetHeight(pixelBuffer);
     
     // Do something with data
     if (!_videoTextureCache)
@@ -245,8 +248,8 @@ GLuint CameraCapture::getChromaTextureID(void)
                                                        NULL,
                                                        GL_TEXTURE_2D,
                                                        GL_LUMINANCE,
-                                                       _width,
-                                                       _height,
+                                                       _camWidth,
+                                                       _camHeight,
                                                        GL_LUMINANCE,
                                                        GL_UNSIGNED_BYTE,
                                                        0,
@@ -268,8 +271,8 @@ GLuint CameraCapture::getChromaTextureID(void)
                                                        NULL,
                                                        GL_TEXTURE_2D,
                                                        GL_LUMINANCE_ALPHA,
-                                                       _width/2,
-                                                       _height/2,
+                                                       _camWidth/2,
+                                                       _camHeight/2,
                                                        GL_LUMINANCE_ALPHA,
                                                        GL_UNSIGNED_BYTE,
                                                        1,

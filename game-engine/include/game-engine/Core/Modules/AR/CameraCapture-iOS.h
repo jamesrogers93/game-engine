@@ -4,8 +4,8 @@
 
 @interface CameraCaptureConcrete : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate>
 
-@property (nonatomic) float width;
-@property (nonatomic) float height;
+@property (nonatomic) float camWidth;
+@property (nonatomic) float camHeight;
 @property (nonatomic) float padding;
 //@property (nonatomic) NSArray *delegates;
 

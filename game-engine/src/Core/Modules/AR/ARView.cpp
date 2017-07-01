@@ -71,34 +71,6 @@ ARView::ARView()
 
 void ARView::initalise()
 {
-    unsigned int camWidth = 640, camHeight = 480;
-    
-    // Get min dim
-    /*float min;
-    if(camWidth < camHeight)
-    {
-        min = camWidth;
-    }
-    else
-    {
-        min = camHeight;
-    }
-    
-    float width = min / camWidth;
-    float height = min / camHeight;
-    
-    if(width < height)
-    {
-        float per = (1-width) / width;
-        height += height * per;
-        width = 1.0;
-    }
-    else
-    {
-        float per = (1-height) / height;
-        width += width * per;
-        height = 1.0;
-    }*/
     float width = 1.0, height = 1.0;
     
     // Init shader

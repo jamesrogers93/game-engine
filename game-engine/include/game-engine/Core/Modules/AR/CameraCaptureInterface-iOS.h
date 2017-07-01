@@ -32,7 +32,7 @@ public:
     
 private:
     
-    unsigned int width, height;
+    unsigned int cameraWidth, cameraHeight;
     glm::mat4 scale;
     
     void *self;
