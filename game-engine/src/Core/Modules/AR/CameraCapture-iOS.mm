@@ -33,7 +33,41 @@ CameraCapture::~CameraCapture(void)
 
 int CameraCapture::initialise(const CameraFace &face)
 {
-    return [(id)self initialise];
+    bool status = [(id)self initialise];
+    
+    this->width = [(id)self width];
+    this->height = [(id)self height];
+    
+    // Get min dim
+    float min;
+    if(this->width < this->height)
+    {
+        min = this->width;
+    }
+    else
+    {
+        min = this->height;
+    }
+    
+    float w = min / this->width;
+    float h = min / this->height;
+    
+    if(w < h)
+    {
+        float per = (1-w) / w;
+        h += h * per;
+        w = 1.0;
+    }
+    else
+    {
+        float per = (1-h) / h;
+        w += w * per;
+        h = 1.0;
+    }
+    
+    this->scale = glm::scale(glm::mat4(), glm::vec3(w, h, 1.0));
+    
+    return status;
 }
 
 void CameraCapture::deinitialise(void)
@@ -162,8 +196,8 @@ GLuint CameraCapture::getChromaTextureID(void)
     
     _captureSession.sessionPreset = AVCaptureSessionPreset640x480;
     
-    _width = 0;
-    _height = 0;
+    _width = 640;
+    _height = 480;
     //_delegates = [NSArray new];
     
     return true;

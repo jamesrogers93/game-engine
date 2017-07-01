@@ -19,18 +19,19 @@ private:
     static const std::string SHADER_FRAGMENT;
     static const std::string SHADER_LUMA_NAME;
     static const std::string SHADER_CHROMA_NAME;
+    static const std::string SHADER_MODEL_NAME;
     
     Shader *shader;
     Geometry *geometry;
     
-    unsigned int width, height;
+    //unsigned int width, height;
     
     std::map<std::string, GLint> uniforms;
     
 public:
     ARView();
     
-    void initalise(const unsigned int &screenWidth, const unsigned int &screenHeight);
+    void initalise();
     void deinitialise();
     void draw(AREntity *entity);
 };

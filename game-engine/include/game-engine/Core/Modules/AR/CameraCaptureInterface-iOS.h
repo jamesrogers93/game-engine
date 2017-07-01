@@ -2,7 +2,12 @@
 #ifndef _CAMERACAPTUREINTERFACEIOS_H
 #define _CAMERACAPTUREINTERFACEIOS_H
 
+// OpenGL
 #include "game-engine/Defines/OpenGL.h"
+
+// GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class CameraCapture
 {
@@ -23,7 +28,13 @@ public:
     GLuint getLumaTextureID();
     GLuint getChromaTextureID();
     
+    glm::mat4& getScale() { return this->scale; }
+    
 private:
+    
+    unsigned int width, height;
+    glm::mat4 scale;
+    
     void *self;
     
     

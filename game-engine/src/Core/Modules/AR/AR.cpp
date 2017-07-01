@@ -9,7 +9,7 @@ AR::AR() : CoreModule(CM_AR)
 bool AR::initalise()
 {
     
-    this->view.initalise(100, 100);
+    this->view.initalise();
     
     return true;
 }
