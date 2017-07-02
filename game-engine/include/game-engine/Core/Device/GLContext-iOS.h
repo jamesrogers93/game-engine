@@ -3,11 +3,12 @@
 
 #import <GLKit/GLKit.h>
 
-@interface ContextiOS : NSObject
+@interface GLContextIOS : NSObject
 
 @property (readwrite, nonatomic, strong) EAGLContext *context;
 
 -(BOOL)initalise;
+-(BOOL)deinitalise;
 -(void)makeCurrentContext;
 +(EAGLContext *)currentContext;
 

@@ -1,14 +1,14 @@
 
-#import "game-engine/Core/Modules/Graphics/Context-iOS.h"
-#import "game-engine/Core/Modules/Graphics/Context.h"
+#import "game-engine/Core/Device/GLContext-iOS.h"
+#import "game-engine/Core/Device/GLContext.h"
 
-@interface ContextiOS()
+@interface GLContextIOS()
 {
     
 }
 @end
 
-@implementation ContextiOS
+@implementation GLContextIOS
 
 static EAGLContext *currentContext = NULL;
 
@@ -17,22 +17,21 @@ static EAGLContext *currentContext = NULL;
     return currentContext;
 }
 
-Context::Context()
+void GLContext::initialise()
 {
-    self = [[ContextiOS alloc] init];
-}
-
-Context::~Context()
-{
-    [(id)self dealloc];
-}
-
-void Context::initialise()
-{
+    self = [[GLContextIOS alloc] init];
+    
     this->isInitalised = [(id)self initalise];
 }
 
-void Context::makeCurrentContext()
+void GLContext::deinitialise()
+{
+    [(id)self deinitalise];
+    
+    [(id)self dealloc];
+}
+
+void GLContext::makeCurrentContext()
 {
     [(id)self makeCurrentContext];
 }
@@ -53,6 +52,11 @@ void Context::makeCurrentContext()
     [EAGLContext setCurrentContext:_context];
     
     return true;
+}
+
+-(BOOL)deinitalise
+{
+    
 }
 
 -(void)makeCurrentContext

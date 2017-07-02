@@ -5,10 +5,9 @@
 #include <string>
 #include <map>
 
-// Game Engine
+// Game Engine AR
 #include "game-engine/Core/Modules/CoreModule.h"
 #include "game-engine/Core/Modules/AR/AREntity.h"
-#include "game-engine/Core/Modules/AR/ARView.h"
 
 class AR : public CoreModule
 {
@@ -28,8 +27,6 @@ public:
     bool setActiveAREntity(const std::string &name);
     
 private:
-    
-    ARView view;
     
     std::map<std::string, AREntity *> arEntities;
     std::string activeAREntity;

@@ -1,12 +1,11 @@
 
-#import "game-engine/Core/Modules/AR/CameraCapture-iOS.h"
-#import "game-engine/Core/Modules/AR/CameraCaptureInterface-iOS.h"
+// Game Engine Device
+#import "game-engine/Core/Device/CameraCapture-iOS.h"
+#import "game-engine/Core/Device/CameraCapture.h"
+#import "game-engine/Core/Device/System.h"
+#import "game-engine/Core/Device/GLContext-iOS.h"
 
-#import "game-engine/Core/Modules/Graphics/Context-iOS.h"
-
-#import "game-engine/Core/Engine/System.h"
-
-@interface CameraCaptureConcrete()
+@interface CameraCaptureIOS()
 {
     AVCaptureSession *_captureSession;
     AVCaptureDevice *_device;
@@ -21,68 +20,68 @@
 
 @end
 
-@implementation CameraCaptureConcrete
+@implementation CameraCaptureIOS
 
-CameraCapture::CameraCapture(void)
+bool CameraCapture::initialiseCamera()
 {
-    self = [[CameraCaptureConcrete alloc] init];
-}
-
-CameraCapture::~CameraCapture(void)
-{
-    [(id)self dealloc];
-}
-
-int CameraCapture::initialise(const CameraFace &face)
-{
-    bool status = [(id)self initialise];
     
-    this->cameraWidth = [(id)self camWidth];
-    this->cameraHeight = [(id)self camHeight];
-    unsigned int screenWidth = System::screenWidth;
-    unsigned int screenHeight = System::screenHeight;
+    self = [[CameraCaptureIOS alloc] init];
     
-    // Check if aspect ratio of camera image is different from screen
-    float cameraAspectRatio = (float)cameraWidth / (float)cameraHeight;
-    float screenAspectRatio = (float)screenWidth / (float)screenHeight;
-    if( cameraAspectRatio != screenAspectRatio)
+    bool status = false;
+    switch(this->res)
     {
-        
-        // Scale camera so that it's entire image fits the screen
-        float heightScale = (float)screenHeight / (float)cameraHeight;
-        float widthScale = (float)screenWidth / (float)cameraWidth;
-        
-        float w = 1.0, h = 1.0;
-        if(widthScale < heightScale)
-        {
-            float width = (float)cameraWidth * heightScale;
-            w = width / (float)screenWidth;
-        }
-        else
-        {
-            float height = (float)cameraHeight * widthScale;
-            h = height / (float)screenHeight;
-        }
-        
-        this->scale = glm::scale(glm::mat4(), glm::vec3(w, h, 1.0));
+        case RES_640x480:
+            
+            status = [(id)self initialise: AVCaptureSessionPreset640x480];
+            this->cameraWidth = 640;
+            this->cameraHeight = 480;
+            break;
+        case RES_1280x720:
+            
+            status = [(id)self initialise: AVCaptureSessionPreset1280x720];
+            this->cameraWidth = 1280;
+            this->cameraHeight = 720;
+            break;
+            
+        case RES_1920x1080:
+            
+            status = [(id)self initialise: AVCaptureSessionPreset1920x1080];
+            this->cameraWidth = 1920;
+            this->cameraHeight = 1080;
+            break;
+            
+        default:
+            return status;
     }
-    
+
+    this->initialised = status;
     return status;
 }
 
 void CameraCapture::deinitialise(void)
 {
     [(id)self deinitialise];
+    [(id)self dealloc];
+    
+    this->initialised = this->capturing = false;
 }
 
 void CameraCapture::startCapture(void)
 {
-    [(id)self startCapture];
+    if(this->initialised && !this->capturing)
+    {
+        [(id)self startCapture];
+        this->capturing = true;
+    }
 }
 
 void CameraCapture::stopCapture(void)
 {
-    [(id)self stopCapture];
+    if(this->initialised && this->capturing)
+    {
+        [(id)self stopCapture];
+        this->capturing = false;
+    }
 }
 
 void CameraCapture::bindTextures(void)
@@ -119,13 +118,13 @@ GLuint CameraCapture::getChromaTextureID(void)
     return CVOpenGLESTextureGetName(_chromaTexture);
 }
 
--(int)initialise
+-(int)initialise: (NSString *) sessionPreset
 {
     //-- Create CVOpenGLESTextureCacheRef for optimal CVImageBufferRef to GLES texture conversion.
     #if COREVIDEO_USE_EAGLCONTEXT_CLASS_IN_API
-        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, [ContextiOS currentContext], NULL, &_videoTextureCache);
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, [GLContextIOS currentContext], NULL, &_videoTextureCache);
     #else
-        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge void *)[ContextiOS currentContext], NULL, &_videoTextureCache);
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge void *)[GLContextIOS currentContext], NULL, &_videoTextureCache);
     #endif
     
     if (err)
@@ -194,13 +193,10 @@ GLuint CameraCapture::getChromaTextureID(void)
     [_captureSession addInput:deviceInput];
     [_captureSession addOutput:dataOutput];
     
-    //_captureSession.sessionPreset = AVCaptureSessionPreset640x480;
     _captureSession.sessionPreset = AVCaptureSessionPreset1920x1080;
     
-    //_camWidth = 640;
-    //_camHeight = 480;
-    _camWidth = 1920;
-    _camHeight = 1080;
+    _camWidth = 0;
+    _camHeight = 0;
     //_delegates = [NSArray new];
     
     return true;
@@ -380,6 +376,7 @@ GLuint CameraCapture::getChromaTextureID(void)
     CFRelease(imageBuffer);
     CFRelease(sampleBuffer);
     finished = YES;*/
+
 }
 
 - (void)cleanUpTextures
