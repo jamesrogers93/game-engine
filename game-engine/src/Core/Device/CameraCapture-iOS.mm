@@ -193,7 +193,7 @@ GLuint CameraCapture::getChromaTextureID(void)
     [_captureSession addInput:deviceInput];
     [_captureSession addOutput:dataOutput];
     
-    _captureSession.sessionPreset = AVCaptureSessionPreset1920x1080;
+    _captureSession.sessionPreset = sessionPreset;
     
     _camWidth = 0;
     _camHeight = 0;
