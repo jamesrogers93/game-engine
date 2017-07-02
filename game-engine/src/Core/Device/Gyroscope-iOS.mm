@@ -14,6 +14,8 @@
 
 void Gyroscope::initialise()
 {
+    self = [[GyroscopeIOS alloc] init];
+
     [(id)self initialise];
 }
 
@@ -24,7 +26,6 @@ void Gyroscope::initialise()
 
 - (void)initialise
 {
-    self = [[GyroscopeIOS alloc] init];
     
     if (!_motionManager)
     {
@@ -38,13 +39,6 @@ void Gyroscope::initialise()
     
     self.referenceAttitude = deviceMotion.attitude;
     [_motionManager startDeviceMotionUpdatesUsingReferenceFrame:gyroReferenceFrame];
-    
-    
-    
-    
-    // TEST DELETE
-    //[self getGyroOrientation];
-    // END TEST DELETE
 }
 
 
