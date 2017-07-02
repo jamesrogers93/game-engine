@@ -7,19 +7,31 @@
 // Game Engine
 #include "game-engine/Core/Entity/ENode.h"
 
-class AREntity : public ENode
+// Game Engine Device
+#include "game-engine/Core/Device/CameraCapture.h"
+
+class ARTracker;
+
+class AREntity : public ENode, public CameraCaptureDelegate
 {
 private:
     
 public:
     AREntity(const std::string &name);
     
+    void initialise();
+    
     void startCapture();
     void stopCapture();
     
     void draw();
     
+    void frameRecieved(unsigned char *data, const float &width, const float &height, const float &padding);
+    
 protected:
+    
+    ARTracker *tracker;
+    
     void attachToEngine();
 };
 

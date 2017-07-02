@@ -187,3 +187,19 @@ void CameraCapture::initialiseView()
     this->geometry = Geometry::loadGeometry(vertices, indices);
 }
 
+void CameraCapture::addDelegate(CameraCaptureDelegate* delegate)
+{
+    this->delegates.push_back(delegate);
+}
+
+void CameraCapture::callDelegates(unsigned char *data, const float &width, const float &height, const float &padding)
+{
+    for(unsigned int i = 0; i < this->delegates.size(); i++)
+    {
+        if(delegates[i] != NULL)
+        {
+            this->delegates[i]->frameRecieved(data, width, height, padding);
+        }
+    }
+}
+

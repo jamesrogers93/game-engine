@@ -2,8 +2,15 @@
 
 #include </Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/ar-fighter/ar-fighter-ios/ARFighter/KudanCV/KudanCV.h>
 
+
+ARTracker::ARTracker()
+{
+}
+
 void ARTracker::initalise()
 {
+    this->tracker = new KudanArbiTracker();
+    
     KudanCameraParameters parameters;
     
     // Should use the camera to get the image stream size, but it's not initialised yet, so just hardcode for now
