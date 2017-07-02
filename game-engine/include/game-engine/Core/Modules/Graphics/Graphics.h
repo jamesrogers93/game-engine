@@ -16,17 +16,9 @@ class Geometry;
 class Material;
 class Texture;
 
-// TEST
-#include "game-engine/Core/Modules/Graphics/Context.h"
-// END TEST
-
 class Graphics : public CoreModule
 {
 public:
-    
-    // TEST
-    Context context;
-    // END TEST
     
 	static Graphics& getInstance()
 	{

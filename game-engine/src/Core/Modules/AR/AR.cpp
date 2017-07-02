@@ -1,5 +1,7 @@
 #include "game-engine/Core/Modules/AR/AR.h"
-#include "game-engine/Defines/CameraCapture.h"
+
+// Game Engine Device
+#include "game-engine/Core/Device/CameraCapture.h"
 
 AR::AR() : CoreModule(CM_AR)
 {
@@ -8,15 +10,11 @@ AR::AR() : CoreModule(CM_AR)
 
 bool AR::initalise()
 {
-    
-    this->view.initalise(100, 100);
-    
     return true;
 }
 
 bool AR::deinitalise()
 {
-    this->view.deinitialise();
     return true;
 }
 
@@ -25,9 +23,7 @@ bool AR::update()
     
     if(this->arEntities.find(this->activeAREntity) != this->arEntities.end())
     {
-        //this->arEntities[this->activeAREntity]->getCameraCapture().bindTextures();
-        
-        this->view.draw(this->arEntities[this->activeAREntity]);
+        this->arEntities[this->activeAREntity]->draw();
     }
     
     return true;

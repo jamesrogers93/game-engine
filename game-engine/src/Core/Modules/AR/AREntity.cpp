@@ -1,6 +1,10 @@
-#include "game-engine/Core/Modules/AR/AREntity.h"
 
+// Game Engine AR
+#include "game-engine/Core/Modules/AR/AREntity.h"
 #include "game-engine/Core/Modules/AR/AR.h"
+
+// Game Engine Device
+#include "game-engine/Core/Device/CameraCapture.h"
 
 AREntity::AREntity(const std::string &name) : ENode(name)
 {
@@ -12,22 +16,17 @@ void AREntity::attachToEngine()
     AR::getInstance().addAREntity(this->name, this);
 }
 
-bool AREntity::initalise()
-{
-    return this->capture.initialise(CameraCapture::FRONT);
-}
-
-void AREntity::deinitalise()
-{
-    this->capture.deinitialise();
-}
-
 void AREntity::startCapture()
 {
-    this->capture.startCapture();
+    CameraCapture::getInstance().startCapture();
 }
 
 void AREntity::stopCapture()
 {
-    this->capture.startCapture();
+    CameraCapture::getInstance().stopCapture();
+}
+
+void AREntity::draw()
+{
+    CameraCapture::getInstance().display();
 }

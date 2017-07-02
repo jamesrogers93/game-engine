@@ -1,10 +1,11 @@
 
-#import "game-engine/Core/Modules/AR/CameraCapture-iOS.h"
-#import "game-engine/Core/Modules/AR/CameraCaptureInterface-iOS.h"
+// Game Engine Device
+#import "game-engine/Core/Device/CameraCapture-iOS.h"
+#import "game-engine/Core/Device/CameraCapture.h"
+#import "game-engine/Core/Device/System.h"
+#import "game-engine/Core/Device/GLContext-iOS.h"
 
-#import "game-engine/Core/Modules/Graphics/Context-iOS.h"
-
-@interface CameraCaptureConcrete()
+@interface CameraCaptureIOS()
 {
     AVCaptureSession *_captureSession;
     AVCaptureDevice *_device;
@@ -19,36 +20,68 @@
 
 @end
 
-@implementation CameraCaptureConcrete
+@implementation CameraCaptureIOS
 
-CameraCapture::CameraCapture(void)
+bool CameraCapture::initialiseCamera()
 {
-    self = [[CameraCaptureConcrete alloc] init];
-}
+    
+    self = [[CameraCaptureIOS alloc] init];
+    
+    bool status = false;
+    switch(this->res)
+    {
+        case RES_640x480:
+            
+            status = [(id)self initialise: AVCaptureSessionPreset640x480];
+            this->cameraWidth = 640;
+            this->cameraHeight = 480;
+            break;
+        case RES_1280x720:
+            
+            status = [(id)self initialise: AVCaptureSessionPreset1280x720];
+            this->cameraWidth = 1280;
+            this->cameraHeight = 720;
+            break;
+            
+        case RES_1920x1080:
+            
+            status = [(id)self initialise: AVCaptureSessionPreset1920x1080];
+            this->cameraWidth = 1920;
+            this->cameraHeight = 1080;
+            break;
+            
+        default:
+            return status;
+    }
 
-CameraCapture::~CameraCapture(void)
-{
-    [(id)self dealloc];
-}
-
-int CameraCapture::initialise(const CameraFace &face)
-{
-    return [(id)self initialise];
+    this->initialised = status;
+    return status;
 }
 
 void CameraCapture::deinitialise(void)
 {
     [(id)self deinitialise];
+    [(id)self dealloc];
+    
+    this->initialised = this->capturing = false;
 }
 
 void CameraCapture::startCapture(void)
 {
-    [(id)self startCapture];
+    if(this->initialised && !this->capturing)
+    {
+        [(id)self startCapture];
+        this->capturing = true;
+    }
 }
 
 void CameraCapture::stopCapture(void)
 {
-    [(id)self stopCapture];
+    if(this->initialised && this->capturing)
+    {
+        [(id)self stopCapture];
+        this->capturing = false;
+    }
 }
 
 void CameraCapture::bindTextures(void)
@@ -85,13 +118,13 @@ GLuint CameraCapture::getChromaTextureID(void)
     return CVOpenGLESTextureGetName(_chromaTexture);
 }
 
--(int)initialise
+-(int)initialise: (NSString *) sessionPreset
 {
     //-- Create CVOpenGLESTextureCacheRef for optimal CVImageBufferRef to GLES texture conversion.
     #if COREVIDEO_USE_EAGLCONTEXT_CLASS_IN_API
-        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, [ContextiOS currentContext], NULL, &_videoTextureCache);
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, [GLContextIOS currentContext], NULL, &_videoTextureCache);
     #else
-        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge void *)[ContextiOS currentContext], NULL, &_videoTextureCache);
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge void *)[GLContextIOS currentContext], NULL, &_videoTextureCache);
     #endif
     
     if (err)
@@ -160,10 +193,10 @@ GLuint CameraCapture::getChromaTextureID(void)
     [_captureSession addInput:deviceInput];
     [_captureSession addOutput:dataOutput];
     
-    _captureSession.sessionPreset = AVCaptureSessionPreset640x480;
+    _captureSession.sessionPreset = AVCaptureSessionPreset1920x1080;
     
-    _width = 0;
-    _height = 0;
+    _camWidth = 0;
+    _camHeight = 0;
     //_delegates = [NSArray new];
     
     return true;
@@ -191,8 +224,8 @@ GLuint CameraCapture::getChromaTextureID(void)
 
     CVReturn err;
     CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    _width = CVPixelBufferGetWidth(pixelBuffer);
-    _height = CVPixelBufferGetHeight(pixelBuffer);
+    _camWidth = CVPixelBufferGetWidth(pixelBuffer);
+    _camHeight = CVPixelBufferGetHeight(pixelBuffer);
     
     // Do something with data
     if (!_videoTextureCache)
@@ -211,8 +244,8 @@ GLuint CameraCapture::getChromaTextureID(void)
                                                        NULL,
                                                        GL_TEXTURE_2D,
                                                        GL_LUMINANCE,
-                                                       _width,
-                                                       _height,
+                                                       _camWidth,
+                                                       _camHeight,
                                                        GL_LUMINANCE,
                                                        GL_UNSIGNED_BYTE,
                                                        0,
@@ -234,8 +267,8 @@ GLuint CameraCapture::getChromaTextureID(void)
                                                        NULL,
                                                        GL_TEXTURE_2D,
                                                        GL_LUMINANCE_ALPHA,
-                                                       _width/2,
-                                                       _height/2,
+                                                       _camWidth/2,
+                                                       _camHeight/2,
                                                        GL_LUMINANCE_ALPHA,
                                                        GL_UNSIGNED_BYTE,
                                                        1,
@@ -343,6 +376,7 @@ GLuint CameraCapture::getChromaTextureID(void)
     CFRelease(imageBuffer);
     CFRelease(sampleBuffer);
     finished = YES;*/
+
 }
 
 - (void)cleanUpTextures
