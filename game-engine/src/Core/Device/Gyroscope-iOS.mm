@@ -129,7 +129,7 @@ glm::mat4 rotateMatrix(glm::mat4 m, float a, glm::vec3 axis)
     matrix[2][2] = rot.m33;
     
     // Cast matrix to quaternion
-    glm::fquat quat = glm::quat_cast(glmMatrix);
+    glm::fquat quat = glm::quat_cast(matrix);
     
     // Flip y and switch y and x axis.
     quat = glm::fquat(quat.w, -quat.y, quat.x, quat.z);
