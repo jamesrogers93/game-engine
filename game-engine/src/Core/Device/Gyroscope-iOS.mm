@@ -112,43 +112,32 @@ glm::mat4 rotateMatrix(glm::mat4 m, float a, glm::vec3 axis)
     if (_motionManager.deviceMotion == nil)
     {
         return glm::dquat();
-        //return KudanQuaternion();
     }
     
     CMAttitude *attitude = _motionManager.deviceMotion.attitude;
     CMRotationMatrix rot = attitude.rotationMatrix;
     
-    glm::mat4 glmMatrix;
-    glmMatrix[0][0] = rot.m11;
-    glmMatrix[0][1] = rot.m21;
-    glmMatrix[0][2] = rot.m31;
-    glmMatrix[1][0] = rot.m12;
-    glmMatrix[1][1] = rot.m22;
-    glmMatrix[1][2] = rot.m32;
-    glmMatrix[2][0] = rot.m13;
-    glmMatrix[2][1] = rot.m23;
-    glmMatrix[2][2] = rot.m33;
+    glm::mat4 matrix;
+    matrix[0][0] = rot.m11;
+    matrix[0][1] = rot.m21;
+    matrix[0][2] = rot.m31;
+    matrix[1][0] = rot.m12;
+    matrix[1][1] = rot.m22;
+    matrix[1][2] = rot.m32;
+    matrix[2][0] = rot.m13;
+    matrix[2][1] = rot.m23;
+    matrix[2][2] = rot.m33;
     
-    // THIS WORKING WHEN JUST GYROSCOPE
-    //glm::fquat test = glm::normalize(glm::quat_cast(glmMatrix));
-    glm::fquat test = glm::quat_cast(glmMatrix);
-    glm::fquat test2 = glm::fquat(test.w, -test.y, test.x, test.z);
+    // Cast matrix to quaternion
+    glm::fquat quat = glm::quat_cast(glmMatrix);
+    
+    // Flip y and switch y and x axis.
+    quat = glm::fquat(quat.w, -quat.y, quat.x, quat.z);
     
     // Rotate by 90 degrees on x axis so that z no longer points down
     glm::fquat q = glm::angleAxis(glm::radians(90.0f), glm::vec3(1.0,0.0,0.0));
-    return test2 * q;
-    // END WORKING
     
-    /*glm::fquat test = glm::quat_cast(glmMatrix);
-    //glm::fquat test2 = glm::fquat(test.w, test.x, test.y, test.z);
-    
-    // Rotate by 90 degrees on z axis so that GL axis line with gyroscpe axis
-    glm::fquat q = glm::angleAxis(glm::radians(90.0f), glm::vec3(0.0,0.0,1.0));
-    
-    // Now rotate around x axis so that the z axis is horizontal
-    glm::fquat q1 = glm::angleAxis(glm::radians(90.0f), glm::vec3(1.0,0.0,0.0));
-    
-    return q1 * q * test;*/
+    return quat * q;
 
 }
 

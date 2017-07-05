@@ -38,9 +38,9 @@ void ARTracker::setOrientation(const glm::fquat &orientaton)
     {
         this->tracker->setSensedOrientation(KudanQuaternion(orientaton.x, orientaton.y, orientaton.z, orientaton.w));
     }
-    else{
-        //Opps
-        int test = 34;
+    else
+    {
+        // Log
     }
 }
 

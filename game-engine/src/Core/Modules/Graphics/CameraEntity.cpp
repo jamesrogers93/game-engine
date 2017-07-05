@@ -43,30 +43,15 @@ void CameraEntity::update()
 
 void CameraEntity::updateView()
 {
-    // TEST
-    //this->view = glm::translate(glm::mat4(), glm::vec3(0.0, 0.0, -10.0));
     this->view = glm::inverse(this->globalModel);
-    //END TEST
+ 
     
-    // CURRENT
+    // This is the view matrix using look at
     /*glm::vec3 globalPosition = glm::vec3(this->globalModel[3]);
     glm::mat3 normalMatrix = glm::mat3(glm::transpose(glm::inverse(this->globalModel)));
     glm::vec3 globalFront = this->front * normalMatrix;
     glm::vec3 globalUp = this->up * normalMatrix;
     this->view = glm::lookAt(globalPosition, globalPosition + globalFront, globalUp);*/
-    // END CURRENT
-    
-    //this->view = this->T * this->R;
-    
-    /*glm::mat4 transformation = this->globalModel; // your transformation matrix.
-    glm::vec3 scale;
-    glm::quat rotation;
-    glm::vec3 translation;
-    glm::vec3 skew;
-    glm::vec4 perspective;
-    glm::decompose(transformation, scale, rotation, translation, skew, perspective);
-    
-    this->view = glm::translate(glm::mat4(), translation) * glm::mat4_cast(rotation);*/
 }
 
 const glm::mat4& CameraEntity::getView()
