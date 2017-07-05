@@ -26,6 +26,9 @@ public:
     
     ~GeometryEntity(){}
     
+    void initialise();
+    void update(){}
+    
     const std::string& getGeometryKey() {   return this->geometry;  }
     const std::string& getMaterialKey() {   return this->material;  }
     const std::string& getShaderKey() {   return this->shader;  }
@@ -37,8 +40,6 @@ private:
     std::string geometry;   // Key to geometry in Graphics
     std::string material;   // Key to material in Graphics
     std::string shader;     // Key to shader in Graphics
-    
-    void attachToEngine();
 };
 
 #endif /* _GRAPHICSENTITY_H */

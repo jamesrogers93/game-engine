@@ -3,6 +3,9 @@
 #import "game-engine/Core/Device/Gyroscope-iOS.h"
 #import "game-engine/Core/Device/Gyroscope.h"
 
+// STD
+#import <iostream>
+
 // GLM
 #import <glm/gtc/matrix_transform.hpp>
 #import <glm/gtx/quaternion.hpp>
@@ -19,10 +22,10 @@ void Gyroscope::initialise()
     [(id)self initialise];
 }
 
-/*glm::quat Gyroscope::getOrientation()
+glm::dquat Gyroscope::getOrientation()
 {
-    return glm::quat();
-}*/
+    return [(id)self getGyroOrientation];
+}
 
 - (void)initialise
 {
@@ -104,10 +107,12 @@ glm::mat4 rotateMatrix(glm::mat4 m, float a, glm::vec3 axis)
 }
 
 
-- (KudanQuaternion)getGyroOrientation
+- (glm::dquat)getGyroOrientation
 {
-    if (_motionManager.deviceMotion == nil) {
-        return KudanQuaternion();
+    if (_motionManager.deviceMotion == nil)
+    {
+        return glm::dquat();
+        //return KudanQuaternion();
     }
     
     CMAttitude *attitude = _motionManager.deviceMotion.attitude;
@@ -124,29 +129,28 @@ glm::mat4 rotateMatrix(glm::mat4 m, float a, glm::vec3 axis)
     glmMatrix[2][1] = rot.m23;
     glmMatrix[2][2] = rot.m33;
     
-    KudanMatrix3 matrix = KudanMatrix3();
-    matrix(0, 0) = rot.m11;
-    matrix(0, 1) = rot.m21;
-    matrix(0, 2) = rot.m31;
-    matrix(1, 0) = rot.m12;
-    matrix(1, 1) = rot.m22;
-    matrix(1, 2) = rot.m32;
-    matrix(2, 0) = rot.m13;
-    matrix(2, 1) = rot.m23;
-    matrix(2, 2) = rot.m33;
+    // THIS WORKING WHEN JUST GYROSCOPE
+    //glm::fquat test = glm::normalize(glm::quat_cast(glmMatrix));
+    glm::fquat test = glm::quat_cast(glmMatrix);
+    glm::fquat test2 = glm::fquat(test.w, -test.y, test.x, test.z);
     
-    //rotate by 90 degrees around the Z axis
-    glmMatrix = rotateMatrix(glmMatrix, 90.0, glm::vec3(0.0, 0.0, 1.0));
-    glm::mat3 glmMatrix1 = glm::mat3(glmMatrix);
+    // Rotate by 90 degrees on x axis so that z no longer points down
+    glm::fquat q = glm::angleAxis(glm::radians(90.0f), glm::vec3(1.0,0.0,0.0));
+    return test2 * q;
+    // END WORKING
     
-    KudanMatrix3 RZ = getRotationMatrixZ(M_PI / 2);
-    matrix = multiply(RZ, matrix);
+    /*glm::fquat test = glm::quat_cast(glmMatrix);
+    //glm::fquat test2 = glm::fquat(test.w, test.x, test.y, test.z);
     
+    // Rotate by 90 degrees on z axis so that GL axis line with gyroscpe axis
+    glm::fquat q = glm::angleAxis(glm::radians(90.0f), glm::vec3(0.0,0.0,1.0));
     
-    glm::fquat glmQuat = glm::quat_cast(glmMatrix1);
+    // Now rotate around x axis so that the z axis is horizontal
+    glm::fquat q1 = glm::angleAxis(glm::radians(90.0f), glm::vec3(1.0,0.0,0.0));
     
-    KudanQuaternion quat = KudanQuaternion(matrixToQuaternion(matrix));
-    return KudanQuaternion(matrixToQuaternion(matrix));
+    return q1 * q * test;*/
+
 }
+
 
 @end

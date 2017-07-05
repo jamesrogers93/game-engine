@@ -14,7 +14,6 @@ public:
     Scene(std::string name) : name(name) {}
     ~Scene() {}
 
-    void initalise();
     void deinitalise(){}
 
 	const std::string& getName();

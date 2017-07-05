@@ -14,7 +14,7 @@ LightEntity::Type LightEntity::getType() const
     return this->type;
 }
 
-void LightEntity::attachToEngine()
+void LightEntity::initialise()
 {
     Graphics *g = &Graphics::getInstance();
     

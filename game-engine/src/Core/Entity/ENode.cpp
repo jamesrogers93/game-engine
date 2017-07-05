@@ -3,6 +3,9 @@
 // STD
 #include <algorithm>
 
+// GLM
+#include <glm/gtx/quaternion.hpp>
+
 const glm::vec3 ENode::DEFAULT_POSITION = glm::vec3(0.0);
 
 ENode::ENode(const std::string &name, glm::vec3 position) : name(name), parent(NULL)
@@ -20,37 +23,97 @@ void ENode::addChild(ENode *child)
     this->children.push_back(child);
 }
 
-const void ENode::translate(const glm::vec3 &p)
+void ENode::updateChildren()
 {
-    this->localModel = glm::translate(this->localModel, p);
-    this->position += p;
+    for(unsigned int i = 0; i < this->children.size(); i++)
+    {
+        this->children[i]->updateChildren();
+        this->children[i]->update();
+    }
 }
 
 const void ENode::translate(const float &x, const float &y, const float &z)
 {
-    glm::vec3 p(x,y,z);
-    this->localModel = glm::translate(this->localModel, p);
-    this->position += p;
+    translate(glm::vec3(x,y,z));
 }
 
-const void ENode::scale(const glm::vec3 &s)
+const void ENode::translate(const glm::vec3 &p)
 {
-    this->localModel = glm::scale(this->localModel, s);
+    this->T = glm::translate(this->T, p);
+    this->localModel = this->T * this->R * this->S;
+    this->position+=p;
 }
 
 const void ENode::scale(const float &x, const float &y, const float &z)
 {
-    this->localModel = glm::scale(this->localModel, glm::vec3(x,y,z));
+    scale(glm::vec3(x,y,z));
 }
 
-const void ENode::rotate(const float &a, const glm::vec3 &r)
+const void ENode::scale(const glm::vec3 &s)
 {
-    this->localModel = glm::rotate(this->localModel, a, r);
+    this->S = glm::scale(this->S, s);
+    this->localModel = this->T * this->R * this->S;
 }
 
 const void ENode::rotate(const float &a, const float &x, const float &y, const float &z)
 {
-    this->localModel = glm::rotate(this->localModel, a, glm::vec3(x,y,z));
+    rotate(a, glm::vec3(x, y, z));
+}
+
+const void ENode::rotate(const float &a, const glm::vec3 &r)
+{
+    glm::quat q = glm::angleAxis(a, r);
+    rotate(q);
+}
+
+const void ENode::rotate(const glm::fquat &q)
+{
+    this->Q = this->Q * q;
+    this->Q = glm::normalize(this->Q);
+    this->R = glm::mat4_cast(this->Q);
+    this->localModel = this->T * this->R * this->S;
+}
+
+const void ENode::translateOW(const float &x, const float &y, const float &z)
+{
+    translateOW(glm::vec3(x,y,z));
+}
+
+const void ENode::translateOW(const glm::vec3 &p)
+{
+    this->T = glm::translate(glm::mat4(), p);
+    this->localModel = this->T * this->R * this->S;
+    this->position+=p;
+}
+
+const void ENode::scaleOW(const float &x, const float &y, const float &z)
+{
+    scaleOW(glm::vec3(x,y,z));
+}
+
+const void ENode::scaleOW(const glm::vec3 &s)
+{
+    this->S = glm::scale(glm::mat4(), s);
+    this->localModel = this->T * this->R * this->S;
+}
+
+const void ENode::rotateOW(const float &a, const float &x, const float &y, const float &z)
+{
+    rotateOW(a, glm::vec3(x, y, z));
+}
+
+const void ENode::rotateOW(const float &a, const glm::vec3 &r)
+{
+    glm::quat q = glm::angleAxis(a, r);
+    rotateOW(q);
+}
+
+const void ENode::rotateOW(const glm::fquat &q)
+{
+    this->Q = q;
+    this->Q = glm::normalize(this->Q);
+    this->R = glm::mat4_cast(this->Q);
+    this->localModel = this->T * this->R * this->S;
 }
 
 void ENode::updateGlobalModel()

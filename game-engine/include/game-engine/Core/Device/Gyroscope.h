@@ -1,7 +1,7 @@
 #ifndef _GYROSCOPE_H
 #define _GYROSCOPE_H
 
-#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 class Gyroscope
 {
@@ -15,7 +15,7 @@ public:
     
     void initialise();
     
-   // glm::quat getOrientation() {return glm::quat;}
+    glm::dquat getOrientation();
     
 private:
     

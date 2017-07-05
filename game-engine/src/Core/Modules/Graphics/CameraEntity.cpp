@@ -5,6 +5,8 @@
 // GLM
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
@@ -15,10 +17,10 @@ const std::string CameraEntity::SHADER_POSITION_NAME = "camera_position";
 
 const glm::vec3 CameraEntity::DEFAULT_UP = glm::vec3(0.0, 1.0, 0.0);
 const glm::vec3 CameraEntity::DEFAULT_WORLDUP = glm::vec3(0.0, 1.0, 0.0);
-const glm::vec3 CameraEntity::DEFAULT_FRONT = glm::vec3(0.0, 0.0, -1.0);
+const glm::vec3 CameraEntity::DEFAULT_FRONT = glm::vec3(0.0, 0.0, 1.0);
 const float CameraEntity::DEFAULT_FOV = 75.0f;
 const float CameraEntity::DEFAULT_CLIPNEAR = 1.0f;
-const float CameraEntity::DEFAULT_CLIPFAR = 100.0f;
+const float CameraEntity::DEFAULT_CLIPFAR = 1000.0f;
 
 CameraEntity::CameraEntity(const std::string &name, const glm::mat4& projection, const glm::vec3 &position, const glm::vec3 &front) : ENode(name, position), projection(projection), front(front)
 {
@@ -34,9 +36,37 @@ CameraEntity::CameraEntity(const std::string &name, const glm::mat4& projection,
     this->updateView();
 }
 
+void CameraEntity::update()
+{
+    updateView();
+}
+
 void CameraEntity::updateView()
 {
-    this->view = glm::lookAt(this->position, this->position + this->front, this->up);
+    // TEST
+    //this->view = glm::translate(glm::mat4(), glm::vec3(0.0, 0.0, -10.0));
+    this->view = glm::inverse(this->globalModel);
+    //END TEST
+    
+    // CURRENT
+    /*glm::vec3 globalPosition = glm::vec3(this->globalModel[3]);
+    glm::mat3 normalMatrix = glm::mat3(glm::transpose(glm::inverse(this->globalModel)));
+    glm::vec3 globalFront = this->front * normalMatrix;
+    glm::vec3 globalUp = this->up * normalMatrix;
+    this->view = glm::lookAt(globalPosition, globalPosition + globalFront, globalUp);*/
+    // END CURRENT
+    
+    //this->view = this->T * this->R;
+    
+    /*glm::mat4 transformation = this->globalModel; // your transformation matrix.
+    glm::vec3 scale;
+    glm::quat rotation;
+    glm::vec3 translation;
+    glm::vec3 skew;
+    glm::vec4 perspective;
+    glm::decompose(transformation, scale, rotation, translation, skew, perspective);
+    
+    this->view = glm::translate(glm::mat4(), translation) * glm::mat4_cast(rotation);*/
 }
 
 const glm::mat4& CameraEntity::getView()
@@ -63,7 +93,7 @@ glm::mat4 CameraEntity::perspectiveMatrix(const unsigned int &screenWidth, const
     return glm::perspective(glm::radians(fov), (float)screenWidth / (float)screenHeight, clipNear, clipFar);
 }
 
-void CameraEntity::attachToEngine()
+void CameraEntity::initialise()
 {
     Graphics *g = &Graphics::getInstance();
     
