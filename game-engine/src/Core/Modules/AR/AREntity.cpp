@@ -100,8 +100,8 @@ void AREntity::frameRecieved(unsigned char *data, const float &width, const floa
         glm::vec3 inversePosition = -position;
         
         // Transform node by translating first by the inverse of the tracker point, then rotating it by the inverse of the devices orientation.
-        this->localModel = glm::mat4_cast(glm::inverse(orientation)) * glm::translate(glm::mat4(), inversePosition);
-        
+        this->translateOW(inversePosition);
+        this->rotateOW(glm::inverse(orientation), 1);
     }
     else
     {
