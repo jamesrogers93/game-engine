@@ -32,7 +32,10 @@ public:
     
     CameraEntity(const std::string &name, const glm::mat4& projection, const float &posX, const float &posY, const float &posZ, const glm::vec3 &front = DEFAULT_FRONT);
     
+    void initialise();
+    void update();
     void updateView();
+    
     const glm::mat4& getView();
     void loadToShader(Shader *shader);
     
@@ -49,13 +52,6 @@ private:
     
     //float yaw;
     //float pitch;
-    
-    void attachToEngine();
-    
-    void update()
-    {
-        this->updateView();
-    }
 };
 
 #endif /* _CAMERAENTITY_H */

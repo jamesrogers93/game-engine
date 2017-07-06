@@ -43,7 +43,8 @@ public:
     
     Type getType() const;
     
-    void attachToEngine();
+    void initialise();
+    void update(){}
     
     virtual void loadToShader(Shader *shader, const unsigned int &index) = 0;
     

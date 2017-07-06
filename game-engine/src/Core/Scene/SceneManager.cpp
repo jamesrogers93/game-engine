@@ -18,7 +18,7 @@ bool SceneManager::addScene(Scene *scene)
         
     } else
     {
-        scene->initalise();
+        //scene->initalise();
         this->scenes[scene->getName()] = scene;
         return true;
     }

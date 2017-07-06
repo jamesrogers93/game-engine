@@ -4,6 +4,7 @@
 
 // STD
 #include <string>
+#include <vector>
 
 // OpenGL
 #include "game-engine/Defines/OpenGL.h"
@@ -14,6 +15,12 @@
 
 class Shader;
 class Geometry;
+
+class CameraCaptureDelegate
+{
+public:
+    virtual void frameRecieved(unsigned char *data, const float &width, const float &height, const float &padding) = 0;
+};
 
 class CameraCapture
 {
@@ -57,6 +64,10 @@ public:
     bool isInitialised() {   return this->initialised;   }
     bool isCapturing()  { return this->capturing;   }
     
+    void addDelegate(CameraCaptureDelegate* delegate);
+    
+    void callDelegates(unsigned char *data, const float &width, const float &height, const float &padding);
+    
 private:
     
     CameraCapture();
@@ -79,6 +90,7 @@ private:
     
     void *self;
     
+    std::vector<CameraCaptureDelegate*> delegates;
     
 };
 

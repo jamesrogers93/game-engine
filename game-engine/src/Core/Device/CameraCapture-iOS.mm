@@ -219,10 +219,15 @@ GLuint CameraCapture::getChromaTextureID(void)
      [_captureSession stopRunning];
 }
 
+void callDelegates(unsigned char *data, const float &width, const float &height, const float &padding)
+{
+    CameraCapture::getInstance().callDelegates(data, width, height, padding);
+}
+
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
 
-    CVReturn err;
+    /*CVReturn err;
     CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     _camWidth = CVPixelBufferGetWidth(pixelBuffer);
     _camHeight = CVPixelBufferGetHeight(pixelBuffer);
@@ -282,7 +287,16 @@ GLuint CameraCapture::getChromaTextureID(void)
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
-    /*CVReturn err;
+    // Get the luma data from the image buffer
+    void *ypBuffer = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);
+    NSData *ypData = [NSData dataWithBytesNoCopy:ypBuffer length:CVPixelBufferGetDataSize(pixelBuffer) freeWhenDone:NO];
+    
+    _padding = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, 0) - _camWidth;*/
+    
+    // Call the delegates
+    //callDelegates((unsigned char *)ypData.bytes, _camWidth, _camHeight, _padding);
+    
+    CVReturn err;
     finished = NO;
     
     CFRetain(sampleBuffer);
@@ -294,8 +308,8 @@ GLuint CameraCapture::getChromaTextureID(void)
     CFRetain(imageBuffer);
     CVPixelBufferRef pixBuffer = imageBuffer;
     
-    _width = CVPixelBufferGetWidth(pixBuffer);
-    _height = CVPixelBufferGetHeight(pixBuffer);
+    _camWidth = CVPixelBufferGetWidth(pixBuffer);
+    _camHeight = CVPixelBufferGetHeight(pixBuffer);
     
     
     CVReturn lockResult = CVPixelBufferLockBaseAddress(pixBuffer, 0);
@@ -304,13 +318,12 @@ GLuint CameraCapture::getChromaTextureID(void)
         void *ypBuffer = CVPixelBufferGetBaseAddressOfPlane(pixBuffer, 0);
         void *cbCrBuffer = CVPixelBufferGetBaseAddressOfPlane(pixBuffer, 1);
         
-        _padding = CVPixelBufferGetBytesPerRowOfPlane(pixBuffer, 0) - _width;
+        _padding = CVPixelBufferGetBytesPerRowOfPlane(pixBuffer, 0) - _camWidth;
         
         // Wrap data buffer in NSData.
         NSData *ypData =        [NSData dataWithBytesNoCopy:ypBuffer length:CVPixelBufferGetDataSize(pixBuffer) freeWhenDone:NO];
         NSData *cbCrData =      [NSData dataWithBytesNoCopy:cbCrBuffer length:CVPixelBufferGetDataSize(pixBuffer) freeWhenDone:NO];
         
-     
         // Do something with data
         if (!_videoTextureCache)
         {
@@ -328,8 +341,8 @@ GLuint CameraCapture::getChromaTextureID(void)
                                                            NULL,
                                                            GL_TEXTURE_2D,
                                                            GL_LUMINANCE,
-                                                           _width,
-                                                           _height,
+                                                           _camWidth,
+                                                           _camHeight,
                                                            GL_LUMINANCE,
                                                            GL_UNSIGNED_BYTE,
                                                            0,
@@ -351,8 +364,8 @@ GLuint CameraCapture::getChromaTextureID(void)
                                                            NULL,
                                                            GL_TEXTURE_2D,
                                                            GL_LUMINANCE_ALPHA,
-                                                           _width/2,
-                                                           _height/2,
+                                                           _camWidth/2,
+                                                           _camHeight/2,
                                                            GL_LUMINANCE_ALPHA,
                                                            GL_UNSIGNED_BYTE,
                                                            1,
@@ -366,6 +379,9 @@ GLuint CameraCapture::getChromaTextureID(void)
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         
+        // Call the delegates
+        callDelegates((unsigned char *)ypData.bytes, _camWidth, _camHeight, _padding);
+        
         // Release data.
         ypData = nil;
         cbCrData = nil;
@@ -375,7 +391,7 @@ GLuint CameraCapture::getChromaTextureID(void)
     
     CFRelease(imageBuffer);
     CFRelease(sampleBuffer);
-    finished = YES;*/
+    finished = YES;
 
 }
 

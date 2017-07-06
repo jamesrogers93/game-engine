@@ -13,7 +13,7 @@
 const std::string GeometryEntity::SHADER_MODEL_NAME = "model";
 const std::string GeometryEntity::SHADER_NORMAL_MATRIX_NAME = "normal_matrix";
 
-void GeometryEntity::attachToEngine()
+void GeometryEntity::initialise()
 {
     Graphics *g = &Graphics::getInstance();
     
