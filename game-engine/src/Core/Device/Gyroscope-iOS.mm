@@ -11,7 +11,7 @@
 #import <glm/gtx/quaternion.hpp>
 
 // Kudan CV
-#import "/Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/ar-fighter/ar-fighter-ios/ARFighter/KudanCV/KudanCV.h"
+#import <KudanCV.h>
 
 @implementation GyroscopeIOS
 

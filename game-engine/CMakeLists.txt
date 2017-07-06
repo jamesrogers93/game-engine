@@ -41,6 +41,25 @@ endif()
 find_package (glm REQUIRED)
 include_directories(${GLM_INCLUDE_DIRS})
 
+# AR Module Stuff (Only for IOS)
+if(IOS)
+
+	# KudanCV
+	include_directories("${CMAKE_CURRENT_LIST_DIR}/../dependencies/KudanCV/")
+	list(APPEND PLATFORM_LIBRARIES
+		"${CMAKE_CURRENT_LIST_DIR}/../dependencies/KudanCV/libKudanCV-iOS.a")
+
+	#find_package(Camera REQUIRED)
+	#list(APPEND PLATFORM_LIBRARIES
+    #        ${CAMERA_LIBRARIES}
+    #    )
+
+	#find_package(Motion REQUIRED)
+	#list(APPEND PLATFORM_LIBRARIES
+    #        ${MOTION_LIBRARIES}
+    #    )
+endif()
+
 add_library(GameEngine STATIC ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
 
 ## Group files
@@ -71,7 +90,7 @@ endmacro()
 build_groups("${GAME_ENGINE_INC}")
 build_groups("${GAME_ENGINE_SRC}")
 
-install(TARGETS GameEngine DESTINATION lib/$(PLATFORM))
+#install(TARGETS GameEngine DESTINATION lib/$(PLATFORM))
 install(FILES ${GAME_ENGINE_INC} DESTINATION include)
 
 # Link Libraries
