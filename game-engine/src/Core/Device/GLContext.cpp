@@ -1,4 +1,4 @@
-#import "game-engine/Core/Device/GLContext.h"
+#include "game-engine/Core/Device/GLContext.h"
 
 GLContext::GLContext()
 {
