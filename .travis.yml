@@ -5,10 +5,12 @@ os:
 compiler:
   - gcc
   - clang
-#addons:
-#  apt:
-#    packages:
-#      - libglm-dev
+addons:
+    apt:
+      packages:
+        - cmake
+      sources:
+        - kalakris-cmake
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install glm; fi
