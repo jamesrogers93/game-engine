@@ -5,6 +5,13 @@ os:
 compiler:
   - gcc
   - clang
+addons:
+  apt:
+    packages:
+      - glm
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install glm; fi
 before_script:
   - mkdir build
   - cd build
@@ -13,10 +20,3 @@ script:
   - make
   - cd ../bin
   - ./GameEngineTest
-  addons:
-  apt:
-    packages:
-      - glm
-  before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install glm; fi
