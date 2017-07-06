@@ -40,11 +40,11 @@ else()
 endif()
 
 if(LINUX OR WIN32)
-	find_package(GLUT REQUIRED)
-	include_directories("${GLUT_INCLUDE_DIR}")
-	list(APPEND PLATFORM_LIBRARIES
-            ${GLUT_LIBRARIES}
-        )
+	#find_package(GLUT REQUIRED)
+	#include_directories("${GLUT_INCLUDE_DIR}")
+	#list(APPEND PLATFORM_LIBRARIES
+    #        ${GLUT_LIBRARIES}
+    #    )
 
 	find_package(GLEW REQUIRED)
 	include_directories(${GLEW_INCLUDE_DIRS})

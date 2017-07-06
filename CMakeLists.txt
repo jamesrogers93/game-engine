@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 3.1)
+
+set (CMAKE_CXX_STANDARD 11)
 
 # Options
 #option(THIS_SYSTEM "Build for this system" ON)
