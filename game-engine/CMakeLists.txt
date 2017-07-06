@@ -45,6 +45,13 @@ if(LINUX OR WIN32)
 	list(APPEND PLATFORM_LIBRARIES
             ${GLUT_LIBRARIES}
         )
+
+	find_package(GLEW REQUIRED)
+	include_directories(${GLEW_INCLUDE_DIRS})
+	list(APPEND PLATFORM_LIBRARIES
+            ${GLEW_LIBRARIES}
+        )
+		
 endif()
 
 # Include GLM (same for all platforms)
