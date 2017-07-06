@@ -15,6 +15,8 @@ if(IOS)
 elseif(ANDROID)
 	add_definitions(-D__ANDROID__)
 	set(PLATFORM "android")
+elseif(UNIX AND NOT APPLE)
+	set(LINUX TRUE)
 #else()
 	#add_definitions(-D__MACOS__)
 	#set(PLATFORM "macOS")
@@ -34,6 +36,14 @@ else()
 	include_directories("${OPENGL_INCLUDE_DIR}")
 	list(APPEND PLATFORM_LIBRARIES
             ${OPENGL_LIBRARY}
+        )
+endif()
+
+if(LINUX OR WIN32)
+	find_package(GLUT REQUIRED)
+	include_directories("${GLUT_INCLUDE_DIRS}")
+	list(APPEND PLATFORM_LIBRARIES
+            ${GLUT_LIBRARY}
         )
 endif()
 
