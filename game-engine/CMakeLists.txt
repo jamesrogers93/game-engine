@@ -15,9 +15,9 @@ if(IOS)
 elseif(ANDROID)
 	add_definitions(-D__ANDROID__)
 	set(PLATFORM "android")
-else()
-	add_definitions(-D__MACOS__)
-	set(PLATFORM "macOS")
+#else()
+	#add_definitions(-D__MACOS__)
+	#set(PLATFORM "macOS")
 endif()
 
 # Platform specific external libraries
