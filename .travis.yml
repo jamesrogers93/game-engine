@@ -8,7 +8,7 @@ compiler:
 addons:
   apt:
     packages:
-      - glm
+      - libglm-dev
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install glm; fi
