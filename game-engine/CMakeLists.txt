@@ -41,9 +41,9 @@ endif()
 
 if(LINUX OR WIN32)
 	find_package(GLUT REQUIRED)
-	include_directories("${GLUT_INCLUDE_DIRS}")
+	include_directories("${GLUT_INCLUDE_DIR}")
 	list(APPEND PLATFORM_LIBRARIES
-            ${GLUT_LIBRARY}
+            ${GLUT_LIBRARIES}
         )
 endif()
 
