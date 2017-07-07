@@ -1,9 +1,7 @@
 language: cpp
 os:
-  - linux
   - osx
 compiler:
-  - gcc
   - clang
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
@@ -19,10 +17,6 @@ before_install:
       make;
       sudo make install;
       cd ../;
-      ls /usr/include/;
-      ls /usr/include/glm/;
-      ls /usr/include/glm/gtc/;
-      ls /usr/include/glm/gtx/;
     else
       if ! brew ls --version cmake &>/dev/null; then brew install cmake; fi
     fi
