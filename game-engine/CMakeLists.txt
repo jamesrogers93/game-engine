@@ -55,7 +55,7 @@ if(LINUX OR WIN32)
 endif()
 
 # Include GLM (same for all platforms)
-find_package (GLM REQUIRED)
+find_package (glm REQUIRED)
 include_directories(${GLM_INCLUDE_DIRS})
 
 # AR Module Stuff (Only for IOS)

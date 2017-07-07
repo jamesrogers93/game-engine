@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _OPENGL_H
+#define _OPENGL_H
 
 // OpenGL
 #ifdef __ANDROID__
@@ -11,8 +12,7 @@
     #include <OpenGLES/ES3/glext.h>
 
 #elif __APPLE__
-    #include <OpenGL/gl.h>
-    #include <OpenGL/glu.h>
+    #include <OpenGL/gl3.h>
 
 #else
     #ifdef _WIN32
@@ -22,4 +22,6 @@
     #include <GL/gl.h>
     #include <GL/glu.h>
     //#include <GL/glut.h>
+#endif
+
 #endif
