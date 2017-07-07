@@ -19,6 +19,10 @@ before_install:
       make;
       sudo make install;
       cd ../;
+      ls /usr/include/;
+      ls /usr/include/glm/;
+      ls /usr/include/glm/gtc/;
+      ls /usr/include/glm/gtx/;
     else
       if ! brew ls --version cmake &>/dev/null; then brew install cmake; fi
     fi
