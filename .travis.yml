@@ -17,8 +17,7 @@ before_install:
       cd cmake-3.2.2;
       ./configure;
       make;
-      sudo apt-get install checkinstall;
-      sudo checkinstall;
+      sudo make install;
     else
       if ! brew ls --version cmake &>/dev/null; then brew install cmake; fi
     fi
