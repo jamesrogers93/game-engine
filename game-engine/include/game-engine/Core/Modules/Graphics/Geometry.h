@@ -3,6 +3,7 @@
 
 // STL
 #include <vector>
+#include <string>
 
 // Engine defines
 #include "game-engine/Defines/OpenGL.h"

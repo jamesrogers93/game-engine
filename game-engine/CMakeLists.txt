@@ -8,18 +8,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include(include/CMakeLists.txt)
 include(src/CMakeLists.txt)
 
-# Add platform specific definitions
-if(IOS)
-	add_definitions(-D__IOS__)
-	set(PLATFORM "iOS")
-elseif(ANDROID)
-	add_definitions(-D__ANDROID__)
-	set(PLATFORM "android")
-else()
-	add_definitions(-D__MACOS__)
-	set(PLATFORM "macOS")
-endif()
-
 # Platform specific external libraries
 if(IOS OR ANDROID)
 	# Include OpenGLES
@@ -37,12 +25,47 @@ else()
         )
 endif()
 
+if(LINUX OR WIN32)
+	#find_package(GLUT REQUIRED)
+	#include_directories("${GLUT_INCLUDE_DIR}")
+	#list(APPEND PLATFORM_LIBRARIES
+    #        ${GLUT_LIBRARIES}
+    #    )
+
+	find_package(GLEW REQUIRED)
+	include_directories(${GLEW_INCLUDE_DIRS})
+	list(APPEND PLATFORM_LIBRARIES
+            ${GLEW_LIBRARIES}
+        )
+		
+endif()
+
 # Include GLM (same for all platforms)
-find_package (glm REQUIRED)
+find_package (GLM REQUIRED)
 include_directories(${GLM_INCLUDE_DIRS})
 
-add_library(GameEngine STATIC ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
+# AR Module Stuff (Only for IOS)
+if(IOS)
 
+	# KudanCV
+	include_directories("${CMAKE_CURRENT_LIST_DIR}/../external/")
+	list(APPEND PLATFORM_LIBRARIES
+		"${CMAKE_CURRENT_LIST_DIR}/../external/KudanCV/libKudanCV-iOS.a")
+
+	#find_package(Camera REQUIRED)
+	#list(APPEND PLATFORM_LIBRARIES
+    #        ${CAMERA_LIBRARIES}
+    #    )
+
+	#find_package(Motion REQUIRED)
+	#list(APPEND PLATFORM_LIBRARIES
+    #        ${MOTION_LIBRARIES}
+    #    )
+endif()
+
+
+add_library(GameEngine STATIC ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
+set_target_properties(GameEngine PROPERTIES OUTPUT_NAME "GameEngine-${PLATFORM_NAME}")
 ## Group files
 
 # Macro to take the file directories of the files and add them to groups to maintain the folder structure in an IDE.
@@ -71,7 +94,7 @@ endmacro()
 build_groups("${GAME_ENGINE_INC}")
 build_groups("${GAME_ENGINE_SRC}")
 
-install(TARGETS GameEngine DESTINATION lib/$(PLATFORM))
+#install(TARGETS GameEngine DESTINATION lib/$(PLATFORM))
 install(FILES ${GAME_ENGINE_INC} DESTINATION include)
 
 # Link Libraries

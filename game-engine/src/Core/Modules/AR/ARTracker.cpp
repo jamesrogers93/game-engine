@@ -1,7 +1,6 @@
 #include "game-engine/Core/Modules/AR/ARTracker.h"
 
-#include </Users/James/Documents/University/Advanced_Computer_Science/Year_1/Dissertation/Application/ar-fighter/ar-fighter-ios/ARFighter/KudanCV/KudanCV.h>
-
+#include <KudanCV/KudanCV.h>
 
 ARTracker::ARTracker() : state(UNINITALISED)
 {

@@ -4,6 +4,7 @@
 // STD
 #include <string>
 #include <map>
+#include <algorithm>
 
 // Game Engine
 #include "game-engine/Core/Modules/CoreModule.h"
