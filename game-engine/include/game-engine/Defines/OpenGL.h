@@ -11,7 +11,7 @@
     #include <OpenGLES/ES3/gl.h>
     #include <OpenGLES/ES3/glext.h>
 
-#elif __APPLE__
+#elif __MACOS__
     #include <OpenGL/gl3.h>
 
 #else

@@ -8,20 +8,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include(include/CMakeLists.txt)
 include(src/CMakeLists.txt)
 
-# Add platform specific definitions
-if(IOS)
-	add_definitions(-D__IOS__)
-	set(PLATFORM "iOS")
-elseif(ANDROID)
-	add_definitions(-D__ANDROID__)
-	set(PLATFORM "android")
-elseif(UNIX AND NOT APPLE)
-	set(LINUX TRUE)
-#else()
-	#add_definitions(-D__MACOS__)
-	#set(PLATFORM "macOS")
-endif()
-
 # Platform specific external libraries
 if(IOS OR ANDROID)
 	# Include OpenGLES
@@ -62,9 +48,9 @@ include_directories(${GLM_INCLUDE_DIRS})
 if(IOS)
 
 	# KudanCV
-	include_directories("${CMAKE_CURRENT_LIST_DIR}/../dependencies/KudanCV/")
+	include_directories("${CMAKE_CURRENT_LIST_DIR}/../external/")
 	list(APPEND PLATFORM_LIBRARIES
-		"${CMAKE_CURRENT_LIST_DIR}/../dependencies/KudanCV/libKudanCV-iOS.a")
+		"${CMAKE_CURRENT_LIST_DIR}/../external/KudanCV/libKudanCV-iOS.a")
 
 	#find_package(Camera REQUIRED)
 	#list(APPEND PLATFORM_LIBRARIES
@@ -77,8 +63,9 @@ if(IOS)
     #    )
 endif()
 
-add_library(GameEngine STATIC ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
 
+add_library(GameEngine STATIC ${GAME_ENGINE_INC} ${GAME_ENGINE_SRC})
+set_target_properties(GameEngine PROPERTIES OUTPUT_NAME "GameEngine-${PLATFORM_NAME}")
 ## Group files
 
 # Macro to take the file directories of the files and add them to groups to maintain the folder structure in an IDE.

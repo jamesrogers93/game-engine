@@ -3,6 +3,10 @@ os:
   - osx
 compiler:
   - clang
+#matrix:
+#  include:
+#    env: PLATFORM=ios
+#    env: PLATFORM=macos
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install glm; fi
@@ -24,7 +28,9 @@ before_script:
   - mkdir build
   - cd build
   - cmake ..
+#  - if [ "$PLATFORM" = "macos" ]; then cmake ..; fi
+#  - if [ "$PLATFORM" = "ios" ]; then cmake -G Xcode -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchains/ios.toolchain.cmake ..; fi
 script:
   - make
-  - cd ../bin
-  - ./GameEngineTest
+#  - if [ "$PLATFORM" = "macos" ]; then make; fi
+#  - if [ "$PLATFORM" = "ios" ]; then xcodebuild -scheme GameEngine build; fi

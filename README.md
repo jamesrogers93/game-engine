@@ -36,4 +36,5 @@ To build for iOS
 mkdir build.ios
 cd ./build.ios
 cmake -G Xcode -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchains/ios.toolchain.cmake ..
+xcodebuild -scheme GameEngine build
 ~~~~
