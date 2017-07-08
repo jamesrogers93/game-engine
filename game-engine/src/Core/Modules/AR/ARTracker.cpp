@@ -1,6 +1,6 @@
 #include "game-engine/Core/Modules/AR/ARTracker.h"
 
-#import <KudanCV/KudanCV.h>
+#include <KudanCV/KudanCV.h>
 
 ARTracker::ARTracker() : state(UNINITALISED)
 {
