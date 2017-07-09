@@ -13,6 +13,45 @@
 const std::string GeometryEntity::SHADER_MODEL_NAME = "model";
 const std::string GeometryEntity::SHADER_NORMAL_MATRIX_NAME = "normal_matrix";
 
+GeometryEntity::GeometryEntity(const std::string &name, const glm::vec3 &position, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey)
+: ENode(name, position)
+{
+
+    // Make geometry key lower case
+    std::string gLow = geometryKey;
+    std::transform(gLow.begin(), gLow.end(), gLow.begin(), ::tolower);
+    this->geometry = gLow;
+    
+    // Make material key lower case
+    std::string mLow = materialKey;
+    std::transform(mLow.begin(), mLow.end(), mLow.begin(), ::tolower);
+    this->material = mLow;
+    
+    // Make shader key lower case
+    std::string sLow = shaderKey;
+    std::transform(sLow.begin(), sLow.end(), sLow.begin(), ::tolower);
+    this->shader = sLow;
+}
+
+GeometryEntity::GeometryEntity(const std::string &name, const float &posX, const float &posY, const float &posZ, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey)
+: ENode(name, glm::vec3(posX, posY, posZ))
+{
+    // Make geometry key lower case
+    std::string gLow = geometryKey;
+    std::transform(gLow.begin(), gLow.end(), gLow.begin(), ::tolower);
+    this->geometry = gLow;
+    
+    // Make material key lower case
+    std::string mLow = materialKey;
+    std::transform(mLow.begin(), mLow.end(), mLow.begin(), ::tolower);
+    this->material = mLow;
+    
+    // Make shader key lower case
+    std::string sLow = shaderKey;
+    std::transform(sLow.begin(), sLow.end(), sLow.begin(), ::tolower);
+    this->shader = sLow;
+}
+
 void GeometryEntity::initialise()
 {
     Graphics *g = &Graphics::getInstance();
