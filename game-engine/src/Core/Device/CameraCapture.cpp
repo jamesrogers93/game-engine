@@ -162,7 +162,7 @@ void CameraCapture::initialiseView()
     // Init shader
     std::vector<std::pair<GLint, std::string> > vertexAttribs;
     vertexAttribs.push_back(std::make_pair(ATTRIB_POSITION, "position"));
-    vertexAttribs.push_back(std::make_pair(ATTRIB_TEXCOORD, "texCoord"));
+    vertexAttribs.push_back(std::make_pair(ATTRIB_UV0, "texCoord"));
     
     std::vector<std::string> uniformNames;
     uniformNames.push_back(SHADER_LUMA_NAME);
@@ -172,13 +172,31 @@ void CameraCapture::initialiseView()
     this->shader = Shader::loadShaderFromString(SHADER_VERTEX, SHADER_FRAGMENT, vertexAttribs, uniformNames);
     
     // Init geometry
-    std::vector<Vertex3DPT> vertices;
+    std::vector<Vertex> vertices;
+    Vertex v1,v2,v3,v4;
+    v1.setPosition(glm::vec3(-width, -height, 0.0));
+    v2.setPosition(glm::vec3(-width,  height, 0.0));
+    v3.setPosition(glm::vec3( width,  height, 0.0));
+    v4.setPosition(glm::vec3( width, -height, 0.0));
+    
+    v1.setUV0(glm::vec2(0.0, 1.0));
+    v2.setUV0(glm::vec2(0.0, 0.0));
+    v3.setUV0(glm::vec2(1.0, 0.0));
+    v4.setUV0(glm::vec2(1.0, 1.0));
+    
+    vertices.push_back(v1);
+    vertices.push_back(v2);
+    vertices.push_back(v3);
+    vertices.push_back(v4);
+    
+                   
+    /*std::vector<Vertex3DPT> vertices;
     //                           | Position      | Texture |
     //                           | x     y    z  | u    v  |
     vertices.push_back(Vertex3DPT(-width, -height, 0.0, 0.0, 1.0));
     vertices.push_back(Vertex3DPT(-width,  height, 0.0, 0.0, 0.0));
     vertices.push_back(Vertex3DPT( width,  height, 0.0, 1.0, 0.0));
-    vertices.push_back(Vertex3DPT( width, -height, 0.0, 1.0, 1.0));
+    vertices.push_back(Vertex3DPT( width, -height, 0.0, 1.0, 1.0));*/
     
     std::vector<unsigned int> indices;
     indices.push_back(0); indices.push_back(1); indices.push_back(2);

@@ -57,7 +57,8 @@ void GraphicsRead::readGeometry(std::ifstream &file)
         sources[sourceType] = sourceStride;
     }
     
-    std::vector<Vertex3DPN> vertices;
+    std::vector<Vertex> vertices;
+    
     if(rowType == 'V')
     {
         unsigned int numVertices;
@@ -65,13 +66,41 @@ void GraphicsRead::readGeometry(std::ifstream &file)
         
         for(int i = 0; i < numVertices; i++)
         {
-            float pX, pY, pZ;
-            float nX, nY, nZ;
-        
-            file >> pX >> pY >> pZ;
-            file >> nX >> nY >> nZ;
-        
-            vertices.push_back(Vertex3DPN(pX, pY, pZ, nX, nY, nZ));
+            Vertex vert;
+            
+            if(sources.find("position") != sources.end())
+            {
+                float x, y, z;
+                file >> x >> y >> z;
+                
+                vert.setPosition(glm::vec3(x, y, z));
+            }
+            
+            if(sources.find("normal") != sources.end())
+            {
+                float x, y, z;
+                file >> x >> y >> z;
+                
+                vert.setNormal(glm::vec3(x, y, z));
+            }
+            
+            if(sources.find("uv0") != sources.end())
+            {
+                float u, v;
+                file >> u >> v;
+                
+                vert.setUV0(glm::vec2(u, v));
+            }
+            
+            if(sources.find("colour") != sources.end())
+            {
+                float r, g, b, a;
+                file >> r >> g >> b >> a;
+                
+                vert.setColour(glm::vec4(r, g, b, a));
+            }
+            
+            vertices.push_back(vert);
         }
     }
     

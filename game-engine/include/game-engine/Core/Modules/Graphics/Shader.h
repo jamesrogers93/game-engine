@@ -37,6 +37,7 @@ public:
 
 const GLuint ATTRIB_POSITION = 0;
 const GLuint ATTRIB_NORMAL = 1;
-const GLuint ATTRIB_TEXCOORD = 2;
+const GLuint ATTRIB_UV0 = 2;
+const GLuint ATTRIB_COLOUR = 3;
 
 #endif /* _SHADER_H */

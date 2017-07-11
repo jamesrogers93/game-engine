@@ -56,7 +56,7 @@ void GLContext::makeCurrentContext()
 
 -(BOOL)deinitalise
 {
-    
+    return true;
 }
 
 -(void)makeCurrentContext

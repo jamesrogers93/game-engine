@@ -16,13 +16,9 @@ private:
     static const std::string SHADER_NORMAL_MATRIX_NAME;
     
 public:
-    GeometryEntity(const std::string &name, const glm::vec3 &position, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey)
-    : ENode(name, position), geometry(geometryKey), material(materialKey), shader(shaderKey)
-    {}
+    GeometryEntity(const std::string &name, const glm::vec3 &position, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey);
     
-    GeometryEntity(const std::string &name, const float &posX, const float &posY, const float &posZ, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey)
-    : ENode(name, glm::vec3(posX, posY, posZ)), geometry(geometryKey), material(materialKey), shader(shaderKey)
-    {}
+    GeometryEntity(const std::string &name, const float &posX, const float &posY, const float &posZ, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey);
     
     ~GeometryEntity(){}
     

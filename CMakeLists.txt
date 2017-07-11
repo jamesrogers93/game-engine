@@ -29,7 +29,7 @@ elseif(UNIX AND NOT APPLE)
 	set(PLATFORM_NAME "linux")
 endif()
 
-# Output library location
+# Output locations
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin)
 
