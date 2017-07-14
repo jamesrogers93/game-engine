@@ -120,7 +120,7 @@ void GraphicsRead::readGeometry(std::ifstream &file)
         }
     }
     
-    Geometry *g = Geometry::loadGeometry(vertices, indices);
+    GeometryGL *g = GeometryGL::loadGeometryGL(vertices, indices);
     
     Graphics::getInstance().addGeometry(name, g);
 }

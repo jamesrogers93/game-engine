@@ -13,7 +13,7 @@ class GeometryEntity;
 class CameraEntity;
 class LightEntity;
 class Shader;
-class Geometry;
+class GeometryGL;
 class Material;
 class Texture;
 
@@ -35,7 +35,7 @@ public:
     bool addCameraEntity(const std::string& name, CameraEntity* cameraEntity);
     bool addLightEntity(const std::string& name, LightEntity* lightEntity);
     bool addShader(const std::string& name, Shader *shader);
-	bool addGeometry(const std::string& name, Geometry *geometry);
+	bool addGeometry(const std::string& name, GeometryGL *geometry);
     bool addMaterial(const std::string& name, Material *material);
     
 	Shader* getShader(const std::string& name);
@@ -50,7 +50,7 @@ private:
     std::map<std::string, CameraEntity*> cameraEntites;
     std::map<std::string, LightEntity*> lightEntites;
 	std::map<std::string, Shader*> shaders;
-	std::map<std::string, Geometry*> geometry;
+	std::map<std::string, GeometryGL*> geometry;
     std::map<std::string, Material*> materials;
 	std::map<std::string, Texture*> textures;
     

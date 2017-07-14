@@ -21,6 +21,13 @@ private:
     static const std::string SHADER_SPEC_SOLID_NAME;
     static const std::string SHADER_SHININESS_NAME;
     
+    std::string diffuseTexture, specularTexture;
+    glm::vec4 diffuseSolid, specularSolid;
+    float shininess;
+    
+    bool isDiffuseTexture, isSpecularTexture;
+    bool isDiffuseSolid, isSpecularSolid;
+    
 public:
     Material(const std::string &diffuseTexture, const std::string &specularTexture, const float &shininess = SHININESS_DEFAULT)
     : diffuseTexture(diffuseTexture), specularTexture(specularTexture), shininess(shininess), isDiffuseTexture(true), isSpecularTexture(true), isDiffuseSolid(false), isSpecularSolid(false)
@@ -41,14 +48,17 @@ public:
     
     static void fillUniformNames(std::vector<std::string> &uniformNames);
     
-private:
+    std::string getDiffuseTexture() const { return this->diffuseTexture; }
+    std::string getSpecularTexture() const { return this->specularTexture; }
+    glm::vec4 getDiffuseSolid() const { return this->diffuseSolid; }
+    glm::vec4 getSpecularSolid() const { return this->specularSolid; }
+    float getShininess() const { return this->shininess; }
     
-    std::string diffuseTexture, specularTexture;
-    glm::vec4 diffuseSolid, specularSolid;
-    float shininess;
+    bool hasDiffuseTexture() const { return isDiffuseTexture; }
+    bool hasSpecularTexture() const { return isSpecularTexture; }
+    bool hasDiffuseSolid() const { return isDiffuseSolid; }
+    bool hasSpecularSolid() const { return isSpecularSolid; }
     
-    bool isDiffuseTexture, isSpecularTexture;
-    bool isDiffuseSolid, isSpecularSolid;
 };
 
 #endif /* _MATERIAL_H */

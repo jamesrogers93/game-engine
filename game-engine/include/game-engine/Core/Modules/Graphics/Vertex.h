@@ -7,42 +7,71 @@
 // GLM
 #include <glm/glm.hpp>
 
-class Vertex
+class VertexBase
+{
+protected:
+    bool mHasPosition = false;
+    bool mHasNormal = false;
+    bool mHasUV0 = false;
+    bool mHasColour = false;
+    bool mHasJointId = false;
+    bool mHasJointWeight = false;
+    
+    VertexBase(){}
+    
+public:
+    const bool& hasPosition() { return this->mHasPosition; }
+    const bool& hasNormal() { return this->mHasNormal; }
+    const bool& hasUV0() { return this->mHasUV0; }
+    const bool& hasColour() { return this->mHasColour; }
+    const bool& hasJointId() { return this->mHasJointId; }
+    const bool& hasJointWeight() { return this->mHasJointWeight; }
+};
+
+class Vertex : public VertexBase
 {
 public:
     static const unsigned int POSITION_STRIDE = 3;
     static const unsigned int NORMAL_STRIDE = 3;
     static const unsigned int UV0_STRIDE = 2;
     static const unsigned int COLOUR_STRIDE = 4;
+    static const unsigned int JOINT_STRIDE = 4;
     
-    void setPosition(const glm::vec3 &position) { this->position = position; this->mHasPosition = true; }
-    void setNormal(const glm::vec3 &normal) { this->normal = normal; this->mHasNormal = true; }
-    void setUV0(const glm::vec2 &uv0) { this->uv0 = uv0; this->mHasUV0 = true; }
-    void setColour(const glm::vec4 &colour) { this->colour = colour; this->mHasColour = true; }
+    Vertex() : VertexBase() {}
     
-    const bool& hasPosition() { return this->mHasPosition; }
-    const bool& hasNormal() { return this->mHasNormal; }
-    const bool& hasUV0() { return this->mHasUV0; }
-    const bool& hasColour() { return this->mHasColour; }
+    void setPosition(const glm::vec3 &position) { this->mPosition = position; this->mHasPosition = true; }
+    void setNormal(const glm::vec3 &normal) { this->mNormal = normal; this->mHasNormal = true; }
+    void setUV0(const glm::vec2 &uv0) { this->mUv0 = uv0; this->mHasUV0 = true; }
+    void setColour(const glm::vec4 &colour) { this->mColour = colour; this->mHasColour = true; }
+    void setJointId(const glm::ivec4 &jointId) { this-> mJointId = jointId; this->mHasJointId = true; }
+    void setJointWeight(const glm::vec4 &jointWeight) { this-> mJointWeight = jointWeight; this->mHasJointWeight = true; }
     
     unsigned int getNumElements()
     {
         unsigned int num = 0;
         if(mHasPosition)
         {
-            num += 3;
+            num += POSITION_STRIDE;
         }
         if(mHasNormal)
         {
-            num += 3;
+            num += NORMAL_STRIDE;
         }
         if(mHasUV0)
         {
-            num += 2;
+            num += UV0_STRIDE;
         }
         if(mHasColour)
         {
-            num += 4;
+            num += COLOUR_STRIDE;
+        }
+        if(mHasJointId)
+        {
+            num += JOINT_STRIDE;
+        }
+        if(mHasJointWeight)
+        {
+            num += JOINT_STRIDE;
         }
         
         return num;
@@ -67,7 +96,14 @@ public:
         {
             size += sizeof(glm::vec4);
         }
-        
+        if(mHasJointId)
+        {
+            size += sizeof(glm::ivec4);
+        }
+        if(mHasJointWeight)
+        {
+            size += sizeof(glm::vec4);
+        }
         return size;
     }
     
@@ -91,49 +127,140 @@ public:
         return sizeof(glm::vec4);
     }
     
+    unsigned int sizeOfJointId()
+    {
+        return sizeof(glm::ivec4);
+    }
+    
+    unsigned int sizeOfJointWeight()
+    {
+        return sizeof(glm::vec4);
+    }
+    
     std::vector<float> getData()
     {
         std::vector<float> data;
         
         if(mHasPosition)
         {
-            data.push_back(position.x);
-            data.push_back(position.y);
-            data.push_back(position.z);
+            data.push_back(mPosition.x);
+            data.push_back(mPosition.y);
+            data.push_back(mPosition.z);
         }
         if(mHasNormal)
         {
-            data.push_back(normal.x);
-            data.push_back(normal.y);
-            data.push_back(normal.z);
+            data.push_back(mNormal.x);
+            data.push_back(mNormal.y);
+            data.push_back(mNormal.z);
         }
         if(mHasUV0)
         {
-            data.push_back(uv0.x);
-            data.push_back(uv0.y);
+            data.push_back(mUv0.x);
+            data.push_back(mUv0.y);
         }
         if(mHasColour)
         {
-            data.push_back(colour.r);
-            data.push_back(colour.g);
-            data.push_back(colour.b);
-            data.push_back(colour.a);
+            data.push_back(mColour.r);
+            data.push_back(mColour.g);
+            data.push_back(mColour.b);
+            data.push_back(mColour.a);
+        }
+        if(mHasJointId)
+        {
+            data.push_back(mJointId.x);
+            data.push_back(mJointId.y);
+            data.push_back(mJointId.z);
+            data.push_back(mJointId.w);
+        }
+        if(mHasJointWeight)
+        {
+            data.push_back(mJointWeight.x);
+            data.push_back(mJointWeight.y);
+            data.push_back(mJointWeight.z);
+            data.push_back(mJointWeight.w);
         }
         
         return data;
     }
     
 private:
-    glm::vec3 position;
-    glm::vec3 normal;
-    glm::vec2 uv0;
-    glm::vec4 colour;
+    glm::vec3 mPosition;
+    glm::vec3 mNormal;
+    glm::vec2 mUv0;
+    glm::vec4 mColour;
+    glm::ivec4 mJointId;
+    glm::vec4 mJointWeight;
     
-    bool mHasPosition = false;
-    bool mHasNormal = false;
-    bool mHasUV0 = false;
-    bool mHasColour = false;
+};
+
+class VertexIndex : public VertexBase
+{
+public:
+    unsigned int getPosition(){ return this->mPosition; }
+    unsigned int getNormal(){ return this->mNormal; }
+    unsigned int getUV0(){ return this->mUv0; }
+    unsigned int getColour(){ return this->mColour; }
+    unsigned int getJointId(){ return this->mJointId; }
+    unsigned int getJointWeight(){ return this->mJointWeight; }
     
+    void setPosition(const unsigned int &position) { this->mPosition = position; this->mHasPosition = true; }
+    void setNormal(const unsigned int &normal) { this->mNormal = normal; this->mHasNormal = true; }
+    void setUV0(const unsigned int &uv0) { this->mUv0 = uv0; this->mHasUV0 = true; }
+    void setColour(const unsigned int &colour) { this->mColour = colour; this->mHasColour = true; }
+    void setJointId(const unsigned int &jointId) { this-> mJointId = jointId; this->mHasJointId = true; }
+    void setJointWeight(const unsigned int &jointWeight) { this-> mJointWeight = jointWeight; this->mHasJointWeight = true; }
+    
+    VertexIndex() : VertexBase() {}
+    
+    bool operator<( const VertexIndex& rhs ) const
+    {
+        if ( mPosition < rhs.mPosition )
+                return true;
+     
+        if ( mPosition > rhs.mPosition )
+                return false;
+     
+        if ( mNormal < rhs.mNormal )
+                return true;
+     
+        if ( mNormal > rhs.mNormal )
+                return false;
+     
+        if ( mUv0 < rhs.mUv0 )
+                return true;
+     
+        if ( mUv0 > rhs.mUv0 )
+                return false;
+     
+        if ( mColour < rhs.mColour )
+                return true;
+     
+        if ( mColour > rhs.mColour )
+            return false;
+        
+        if ( mJointId < rhs.mJointId )
+            return true;
+        
+        if ( mJointId > rhs.mJointId )
+            return false;
+        
+        if ( mJointWeight < rhs.mJointWeight )
+            return true;
+        
+        if ( mJointWeight > rhs.mJointWeight )
+            return false;
+     
+        return false;
+    }
+
+private:
+    unsigned int mPosition;
+    unsigned int mNormal;
+    unsigned int mUv0;
+    unsigned int mColour;
+    unsigned int mJointId;
+    unsigned int mJointWeight;
+
 };
 
 /*struct Vertex3DPN

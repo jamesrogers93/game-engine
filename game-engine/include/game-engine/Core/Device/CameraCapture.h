@@ -14,7 +14,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 class Shader;
-class Geometry;
+class GeometryGL;
 
 class CameraCaptureDelegate
 {
@@ -86,7 +86,7 @@ private:
     glm::mat4 scale;
     
     Shader *shader;
-    Geometry *geometry;
+    GeometryGL *geometry;
     
     void *self;
     

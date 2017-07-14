@@ -42,7 +42,7 @@ bool Graphics::draw(GeometryEntity* entity)
         this->shaders.find(entity->getShaderKey()) != this->shaders.end() &&
         this->cameraEntites.find(this->activeCameraEntity) != this->cameraEntites.end())
 	{
-		Geometry *go = this->geometry[entity->getGeometryKey()];
+		GeometryGL *go = this->geometry[entity->getGeometryKey()];
         Material *m  = this->materials[entity->getMaterialKey()];
         Shader   *s  = this->shaders[entity->getShaderKey()];
         CameraEntity *c = this->cameraEntites[this->activeCameraEntity];
@@ -169,7 +169,7 @@ bool Graphics::addShader(const std::string& name, Shader *shader)
     return false;
 }
 
-bool Graphics::addGeometry(const std::string& name, Geometry *geometry)
+bool Graphics::addGeometry(const std::string& name, GeometryGL *geometry)
 {
     // Make name lower case
     std::string nameLow = name;

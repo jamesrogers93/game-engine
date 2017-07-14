@@ -44,6 +44,7 @@ public:
     virtual void update() = 0;
     void updateChildren();
     
+    const std::string& getName()    {   return this->name;  }
     const std::vector<ENode*>& getChildren()    {   return this->children;  }
     const ENode* getParent()    {   return this->parent;    }
     
