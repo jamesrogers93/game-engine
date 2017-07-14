@@ -5,4 +5,5 @@ include(include/game-engine/Defines/CMakeLists.txt)
 list(APPEND GAME_ENGINE_INC
     "include/game-engine/Animatable.h"
     "include/game-engine/JointEntity.h"
+    "include/game-engine/Object.h"
 )

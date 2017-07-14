@@ -40,8 +40,8 @@ public:
     Geometry(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices) : mVertices(vertices), mIndices(indices)
     {}
     
-    const std::vector<Vertex>& getVertices() { return this->mVertices; }
-    const std::vector<unsigned int> getIndices() { return this->mIndices; }
+    const std::vector<Vertex> getVertices() const { return this->mVertices; }
+    const std::vector<unsigned int> getIndices() const { return this->mIndices; }
     
 private:
     
