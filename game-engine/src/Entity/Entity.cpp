@@ -8,7 +8,7 @@
 
 const glm::vec3 Entity::DEFAULT_POSITION = glm::vec3(0.0);
 
-Entity::Entity(const std::string &name) : name(name), parent(NULL)
+Entity::Entity(const std::string &name, const Type &type) : name(name), mType(type), parent(NULL)
 {
     // Make name lower case
     std::transform(this->name.begin(), this->name.end(), this->name.begin(), ::tolower);

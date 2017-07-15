@@ -6,6 +6,5 @@ include(src/Modules/CMakeLists.txt)
 include(src/Scene/CMakeLists.txt)
 
 list(APPEND GAME_ENGINE_SRC
-	"src/JointEntity.cpp"
 	"src/Object.cpp"
 )

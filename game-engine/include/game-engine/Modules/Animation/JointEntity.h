@@ -11,7 +11,7 @@ private:
     glm::mat4 mInverseBindPose;
 
 public:
-    JointEntity(const std::string &name) : ENode(name)
+    JointEntity(const std::string &name) : Entity(name, Entity::JOINT)
     {}
 
     void initialise() {}

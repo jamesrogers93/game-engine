@@ -3,6 +3,8 @@
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
+#include "game-engine/Entity/Entity.h"
+
 // Game Engine Core
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Shader.h"
@@ -14,7 +16,7 @@ const std::string MeshProperty::SHADER_MODEL_NAME = "model";
 const std::string MeshProperty::SHADER_NORMAL_MATRIX_NAME = "normal_matrix";
 
 MeshProperty::MeshProperty(const std::string &name, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey)
-: Entity(name)
+: Property(name)
 {
 
     // Make geometry key lower case
@@ -37,7 +39,7 @@ void MeshProperty::initialise()
 {
     Graphics *g = &Graphics::getInstance();
     
-    g->addMeshProperty(this->name, this);
+    g->addMeshProperty(this->mName, this);
 }
 
 void MeshProperty::loadToShader(Shader *shader)
@@ -46,13 +48,13 @@ void MeshProperty::loadToShader(Shader *shader)
     GLint *loc =shader->getUniformLocation(SHADER_MODEL_NAME);
     if(loc != NULL)
     {
-        glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->globalModel));
+        glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->mOwner->getGlobalModel()));
     }
     
     loc = shader->getUniformLocation(SHADER_NORMAL_MATRIX_NAME);
     if(loc != NULL)
     {
-        glUniformMatrix3fv(*loc, 1, false, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse(this->globalModel)))));
+        glUniformMatrix3fv(*loc, 1, false, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse(this->mOwner->getGlobalModel())))));
     }
 }
 

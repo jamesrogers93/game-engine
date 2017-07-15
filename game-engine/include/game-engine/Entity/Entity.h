@@ -23,14 +23,14 @@ private:
     
 public:
     
-    //enum Type
-    //{
-        //
-    //};
-    //Type type;
+    enum Type
+    {
+        JOINT, CAMERA, AR_TRACKER
+    };
     
 protected:
     
+    Type mType;
     std::string name;
     std::vector<Entity*> children;
     std::vector<Property*> properties;
@@ -43,7 +43,7 @@ protected:
     glm::mat4  S[MAX_TRANSFORMATIONS];    // Scale
     glm::fquat Q[MAX_TRANSFORMATIONS];    // Quaternion
     
-    Entity(const std::string &name);
+    Entity(const std::string &name, const Type &type);
     ~Entity(){}
     
 public:

@@ -16,7 +16,7 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 
-AREntity::AREntity(const std::string &name) : Entity(name)
+AREntity::AREntity(const std::string &name) : Entity(name, Entity::AR_TRACKER)
 {
     this->tracker = new ARTracker();
 }

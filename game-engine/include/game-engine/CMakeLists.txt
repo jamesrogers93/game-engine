@@ -7,6 +7,5 @@ include(include/game-engine/Modules/CMakeLists.txt)
 include(include/game-engine/Scene/CMakeLists.txt)
 
 list(APPEND GAME_ENGINE_INC
-    "include/game-engine/JointEntity.h"
     "include/game-engine/Object.h"
 )

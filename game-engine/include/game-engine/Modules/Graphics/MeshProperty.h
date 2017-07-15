@@ -5,11 +5,11 @@
 #include <string>
 
 // Game Engine Core
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Entity/Property.h"
 
 class Shader;
 
-class MeshProperty : public Entity
+class MeshProperty : public Property
 {
 private:
     static const std::string SHADER_MODEL_NAME;
