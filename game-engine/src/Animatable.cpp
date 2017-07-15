@@ -4,7 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 // Game Engine
-#include "game-engine/Core/Modules/Graphics/Shader.h"
+#include "game-engine/Modules/Graphics/Shader.h"
 
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
@@ -12,7 +12,7 @@
 const std::string AnimatableEntity::SHADER_MODEL_NAME = "model";
 const std::string AnimatableEntity::SHADER_NORMAL_MATRIX_NAME = "normal_matrix";
 
-AnimatableEntity::AnimatableEntity(const std::string &name) : ENode(name)
+AnimatableEntity::AnimatableEntity(const std::string &name) : Entity(name)
 {
     
 }

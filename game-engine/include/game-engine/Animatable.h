@@ -4,11 +4,11 @@
 #include <vector>
 #include <string>
 
-#include "game-engine/Core/Entity/ENode.h"
+#include "game-engine/Entity/Entity.h"
 
 class Shader;
 
-class AnimatableEntity : public ENode
+class AnimatableEntity : public Entity
 {
 private:
     static const std::string SHADER_MODEL_NAME;

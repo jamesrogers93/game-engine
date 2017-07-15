@@ -1,7 +1,7 @@
 #include "game-engine/Core/Engine/Engine.h"
 
 // Engine
-#include "game-engine/Core/Scene/SceneManager.h"
+#include "game-engine/Scene/SceneManager.h"
 
 Engine::Engine()
 {
@@ -10,6 +10,7 @@ Engine::Engine()
 
 Engine::~Engine()
 {
+    
 }
 
 bool Engine::addCoreModule(CoreModule *module)
