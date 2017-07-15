@@ -11,29 +11,37 @@ class Shader;
 
 class MeshProperty : public Property
 {
-private:
+protected:
     static const std::string SHADER_MODEL_NAME;
     static const std::string SHADER_NORMAL_MATRIX_NAME;
     
+    MeshProperty(const std::string &name, const Type &type) : Property(name, type)
+    {}
+    
 public:
-    MeshProperty(const std::string &name, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey);
+    MeshProperty(const std::string &name) : Property(name, Property::MESH)
+    {}
     
     ~MeshProperty(){}
     
-    void initialise();
-    void update(){}
+    virtual void initialise();
+    virtual void update(){}
     
-    const std::string& getGeometryKey() {   return this->geometry;  }
-    const std::string& getMaterialKey() {   return this->material;  }
-    const std::string& getShaderKey() {   return this->shader;  }
+    const std::string& getGeometryKey() {   return this->mGeometry;  }
+    const std::string& getMaterialKey() {   return this->mMaterial;  }
+    const std::string& getShaderKey() {   return this->mShader;  }
     
-    void loadToShader(Shader *shader);
+    void setGeometryKey(const std::string &key) { this->mGeometry = key; }
+    void setMaterialKey(const std::string &key) { this->mMaterial = key; }
+    void setShaderKey(const std::string &key) { this->mShader = key; }
+    
+    virtual void loadToShader(Shader *shader);
     static void fillUniformNames(std::vector<std::string> &uniformNames);
     
 private:
-    std::string geometry;   // Key to geometry in Graphics
-    std::string material;   // Key to material in Graphics
-    std::string shader;     // Key to shader in Graphics
+    std::string mGeometry;   // Key to geometry in Graphics
+    std::string mMaterial;   // Key to material in Graphics
+    std::string mShader;     // Key to shader in Graphics
 };
 
 #endif /* _GRAPHICSENTITY_H */

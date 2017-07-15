@@ -56,7 +56,7 @@ bool Graphics::draw(MeshProperty* mesh)
         {
             switch(light.second->getType())
             {
-                case LightProperty::POINT:
+                case Property::POINT_LIGHT:
                 {
                     if(pointLightCount > PointLightProperty::MAX_LIGHTS)
                     {
@@ -68,7 +68,7 @@ bool Graphics::draw(MeshProperty* mesh)
                     }
                     break;
                 }
-                case LightProperty::DIRECTIONAL:
+                case Property::DIRECTIONAL_LIGHT:
                 {
                     if(dirLightCount > DirectionalLightProperty::MAX_LIGHTS)
                     {
@@ -80,7 +80,6 @@ bool Graphics::draw(MeshProperty* mesh)
                     }
                     break;
                 }
-                case LightProperty::UNDEFINED:
                 default:
                 {
                     break;

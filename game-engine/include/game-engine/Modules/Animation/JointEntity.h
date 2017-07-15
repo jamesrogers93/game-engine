@@ -1,7 +1,7 @@
 #ifndef _JOINTENTITY_H
 #define _JOINTENTITY_H
 
-#include "game-engine/Core/Entity/Entity.h"
+#include "game-engine/Entity/Entity.h"
 
 #include <glm/glm.hpp>
 

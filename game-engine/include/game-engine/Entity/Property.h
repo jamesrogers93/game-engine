@@ -6,13 +6,20 @@ class Entity;
 
 class Property
 {
+public:
+    enum Type
+    {
+        MESH, ANIMATABLE_MESH, DIRECTIONAL_LIGHT, POINT_LIGHT, 
+    };
+    
 protected:
     std::string mName;
+    Type mType;
     
     Entity *mOwner;
     
 public:
-    Property(const std::string &name);
+    Property(const std::string &name, const Type &type);
     
     void setOwner(Entity *owner);
 };

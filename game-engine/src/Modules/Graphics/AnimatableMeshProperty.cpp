@@ -10,14 +10,6 @@
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
 
-const std::string AnimatableMeshProperty::SHADER_MODEL_NAME = "model";
-const std::string AnimatableMeshProperty::SHADER_NORMAL_MATRIX_NAME = "normal_matrix";
-
-AnimatableMeshProperty::AnimatableMeshProperty(const std::string &name) : Property(name)
-{
-    
-}
-
 void AnimatableMeshProperty::loadToShader(Shader *shader)
 {
     // Load projection to shader

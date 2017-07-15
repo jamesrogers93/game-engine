@@ -18,7 +18,7 @@ private:
     
 public:
     DirectionalLightProperty(const std::string &name, const glm::vec3 &direction, const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, const bool &on = DEFAULT_ON)
-    : LightProperty(LightProperty::DIRECTIONAL, name, ambient, diffuse, specular, on), direction(direction)
+    : LightProperty(name, Property::DIRECTIONAL_LIGHT, ambient, diffuse, specular, on), direction(direction)
     {}
 
     void loadToShader(Shader *shader, const unsigned int &index);

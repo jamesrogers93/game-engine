@@ -42,7 +42,7 @@ private:
     
 public:
     PointLightProperty(const std::string &name, const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, const Attenuation &attenuation, const bool &on = DEFAULT_ON)
-    : LightProperty(LightProperty::POINT, name, ambient, diffuse, specular, on), attenuation(attenuation)
+    : LightProperty(name, Property::POINT_LIGHT, ambient, diffuse, specular, on), attenuation(attenuation)
     {}
     
     void loadToShader(Shader *shader, const unsigned int &index);

@@ -15,11 +15,6 @@ class Shader;
 
 class LightProperty : public Property
 {
-public:
-    enum Type
-    {
-        POINT, DIRECTIONAL, UNDEFINED
-    };
 protected:
     static const std::string SHADER_AMBIENT_NAME;
     static const std::string SHADER_DIFFUSE_NAME;
@@ -31,7 +26,8 @@ protected:
     bool on;
     Type type;
     
-    LightProperty(const Type &type, const std::string &name, const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, const bool &on = DEFAULT_ON) : Property(name), ambient(ambient), diffuse(diffuse), specular(specular), on(on), type(type)
+    LightProperty(const std::string &name, const Type &type, const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, const bool &on = DEFAULT_ON)
+    : Property(name, type), ambient(ambient), diffuse(diffuse), specular(specular), on(on), type(type)
     {}
     
 public:
