@@ -1,15 +1,15 @@
-#include "game-engine/Modules/Graphics/Geometry.h"
+#include "game-engine/Modules/Graphics/Mesh.h"
 #include "game-engine/Modules/Graphics/Vertex.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
-void GeometryGL::draw()
+void MeshGL::draw()
 {
     glBindVertexArray(this->VAO);
     glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 
-GeometryGL* GeometryGL::loadGeometryGL(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+MeshGL* MeshGL::loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
 {
     if(vertices.size() == 0 || indices.size() == 0)
     {
@@ -80,7 +80,7 @@ GeometryGL* GeometryGL::loadGeometryGL(std::vector<Vertex> vertices, std::vector
     
     glBindVertexArray(0);
     
-    return new GeometryGL(VAO, VBO, EBO, (unsigned int)indices.size());
+    return new MeshGL(VAO, VBO, EBO, (unsigned int)indices.size());
 }
 
 /*Geometry* Geometry::loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices)

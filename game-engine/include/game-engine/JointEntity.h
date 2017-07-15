@@ -1,11 +1,11 @@
 #ifndef _JOINTENTITY_H
 #define _JOINTENTITY_H
 
-#include "game-engine/Core/Entity/ENode.h"
+#include "game-engine/Core/Entity/Entity.h"
 
 #include <glm/glm.hpp>
 
-class JointEntity : public ENode
+class JointEntity : public Entity
 {
 private:
     glm::mat4 mInverseBindPose;

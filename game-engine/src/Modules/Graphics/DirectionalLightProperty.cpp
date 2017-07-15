@@ -1,4 +1,4 @@
-#include "game-engine/Modules/Graphics/DirectionalLightEntity.h"
+#include "game-engine/Modules/Graphics/DirectionalLightProperty.h"
 
 // GLM
 #include <glm/gtc/type_ptr.hpp>
@@ -10,12 +10,12 @@
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
 
-const unsigned int DirectionalLightEntity::MAX_LIGHTS = 2;
-const std::string DirectionalLightEntity::SHADER_NUMLIGHTS_NAME = "num_directional_lights";
-const std::string DirectionalLightEntity::SHADER_LIGHT_NAME = "directional_lights[";
-const std::string DirectionalLightEntity::SHADER_DIRECTION_NAME = "].direction";
+const unsigned int DirectionalLightProperty::MAX_LIGHTS = 2;
+const std::string DirectionalLightProperty::SHADER_NUMLIGHTS_NAME = "num_directional_lights";
+const std::string DirectionalLightProperty::SHADER_LIGHT_NAME = "directional_lights[";
+const std::string DirectionalLightProperty::SHADER_DIRECTION_NAME = "].direction";
 
-void DirectionalLightEntity::loadToShader(Shader *shader, const unsigned int &index)
+void DirectionalLightProperty::loadToShader(Shader *shader, const unsigned int &index)
 {
     std::string lightName = SHADER_LIGHT_NAME + std::to_string(index);
     
@@ -48,7 +48,7 @@ void DirectionalLightEntity::loadToShader(Shader *shader, const unsigned int &in
     }
 }
 
-void DirectionalLightEntity::loadNumLightsToShader(Shader *shader, const unsigned int &count)
+void DirectionalLightProperty::loadNumLightsToShader(Shader *shader, const unsigned int &count)
 {
     // Quadratic attenuation
     GLint *loc = shader->getUniformLocation(SHADER_NUMLIGHTS_NAME);
@@ -58,7 +58,7 @@ void DirectionalLightEntity::loadNumLightsToShader(Shader *shader, const unsigne
     }
 }
 
-void DirectionalLightEntity::fillUniformNames(std::vector<std::string> &uniformNames)
+void DirectionalLightProperty::fillUniformNames(std::vector<std::string> &uniformNames)
 {
     uniformNames.push_back(SHADER_NUMLIGHTS_NAME);
     

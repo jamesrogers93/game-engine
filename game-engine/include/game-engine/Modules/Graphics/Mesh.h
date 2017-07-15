@@ -1,5 +1,5 @@
-#ifndef _GEOMETRY_H
-#define _GEOMETRY_H
+#ifndef _MESH_H
+#define _MESH_H
 
 // STL
 #include <vector>
@@ -16,28 +16,28 @@
 
 //class Vertex;
 
-class GeometryGL
+class MeshGL
 {
 public:
 	GLuint VAO, VBO, EBO;
     unsigned int indexCount;
 
-    GeometryGL() : VAO(0), VBO(0), EBO(0) {}
-	GeometryGL(const GLuint VAO, const GLuint VBO, const GLuint EBO, const unsigned int &indexCount) : VAO(VAO), VBO(VBO), EBO(EBO), indexCount(indexCount) {}
+    MeshGL() : VAO(0), VBO(0), EBO(0) {}
+	MeshGL(const GLuint VAO, const GLuint VBO, const GLuint EBO, const unsigned int &indexCount) : VAO(VAO), VBO(VBO), EBO(EBO), indexCount(indexCount) {}
     
     void draw();
     
-    static GeometryGL* loadGeometryGL(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+    static MeshGL* loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
     //static Geometry* loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices);
     //static Geometry* loadGeometry(std::vector<Vertex3DPT> vertices, std::vector<unsigned int> indices);
     //static Geometry* loadGeometry(std::vector<Vertex3DPNT> vertices, std::vector<unsigned int> indices);
-    static GeometryGL* loadGeometryGL(const std::string &file);
+    static MeshGL* loadMeshGL(const std::string &file);
 };
 
-class Geometry
+class Mesh
 {
 public:
-    Geometry(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices) : mVertices(vertices), mIndices(indices)
+    Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices) : mVertices(vertices), mIndices(indices)
     {}
     
     const std::vector<Vertex> getVertices() const { return this->mVertices; }
@@ -49,4 +49,4 @@ private:
     std::vector<unsigned int> mIndices;
 };
 
-#endif /* _GEOMETRY_H */
+#endif /* _MESH_H */

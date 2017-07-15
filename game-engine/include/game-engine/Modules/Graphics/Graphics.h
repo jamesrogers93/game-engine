@@ -9,11 +9,11 @@
 // Game Engine
 #include "game-engine/Modules/CoreModule.h"
 
-class GeometryEntity;
+class MeshProperty;
 class CameraEntity;
-class LightEntity;
+class LightProperty;
 class Shader;
-class GeometryGL;
+class MeshGL;
 class Material;
 class Texture;
 
@@ -31,12 +31,12 @@ public:
 	bool deinitalise();
     bool update();
 
-    bool addGeometryEntity(const std::string& name, GeometryEntity* geometryEntity);
-    bool addCameraEntity(const std::string& name, CameraEntity* cameraEntity);
-    bool addLightEntity(const std::string& name, LightEntity* lightEntity);
-    bool addShader(const std::string& name, Shader *shader);
-	bool addGeometry(const std::string& name, GeometryGL *geometry);
-    bool addMaterial(const std::string& name, Material *material);
+    bool addMeshProperty(const std::string&, MeshProperty*);
+    bool addCameraEntity(const std::string&, CameraEntity*);
+    bool addLightProperty(const std::string&, LightProperty*);
+    bool addShader(const std::string&, Shader*);
+	bool addMesh(const std::string&, MeshGL*);
+    bool addMaterial(const std::string&, Material*);
     
 	Shader* getShader(const std::string& name);
     Texture* getTexture(const std::string &name);
@@ -46,11 +46,11 @@ public:
     void enableBackfaceCulling();
 
 private:
-    std::map<std::string, GeometryEntity*> geometryEntites;
+    std::map<std::string, MeshProperty*> meshProperties;
     std::map<std::string, CameraEntity*> cameraEntites;
-    std::map<std::string, LightEntity*> lightEntites;
+    std::map<std::string, LightProperty*> lightProperties;
 	std::map<std::string, Shader*> shaders;
-	std::map<std::string, GeometryGL*> geometry;
+	std::map<std::string, MeshGL*> meshes;
     std::map<std::string, Material*> materials;
 	std::map<std::string, Texture*> textures;
     
@@ -60,7 +60,7 @@ private:
 	Graphics(Graphics const&);              // Don't Implement
 	void operator=(Graphics const&);		// Don't implement
     
-    bool draw(GeometryEntity* entity);
+    bool draw(MeshProperty*);
 };
 
 #endif /* _GRAPHICS_H */

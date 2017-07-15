@@ -4,20 +4,20 @@
 #include <vector>
 #include <string>
 
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Entity/Property.h"
 
 class Shader;
 
-class AnimatableEntity : public Entity
+class AnimatableMeshProperty : public Property
 {
 private:
     static const std::string SHADER_MODEL_NAME;
     static const std::string SHADER_NORMAL_MATRIX_NAME;
     
 public:
-    AnimatableEntity(const std::string &name);
+    AnimatableMeshProperty(const std::string &name);
     
-    ~AnimatableEntity(){}
+    ~AnimatableMeshProperty(){}
     
     void initialise(){}
     void update(){}

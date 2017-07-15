@@ -12,6 +12,7 @@
 
 #define MAX_TRANSFORMATIONS 2
 class Scene;
+class Property;
 
 class Entity
 {
@@ -22,17 +23,18 @@ private:
     
 public:
     
-    enum Type
-    {
-        
-    };
+    //enum Type
+    //{
+        //
+    //};
+    //Type type;
     
 protected:
     
     std::string name;
     std::vector<Entity*> children;
+    std::vector<Property*> properties;
     Entity* parent;
-    glm::vec3 position;
     glm::mat4 localModel;
     glm::mat4 globalModel;
     
@@ -52,7 +54,11 @@ public:
     
     const std::string& getName()                 {   return this->name;  }
     const std::vector<Entity*>& getChildren()    {   return this->children;  }
+    const std::vector<Property*>& getProperties(){   return this->properties; }
     const Entity* getParent()                    {   return this->parent;    }
+    
+    const glm::mat4& getLocalModel() { return this->localModel; }
+    const glm::mat4& getGlobalModel() { return this->globalModel; }
     
     void addChild(Entity *child);
     

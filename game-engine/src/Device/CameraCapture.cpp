@@ -11,7 +11,7 @@
 
 // Game Engine Graphics
 #include "game-engine/Modules/Graphics/Shader.h"
-#include "game-engine/Modules/Graphics/Geometry.h"
+#include "game-engine/Modules/Graphics/Mesh.h"
 #include "game-engine/Modules/Graphics/Vertex.h"
 
 const CameraCapture::Resolution CameraCapture::DEFAULT_RES = RES_NOT_SET;
@@ -202,7 +202,7 @@ void CameraCapture::initialiseView()
     indices.push_back(0); indices.push_back(1); indices.push_back(2);
     indices.push_back(2); indices.push_back(3); indices.push_back(0);
     
-    this->geometry = GeometryGL::loadGeometryGL(vertices, indices);
+    this->geometry = MeshGL::loadMeshGL(vertices, indices);
 }
 
 void CameraCapture::addDelegate(CameraCaptureDelegate* delegate)

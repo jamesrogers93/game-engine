@@ -1,4 +1,4 @@
-#include "game-engine/Modules/Graphics/GeometryEntity.h"
+#include "game-engine/Modules/Graphics/MeshProperty.h"
 
 // GLM
 #include <glm/gtc/type_ptr.hpp>
@@ -10,10 +10,10 @@
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
 
-const std::string GeometryEntity::SHADER_MODEL_NAME = "model";
-const std::string GeometryEntity::SHADER_NORMAL_MATRIX_NAME = "normal_matrix";
+const std::string MeshProperty::SHADER_MODEL_NAME = "model";
+const std::string MeshProperty::SHADER_NORMAL_MATRIX_NAME = "normal_matrix";
 
-GeometryEntity::GeometryEntity(const std::string &name, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey)
+MeshProperty::MeshProperty(const std::string &name, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey)
 : Entity(name)
 {
 
@@ -33,14 +33,14 @@ GeometryEntity::GeometryEntity(const std::string &name, const std::string &geome
     this->shader = sLow;
 }
 
-void GeometryEntity::initialise()
+void MeshProperty::initialise()
 {
     Graphics *g = &Graphics::getInstance();
     
-    g->addGeometryEntity(this->name, this);
+    g->addMeshProperty(this->name, this);
 }
 
-void GeometryEntity::loadToShader(Shader *shader)
+void MeshProperty::loadToShader(Shader *shader)
 {
     // Load projection to shader
     GLint *loc =shader->getUniformLocation(SHADER_MODEL_NAME);
@@ -56,7 +56,7 @@ void GeometryEntity::loadToShader(Shader *shader)
     }
 }
 
-void GeometryEntity::fillUniformNames(std::vector<std::string> &uniformNames)
+void MeshProperty::fillUniformNames(std::vector<std::string> &uniformNames)
 {
     uniformNames.push_back(SHADER_MODEL_NAME);
     uniformNames.push_back(SHADER_NORMAL_MATRIX_NAME);

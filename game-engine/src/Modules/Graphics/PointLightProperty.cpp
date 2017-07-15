@@ -1,9 +1,11 @@
-#include "game-engine/Modules/Graphics/PointLightEntity.h"
+#include "game-engine/Modules/Graphics/PointLightProperty.h"
 
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
-// Game Engine Core
+#include "game-engine/Entity/Entity.h"
+
+// Game Engine Graphics
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
@@ -23,15 +25,15 @@ const Attenuation Attenuation::ATT_325 = Attenuation(1.0, 0.014, 0.0007);
 const Attenuation Attenuation::ATT_600 = Attenuation(1.0, 0.007, 0.0002);
 const Attenuation Attenuation::ATT_3250 = Attenuation(1.0, 0.0014, 0.000007);
 
-const unsigned int PointLightEntity::MAX_LIGHTS = 4;
-const std::string PointLightEntity::SHADER_NUMLIGHTS_NAME = "num_point_lights";
-const std::string PointLightEntity::SHADER_LIGHT_NAME = "point_lights[";
-const std::string PointLightEntity::SHADER_POSITION_NAME = "].position";
-const std::string PointLightEntity::SHADER_CONSTANT_NAME = "].constant";
-const std::string PointLightEntity::SHADER_LINEAR_NAME = "].linear";
-const std::string PointLightEntity::SHADER_QUADRATIC_NAME = "].quadratic";
+const unsigned int PointLightProperty::MAX_LIGHTS = 4;
+const std::string PointLightProperty::SHADER_NUMLIGHTS_NAME = "num_point_lights";
+const std::string PointLightProperty::SHADER_LIGHT_NAME = "point_lights[";
+const std::string PointLightProperty::SHADER_POSITION_NAME = "].position";
+const std::string PointLightProperty::SHADER_CONSTANT_NAME = "].constant";
+const std::string PointLightProperty::SHADER_LINEAR_NAME = "].linear";
+const std::string PointLightProperty::SHADER_QUADRATIC_NAME = "].quadratic";
 
-void PointLightEntity::loadToShader(Shader *shader, const unsigned int &index)
+void PointLightProperty::loadToShader(Shader *shader, const unsigned int &index)
 {
     std::string lightName = SHADER_LIGHT_NAME + std::to_string(index);
     
@@ -39,7 +41,8 @@ void PointLightEntity::loadToShader(Shader *shader, const unsigned int &index)
     GLint *loc = shader->getUniformLocation(lightName + SHADER_POSITION_NAME);
     if(loc != NULL)
     {
-        glUniform3fv(*loc, 1, glm::value_ptr(this->position));
+        glm::vec3 position = glm::vec3(this->mOwner->getGlobalModel()[4]);
+        glUniform3fv(*loc, 1, glm::value_ptr(position));
     }
     
     // Ambient colour
@@ -85,7 +88,7 @@ void PointLightEntity::loadToShader(Shader *shader, const unsigned int &index)
     }
 }
 
-void PointLightEntity::loadNumLightsToShader(Shader *shader, const unsigned int &count)
+void PointLightProperty::loadNumLightsToShader(Shader *shader, const unsigned int &count)
 {
     // Quadratic attenuation
     GLint *loc = shader->getUniformLocation(SHADER_NUMLIGHTS_NAME);
@@ -95,7 +98,7 @@ void PointLightEntity::loadNumLightsToShader(Shader *shader, const unsigned int 
     }
 }
 
-void PointLightEntity::fillUniformNames(std::vector<std::string> &uniformNames)
+void PointLightProperty::fillUniformNames(std::vector<std::string> &uniformNames)
 {
     uniformNames.push_back(SHADER_NUMLIGHTS_NAME);
     

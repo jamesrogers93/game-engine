@@ -1,12 +1,12 @@
 #ifndef _OBJECT_H
 #define _OBJECT_H
 
-#include "game-engine/Core/Entity/ENode.h"
+#include "game-engine/Core/Entity/Entity.h"
 
-class Object : public ENode
+class Object : public Entity
 {
     
-    Object(const std::string &name) : ENode(name)
+    Object(const std::string &name) : Entity(name)
     {}
     
 public:

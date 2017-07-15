@@ -1,5 +1,5 @@
-#ifndef _GRAPHICSENTITY_H
-#define _GRAPHICSENTITY_H
+#ifndef _MESHPROPERTY_H
+#define _MESHPROPERTY_H
 
 // STD
 #include <string>
@@ -9,16 +9,16 @@
 
 class Shader;
 
-class GeometryEntity : public Entity
+class MeshProperty : public Entity
 {
 private:
     static const std::string SHADER_MODEL_NAME;
     static const std::string SHADER_NORMAL_MATRIX_NAME;
     
 public:
-    GeometryEntity(const std::string &name, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey);
+    MeshProperty(const std::string &name, const std::string &geometryKey, const std::string &materialKey, const std::string &shaderKey);
     
-    ~GeometryEntity(){}
+    ~MeshProperty(){}
     
     void initialise();
     void update(){}

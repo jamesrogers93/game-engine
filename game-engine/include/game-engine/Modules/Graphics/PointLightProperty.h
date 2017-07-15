@@ -1,7 +1,7 @@
 #ifndef _POINTLIGHTENTITY_H
 #define _POINTLIGHTENTITY_H
 
-#include "game-engine/Modules/Graphics/LightEntity.h"
+#include "game-engine/Modules/Graphics/LightProperty.h"
 
 #include <string>
 
@@ -26,7 +26,7 @@ struct Attenuation
     static const Attenuation ATT_3250;
 };
 
-class PointLightEntity : public LightEntity
+class PointLightProperty : public LightProperty
 {
 public:
     static const unsigned int MAX_LIGHTS;
@@ -41,8 +41,8 @@ private:
     Attenuation attenuation;
     
 public:
-    PointLightEntity(const std::string &name, const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, const Attenuation &attenuation, const bool &on = DEFAULT_ON)
-    : LightEntity(LightEntity::POINT, name, ambient, diffuse, specular, on), attenuation(attenuation)
+    PointLightProperty(const std::string &name, const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, const Attenuation &attenuation, const bool &on = DEFAULT_ON)
+    : LightProperty(LightProperty::POINT, name, ambient, diffuse, specular, on), attenuation(attenuation)
     {}
     
     void loadToShader(Shader *shader, const unsigned int &index);

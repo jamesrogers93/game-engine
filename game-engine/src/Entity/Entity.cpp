@@ -38,7 +38,6 @@ const void Entity::translate(const glm::vec3 &p, const unsigned int &order)
 {
     this->T[order] = glm::translate(this->T[order], p);
     this->updateLocalModel();
-    this->position+=p;
 }
 
 const void Entity::scale(const float &x, const float &y, const float &z, const unsigned int &order)
@@ -85,7 +84,6 @@ const void Entity::translateOW(const glm::vec3 &p, const unsigned int &order)
 {
     this->T[order] = glm::translate(glm::mat4(), p);
     this->updateLocalModel();
-    this->position+=p;
 }
 
 const void Entity::scaleOW(const float &x, const float &y, const float &z, const unsigned int &order)

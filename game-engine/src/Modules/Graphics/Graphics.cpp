@@ -1,10 +1,10 @@
 #include "game-engine/Modules/Graphics/Graphics.h"
-#include "game-engine/Modules/Graphics/Geometry.h"
-#include "game-engine/Modules/Graphics/GeometryEntity.h"
+#include "game-engine/Modules/Graphics/Mesh.h"
+#include "game-engine/Modules/Graphics/MeshProperty.h"
 #include "game-engine/Modules/Graphics/CameraEntity.h"
-#include "game-engine/Modules/Graphics/LightEntity.h"
-#include "game-engine/Modules/Graphics/PointLightEntity.h"
-#include "game-engine/Modules/Graphics/DirectionalLightEntity.h"
+#include "game-engine/Modules/Graphics/LightProperty.h"
+#include "game-engine/Modules/Graphics/PointLightProperty.h"
+#include "game-engine/Modules/Graphics/DirectionalLightProperty.h"
 #include "game-engine/Modules/Graphics/Material.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
@@ -23,9 +23,9 @@ bool Graphics::deinitalise()
 
 bool Graphics::update()
 {
-    for(auto const &entity : this->geometryEntites)
+    for(auto const &mesh : this->meshProperties)
     {
-        if(!this->draw(entity.second))
+        if(!this->draw(mesh.second))
         {
             return false;
         }
@@ -34,17 +34,17 @@ bool Graphics::update()
     return true;
 }
 
-bool Graphics::draw(GeometryEntity* entity)
+bool Graphics::draw(MeshProperty* mesh)
 {
     
-	if (this->geometry.find(entity->getGeometryKey()) != this->geometry.end() &&
-        this->materials.find(entity->getMaterialKey()) != this->materials.end() &&
-        this->shaders.find(entity->getShaderKey()) != this->shaders.end() &&
+	if (this->meshes.find(mesh->getGeometryKey()) != this->meshes.end() &&
+        this->materials.find(mesh->getMaterialKey()) != this->materials.end() &&
+        this->shaders.find(mesh->getShaderKey()) != this->shaders.end() &&
         this->cameraEntites.find(this->activeCameraEntity) != this->cameraEntites.end())
 	{
-		GeometryGL *go = this->geometry[entity->getGeometryKey()];
-        Material *m  = this->materials[entity->getMaterialKey()];
-        Shader   *s  = this->shaders[entity->getShaderKey()];
+		MeshGL *go = this->meshes[mesh->getGeometryKey()];
+        Material *m  = this->materials[mesh->getMaterialKey()];
+        Shader   *s  = this->shaders[mesh->getShaderKey()];
         CameraEntity *c = this->cameraEntites[this->activeCameraEntity];
 
         s->use();
@@ -52,13 +52,13 @@ bool Graphics::draw(GeometryEntity* entity)
         // Add lights to the shader
         unsigned int pointLightCount = 0;
         unsigned int dirLightCount = 0;
-        for(auto light : this->lightEntites)
+        for(auto light : this->lightProperties)
         {
             switch(light.second->getType())
             {
-                case LightEntity::POINT:
+                case LightProperty::POINT:
                 {
-                    if(pointLightCount > PointLightEntity::MAX_LIGHTS)
+                    if(pointLightCount > PointLightProperty::MAX_LIGHTS)
                     {
                         continue;
                     }
@@ -68,9 +68,9 @@ bool Graphics::draw(GeometryEntity* entity)
                     }
                     break;
                 }
-                case LightEntity::DIRECTIONAL:
+                case LightProperty::DIRECTIONAL:
                 {
-                    if(dirLightCount > DirectionalLightEntity::MAX_LIGHTS)
+                    if(dirLightCount > DirectionalLightProperty::MAX_LIGHTS)
                     {
                         continue;
                     }
@@ -80,7 +80,7 @@ bool Graphics::draw(GeometryEntity* entity)
                     }
                     break;
                 }
-                case LightEntity::UNDEFINED:
+                case LightProperty::UNDEFINED:
                 default:
                 {
                     break;
@@ -88,14 +88,14 @@ bool Graphics::draw(GeometryEntity* entity)
             }
         }
         
-        PointLightEntity::loadNumLightsToShader(s, pointLightCount);
-        DirectionalLightEntity::loadNumLightsToShader(s, dirLightCount);
+        PointLightProperty::loadNumLightsToShader(s, pointLightCount);
+        DirectionalLightProperty::loadNumLightsToShader(s, dirLightCount);
         
         // Load the camera data to the shader
         c->loadToShader(s);
         
         // Load the model to the shader
-        entity->loadToShader(s);
+        mesh->loadToShader(s);
         
         // Load the material data into shader
         m->loadToShader(s);
@@ -109,15 +109,15 @@ bool Graphics::draw(GeometryEntity* entity)
 	return false;
 }
 
-bool Graphics::addGeometryEntity(const std::string& name, GeometryEntity* geometryEntity)
+bool Graphics::addMeshProperty(const std::string& name, MeshProperty* property)
 {
     // Make name lower case
     std::string nameLow = name;
     std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
     
-    if (this->geometryEntites.find(nameLow) == this->geometryEntites.end())
+    if (this->meshProperties.find(nameLow) == this->meshProperties.end())
     {
-        this->geometryEntites[nameLow] = geometryEntity;
+        this->meshProperties[nameLow] = property;
         return true;
     }
     
@@ -139,15 +139,15 @@ bool Graphics::addCameraEntity(const std::string& name, CameraEntity* cameraEnti
     return false;
 }
 
-bool Graphics::addLightEntity(const std::string& name, LightEntity* lightEntity)
+bool Graphics::addLightProperty(const std::string& name, LightProperty* lightProperty)
 {
     // Make name lower case
     std::string nameLow = name;
     std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
     
-    if (this->lightEntites.find(nameLow) == this->lightEntites.end())
+    if (this->lightProperties.find(nameLow) == this->lightProperties.end())
     {
-        this->lightEntites[nameLow] = lightEntity;
+        this->lightProperties[nameLow] = lightProperty;
         return true;
     }
     
@@ -169,15 +169,15 @@ bool Graphics::addShader(const std::string& name, Shader *shader)
     return false;
 }
 
-bool Graphics::addGeometry(const std::string& name, GeometryGL *geometry)
+bool Graphics::addMesh(const std::string& name, MeshGL *mesh)
 {
     // Make name lower case
     std::string nameLow = name;
     std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
     
-	if (this->geometry.find(nameLow) == this->geometry.end())
+	if (this->meshes.find(nameLow) == this->meshes.end())
 	{
-		this->geometry[nameLow] = geometry;
+		this->meshes[nameLow] = mesh;
 		return true;
 	}
 

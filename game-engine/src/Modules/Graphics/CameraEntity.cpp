@@ -63,7 +63,8 @@ void CameraEntity::loadToShader(Shader *shader)
     glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->view));
     
     loc = *shader->getUniformLocation(SHADER_POSITION_NAME);
-    glUniform3fv(loc, 1, glm::value_ptr(this->position));
+    glm::vec3 position = glm::vec3(this->globalModel[4]);
+    glUniform3fv(loc, 1, glm::value_ptr(position));
 }
 
 glm::mat4 CameraEntity::perspectiveMatrix(const unsigned int &screenWidth, const unsigned int &screenHeight, const float &fov, const float &clipNear, const float &clipFar)

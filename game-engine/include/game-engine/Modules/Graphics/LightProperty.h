@@ -6,16 +6,14 @@
 #include <vector>
 
 // Engine
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Entity/Property.h"
 
 // GLM
 #include <glm/glm.hpp>
 
 class Shader;
 
-
-
-class LightEntity : public Entity
+class LightProperty : public Property
 {
 public:
     enum Type
@@ -33,7 +31,7 @@ protected:
     bool on;
     Type type;
     
-    LightEntity(const Type &type, const std::string &name, const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, const bool &on = DEFAULT_ON) : Entity(name), ambient(ambient), diffuse(diffuse), specular(specular), on(on), type(type)
+    LightProperty(const Type &type, const std::string &name, const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular, const bool &on = DEFAULT_ON) : Property(name), ambient(ambient), diffuse(diffuse), specular(specular), on(on), type(type)
     {}
     
 public:

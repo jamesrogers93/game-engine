@@ -2,7 +2,7 @@
 
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Vertex.h"
-#include "game-engine/Modules/Graphics/Geometry.h"
+#include "game-engine/Modules/Graphics/Mesh.h"
 
 #include <iostream>
 #include <map>
@@ -120,7 +120,7 @@ void GraphicsRead::readGeometry(std::ifstream &file)
         }
     }
     
-    GeometryGL *g = GeometryGL::loadGeometryGL(vertices, indices);
+    MeshGL *g = MeshGL::loadMeshGL(vertices, indices);
     
-    Graphics::getInstance().addGeometry(name, g);
+    Graphics::getInstance().addMesh(name, g);
 }
