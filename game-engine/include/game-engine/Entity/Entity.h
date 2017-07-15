@@ -20,7 +20,15 @@ private:
     
     static const glm::vec3 DEFAULT_POSITION;
     
+public:
+    
+    enum Type
+    {
+        
+    };
+    
 protected:
+    
     std::string name;
     std::vector<Entity*> children;
     Entity* parent;
@@ -28,9 +36,9 @@ protected:
     glm::mat4 localModel;
     glm::mat4 globalModel;
     
-    glm::mat4  T;    // Translate
+    glm::mat4  T[MAX_TRANSFORMATIONS];    // Translate
     glm::mat4  R[MAX_TRANSFORMATIONS];    // Rotate
-    glm::mat4  S;    // Scale
+    glm::mat4  S[MAX_TRANSFORMATIONS];    // Scale
     glm::fquat Q[MAX_TRANSFORMATIONS];    // Quaternion
     
     Entity(const std::string &name);
@@ -48,21 +56,21 @@ public:
     
     void addChild(Entity *child);
     
-    const void translate(const float &x, const float &y, const float &z);
-    const void translate(const glm::vec3 &p);
-    const void scale(const float &x, const float &y, const float &z);
-    const void scale(const glm::vec3 &p);
-    const void rotate(const float &a, const float &x, const float &y, const float &z, const unsigned int &order);
-    const void rotate(const float &a, const glm::vec3 &r, const unsigned int &order);
-    const void rotate(const glm::fquat &q, const unsigned int &order);
+    const void translate(const float &x, const float &y, const float &z, const unsigned int &order = 0);
+    const void translate(const glm::vec3 &p, const unsigned int &order = 0);
+    const void scale(const float &x, const float &y, const float &z, const unsigned int &order = 0);
+    const void scale(const glm::vec3 &p, const unsigned int &order = 0);
+    const void rotate(const float &a, const float &x, const float &y, const float &z, const unsigned int &order = 0);
+    const void rotate(const float &a, const glm::vec3 &r, const unsigned int &order = 0);
+    const void rotate(const glm::fquat &q, const unsigned int &order = 0);
     
-    const void translateOW(const float &x, const float &y, const float &z);
-    const void translateOW(const glm::vec3 &p);
-    const void scaleOW(const float &x, const float &y, const float &z);
-    const void scaleOW(const glm::vec3 &p);
-    const void rotateOW(const float &a, const float &x, const float &y, const float &z, const unsigned int &order);
-    const void rotateOW(const float &a, const glm::vec3 &r, const unsigned int &order);
-    const void rotateOW(const glm::fquat &q, const unsigned int &order);
+    const void translateOW(const float &x, const float &y, const float &z, const unsigned int &order = 0);
+    const void translateOW(const glm::vec3 &p, const unsigned int &order = 0);
+    const void scaleOW(const float &x, const float &y, const float &z, const unsigned int &order = 0);
+    const void scaleOW(const glm::vec3 &p, const unsigned int &order = 0);
+    const void rotateOW(const float &a, const float &x, const float &y, const float &z, const unsigned int &order = 0);
+    const void rotateOW(const float &a, const glm::vec3 &r, const unsigned int &order = 0);
+    const void rotateOW(const glm::fquat &q, const unsigned int &order = 0);
     
 private:
     

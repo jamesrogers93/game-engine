@@ -29,26 +29,26 @@ void Entity::updateChildren()
     }
 }
 
-const void Entity::translate(const float &x, const float &y, const float &z)
+const void Entity::translate(const float &x, const float &y, const float &z, const unsigned int &order)
 {
-    translate(glm::vec3(x,y,z));
+    translate(glm::vec3(x,y,z), order);
 }
 
-const void Entity::translate(const glm::vec3 &p)
+const void Entity::translate(const glm::vec3 &p, const unsigned int &order)
 {
-    this->T = glm::translate(this->T, p);
+    this->T[order] = glm::translate(this->T[order], p);
     this->updateLocalModel();
     this->position+=p;
 }
 
-const void Entity::scale(const float &x, const float &y, const float &z)
+const void Entity::scale(const float &x, const float &y, const float &z, const unsigned int &order)
 {
-    scale(glm::vec3(x,y,z));
+    scale(glm::vec3(x,y,z), order);
 }
 
-const void Entity::scale(const glm::vec3 &s)
+const void Entity::scale(const glm::vec3 &s, const unsigned int &order)
 {
-    this->S = glm::scale(this->S, s);
+    this->S[order] = glm::scale(this->S[order], s);
     this->updateLocalModel();
 }
 
@@ -76,26 +76,26 @@ const void Entity::rotate(const glm::fquat &q, const unsigned int &order)
     this->updateLocalModel();
 }
 
-const void Entity::translateOW(const float &x, const float &y, const float &z)
+const void Entity::translateOW(const float &x, const float &y, const float &z, const unsigned int &order)
 {
-    translateOW(glm::vec3(x,y,z));
+    translateOW(glm::vec3(x,y,z), order);
 }
 
-const void Entity::translateOW(const glm::vec3 &p)
+const void Entity::translateOW(const glm::vec3 &p, const unsigned int &order)
 {
-    this->T = glm::translate(glm::mat4(), p);
+    this->T[order] = glm::translate(glm::mat4(), p);
     this->updateLocalModel();
     this->position+=p;
 }
 
-const void Entity::scaleOW(const float &x, const float &y, const float &z)
+const void Entity::scaleOW(const float &x, const float &y, const float &z, const unsigned int &order)
 {
-    scaleOW(glm::vec3(x,y,z));
+    scaleOW(glm::vec3(x,y,z), order);
 }
 
-const void Entity::scaleOW(const glm::vec3 &s)
+const void Entity::scaleOW(const glm::vec3 &s, const unsigned int &order)
 {
-    this->S = glm::scale(glm::mat4(), s);
+    this->S[order] = glm::scale(glm::mat4(), s);
     this->updateLocalModel();
 }
 
@@ -143,5 +143,15 @@ void Entity::updateGlobalModel()
 
 void Entity::updateLocalModel()
 {
-    this->localModel = this->R[1] * this->T * this->R[0] * this->S;
+    
+    /*glm::mat4 model;
+    
+    for(unsigned int i = 0; i < MAX_TRANSFORMATIONS; i++)
+    {
+        model = model * this->T[i] * this->R[i] * this->S[i];
+    }
+    
+    this->localModel = model;*/
+    
+    this->localModel = this->T[1] * this->R[1] * this->S[1] * this->T[0] * this->R[0] * this->S[0];
 }
