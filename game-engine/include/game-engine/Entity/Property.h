@@ -9,7 +9,7 @@ class Property
 public:
     enum Type
     {
-        MESH, ANIMATABLE_MESH, DIRECTIONAL_LIGHT, POINT_LIGHT, 
+        MESH, ANIMATABLE_MESH, DIRECTIONAL_LIGHT, POINT_LIGHT
     };
     
 protected:
@@ -22,6 +22,12 @@ public:
     Property(const std::string &name, const Type &type);
     
     void setOwner(Entity *owner);
+    
+    const std::string& getName() const { return this->mName; }
+    const Type& getType() const { return this->mType; }
+    const Entity* getOwner() const { return this->mOwner; }
+    
+    const std::string typeToString() const;
 };
 
 #endif /* _PROPERTY_H */

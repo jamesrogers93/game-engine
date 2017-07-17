@@ -9,3 +9,21 @@ void Property::setOwner(Entity *owner)
 {
     mOwner = owner;
 }
+
+
+const std::string Property::typeToString() const
+{
+    switch(this->mType)
+    {
+        case Property::MESH:
+            return "mesh";
+        case Property::ANIMATABLE_MESH:
+            return "animatable_mesh";
+        case Property::DIRECTIONAL_LIGHT:
+            return "directional_light";
+        case Property::POINT_LIGHT:
+            return "point_light";
+        default:
+            return "";
+    }
+}

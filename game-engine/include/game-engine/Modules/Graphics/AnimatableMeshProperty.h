@@ -20,7 +20,7 @@ public:
     void initialise(){}
     void update(){}
     
-    const std::vector<std::string>& getJointKeys() {   return this->mJoints;  }
+    const std::vector<std::string>& getJointKeys() const {   return this->mJoints;  }
     
     void setJointKeys(const std::vector<std::string> &keys) { this->mJoints = keys; }
     

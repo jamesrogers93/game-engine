@@ -19,6 +19,7 @@ public:
     
     void setInverseBindPose(const glm::mat4 inverseBindPose) { this->mInverseBindPose = inverseBindPose; }
     
+    const glm::mat4& getInverseBindPose() const { return this->mInverseBindPose; }
 };
 
 #endif /* _JOINTENTITY_H */

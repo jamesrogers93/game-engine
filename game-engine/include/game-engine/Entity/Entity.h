@@ -52,13 +52,16 @@ public:
     virtual void update() = 0;
     void updateChildren();
     
-    const std::string& getName()                 {   return this->name;  }
-    const std::vector<Entity*>& getChildren()    {   return this->children;  }
-    const std::vector<Property*>& getProperties(){   return this->properties; }
-    const Entity* getParent()                    {   return this->parent;    }
+    const Type& getType() const                         {   return this->mType; }
+    const std::string& getName() const                  {   return this->name;  }
+    const std::vector<Entity*>& getChildren() const     {   return this->children;  }
+    const std::vector<Property*>& getProperties() const {   return this->properties; }
+    const Entity* getParent() const                     {   return this->parent;    }
     
-    const glm::mat4& getLocalModel() { return this->localModel; }
-    const glm::mat4& getGlobalModel() { return this->globalModel; }
+    const glm::mat4& getLocalModel() const { return this->localModel; }
+    const glm::mat4& getGlobalModel() const { return this->globalModel; }
+    
+    bool hasParent() const { return this->parent != NULL; }
     
     void addChild(Entity *child);
     
@@ -77,6 +80,9 @@ public:
     const void rotateOW(const float &a, const float &x, const float &y, const float &z, const unsigned int &order = 0);
     const void rotateOW(const float &a, const glm::vec3 &r, const unsigned int &order = 0);
     const void rotateOW(const glm::fquat &q, const unsigned int &order = 0);
+    
+    
+    const std::string typeToString() const;
     
 private:
     

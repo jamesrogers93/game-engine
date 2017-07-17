@@ -121,6 +121,21 @@ const void Entity::rotateOW(const glm::fquat &q, const unsigned int &order)
     this->updateLocalModel();
 }
 
+const std::string Entity::typeToString() const
+{
+    switch(this->mType)
+    {
+        case Entity::JOINT:
+            return "joint";
+        case Entity::AR_TRACKER:
+            return "artracker";
+        case Entity::CAMERA:
+            return "camera";
+        default:
+            return "";
+    }
+}
+
 void Entity::updateGlobalModel()
 {
     if(this->parent != NULL)

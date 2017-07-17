@@ -37,12 +37,12 @@ bool Graphics::update()
 bool Graphics::draw(MeshProperty* mesh)
 {
     
-	if (this->meshes.find(mesh->getGeometryKey()) != this->meshes.end() &&
+	if (this->meshes.find(mesh->getMeshKey()) != this->meshes.end() &&
         this->materials.find(mesh->getMaterialKey()) != this->materials.end() &&
         this->shaders.find(mesh->getShaderKey()) != this->shaders.end() &&
         this->cameraEntites.find(this->activeCameraEntity) != this->cameraEntites.end())
 	{
-		MeshGL *go = this->meshes[mesh->getGeometryKey()];
+		MeshGL *go = this->meshes[mesh->getMeshKey()];
         Material *m  = this->materials[mesh->getMaterialKey()];
         Shader   *s  = this->shaders[mesh->getShaderKey()];
         CameraEntity *c = this->cameraEntites[this->activeCameraEntity];
