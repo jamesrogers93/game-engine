@@ -37,14 +37,14 @@ public:
 class Mesh
 {
 public:
-    Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices) : mVertices(vertices), mIndices(indices)
+    Mesh(const std::string &name, const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices) : mName(name), mVertices(vertices), mIndices(indices)
     {}
     
     const std::vector<Vertex> getVertices() const { return this->mVertices; }
     const std::vector<unsigned int> getIndices() const { return this->mIndices; }
     
 private:
-    
+    std::string mName;
     std::vector<Vertex> mVertices;
     std::vector<unsigned int> mIndices;
 };
