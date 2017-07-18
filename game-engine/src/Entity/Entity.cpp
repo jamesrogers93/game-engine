@@ -37,6 +37,11 @@ void Entity::updateChildren()
     }
 }
 
+const void Entity::transform(const glm::mat4 &t)
+{
+    this->localModel = t;
+}
+
 const void Entity::translate(const float &x, const float &y, const float &z, const unsigned int &order)
 {
     translate(glm::vec3(x,y,z), order);
@@ -81,6 +86,11 @@ const void Entity::rotate(const glm::fquat &q, const unsigned int &order)
     this->Q[order] = glm::normalize(this->Q[order]);
     this->R[order] = glm::mat4_cast(this->Q[order]);
     this->updateLocalModel();
+}
+
+const void Entity::transformOW(const glm::mat4 &t)
+{
+    this->localModel = t;
 }
 
 const void Entity::translateOW(const float &x, const float &y, const float &z, const unsigned int &order)

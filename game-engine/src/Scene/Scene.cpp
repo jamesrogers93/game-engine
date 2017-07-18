@@ -45,6 +45,9 @@ void Scene::unPrepare()
 
 void Scene::prepare(Entity *entity)
 {
+    // Prepare transformations
+    entity->updateGlobalModel();
+    
     for(unsigned int i = 0; i < entity->getProperties().size(); i++)
     {
         if(!entity->getProperties()[i]->makeActive())

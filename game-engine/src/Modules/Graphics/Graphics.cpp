@@ -1,6 +1,7 @@
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Mesh.h"
 #include "game-engine/Modules/Graphics/MeshProperty.h"
+#include "game-engine/Modules/Graphics/AnimatableMeshProperty.h"
 #include "game-engine/Modules/Graphics/CameraEntity.h"
 #include "game-engine/Modules/Graphics/LightProperty.h"
 #include "game-engine/Modules/Graphics/PointLightProperty.h"
@@ -97,7 +98,15 @@ bool Graphics::draw(MeshProperty* mesh)
         c->loadToShader(s);
         
         // Load the model to the shader
-        mesh->loadToShader(s);
+        if(mesh->getType() == Property::ANIMATABLE_MESH)
+        {
+            AnimatableMeshProperty* temp = (AnimatableMeshProperty*)mesh;
+            temp->loadToShader(s);
+        }
+        else
+        {
+            mesh->loadToShader(s);
+        }
         
         // Load the material data into shader
         m->loadToShader(s);
