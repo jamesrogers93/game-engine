@@ -63,7 +63,7 @@ void CameraEntity::loadToShader(Shader *shader)
     glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->view));
     
     loc = *shader->getUniformLocation(SHADER_POSITION_NAME);
-    glm::vec3 position = glm::vec3(this->globalModel[4]);
+    glm::vec3 position = glm::vec3(this->globalModel[3]);
     glUniform3fv(loc, 1, glm::value_ptr(position));
 }
 

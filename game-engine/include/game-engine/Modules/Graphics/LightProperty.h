@@ -34,8 +34,10 @@ public:
     
     Type getType() const;
     
-    void initialise();
-    void update(){}
+    bool makeActive();
+    bool makeUnactive();
+    //void initialise();
+    //void update(){}
     
     virtual void loadToShader(Shader *shader, const unsigned int &index) = 0;
     

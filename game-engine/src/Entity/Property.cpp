@@ -1,9 +1,9 @@
 #include "game-engine/Entity/Property.h"
 
-Property::Property(const std::string &name, const Type &type) : mName(name), mType(type)
-{
-    
-}
+const bool Property::DEFAULT_ACTIVE = false;
+
+Property::Property(const std::string &name, const Type &type) : mName(name), mType(type), mActive(DEFAULT_ACTIVE)
+{}
 
 void Property::setOwner(Entity *owner)
 {

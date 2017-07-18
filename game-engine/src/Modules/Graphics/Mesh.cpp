@@ -16,6 +16,8 @@ MeshGL* MeshGL::loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned in
         return NULL;
     }
     
+    unsigned int numVertices = vertices.size();
+    
     // Get size of Vertex
     unsigned int sizeOfVertex = vertices[0].sizeInBytes();
     
@@ -76,6 +78,22 @@ MeshGL* MeshGL::loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned in
         glEnableVertexAttribArray(ATTRIB_COLOUR);
         glVertexAttribPointer(ATTRIB_COLOUR, Vertex::COLOUR_STRIDE, GL_FLOAT, GL_FALSE, sizeOfVertex, (GLvoid*)offset);
         offset += vertices[0].sizeOfColour();
+    }
+    
+    // Vertex Joint ids
+    if(vertices[0].hasJointId())
+    {
+        glEnableVertexAttribArray(ATTRIB_JOINT_ID);
+        glVertexAttribPointer(ATTRIB_JOINT_ID, Vertex::JOINT_STRIDE, GL_FLOAT, GL_FALSE, sizeOfVertex, (GLvoid*)offset);
+        offset += vertices[0].sizeOfJointId();
+    }
+    
+    // Vertex Joint weights
+    if(vertices[0].hasJointWeight())
+    {
+        glEnableVertexAttribArray(ATTRIB_JOINT_WEIGHT);
+        glVertexAttribPointer(ATTRIB_JOINT_WEIGHT, Vertex::JOINT_STRIDE, GL_FLOAT, GL_FALSE, sizeOfVertex, (GLvoid*)offset);
+        //offset += vertices[0].sizeOfJointWeight());
     }
     
     glBindVertexArray(0);

@@ -25,7 +25,7 @@ public:
     
     enum Type
     {
-        JOINT, CAMERA, AR_TRACKER
+        JOINT, CAMERA, AR_TRACKER, GAME_OBJECT
     };
     
 protected:
@@ -64,6 +64,7 @@ public:
     bool hasParent() const { return this->parent != NULL; }
     
     void addChild(Entity *child);
+    void addProperty(Property *property);
     
     const void translate(const float &x, const float &y, const float &z, const unsigned int &order = 0);
     const void translate(const glm::vec3 &p, const unsigned int &order = 0);

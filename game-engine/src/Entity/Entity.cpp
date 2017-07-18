@@ -6,9 +6,11 @@
 // GLM
 #include <glm/gtx/quaternion.hpp>
 
+#include "game-engine/Entity/Property.h"
+
 const glm::vec3 Entity::DEFAULT_POSITION = glm::vec3(0.0);
 
-Entity::Entity(const std::string &name, const Type &type) : name(name), mType(type), parent(NULL)
+Entity::Entity(const std::string &name, const Type &type) :  mType(type), name(name), parent(NULL)
 {
     // Make name lower case
     std::transform(this->name.begin(), this->name.end(), this->name.begin(), ::tolower);
@@ -18,6 +20,12 @@ void Entity::addChild(Entity *child)
 {
     child->parent = this;
     this->children.push_back(child);
+}
+
+void Entity::addProperty(Property *property)
+{
+    property->setOwner(this);
+    this->properties.push_back(property);
 }
 
 void Entity::updateChildren()

@@ -29,7 +29,7 @@ bool SceneManager::removeScene(Scene *scene)
     
     if(this->scenes.find(scene->getName()) != this->scenes.end())
     {
-        scene->deinitalise();
+        scene->unPrepare();
         this->scenes.erase(scene->getName());
         return true;
         
@@ -54,9 +54,17 @@ Scene* SceneManager::getScene(const std::string &name)
 
 bool SceneManager::makeActiveScene(const std::string &name)
 {
+    // Unprepare active scene
+    if(this->scenes.find(this->activeScene) != this->scenes.end())
+    {
+        this->scenes[this->activeScene]->unPrepare();
+    }
+    
+    // If the scene exists, make it active and prepare it.
     if(this->scenes.find(name) != this->scenes.end())
     {
         this->activeScene = name;
+        this->scenes[this->activeScene]->prepare();
         return true;
         
     } else

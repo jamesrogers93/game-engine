@@ -5,8 +5,9 @@ include(include/game-engine/Device/CMakeLists.txt)
 include(include/game-engine/Entity/CMakeLists.txt)
 include(include/game-engine/Modules/CMakeLists.txt)
 include(include/game-engine/Scene/CMakeLists.txt)
+include(include/game-engine/Util/CMakeLists.txt)
 
 list(APPEND GAME_ENGINE_INC
     "include/game-engine/JMPImporter.h"
-    "include/game-engine/Object.h"
+    "include/game-engine/GameObject.h"
 )

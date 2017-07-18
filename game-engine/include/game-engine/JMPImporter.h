@@ -16,6 +16,8 @@ protected:
 public:
     
     virtual bool Import(const std::string &path) = 0;
+    
+    T* getImportedObject() { return importedObject; }
 };
 
 #endif /* _JMPIMPORTER_H */

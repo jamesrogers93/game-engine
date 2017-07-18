@@ -17,8 +17,8 @@ public:
     
     ~AnimatableMeshProperty(){}
     
-    void initialise(){}
-    void update(){}
+    //virtual bool makeActive();
+    //virtual bool makeUnactive();
     
     const std::vector<std::string>& getJointKeys() const {   return this->mJoints;  }
     

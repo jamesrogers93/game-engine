@@ -10,6 +10,8 @@
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
 
+#include "game-engine/Modules/Graphics/Graphics.h"
+
 void AnimatableMeshProperty::loadToShader(Shader *shader)
 {
     // Load projection to shader
@@ -25,6 +27,24 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
         glUniformMatrix3fv(*loc, 1, false, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse(this->mOwner->getGlobalModel())))));
     }
 }
+
+/*bool AnimatableMeshProperty::makeActive()
+{
+    Property::makeActive();
+    
+    Graphics *g = &Graphics::getInstance();
+    
+    return g->addMeshProperty(this->mName, this);
+}
+
+bool AnimatableMeshProperty::makeUnactive()
+{
+    Property::makeUnactive();
+    
+    Graphics *g = &Graphics::getInstance();
+    
+    return g->removeMeshProperty(this->mName);
+}*/
 
 void AnimatableMeshProperty::fillUniformNames(std::vector<std::string> &uniformNames)
 {

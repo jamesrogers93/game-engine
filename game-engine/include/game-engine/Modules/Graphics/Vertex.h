@@ -39,11 +39,18 @@ public:
     
     Vertex() : VertexBase() {}
     
+    const glm::vec3& getPosition() const { return this->mPosition; }
+    const glm::vec3& getNormal() const { return this->mNormal; }
+    const glm::vec2& getUV0() const { return this->mUv0; }
+    const glm::vec4& getColour() const { return this->mColour; }
+    const glm::vec4& getJointId() const { return this->mJointId; }
+    const glm::vec4& getJointWeight() const { return this->mJointWeight; }
+    
     void setPosition(const glm::vec3 &position) { this->mPosition = position; this->mHasPosition = true; }
     void setNormal(const glm::vec3 &normal) { this->mNormal = normal; this->mHasNormal = true; }
     void setUV0(const glm::vec2 &uv0) { this->mUv0 = uv0; this->mHasUV0 = true; }
     void setColour(const glm::vec4 &colour) { this->mColour = colour; this->mHasColour = true; }
-    void setJointId(const glm::ivec4 &jointId) { this-> mJointId = jointId; this->mHasJointId = true; }
+    void setJointId(const glm::vec4 &jointId) { this-> mJointId = jointId; this->mHasJointId = true; }
     void setJointWeight(const glm::vec4 &jointWeight) { this-> mJointWeight = jointWeight; this->mHasJointWeight = true; }
     
     unsigned int getNumElements()
@@ -98,7 +105,7 @@ public:
         }
         if(mHasJointId)
         {
-            size += sizeof(glm::ivec4);
+            size += sizeof(glm::vec4);
         }
         if(mHasJointWeight)
         {
@@ -129,7 +136,7 @@ public:
     
     unsigned int sizeOfJointId()
     {
-        return sizeof(glm::ivec4);
+        return sizeof(glm::vec4);
     }
     
     unsigned int sizeOfJointWeight()
@@ -188,7 +195,7 @@ private:
     glm::vec3 mNormal;
     glm::vec2 mUv0;
     glm::vec4 mColour;
-    glm::ivec4 mJointId;
+    glm::vec4 mJointId;
     glm::vec4 mJointWeight;
     
 };
