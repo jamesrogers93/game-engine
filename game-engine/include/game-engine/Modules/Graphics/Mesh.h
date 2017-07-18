@@ -43,6 +43,8 @@ public:
     const std::vector<Vertex> getVertices() const { return this->mVertices; }
     const std::vector<unsigned int> getIndices() const { return this->mIndices; }
     
+    const std::string& getName() const { return mName; }
+    
 private:
     std::string mName;
     std::vector<Vertex> mVertices;
