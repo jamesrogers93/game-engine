@@ -3,6 +3,8 @@
 #include "game-engine/Modules/Graphics/MeshProperty.h"
 #include "game-engine/Modules/Graphics/AnimatableMeshProperty.h"
 
+#include "game-engine/Util/StringUtil.h"
+
 #include <iostream>
 #include <sstream>
 
@@ -61,6 +63,7 @@ void PropertyImporter::readMeshProperty(std::ifstream &file)
     {
         std::string meshKey;
         file >> meshKey;
+        meshKey = toLower(meshKey);
         property->setMeshKey(meshKey);
         
         file >> key;
@@ -70,6 +73,7 @@ void PropertyImporter::readMeshProperty(std::ifstream &file)
     {
         std::string materialKey;
         file >> materialKey;
+        materialKey = toLower(materialKey);
         property->setMaterialKey(materialKey);
         
         file >> key;
@@ -79,6 +83,7 @@ void PropertyImporter::readMeshProperty(std::ifstream &file)
     {
         std::string shaderKey;
         file >> shaderKey;
+        shaderKey = toLower(shaderKey);
         property->setShaderKey(shaderKey);
     }
     
@@ -100,6 +105,7 @@ void PropertyImporter::readAnimatableMeshProperty(std::ifstream &file)
     {
         std::string meshKey;
         file >> meshKey;
+        meshKey = toLower(meshKey);
         property->setMeshKey(meshKey);
         
         file >> key;
@@ -109,6 +115,7 @@ void PropertyImporter::readAnimatableMeshProperty(std::ifstream &file)
     {
         std::string materialKey;
         file >> materialKey;
+        materialKey = toLower(materialKey);
         property->setMaterialKey(materialKey);
         
         file >> key;
@@ -118,6 +125,7 @@ void PropertyImporter::readAnimatableMeshProperty(std::ifstream &file)
     {
         std::string shaderKey;
         file >> shaderKey;
+        shaderKey = toLower(shaderKey);
         property->setShaderKey(shaderKey);
         
         file >> key;

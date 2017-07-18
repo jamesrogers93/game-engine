@@ -40,6 +40,7 @@ public:
     Mesh(const std::string &name, const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices) : mName(name), mVertices(vertices), mIndices(indices)
     {}
     
+    const std::string& getName() const { return mName; }
     const std::vector<Vertex> getVertices() const { return this->mVertices; }
     const std::vector<unsigned int> getIndices() const { return this->mIndices; }
     

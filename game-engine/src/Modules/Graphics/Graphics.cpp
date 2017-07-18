@@ -1,12 +1,15 @@
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Mesh.h"
 #include "game-engine/Modules/Graphics/MeshProperty.h"
+#include "game-engine/Modules/Graphics/AnimatableMeshProperty.h"
 #include "game-engine/Modules/Graphics/CameraEntity.h"
 #include "game-engine/Modules/Graphics/LightProperty.h"
 #include "game-engine/Modules/Graphics/PointLightProperty.h"
 #include "game-engine/Modules/Graphics/DirectionalLightProperty.h"
 #include "game-engine/Modules/Graphics/Material.h"
 #include "game-engine/Modules/Graphics/Shader.h"
+
+#include "game-engine/Util/StringUtil.h"
 
 bool Graphics::initalise()
 {
@@ -25,10 +28,11 @@ bool Graphics::update()
 {
     for(auto const &mesh : this->meshProperties)
     {
-        if(!this->draw(mesh.second))
-        {
-            return false;
-        }
+        this->draw(mesh.second);
+        //if(!this->draw(mesh.second))
+        //{
+        //    return false;
+        //}
     }
     
     return true;
@@ -94,7 +98,15 @@ bool Graphics::draw(MeshProperty* mesh)
         c->loadToShader(s);
         
         // Load the model to the shader
-        mesh->loadToShader(s);
+        if(mesh->getType() == Property::ANIMATABLE_MESH)
+        {
+            AnimatableMeshProperty* temp = (AnimatableMeshProperty*)mesh;
+            temp->loadToShader(s);
+        }
+        else
+        {
+            mesh->loadToShader(s);
+        }
         
         // Load the material data into shader
         m->loadToShader(s);
@@ -111,8 +123,7 @@ bool Graphics::draw(MeshProperty* mesh)
 bool Graphics::addMeshProperty(const std::string& name, MeshProperty* property)
 {
     // Make name lower case
-    std::string nameLow = name;
-    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    std::string nameLow = toLower(name);
     
     if (this->meshProperties.find(nameLow) == this->meshProperties.end())
     {
@@ -126,8 +137,7 @@ bool Graphics::addMeshProperty(const std::string& name, MeshProperty* property)
 bool Graphics::addCameraEntity(const std::string& name, CameraEntity* cameraEntity)
 {
     // Make name lower case
-    std::string nameLow = name;
-    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    std::string nameLow = toLower(name);
     
     if (this->cameraEntites.find(nameLow) == this->cameraEntites.end())
     {
@@ -141,8 +151,7 @@ bool Graphics::addCameraEntity(const std::string& name, CameraEntity* cameraEnti
 bool Graphics::addLightProperty(const std::string& name, LightProperty* lightProperty)
 {
     // Make name lower case
-    std::string nameLow = name;
-    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    std::string nameLow = toLower(name);
     
     if (this->lightProperties.find(nameLow) == this->lightProperties.end())
     {
@@ -156,8 +165,7 @@ bool Graphics::addLightProperty(const std::string& name, LightProperty* lightPro
 bool Graphics::addShader(const std::string& name, Shader *shader)
 {
     // Make name lower case
-    std::string nameLow = name;
-    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    std::string nameLow = toLower(name);
     
     if (this->shaders.find(nameLow) == this->shaders.end())
     {
@@ -171,8 +179,7 @@ bool Graphics::addShader(const std::string& name, Shader *shader)
 bool Graphics::addMesh(const std::string& name, MeshGL *mesh)
 {
     // Make name lower case
-    std::string nameLow = name;
-    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    std::string nameLow = toLower(name);
     
 	if (this->meshes.find(nameLow) == this->meshes.end())
 	{
@@ -192,6 +199,90 @@ bool Graphics::addMaterial(const std::string& name, Material *material)
     if (this->materials.find(nameLow) == this->materials.end())
     {
         this->materials[nameLow] = material;
+        return true;
+    }
+    
+    return false;
+}
+
+bool Graphics::removeMeshProperty(const std::string& name)
+{
+    std::string nameLow = toLower(name);
+    
+    std::map<std::string, MeshProperty*>::iterator it = this->meshProperties.find(nameLow);
+    if ( it != this->meshProperties.end())
+    {
+        this->meshProperties.erase(it);
+        return true;
+    }
+    
+    return false;
+}
+
+bool Graphics::removeLightProperty(const std::string& name)
+{
+    std::string nameLow = toLower(name);
+    
+    std::map<std::string, LightProperty*>::iterator it = this->lightProperties.find(nameLow);
+    if ( it != this->lightProperties.end())
+    {
+        this->lightProperties.erase(it);
+        return true;
+    }
+    
+    return false;
+}
+
+bool Graphics::removeCameraEntity(const std::string& name)
+{
+    std::string nameLow = toLower(name);
+    
+    std::map<std::string, CameraEntity*>::iterator it = this->cameraEntites.find(nameLow);
+    if ( it != this->cameraEntites.end())
+    {
+        this->cameraEntites.erase(it);
+        return true;
+    }
+    
+    return false;
+}
+
+bool Graphics::removeShader(const std::string& name)
+{
+    std::string nameLow = toLower(name);
+    
+    std::map<std::string, Shader*>::iterator it = this->shaders.find(nameLow);
+    if ( it != this->shaders.end())
+    {
+        this->shaders.erase(it);
+        return true;
+    }
+    
+    return false;
+}
+
+bool Graphics::removeMesh(const std::string& name)
+{
+    std::string nameLow = toLower(name);
+    
+    std::map<std::string, MeshGL*>::iterator it = this->meshes.find(nameLow);
+    if ( it != this->meshes.end())
+    {
+        this->meshes.erase(it);
+        return true;
+    }
+    
+    return false;
+}
+
+bool Graphics::removeMaterial(const std::string& name)
+{
+    std::string nameLow = toLower(name);
+    
+    std::map<std::string, Material*>::iterator it = this->materials.find(nameLow);
+    if ( it != this->materials.end())
+    {
+        this->materials.erase(it);
         return true;
     }
     

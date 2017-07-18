@@ -24,8 +24,10 @@ public:
     
     ~MeshProperty(){}
     
-    virtual void initialise();
-    virtual void update(){}
+    bool makeActive();
+    bool makeUnactive();
+    //virtual void initialise();
+    //virtual void update(){}
     
     const std::string& getMeshKey() const {   return this->mMesh;  }
     const std::string& getMaterialKey() const {   return this->mMaterial;  }

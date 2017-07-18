@@ -9,23 +9,31 @@ class Entity;
 
 class Scene
 {
+private:
+    std::string name;
+    std::vector<Entity*> entities;
+    
+    bool mHasPrepared;
+    
 public:
     
-    Scene(std::string name) : name(name) {}
+    Scene(std::string name) : name(name), mHasPrepared(false) {}
     ~Scene() {}
 
-    void deinitalise(){}
+    void prepare();
+    void unPrepare();
 
 	const std::string& getName();
     
     void addEntity(Entity *entity) {   this->entities.push_back(entity);   }
 
     void update();
-//protected:
 
 private:
-	std::string name;
-    std::vector<Entity*> entities;
+    void prepare(Entity *);
+    void unPrepare(Entity *);
+    
+    
 };
 
 #endif /* _SCENE_H */

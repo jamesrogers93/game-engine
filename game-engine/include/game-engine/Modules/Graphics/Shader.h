@@ -39,5 +39,7 @@ const GLuint ATTRIB_POSITION = 0;
 const GLuint ATTRIB_NORMAL = 1;
 const GLuint ATTRIB_UV0 = 2;
 const GLuint ATTRIB_COLOUR = 3;
+const GLuint ATTRIB_JOINT_ID = 4;
+const GLuint ATTRIB_JOINT_WEIGHT = 5;
 
 #endif /* _SHADER_H */

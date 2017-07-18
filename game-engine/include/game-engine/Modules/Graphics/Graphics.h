@@ -32,11 +32,18 @@ public:
     bool update();
 
     bool addMeshProperty(const std::string&, MeshProperty*);
-    bool addCameraEntity(const std::string&, CameraEntity*);
     bool addLightProperty(const std::string&, LightProperty*);
+    bool addCameraEntity(const std::string&, CameraEntity*);
     bool addShader(const std::string&, Shader*);
 	bool addMesh(const std::string&, MeshGL*);
     bool addMaterial(const std::string&, Material*);
+    
+    bool removeMeshProperty(const std::string&);
+    bool removeLightProperty(const std::string&);
+    bool removeCameraEntity(const std::string&);
+    bool removeShader(const std::string&);
+    bool removeMesh(const std::string&);
+    bool removeMaterial(const std::string&);
     
 	Shader* getShader(const std::string& name);
     Texture* getTexture(const std::string &name);

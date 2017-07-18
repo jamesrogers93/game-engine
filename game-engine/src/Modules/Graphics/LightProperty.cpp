@@ -14,11 +14,29 @@ LightProperty::Type LightProperty::getType() const
     return this->type;
 }
 
-void LightProperty::initialise()
+/*void LightProperty::initialise()
 {
     Graphics *g = &Graphics::getInstance();
     
     g->addLightProperty(this->mName, this);
+}*/
+
+bool LightProperty::makeActive()
+{
+    Property::makeActive();
+    
+    Graphics *g = &Graphics::getInstance();
+    
+    return g->addLightProperty(this->mName, this);
+}
+
+bool LightProperty::makeUnactive()
+{
+    Property::makeUnactive();
+    
+    Graphics *g = &Graphics::getInstance();
+    
+    return g->removeLightProperty(this->mName);
 }
 
 void LightProperty::turnOn()

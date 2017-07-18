@@ -11,12 +11,16 @@ public:
     {
         MESH, ANIMATABLE_MESH, DIRECTIONAL_LIGHT, POINT_LIGHT
     };
+private:
+    static const bool DEFAULT_ACTIVE;
     
 protected:
     std::string mName;
     Type mType;
     
     Entity *mOwner;
+    
+    bool mActive;
     
 public:
     Property(const std::string &name, const Type &type);
@@ -28,6 +32,9 @@ public:
     const Entity* getOwner() const { return this->mOwner; }
     
     const std::string typeToString() const;
+    
+    virtual bool makeActive() { this->mActive = true; return true; }
+    virtual bool makeUnactive() { this->mActive = false; return true; }
 };
 
 #endif /* _PROPERTY_H */

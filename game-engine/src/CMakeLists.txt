@@ -7,5 +7,5 @@ include(src/Scene/CMakeLists.txt)
 
 list(APPEND GAME_ENGINE_SRC
 	"src/JMPImporter.cpp"
-	"src/Object.cpp"
+	"src/GameObject.cpp"
 )

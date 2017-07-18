@@ -6,9 +6,11 @@
 // GLM
 #include <glm/gtx/quaternion.hpp>
 
+#include "game-engine/Entity/Property.h"
+
 const glm::vec3 Entity::DEFAULT_POSITION = glm::vec3(0.0);
 
-Entity::Entity(const std::string &name, const Type &type) : name(name), mType(type), parent(NULL)
+Entity::Entity(const std::string &name, const Type &type) :  mType(type), name(name), parent(NULL)
 {
     // Make name lower case
     std::transform(this->name.begin(), this->name.end(), this->name.begin(), ::tolower);
@@ -20,6 +22,12 @@ void Entity::addChild(Entity *child)
     this->children.push_back(child);
 }
 
+void Entity::addProperty(Property *property)
+{
+    property->setOwner(this);
+    this->properties.push_back(property);
+}
+
 void Entity::updateChildren()
 {
     for(unsigned int i = 0; i < this->children.size(); i++)
@@ -27,6 +35,11 @@ void Entity::updateChildren()
         this->children[i]->updateChildren();
         this->children[i]->update();
     }
+}
+
+const void Entity::transform(const glm::mat4 &t)
+{
+    this->localModel = t;
 }
 
 const void Entity::translate(const float &x, const float &y, const float &z, const unsigned int &order)
@@ -73,6 +86,11 @@ const void Entity::rotate(const glm::fquat &q, const unsigned int &order)
     this->Q[order] = glm::normalize(this->Q[order]);
     this->R[order] = glm::mat4_cast(this->Q[order]);
     this->updateLocalModel();
+}
+
+const void Entity::transformOW(const glm::mat4 &t)
+{
+    this->localModel = t;
 }
 
 const void Entity::translateOW(const float &x, const float &y, const float &z, const unsigned int &order)

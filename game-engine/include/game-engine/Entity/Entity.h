@@ -25,7 +25,7 @@ public:
     
     enum Type
     {
-        JOINT, CAMERA, AR_TRACKER
+        JOINT, CAMERA, AR_TRACKER, GAME_OBJECT
     };
     
 protected:
@@ -64,7 +64,9 @@ public:
     bool hasParent() const { return this->parent != NULL; }
     
     void addChild(Entity *child);
+    void addProperty(Property *property);
     
+    const void transform(const glm::mat4 &t);
     const void translate(const float &x, const float &y, const float &z, const unsigned int &order = 0);
     const void translate(const glm::vec3 &p, const unsigned int &order = 0);
     const void scale(const float &x, const float &y, const float &z, const unsigned int &order = 0);
@@ -73,6 +75,7 @@ public:
     const void rotate(const float &a, const glm::vec3 &r, const unsigned int &order = 0);
     const void rotate(const glm::fquat &q, const unsigned int &order = 0);
     
+    const void transformOW(const glm::mat4 &t);
     const void translateOW(const float &x, const float &y, const float &z, const unsigned int &order = 0);
     const void translateOW(const glm::vec3 &p, const unsigned int &order = 0);
     const void scaleOW(const float &x, const float &y, const float &z, const unsigned int &order = 0);
