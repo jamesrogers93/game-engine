@@ -93,7 +93,7 @@ void MeshImporter::readMesh(std::ifstream &file)
                 float x, y, z, w;
                 file >> x >> y >> z >> w;
                 
-                //vert.setJointId(glm::vec4(x, y, z, w));
+                vert.setJointId(glm::vec4(x, y, z, w));
             }
             
             if(sources.find("joint_weight") != sources.end())
@@ -101,7 +101,7 @@ void MeshImporter::readMesh(std::ifstream &file)
                 float x, y, z, w;
                 file >> x >> y >> z >> w;
                 
-                //vert.setJointWeight(glm::vec4(x, y, z, w));
+                vert.setJointWeight(glm::vec4(x, y, z, w));
             }
             vertices.push_back(vert);
         }

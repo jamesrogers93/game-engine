@@ -25,6 +25,10 @@ public:
     //}
     
     void setLocalBindTransform(const glm::mat4 localBindTransform) { this->mLocalBindTransform = localBindTransform; }
+    void setInverseBindTransform(const glm::mat4 inverseBindTransform) { this->mInverseBindTransform = inverseBindTransform;
+    
+        this->localModel = this->mInverseBindTransform;
+    }
 
     void calculateInverseBindTransform();
     

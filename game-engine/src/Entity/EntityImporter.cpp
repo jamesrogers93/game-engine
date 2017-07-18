@@ -47,13 +47,23 @@ void EntityImporter::readJoint(std::ifstream &file)
     std::string parent;
     file >> parent;
     
-    // Load in inverseBindPose
-    glm::mat4 bindPose;
+    // Load in local bind transform
+    glm::mat4 localBindTransform;
     for(int i = 0; i < 4; i++)
     {
         for(int j = 0; j < 4; j++)
         {
-            file >> bindPose[i][j];
+            file >> localBindTransform[i][j];
+        }
+    }
+    
+    // Load in inverse bind transform
+    glm::mat4 inverseBindTransform;
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 4; j++)
+        {
+            file >> inverseBindTransform[i][j];
         }
     }
     
@@ -86,7 +96,9 @@ void EntityImporter::readJoint(std::ifstream &file)
         
     }
     
-    joint->transformOW(bindPose);
+    joint->setLocalBindTransform(localBindTransform);
+    joint->setInverseBindTransform(inverseBindTransform);
+    //joint->transformOW(bindPose);
     //joint->setInverseBindPose(inverseBindPose);
     
 }

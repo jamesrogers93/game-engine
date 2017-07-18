@@ -42,9 +42,13 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
         {
             if(this->mJointsMap.find(this->mJoints[i]) != this->mJointsMap.end())
             {
-                glm::mat4 jointTransform = this->mJointsMap[this->mJoints[i]]->getGlobalModel();
+                glm::mat4 jointTransform = this->mJointsMap[this->mJoints[i]]->getLocalModel();
                 
                 //jointTransform = glm::mat4();
+                /*std::cout << "[" << jointTransform[0][0] << ",\t\t" << jointTransform[1][0] << ",\t\t" << jointTransform[2][0] << ",\t\t" << jointTransform[3][0] << "]" << std::endl;
+                std::cout << "[" << jointTransform[0][1] << ",\t\t" << jointTransform[1][1] << ",\t\t" << jointTransform[2][1] << ",\t\t" << jointTransform[3][1] << "]" << std::endl;
+                std::cout << "[" << jointTransform[0][2] << ",\t\t" << jointTransform[1][2] << ",\t\t" << jointTransform[2][2] << ",\t\t" << jointTransform[3][2] << "]" << std::endl;
+                std::cout << "[" << jointTransform[0][3] << ",\t\t" << jointTransform[1][3] << ",\t\t" << jointTransform[2][3] << ",\t\t" << jointTransform[3][3] << "]\n" << std::endl;*/
                 glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(jointTransform));
             }
         } else

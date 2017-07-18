@@ -7,6 +7,15 @@
 // GLM
 #include <glm/glm.hpp>
 
+struct VertexElement
+{
+    union element
+    {
+        int i;
+        float f;
+    };
+};
+
 class VertexBase
 {
 protected:

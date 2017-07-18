@@ -30,6 +30,39 @@ MeshGL* MeshGL::loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned in
         data.insert(std::end(data), std::begin(vertData), std::end(vertData));
     }
     
+    // Print out all joint ids and joint weights
+    /*unsigned int count = 0;
+    for(unsigned int i = 0; i < data.size(); i++)
+    {
+        if(count >= 16)
+        {
+            std::cout << std::endl;
+            count = 0;
+        }
+        
+        if(count == 8)
+        {
+            std::cout << "Joint ID: ";
+        }
+        
+        if(count == 12)
+        {
+            std::cout << std::endl << "Joint Weight: ";
+        }
+        
+        if(count >=12)
+        {
+            std::cout << data[i] << " ";
+        }
+        else if(count >= 8)
+        {
+            std::cout << int(data[i]) << " ";
+        }
+        
+        count++;
+    }*/
+    
+    
     GLuint VAO, VBO, EBO;
     
     glGenVertexArrays(1, &VAO);
