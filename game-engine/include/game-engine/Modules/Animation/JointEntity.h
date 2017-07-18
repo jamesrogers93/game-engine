@@ -9,8 +9,8 @@ class JointEntity : public Entity
 {
 private:
     
-    //glm::mat4 mlocalBindPose;
-    glm::mat4 mInverseBindPose;
+    glm::mat4 mLocalBindTransform;
+    glm::mat4 mInverseBindTransform;
 
 public:
     JointEntity(const std::string &name) : Entity(name, Entity::JOINT)
@@ -24,8 +24,16 @@ public:
         //this->transformOW(inverseBindPose);
     //}
     
-    //const glm::mat4& getLocalBindPose() const { return this->mlocalBindPose; }
-    const glm::mat4& getInverseBindPose() const { return this->mInverseBindPose; }
+    void setLocalBindTransform(const glm::mat4 localBindTransform) { this->mLocalBindTransform = localBindTransform; }
+
+    void calculateInverseBindTransform();
+    
+    const glm::mat4& getLocalBindTransform() const { return this->mLocalBindTransform; }
+    const glm::mat4& getInverseBindTransform() const { return this->mInverseBindTransform; }
+    
+private:
+    
+    void calculateInverseBindTransform(const glm::mat4 &parentBindTransform);
 };
 
 #endif /* _JOINTENTITY_H */
