@@ -5,11 +5,11 @@ enum CoreModuleType
 {
 	CM_GRAPHICS,
     CM_AR,
+    CM_ANIMATION,
 	CM_AUDIO,
 	CM_PHYICS,
 	CM_INPUT,
 };
-
 
 class CoreModule
 {
