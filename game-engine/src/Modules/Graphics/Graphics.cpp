@@ -193,8 +193,7 @@ bool Graphics::addMesh(const std::string& name, MeshGL *mesh)
 bool Graphics::addMaterial(const std::string& name, Material *material)
 {
     // Make name lower case
-    std::string nameLow = name;
-    std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
+    std::string nameLow = toLower(name);
     
     if (this->materials.find(nameLow) == this->materials.end())
     {

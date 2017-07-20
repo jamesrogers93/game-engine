@@ -22,15 +22,21 @@ public:
     
     bool initalise() {}
     bool deinitalise() {}
-    bool update() {}
+    bool update();
+    
+    bool addAnimation(const std::string&, Animation*);
+    bool addAnimatorProperty(const std::string&, AnimatorProperty*);
+    
+    bool removeAnimation(const std::string&);
+    bool removeAnimatorProperty(const std::string&);
     
 private:
     AnimationModule() : CoreModule(CM_ANIMATION){}
     AnimationModule(AnimationModule const&);    // Don't Implement
     void operator=(AnimationModule const&);		// Don't implement
     
-    std::map<std::string, Animation*> animations;
-    std::map<std::string, AnimatorProperty> animatorProperties;
+    std::map<std::string, Animation*> mAnimations;
+    std::map<std::string, AnimatorProperty*> mAnimatorProperties;
 };
 
 #endif /* _ANIMATIONMODULE_H */

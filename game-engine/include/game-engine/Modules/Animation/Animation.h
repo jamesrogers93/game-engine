@@ -9,11 +9,18 @@
 class Animation
 {
 public:
-    Animation()
+    Animation(const float &length, const float &ticksPerSecond, const std::vector<KeyFrame> &keyframes)
+    : mLength(length), mTicksPerSecond(ticksPerSecond), mKeyframes(keyframes)
     {}
     
+    const length& getLength() const;
+    const float& getTicksPerSecond() const;
+    const std::vector<KeyFrame>& getKeyFrames() const;
+    
 private:
-    std:vector<KeyFrame> keyframes;
+    float mLength;
+    float mTicksPerSecond;
+    std:vector<KeyFrame> mKeyframes;
 };
 
 #endif /* _ANIMATION_H */
