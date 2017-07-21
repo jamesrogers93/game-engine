@@ -10,13 +10,16 @@
 class Animation
 {
 public:
-    Animation(const float &length, const std::map<std::string, JointAnimation> &jointAnimations) : mLength(length), mJointAnimations(jointAnimations)
+    Animation(const std::string &name, const float &length, const std::map<std::string, JointAnimation> &jointAnimations) : mName(name), mLength(length), mJointAnimations(jointAnimations)
     {}
     
+    const std::string& getName() const { return mName; }
     const float& getLength() const { return mLength; }
-    const std::map<std::string, JointAnimation>& getJointAnimations() const { return mJointAnimations; }
+    const std::map<std::string, JointAnimation>* getJointAnimations() const { return &mJointAnimations; }
+    const JointAnimation* getJointAnimation(const std::string &name);
     
 private:
+    std::string mName;
     float mLength;
     std::map<std::string, JointAnimation> mJointAnimations;
 };

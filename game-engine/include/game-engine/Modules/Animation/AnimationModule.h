@@ -7,8 +7,11 @@
 
 #include "game-engine/Modules/CoreModule.h"
 
+#include <glm/glm.hpp>
+
 class Animation;
 class AnimatorProperty;
+class JointEntity;
 
 class AnimationModule : public CoreModule
 {
@@ -37,6 +40,8 @@ private:
     
     std::map<std::string, Animation*> mAnimations;
     std::map<std::string, AnimatorProperty*> mAnimatorProperties;
+    
+    void animate(Animation *animation, JointEntity *joint, const glm::mat4 &parentTransform);
 };
 
 #endif /* _ANIMATIONMODULE_H */

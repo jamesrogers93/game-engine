@@ -2,9 +2,16 @@
 
 #include "game-engine/Util/StringUtil.h"
 
-#include "game-engine/Modules/Animation/Animation.h"
 #include "game-engine/Modules/Animation/AnimatorProperty.h"
 #include "game-engine/Modules/Animation/JointEntity.h"
+#include "game-engine/Modules/Animation/Animation.h"
+#include "game-engine/Modules/Animation/JointAnimation.h"
+#include "game-engine/Modules/Animation/KeyFrame.h"
+#include "game-engine/Modules/Animation/JointTransform.h"
+
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 bool AnimationModule::update()
 {
@@ -18,13 +25,44 @@ bool AnimationModule::update()
             Animation *a = this->mAnimations[animator.second->mAnimationKey];
             JointEntity *root = animator.second->mSkeletonRoot;
             
-            
-            
+            animate(a, root, glm::mat4());
         }
     }
     
     
     return true;
+}
+
+void AnimationModule::animate(Animation *animation, JointEntity *joint, const glm::mat4 &parentTransform)
+{
+    
+    // Get animation transform;
+    const JointAnimation *jointAnimation = animation->getJointAnimation(joint->getName());
+    
+    glm::mat4 jointLocalTransform;
+    if(jointAnimation != NULL)
+    {
+        unsigned int index = 0;
+        glm::vec4 position = jointAnimation->getKeyFrame(index)->getJointTransform().getPosition();
+        glm::fquat rotation = jointAnimation->getKeyFrame(index)->getJointTransform().getRotation();
+        
+        jointLocalTransform = glm::translate(glm::mat4(), glm::vec3(position)) * glm::mat4_cast(rotation);
+    }
+    else
+    {
+        jointLocalTransform = joint->getLocalBindTransform();
+    }
+    
+    glm::mat4 jointGlobalTransform = parentTransform * jointLocalTransform;
+    joint->transformOW(jointGlobalTransform * joint->getInverseBindTransform());
+    
+    for(unsigned int i = 0; i < joint->getChildren().size(); i++)
+    {
+        if(joint->getChildren()[i]->getType() == Entity::JOINT)
+        {
+            animate(animation, (JointEntity*)joint->getChildren()[i], jointGlobalTransform);
+        }
+    }
 }
 
 bool AnimationModule::addAnimation(const std::string &name, Animation *animation)
