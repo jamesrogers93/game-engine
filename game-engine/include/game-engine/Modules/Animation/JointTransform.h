@@ -8,17 +8,15 @@
 class JointTransform
 {
 public:
-    JointTransform()
+    
+    JointTransform(const glm::vec4 &position, const glm::fquat &rotation) : mPosition(position), mRotation(rotation)
     {}
     
-    JointTransform(const glm::vec3 &position, const glm::fquat &rotation) : mPosition(position), mRotation(rotation)
-    {}
-    
-    const glm::vec3& getPosition() const { return this->mPosition; }
+    const glm::vec4& getPosition() const { return this->mPosition; }
     const glm::fquat& getRotation() const { return this->mRotation; }
     
 private:
-    glm::vec3 mPosition;
+    glm::vec4 mPosition;
     glm::fquat mRotation;
 };
 

@@ -1,6 +1,6 @@
 #include "game-engine/Modules/Animation/KeyFrame.h"
 
-const JointTransform* KeyFrame::getJointTransform(const std::string &name)
+/*const JointTransform* KeyFrame::getJointTransform(const std::string &name)
 {
     if(this->mJointTransforms.find(name) != this->mJointTransforms.end())
     {
@@ -24,3 +24,4 @@ bool KeyFrame::addJointTransform(std::string &name, const JointTransform &jointT
         return false;
     }
 }
+*/

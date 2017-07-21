@@ -10,17 +10,15 @@
 class KeyFrame
 {
 public:
-    KeyFrame()
+    KeyFrame(const float &timeStamp, const JointTransform &jointTransform) : mTimeStamp(timeStamp), mJointTransform(jointTransform)
     {}
     
-    KeyFrame(const std::map<std::string, JointTransform> &jointTransforms) : mJointTransforms(jointTransforms)
-    {}
-    
-    const JointTransform* getJointTransform(const std::string&);
-    bool addJointTransform(std::string&, const JointTransform&);
+    const float& getTimeStamp() const { return mTimeStamp; }
+    const JointTransform& getJointTransform() const { return mJointTransform; }
     
 private:
-    std::map<std::string, JointTransform> mJointTransforms;
+    float mTimeStamp;
+    JointTransform mJointTransform;
 };
 
 #endif /* _KEYFRAME_H */
