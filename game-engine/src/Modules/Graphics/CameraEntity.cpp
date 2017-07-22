@@ -8,6 +8,9 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtx/quaternion.hpp>
 
+// Game Engine Core
+#include "game-engine/Core/GL/GL.h"
+
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
 
@@ -56,15 +59,18 @@ void CameraEntity::loadToShader(Shader *shader)
 {
     // Load projection to shader
     GLint loc = *shader->getUniformLocation(SHADER_PROJECTION_NAME);
-    glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->projection));
+    //glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->projection));
+    jmpGLUniformMatrix4fv(shader->getProgram(), loc, 1, false, glm::value_ptr(this->projection));
     
     // load view to shader
     loc = *shader->getUniformLocation(SHADER_VIEW_NAME);
-    glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->view));
+    //glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->view));
+    jmpGLUniformMatrix4fv(shader->getProgram(), loc, 1, false, glm::value_ptr(this->view));
     
     loc = *shader->getUniformLocation(SHADER_POSITION_NAME);
     glm::vec3 position = glm::vec3(this->globalModel[3]);
-    glUniform3fv(loc, 1, glm::value_ptr(position));
+    //glUniform3fv(loc, 1, glm::value_ptr(position));
+    jmpGLUniform3fv(shader->getProgram(), loc, 1, glm::value_ptr(position));
 }
 
 glm::mat4 CameraEntity::perspectiveMatrix(const unsigned int &screenWidth, const unsigned int &screenHeight, const float &fov, const float &clipNear, const float &clipFar)

@@ -4,6 +4,9 @@
 #include <glm/gtc/type_ptr.hpp>
 
 // Game Engine Core
+#include "game-engine/Core/GL/GL.h"
+
+// Game Engine Graphics
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
@@ -23,28 +26,34 @@ void DirectionalLightProperty::loadToShader(Shader *shader, const unsigned int &
     GLint *loc = shader->getUniformLocation(lightName + SHADER_DIRECTION_NAME);
     if(loc != NULL)
     {
-        glUniform3fv(*loc, 1, glm::value_ptr(this->direction));
+        //glUniform3fv(*loc, 1, glm::value_ptr(this->direction));
+        jmpGLUniform3fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->direction));
     }
+    
+    
     
     // Ambient colour
     loc = shader->getUniformLocation(lightName + SHADER_AMBIENT_NAME);
     if(loc != NULL)
     {
-        glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
+        //glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
+        jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
     }
     
     // Diffuse colour
     loc = shader->getUniformLocation(lightName + SHADER_DIFFUSE_NAME);
     if(loc != NULL)
     {
-        glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
+        //glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
+        jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
     }
     
     // Specular colour
     loc = shader->getUniformLocation(lightName + SHADER_SPECULAR_NAME);
     if(loc != NULL)
     {
-        glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
+        //glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
+        jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
     }
 }
 
@@ -54,7 +63,8 @@ void DirectionalLightProperty::loadNumLightsToShader(Shader *shader, const unsig
     GLint *loc = shader->getUniformLocation(SHADER_NUMLIGHTS_NAME);
     if(loc != NULL)
     {
-        glUniform1i(*loc, count);
+        //glUniform1i(*loc, count);
+        jmpGLUniform1i(shader->getProgram(), *loc, count);
     }
 }
 

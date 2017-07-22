@@ -1,5 +1,8 @@
 #include "game-engine/Modules/Graphics/Shader.h"
 
+// Game Engine Core
+#include "game-engine/Core/GL/GL.h"
+
 Shader::Shader()
 {
 	this->program = 0;
@@ -13,7 +16,8 @@ Shader::Shader(const GLuint program, std::map<std::string, GLint> uniforms)
 
 void Shader::use()
 {
-	glUseProgram(this->program);
+	//glUseProgram(this->program);
+    jmpGLUseProgram(this->program);
 }
 
 const GLuint& Shader::getProgram()

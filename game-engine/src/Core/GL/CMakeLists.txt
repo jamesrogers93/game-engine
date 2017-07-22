@@ -1,5 +1,6 @@
 
 list(APPEND GAME_ENGINE_SRC
+    "src/Core/GL/GL.cpp" 
     "src/Core/GL/GLContext.cpp" 
 )
 

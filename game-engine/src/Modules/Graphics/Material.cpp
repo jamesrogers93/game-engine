@@ -1,9 +1,12 @@
 
-// Game Engine Core
+// Game Engine Graphics
 #include "game-engine/Modules/Graphics/Material.h"
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 #include "game-engine/Modules/Graphics/Texture.h"
+
+// Game Engine Core
+#include "game-engine/Core/GL/GL.h"
 
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
@@ -64,7 +67,8 @@ bool Material::loadToShader(Shader *shader)
         GLint *loc = shader->getUniformLocation(SHADER_DIFF_SOLID_NAME);
         if(loc != NULL)
         {
-            glUniform4fv(*loc, 1, glm::value_ptr(this->diffuseSolid));
+            //glUniform4fv(*loc, 1, glm::value_ptr(this->diffuseSolid));
+            jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->diffuseSolid));
         }
     }
     
@@ -73,14 +77,16 @@ bool Material::loadToShader(Shader *shader)
         GLint *loc = shader->getUniformLocation(SHADER_SPEC_SOLID_NAME);
         if(loc != NULL)
         {
-            glUniform4fv(*loc, 1, glm::value_ptr(this->specularSolid));
+            //glUniform4fv(*loc, 1, glm::value_ptr(this->specularSolid));
+            jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->specularSolid));
         }
     }
     
     GLint *shininess = shader->getUniformLocation(SHADER_SHININESS_NAME);
     if(shininess != NULL)
     {
-        glUniform1f(*shininess, this->shininess);
+        //glUniform1f(*shininess, this->shininess);
+        jmpGLUniform1f(shader->getProgram(), *shininess, this->shininess);
     }
     
     return true;

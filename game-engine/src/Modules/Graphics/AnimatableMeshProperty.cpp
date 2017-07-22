@@ -6,6 +6,9 @@
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
+// Game Engine Core
+#include "game-engine/Core/GL/GL.h"
+
 // Game Engine
 #include "game-engine/Modules/Graphics/Shader.h"
 #include "game-engine/Entity/Entity.h"
@@ -49,7 +52,9 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
                 std::cout << "[" << jointTransform[0][1] << ",\t\t" << jointTransform[1][1] << ",\t\t" << jointTransform[2][1] << ",\t\t" << jointTransform[3][1] << "]" << std::endl;
                 std::cout << "[" << jointTransform[0][2] << ",\t\t" << jointTransform[1][2] << ",\t\t" << jointTransform[2][2] << ",\t\t" << jointTransform[3][2] << "]" << std::endl;
                 std::cout << "[" << jointTransform[0][3] << ",\t\t" << jointTransform[1][3] << ",\t\t" << jointTransform[2][3] << ",\t\t" << jointTransform[3][3] << "]\n" << std::endl;*/
-                glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(jointTransform));
+                //glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(jointTransform));
+                
+                jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(jointTransform));
             }
         } else
         {
