@@ -6,7 +6,7 @@
 #include <vector>
 
 // Engine
-#include "game-engine/Core/Modules/CoreModule.h"
+#include "game-engine/Modules/CoreModule.h"
 
 class SceneManager;
 
