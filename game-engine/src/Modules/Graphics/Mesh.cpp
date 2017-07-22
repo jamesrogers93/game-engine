@@ -16,8 +16,6 @@ MeshGL* MeshGL::loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned in
         return NULL;
     }
     
-    unsigned int numVertices = vertices.size();
-    
     // Get size of Vertex
     unsigned int sizeOfVertex = vertices[0].sizeInBytes();
     

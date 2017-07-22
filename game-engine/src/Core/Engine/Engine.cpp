@@ -71,7 +71,15 @@ CoreModule* Engine::getCoreModule(const CoreModuleType &module)
     }
 }
 
-void Engine::updateAll()
+void Engine::update(const CoreModuleType &module)
+{
+    if(this->modules.find(module) != this->modules.end())
+    {
+        this->modules.at(module)->update();
+    }
+}
+
+/*void Engine::updateAll()
 {
     for(auto const &module : this->modules)
     {
@@ -93,5 +101,5 @@ void Engine::updateIncluding(const std::vector<CoreModuleType> modules)
 void Engine::updateExcluding(const std::vector<CoreModuleType> modules)
 {
     // MUST IMPLEMENT
-}
+}*/
 

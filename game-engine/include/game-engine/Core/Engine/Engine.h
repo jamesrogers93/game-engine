@@ -28,9 +28,10 @@ public:
     //T* getCoreModule(const CoreModuleType &module);
     CoreModule* getCoreModule(const CoreModuleType &module);
     
-    void updateAll();
-    void updateIncluding(const std::vector<CoreModuleType> modules);
-    void updateExcluding(const std::vector<CoreModuleType> modules);
+    void update(const CoreModuleType &module);
+    //void updateAll();
+    //void updateIncluding(const std::vector<CoreModuleType> modules);
+    //void updateExcluding(const std::vector<CoreModuleType> modules);
 
 private:
 	Engine();

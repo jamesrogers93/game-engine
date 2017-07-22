@@ -38,9 +38,9 @@ glm::dquat Gyroscope::getOrientation()
     
     CMAttitudeReferenceFrame gyroReferenceFrame = CMAttitudeReferenceFrameXArbitraryCorrectedZVertical;
     
-    CMDeviceMotion *deviceMotion = _motionManager.deviceMotion;
+    //CMDeviceMotion *deviceMotion = _motionManager.deviceMotion;
     
-    self.referenceAttitude = deviceMotion.attitude;
+    //self.referenceAttitude = deviceMotion.attitude;
     [_motionManager startDeviceMotionUpdatesUsingReferenceFrame:gyroReferenceFrame];
 }
 

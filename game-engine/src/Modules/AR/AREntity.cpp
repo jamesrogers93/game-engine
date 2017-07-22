@@ -63,7 +63,6 @@ void AREntity::draw()
     CameraCapture::getInstance().display();
 }
 
-static float degrees = 0.0f;
 void AREntity::frameRecieved(unsigned char *data, const float &width, const float &height, const float &padding)
 {
     // Get gyroscope orientation
