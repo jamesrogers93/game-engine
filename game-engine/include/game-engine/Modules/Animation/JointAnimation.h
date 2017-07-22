@@ -3,6 +3,7 @@
 
 // STD
 #include <vector>
+#include <utility>
 
 #include "game-engine/Modules/Animation/KeyFrame.h"
 //#include "game-engine/Modules/Animation/JointAnimation.h"
@@ -23,10 +24,12 @@ public:
     const float& getLength() const { return this->mLength; }
     const std::vector<KeyFrame>* getKeyFrames() const { return &this->mKeyFrames; }
     const KeyFrame* getKeyFrame(unsigned int &index) const;
-    const float& getKeyFrameCount() const { return mKeyFramesCount; }
+    const size_t& getKeyFrameCount() const { return mKeyFramesCount; }
     
     void setLength(const float &length) { mLength = length; }
     void setKeyFrames(const std::vector<KeyFrame> &keyFrames) { mKeyFrames = keyFrames; mKeyFramesCount = keyFrames.size(); }
+    
+    const KeyFrame* getKeyFrame(const float &elapsedTime) const;
     
 private:
     float mLength;

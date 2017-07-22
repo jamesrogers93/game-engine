@@ -16,7 +16,7 @@ public:
     const std::string& getName() const { return mName; }
     const float& getLength() const { return mLength; }
     const std::map<std::string, JointAnimation>* getJointAnimations() const { return &mJointAnimations; }
-    const JointAnimation* getJointAnimation(const std::string &name);
+    const JointAnimation* getJointAnimation(const std::string &name) const;
     
 private:
     std::string mName;

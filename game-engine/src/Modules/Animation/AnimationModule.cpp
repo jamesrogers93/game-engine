@@ -20,49 +20,22 @@ bool AnimationModule::update()
     
     for(auto &animator : this->mAnimatorProperties)
     {
+        if(!animator.second->mAnimate)
+        {
+            continue;
+        }
+        
         if(this->mAnimations.find(animator.second->mAnimationKey) != this->mAnimations.end())
         {
             Animation *a = this->mAnimations[animator.second->mAnimationKey];
             JointEntity *root = animator.second->mSkeletonRoot;
             
-            animate(a, root, glm::mat4());
+            animator.second->animate(a, root);
         }
     }
     
     
     return true;
-}
-
-void AnimationModule::animate(Animation *animation, JointEntity *joint, const glm::mat4 &parentTransform)
-{
-    
-    // Get animation transform;
-    const JointAnimation *jointAnimation = animation->getJointAnimation(joint->getName());
-    
-    glm::mat4 jointLocalTransform;
-    if(jointAnimation != NULL)
-    {
-        unsigned int index = 0;
-        glm::vec4 position = jointAnimation->getKeyFrame(index)->getJointTransform().getPosition();
-        glm::fquat rotation = jointAnimation->getKeyFrame(index)->getJointTransform().getRotation();
-        
-        jointLocalTransform = glm::translate(glm::mat4(), glm::vec3(position)) * glm::mat4_cast(rotation);
-    }
-    else
-    {
-        jointLocalTransform = joint->getLocalBindTransform();
-    }
-    
-    glm::mat4 jointGlobalTransform = parentTransform * jointLocalTransform;
-    joint->transformOW(jointGlobalTransform * joint->getInverseBindTransform());
-    
-    for(unsigned int i = 0; i < joint->getChildren().size(); i++)
-    {
-        if(joint->getChildren()[i]->getType() == Entity::JOINT)
-        {
-            animate(animation, (JointEntity*)joint->getChildren()[i], jointGlobalTransform);
-        }
-    }
 }
 
 bool AnimationModule::addAnimation(const std::string &name, Animation *animation)

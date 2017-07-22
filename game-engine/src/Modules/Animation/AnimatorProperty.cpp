@@ -1,22 +1,27 @@
-
 #include "game-engine/Modules/Animation/AnimatorProperty.h"
+#include "game-engine/Modules/Animation/JointEntity.h"
+#include "game-engine/Modules/Animation/Animation.h"
+#include "game-engine/Modules/Animation/JointAnimation.h"
+#include "game-engine/Modules/Animation/KeyFrame.h"
+#include "game-engine/Modules/Animation/JointTransform.h"
 
-void AnimatorProperty::play(const std::string &animationKey)
+#include "game-engine/Util/TimeUtil.h"
+
+#include <iostream>
+
+void AnimatorProperty::play(const std::string &animationKey, const bool &loop, const float &speed, const bool &reverse)
 {
     this->mAnimationKey = animationKey;
     this->mAnimate = true;
+    this->mLoop = loop;
+    this->mReverse = reverse;
+    this->mSpeed = speed;
+    this->mStartTime = timeInSeconds();
 }
 
 void AnimatorProperty::stop()
 {
     this->mAnimate = false;
-}
-
-bool AnimatorProperty::animate()
-{
-    // Here we iterate over the joints and calculate their transforms
-    
-    return false;
 }
 
 bool AnimatorProperty::makeActive()
@@ -35,4 +40,81 @@ bool AnimatorProperty::makeUnactive()
     AnimationModule *a = &AnimationModule::getInstance();
     
     return a->removeAnimatorProperty(this->mName);
+}
+
+void AnimatorProperty::animate(const Animation *animation, JointEntity *joint)
+{
+    
+    // Get Elapsed time
+    float currentTime = timeInSeconds();
+    float elapsedTime = currentTime - mStartTime;
+    
+    // Apply speed
+    elapsedTime *= mSpeed;
+    
+    // Check if elapsed time has passed animation length
+    if(elapsedTime > animation->getLength())
+    {
+        // If animation is looping, reset animation timings
+        if(mLoop)
+        {
+            mStartTime = currentTime;
+            elapsedTime -= animation->getLength();
+        }
+        else
+        {
+            stop();
+            return;
+        }
+    }
+    
+    // Reverse animation
+    if(mReverse)
+    {
+        elapsedTime = animation->getLength() - elapsedTime;
+    }
+    
+    //std::cout << "elapsed time:" << elapsedTime << std::endl;
+    
+    animate2(animation, joint, elapsedTime);
+}
+
+void AnimatorProperty::animate2(const Animation *animation, JointEntity *joint, const float &elapsedTime, const glm::mat4 &parentTransform)
+{
+    
+    // Get animation transform;
+    const JointAnimation *jointAnimation = animation->getJointAnimation(joint->getName());
+    
+    glm::mat4 jointLocalTransform;
+    
+    // Get the joint animation transformation
+    if(jointAnimation != NULL)
+    {
+        const JointTransform *jointTransform = &jointAnimation->getKeyFrame(elapsedTime)->getJointTransform();
+        const glm::vec4 *position = &jointTransform->getPosition();
+        const glm::fquat *rotation = &jointTransform->getRotation();
+        
+        jointLocalTransform = glm::translate(glm::mat4(), glm::vec3(*position)) * glm::mat4_cast(*rotation);
+    }
+    else
+    {
+        // Or get the local bind transform
+        jointLocalTransform = joint->getLocalBindTransform();
+    }
+    
+    glm::mat4 jointGlobalTransform = parentTransform * jointLocalTransform;
+    joint->transformOW(jointGlobalTransform * joint->getInverseBindTransform());
+    
+    for(unsigned int i = 0; i < joint->getChildren().size(); i++)
+    {
+        if(joint->getChildren()[i]->getType() == Entity::JOINT)
+        {
+            animate2(animation, (JointEntity*)joint->getChildren()[i], elapsedTime, jointGlobalTransform);
+        }
+    }
+}
+
+void AnimatorProperty::updateFrame(const Animation* animation)
+{
+    
 }
