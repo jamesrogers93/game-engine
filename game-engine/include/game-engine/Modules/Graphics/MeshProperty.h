@@ -3,6 +3,7 @@
 
 // STD
 #include <string>
+#include <vector>
 
 // Game Engine Core
 #include "game-engine/Entity/Property.h"

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 const std::string PropertyImporter::MESH_TYPE = "mesh";
 const std::string PropertyImporter::ANIMATABLE_MESH_TYPE = "animatable_mesh";
