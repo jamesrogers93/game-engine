@@ -10,7 +10,7 @@ public:
     {}
     
     void initialise(){}
-    void update(){}
+    //void update(){}
 };
 
 #endif /* _GAMEOBJECT_H */

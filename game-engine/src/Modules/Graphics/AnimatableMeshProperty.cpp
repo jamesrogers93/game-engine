@@ -45,16 +45,18 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
         {
             if(this->mJointsMap.find(this->mJoints[i]) != this->mJointsMap.end())
             {
-                glm::mat4 jointTransform = this->mJointsMap[this->mJoints[i]]->getLocalModel();
+                Entity *joint = this->mJointsMap[this->mJoints[i]];
+                const glm::mat4 *jointTransform = &joint->getLocalModel();
                 
-                //jointTransform = glm::mat4();
-                /*std::cout << "[" << jointTransform[0][0] << ",\t\t" << jointTransform[1][0] << ",\t\t" << jointTransform[2][0] << ",\t\t" << jointTransform[3][0] << "]" << std::endl;
-                std::cout << "[" << jointTransform[0][1] << ",\t\t" << jointTransform[1][1] << ",\t\t" << jointTransform[2][1] << ",\t\t" << jointTransform[3][1] << "]" << std::endl;
-                std::cout << "[" << jointTransform[0][2] << ",\t\t" << jointTransform[1][2] << ",\t\t" << jointTransform[2][2] << ",\t\t" << jointTransform[3][2] << "]" << std::endl;
-                std::cout << "[" << jointTransform[0][3] << ",\t\t" << jointTransform[1][3] << ",\t\t" << jointTransform[2][3] << ",\t\t" << jointTransform[3][3] << "]\n" << std::endl;*/
-                //glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(jointTransform));
+                //if(joint->getLocalTransformUpdate().getFlag())
+                //{
+                    //glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(*jointTransform));
+                //    joint->getLocalTransformUpdate().reset();
+                //}
                 
-                jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(jointTransform));
+                
+                //jmpGLUniformMatrix4fv(joint->getLocalTransformUpdate(), shader->getProgram(), *loc, 1, false, glm::value_ptr(*jointTransform));
+                jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(*jointTransform));
             }
         } else
         {
@@ -63,7 +65,7 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
     }
 }
 
-void AnimatableMeshProperty::linkJoints(const Entity *entity)
+void AnimatableMeshProperty::linkJoints(Entity *entity)
 {
     // Search for this entity name in the joints keys
     std::vector<std::string>::iterator it = std::find(this->mJoints.begin(), this->mJoints.end(), entity->getName());

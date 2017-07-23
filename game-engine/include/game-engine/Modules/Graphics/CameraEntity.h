@@ -4,9 +4,14 @@
 // STD
 #include <string>
 #include <vector>
+#include <map>
 
 // Game Engine Core
+#include "game-engine/Core/GL/GLData.h"
+
+// Game Engine Graphics
 #include "game-engine/Entity/Entity.h"
+#include "game-engine/Modules/Graphics/Shader.h"
 
 // GLM
 #include <glm/glm.hpp>
@@ -50,6 +55,10 @@ private:
     
     //float yaw;
     //float pitch;
+    
+    UpdateNotification mViewGLUpdate;
+    UpdateNotification mProjectionGLUpdate;
+    
 };
 
 #endif /* _CAMERAENTITY_H */

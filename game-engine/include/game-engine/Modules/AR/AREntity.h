@@ -19,7 +19,7 @@ public:
     AREntity(const std::string &name);
     
     void initialise();
-    void update(){}
+    //void update(){}
     
     void startCapture();
     void stopCapture();

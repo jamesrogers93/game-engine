@@ -28,11 +28,10 @@ void Entity::addProperty(Property *property)
     this->properties.push_back(property);
 }
 
-void Entity::updateChildren()
+void Entity::update()
 {
     for(unsigned int i = 0; i < this->children.size(); i++)
     {
-        this->children[i]->updateChildren();
         this->children[i]->update();
     }
 }
@@ -158,11 +157,21 @@ void Entity::updateGlobalModel()
 {
     if(this->parent != NULL)
     {
-        this->globalModel = this->parent->globalModel * this->localModel;
+        
+        //if(this->parent->getGlobalTransformUpdate().getFlag() || this->getLocalTransformUpdate().getFlag())
+        //{
+            this->globalModel = this->parent->globalModel * this->localModel;
+        //    this->mGlobalTransformUpdate.notify();
+        //}
+        
     }
     else
     {
-        this->globalModel = this->localModel;
+        //if(this->getLocalTransformUpdate().getFlag())
+        //{
+            this->globalModel = this->localModel;
+        //    this->mGlobalTransformUpdate.notify();
+        //}
     }
     
     for(auto &child : this->children)
@@ -185,4 +194,5 @@ void Entity::updateLocalModel()
     this->localModel = model;*/
     
     this->localModel = this->T[1] * this->R[1] * this->S[1] * this->T[0] * this->R[0] * this->S[0];
+    //mLocalTransformUpdate.notify();
 }

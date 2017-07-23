@@ -49,7 +49,11 @@ void MeshProperty::loadToShader(Shader *shader)
     GLint *loc = shader->getUniformLocation(SHADER_MODEL_NAME);
     if(loc != NULL)
     {
-        //glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->mOwner->getGlobalModel()));
+        //if(this->mOwner->getGlobalTransformUpdate().getFlag())
+        //{
+            //glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->mOwner->getGlobalModel()));
+        //    this->mOwner->getGlobalTransformUpdate().reset();
+        //}
         jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(this->mOwner->getGlobalModel()));
     }
     

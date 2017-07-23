@@ -5,12 +5,18 @@
 #include <string>
 #include <vector>
 
+// Game Engine Core
+#include "game-engine/Core/GL/GLData.h"
+
 // GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 
+//#include "game-engine/Entity/EntityObserver.h"
+
 #define MAX_TRANSFORMATIONS 2
+
 class Scene;
 class Property;
 
@@ -49,8 +55,8 @@ protected:
 public:
     
     virtual void initialise() = 0;
-    virtual void update() = 0;
-    void updateChildren();
+    virtual void update();
+    //void updateChildren();
     
     const Type& getType() const                         {   return this->mType; }
     const std::string& getName() const                  {   return this->name;  }
@@ -60,6 +66,9 @@ public:
     
     const glm::mat4& getLocalModel() const { return this->localModel; }
     const glm::mat4& getGlobalModel() const { return this->globalModel; }
+    
+    //UpdateNotification& getLocalTransformUpdate() { return mLocalTransformUpdate; }
+    //UpdateNotification& getGlobalTransformUpdate() { return mGlobalTransformUpdate; }
     
     bool hasParent() const { return this->parent != NULL; }
     
@@ -87,10 +96,17 @@ public:
     
     const std::string typeToString() const;
     
+    //void attachObserver(EntityObserver* observer) { mObservers.push_back(observer); }
+    
 private:
     
     void updateGlobalModel();
     void updateLocalModel();
+    
+    //UpdateNotification mLocalTransformUpdate;
+    //UpdateNotification mGlobalTransformUpdate;
+    
+    //std::vector<EntityObserver*> mObservers;
     
 };
 

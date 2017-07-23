@@ -35,11 +35,17 @@ CameraEntity::CameraEntity(const std::string &name, const glm::mat4& projection,
 void CameraEntity::update()
 {
     updateView();
+    
+    Entity::update();
 }
 
 void CameraEntity::updateView()
 {
-    this->view = glm::inverse(this->globalModel);
+    //if(getGlobalTransformUpdate().getFlag())
+    //{
+        this->view = glm::inverse(this->globalModel);
+    //    this->mViewGLUpdate.notify();
+    //}
  
     
     // This is the view matrix using look at
@@ -59,13 +65,25 @@ void CameraEntity::loadToShader(Shader *shader)
 {
     // Load projection to shader
     GLint loc = *shader->getUniformLocation(SHADER_PROJECTION_NAME);
-    //glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->projection));
     jmpGLUniformMatrix4fv(shader->getProgram(), loc, 1, false, glm::value_ptr(this->projection));
+    
+    //if(mProjectionGLUpdate.getFlag())
+    //{
+    //    glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->projection));
+    //    mProjectionGLUpdate.reset();
+    //}
+    //jmpGLUniformMatrix4fv(mProjectionGLUpdate, shader->getProgram(), loc, 1, false, glm::value_ptr(this->projection));
     
     // load view to shader
     loc = *shader->getUniformLocation(SHADER_VIEW_NAME);
-    //glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->view));
     jmpGLUniformMatrix4fv(shader->getProgram(), loc, 1, false, glm::value_ptr(this->view));
+    
+    //if(mViewGLUpdate.getFlag())
+    //{
+    //    glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->view));
+    //    mViewGLUpdate.reset();
+    //}
+    //jmpGLUniformMatrix4fv(mViewGLUpdate, shader->getProgram(), loc, 1, false, glm::value_ptr(this->view));
     
     loc = *shader->getUniformLocation(SHADER_POSITION_NAME);
     glm::vec3 position = glm::vec3(this->globalModel[3]);

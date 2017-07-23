@@ -12,6 +12,10 @@
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
 
+struct ShaderFlag {
+    bool flag = true;
+};
+
 class Shader
 {
 private:
