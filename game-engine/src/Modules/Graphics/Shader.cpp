@@ -25,15 +25,17 @@ const GLuint& Shader::getProgram()
 	return this->program;
 }
 
-GLint* Shader::getUniformLocation(const std::string &name)
+/*inline const GLint* Shader::getUniformLocation(const std::string &name) const
 {
-    if (this->uniforms.find(name) != this->uniforms.end())
-    {
-        return &this->uniforms[name];
-    }
+    //if (this->uniforms.find(name) != this->uniforms.end())
+    //{
+    //    return &this->uniforms[name];
+    //}
     
-    return NULL;
-}
+    return &this->uniforms.at(name);
+    
+    //return NULL;
+}*/
 
 Shader* Shader::loadShaderFromFile(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames)
 {

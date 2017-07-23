@@ -40,7 +40,7 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
     // Load joints to shader
     for(unsigned int i = 0; i < this->mJoints.size(); i++)
     {
-        GLint *loc =shader->getUniformLocation(SHADER_JOINTS_NAME + "[" + std::to_string(i) + "]");
+        const GLint *loc =shader->getUniformLocation(SHADER_JOINTS_NAME + "[" + std::to_string(i) + "]");
         if(loc != NULL)
         {
             if(this->mJointsMap.find(this->mJoints[i]) != this->mJointsMap.end())

@@ -7,6 +7,11 @@
 
 #include "game-engine/Modules/Graphics/Material.h"
 
+void MaterialImporter::ImportAsynchronously(const std::string &path)
+{
+    mThread = std::thread(&MaterialImporter::Import, this, path);
+}
+
 bool MaterialImporter::Import(const std::string &path)
 {
     

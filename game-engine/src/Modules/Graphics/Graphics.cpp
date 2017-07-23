@@ -26,6 +26,12 @@ bool Graphics::deinitalise()
 
 bool Graphics::update()
 {
+    render();
+    return true;
+}
+
+void Graphics::render()
+{
     for(auto const &mesh : this->meshProperties)
     {
         this->draw(mesh.second);
@@ -34,8 +40,6 @@ bool Graphics::update()
         //    return false;
         //}
     }
-    
-    return true;
 }
 
 bool Graphics::draw(MeshProperty* mesh)
@@ -98,15 +102,7 @@ bool Graphics::draw(MeshProperty* mesh)
         c->loadToShader(s);
         
         // Load the model to the shader
-        if(mesh->getType() == Property::ANIMATABLE_MESH)
-        {
-            AnimatableMeshProperty* temp = (AnimatableMeshProperty*)mesh;
-            temp->loadToShader(s);
-        }
-        else
-        {
-            mesh->loadToShader(s);
-        }
+        mesh->loadToShader(s);
         
         // Load the material data into shader
         m->loadToShader(s);

@@ -62,32 +62,32 @@ bool Material::loadToShader(Shader *shader)
         }
     }*/
     
-    if(this->isDiffuseSolid)
-    {
-        GLint *loc = shader->getUniformLocation(SHADER_DIFF_SOLID_NAME);
-        if(loc != NULL)
-        {
-            //glUniform4fv(*loc, 1, glm::value_ptr(this->diffuseSolid));
-            jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->diffuseSolid));
-        }
-    }
+    //if(this->isDiffuseSolid)
+    //{
+        const GLint *loc = shader->getUniformLocation(SHADER_DIFF_SOLID_NAME);
+        //if(loc != NULL)
+        //{
+            glUniform4fv(*loc, 1, glm::value_ptr(this->diffuseSolid));
+            //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->diffuseSolid));
+        //}
+    //}
     
-    if(this->isSpecularSolid)
-    {
-        GLint *loc = shader->getUniformLocation(SHADER_SPEC_SOLID_NAME);
-        if(loc != NULL)
-        {
-            //glUniform4fv(*loc, 1, glm::value_ptr(this->specularSolid));
-            jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->specularSolid));
-        }
-    }
+    //if(this->isSpecularSolid)
+    //{
+        loc = shader->getUniformLocation(SHADER_SPEC_SOLID_NAME);
+        //if(loc != NULL)
+        //{
+            glUniform4fv(*loc, 1, glm::value_ptr(this->specularSolid));
+            //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->specularSolid));
+        //}
+    //}
     
-    GLint *shininess = shader->getUniformLocation(SHADER_SHININESS_NAME);
-    if(shininess != NULL)
-    {
-        //glUniform1f(*shininess, this->shininess);
-        jmpGLUniform1f(shader->getProgram(), *shininess, this->shininess);
-    }
+    loc = shader->getUniformLocation(SHADER_SHININESS_NAME);
+    //if(shininess != NULL)
+    //{
+        glUniform1f(*loc, this->shininess);
+        //jmpGLUniform1f(shader->getProgram(), *loc, this->shininess);
+    //}
     
     return true;
 }

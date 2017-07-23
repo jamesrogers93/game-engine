@@ -73,10 +73,12 @@ bool SceneManager::makeActiveScene(const std::string &name)
     }
 }
 
+//#include <thread>
 void SceneManager::update()
 {
     if(this->scenes.find(this->activeScene) != this->scenes.end())
     {
+        //std::thread(&Scene::update,this->scenes.at(this->activeScene));
         this->scenes.at(this->activeScene)->update();
     
     } else

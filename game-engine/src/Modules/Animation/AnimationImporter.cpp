@@ -9,6 +9,11 @@
 
 #include "game-engine/Util/StringUtil.h"
 
+void AnimationImporter::ImportAsynchronously(const std::string &path)
+{
+    mThread = std::thread(&AnimationImporter::Import, this, path);
+}
+
 bool AnimationImporter::Import(const std::string &path)
 {
     

@@ -55,7 +55,7 @@ struct Uniform1f
     GLfloat x;
 };
 
-void jmpGLClearColour(const float &r, const float &g, const float &b, const float &a)
+inline void jmpGLClearColour(const float &r, const float &g, const float &b, const float &a)
 {
     static float sr = 0.0;
     static float sg = 0.0;
@@ -76,7 +76,7 @@ void jmpGLClearColour(const float &r, const float &g, const float &b, const floa
     glClearColor(sr, sg, sb, sa);
 }
 
-void jmpGLTexParameterf(const GLenum &target, const GLenum &pname, const GLfloat &param)
+inline void jmpGLTexParameterf(const GLenum &target, const GLenum &pname, const GLfloat &param)
 {
     if(target == GL_TEXTURE_2D && pname == GL_TEXTURE_WRAP_S)
     {
@@ -107,7 +107,7 @@ void jmpGLTexParameterf(const GLenum &target, const GLenum &pname, const GLfloat
     }
 }
 
-void jmpGLUseProgram (const GLuint &program)
+inline void jmpGLUseProgram (const GLuint &program)
 {
     static GLuint sProgram = 0;
     
@@ -122,7 +122,7 @@ void jmpGLUseProgram (const GLuint &program)
 }
 
 //void jmpGLUniformMatrix4fv(const UpdateNotification &updateNotification, const GLuint &programId, const GLint &location, const GLsizei &count, const bool &transpose, const GLfloat* m)
-void jmpGLUniformMatrix4fv(const GLuint &programId, const GLint &location, const GLsizei &count, const bool &transpose, const GLfloat* m)
+inline void jmpGLUniformMatrix4fv(const GLuint &programId, const GLint &location, const GLsizei &count, const bool &transpose, const GLfloat* m)
 {
     
     /*static std::map<std::pair<GLuint, GLint>, UpdateNotification> update;
@@ -190,7 +190,7 @@ void jmpGLUniformMatrix4fv(const GLuint &programId, const GLint &location, const
     glUniformMatrix4fv(location, count, transpose, m);
 }
 
-void jmpGLUniformMatrix3fv(const GLuint &programId, const GLint &location, const GLsizei &count, const bool &transpose, const GLfloat* m)
+inline void jmpGLUniformMatrix3fv(const GLuint &programId, const GLint &location, const GLsizei &count, const bool &transpose, const GLfloat* m)
 {
     glUniformMatrix3fv(location, count, transpose, m);
     return;
@@ -232,7 +232,7 @@ void jmpGLUniformMatrix3fv(const GLuint &programId, const GLint &location, const
     glUniformMatrix3fv(location, count, transpose, m);
 }
 
-void jmpGLUniform3fv(const GLuint &programId, const GLint &location, const GLsizei &count, const GLfloat* v)
+inline void jmpGLUniform3fv(const GLuint &programId, const GLint &location, const GLsizei &count, const GLfloat* v)
 {
     glUniform3fv(location, count, v);
     return;
@@ -258,7 +258,7 @@ void jmpGLUniform3fv(const GLuint &programId, const GLint &location, const GLsiz
     glUniform3fv(location, count, v);
 }
 
-void jmpGLUniform4fv(const GLuint &programId, const GLint &location, const GLsizei &count, const GLfloat* v)
+inline void jmpGLUniform4fv(const GLuint &programId, const GLint &location, const GLsizei &count, const GLfloat* v)
 {
     glUniform4fv(location, count, v);
     return;
@@ -287,7 +287,7 @@ void jmpGLUniform4fv(const GLuint &programId, const GLint &location, const GLsiz
 }
 
 
-void jmpGLUniform1i(const GLuint &programId, const GLint &location, const GLint &x)
+inline void jmpGLUniform1i(const GLuint &programId, const GLint &location, const GLint &x)
 {
     glUniform1i(location, x);
     return;
@@ -307,7 +307,7 @@ void jmpGLUniform1i(const GLuint &programId, const GLint &location, const GLint 
     glUniform1i(location, x);
 }
 
-void jmpGLUniform1f(const GLuint &programId, const GLint &location, const GLfloat &x)
+inline void jmpGLUniform1f(const GLuint &programId, const GLint &location, const GLfloat &x)
 {
     glUniform1f(location, x);
     return;

@@ -64,19 +64,19 @@ const glm::mat4& CameraEntity::getView()
 void CameraEntity::loadToShader(Shader *shader)
 {
     // Load projection to shader
-    GLint loc = *shader->getUniformLocation(SHADER_PROJECTION_NAME);
-    jmpGLUniformMatrix4fv(shader->getProgram(), loc, 1, false, glm::value_ptr(this->projection));
+    const GLint *loc = shader->getUniformLocation(SHADER_PROJECTION_NAME);
+    //jmpGLUniformMatrix4fv(shader->getProgram(), loc, 1, false, glm::value_ptr(this->projection));
     
     //if(mProjectionGLUpdate.getFlag())
     //{
-    //    glUniformMatrix4fv(loc, 1, false, glm::value_ptr(this->projection));
+        glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->projection));
     //    mProjectionGLUpdate.reset();
     //}
     //jmpGLUniformMatrix4fv(mProjectionGLUpdate, shader->getProgram(), loc, 1, false, glm::value_ptr(this->projection));
     
     // load view to shader
-    loc = *shader->getUniformLocation(SHADER_VIEW_NAME);
-    jmpGLUniformMatrix4fv(shader->getProgram(), loc, 1, false, glm::value_ptr(this->view));
+    loc = shader->getUniformLocation(SHADER_VIEW_NAME);
+    jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(this->view));
     
     //if(mViewGLUpdate.getFlag())
     //{
@@ -85,10 +85,10 @@ void CameraEntity::loadToShader(Shader *shader)
     //}
     //jmpGLUniformMatrix4fv(mViewGLUpdate, shader->getProgram(), loc, 1, false, glm::value_ptr(this->view));
     
-    loc = *shader->getUniformLocation(SHADER_POSITION_NAME);
+    loc = shader->getUniformLocation(SHADER_POSITION_NAME);
     glm::vec3 position = glm::vec3(this->globalModel[3]);
-    //glUniform3fv(loc, 1, glm::value_ptr(position));
-    jmpGLUniform3fv(shader->getProgram(), loc, 1, glm::value_ptr(position));
+    glUniform3fv(*loc, 1, glm::value_ptr(position));
+    //jmpGLUniform3fv(shader->getProgram(), loc, 1, glm::value_ptr(position));
 }
 
 glm::mat4 CameraEntity::perspectiveMatrix(const unsigned int &screenWidth, const unsigned int &screenHeight, const float &fov, const float &clipNear, const float &clipFar)

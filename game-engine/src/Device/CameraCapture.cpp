@@ -99,7 +99,7 @@ void CameraCapture::display()
         }
         if(test)
         {
-        GLint *loc =shader->getUniformLocation(SHADER_MODEL_NAME);
+        const GLint *loc = shader->getUniformLocation(SHADER_MODEL_NAME);
         if(loc != NULL)
         {
             glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->getScale()));

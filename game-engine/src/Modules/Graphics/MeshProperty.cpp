@@ -46,24 +46,24 @@ bool MeshProperty::makeUnactive()
 void MeshProperty::loadToShader(Shader *shader)
 {
     // Load projection to shader
-    GLint *loc = shader->getUniformLocation(SHADER_MODEL_NAME);
-    if(loc != NULL)
-    {
+    const GLint *loc = shader->getUniformLocation(SHADER_MODEL_NAME);
+    //if(loc != NULL)
+    //{
         //if(this->mOwner->getGlobalTransformUpdate().getFlag())
         //{
-            //glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->mOwner->getGlobalModel()));
+            glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->mOwner->getGlobalModel()));
         //    this->mOwner->getGlobalTransformUpdate().reset();
         //}
-        jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(this->mOwner->getGlobalModel()));
-    }
+        //jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(this->mOwner->getGlobalModel()));
+    //}
     
     loc = shader->getUniformLocation(SHADER_NORMAL_MATRIX_NAME);
-    if(loc != NULL)
-    {
-        //glUniformMatrix3fv(*loc, 1, false, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse(this->mOwner->getGlobalModel())))));
+    //if(loc != NULL)
+    //{
+        glUniformMatrix3fv(*loc, 1, false, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse(this->mOwner->getGlobalModel())))));
         
-        jmpGLUniformMatrix3fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse(this->mOwner->getGlobalModel())))));
-    }
+        //jmpGLUniformMatrix3fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse(this->mOwner->getGlobalModel())))));
+    //}
 }
 
 void MeshProperty::fillUniformNames(std::vector<std::string> &uniformNames)

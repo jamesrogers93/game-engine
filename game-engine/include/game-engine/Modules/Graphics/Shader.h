@@ -31,7 +31,7 @@ private:
 public:
 
 	const GLuint& getProgram();
-    GLint* getUniformLocation(const std::string &name);
+    inline const GLint* getUniformLocation(const std::string &name) const { return &this->uniforms.at(name); }
 
 	void use();
 	static Shader* loadShaderFromFile(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames);

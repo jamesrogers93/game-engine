@@ -13,9 +13,11 @@ public:
     MeshImporter() : JMPImporter()
     {}
     
+    void ImportAsynchronously(const std::string &path);
     bool Import(const std::string &path);
     
 private:
+    
     void readMesh(std::ifstream &file);
 };
 

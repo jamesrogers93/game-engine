@@ -20,7 +20,10 @@ public:
     EntityImporter() : JMPImporter()
     {}
     
+    void ImportAsynchronously(const std::string &path);
     bool Import(const std::string &path);
+    
+    void myTest(std::string t) {}
     
     void readJoint(std::ifstream &file);
 };

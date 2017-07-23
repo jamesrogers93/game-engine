@@ -41,73 +41,73 @@ void PointLightProperty::loadToShader(Shader *shader, const unsigned int &index)
     std::string lightName = SHADER_LIGHT_NAME + std::to_string(index);
     
     // Position
-    GLint *loc = shader->getUniformLocation(lightName + SHADER_POSITION_NAME);
-    if(loc != NULL)
-    {
+    const GLint *loc = shader->getUniformLocation(lightName + SHADER_POSITION_NAME);
+    //if(loc != NULL)
+    //{
         glm::vec3 position = glm::vec3(this->mOwner->getGlobalModel()[4]);
-        //glUniform3fv(*loc, 1, glm::value_ptr(position));
+        glUniform3fv(*loc, 1, glm::value_ptr(position));
         
-        jmpGLUniform3fv(shader->getProgram(), *loc, 1, glm::value_ptr(position));
-    }
+        //jmpGLUniform3fv(shader->getProgram(), *loc, 1, glm::value_ptr(position));
+    //}
     
     // Ambient colour
     loc = shader->getUniformLocation(lightName + SHADER_AMBIENT_NAME);
-    if(loc != NULL)
-    {
-        //glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
-        jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
-    }
+    //if(loc != NULL)
+    //{
+        glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
+        //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
+    //}
     
     // Diffuse colour
     loc = shader->getUniformLocation(lightName + SHADER_DIFFUSE_NAME);
-    if(loc != NULL)
-    {
-        //glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
-        jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
-    }
+    //if(loc != NULL)
+    //{
+        glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
+        //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
+    //}
     
     // Specular colour
     loc = shader->getUniformLocation(lightName + SHADER_SPECULAR_NAME);
-    if(loc != NULL)
-    {
-        //glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
-        jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
-    }
+    //if(loc != NULL)
+    //{
+        glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
+        //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
+    //}
     
     // Constant attenuation
     loc = shader->getUniformLocation(lightName + SHADER_CONSTANT_NAME);
-    if(loc != NULL)
-    {
-        //glUniform1f(*loc, this->attenuation.constant);
-        jmpGLUniform1f(shader->getProgram(), *loc, this->attenuation.constant);
-    }
+    //if(loc != NULL)
+    //{
+        glUniform1f(*loc, this->attenuation.constant);
+        //jmpGLUniform1f(shader->getProgram(), *loc, this->attenuation.constant);
+    //}
     
     // Linear attenuation
     loc = shader->getUniformLocation(lightName + SHADER_LINEAR_NAME);
-    if(loc != NULL)
-    {
-        //glUniform1f(*loc, this->attenuation.linear);
-        jmpGLUniform1f(shader->getProgram(), *loc, this->attenuation.linear);
-    }
+    //if(loc != NULL)
+    //{
+        glUniform1f(*loc, this->attenuation.linear);
+        //jmpGLUniform1f(shader->getProgram(), *loc, this->attenuation.linear);
+    //}
     
     // Quadratic attenuation
     loc = shader->getUniformLocation(lightName + SHADER_QUADRATIC_NAME);
-    if(loc != NULL)
-    {
-        //glUniform1f(*loc, this->attenuation.quadratic);
-        jmpGLUniform1f(shader->getProgram(), *loc, this->attenuation.quadratic);
-    }
+    //if(loc != NULL)
+    //{
+        glUniform1f(*loc, this->attenuation.quadratic);
+        //jmpGLUniform1f(shader->getProgram(), *loc, this->attenuation.quadratic);
+    //}
 }
 
 void PointLightProperty::loadNumLightsToShader(Shader *shader, const unsigned int &count)
 {
     // Quadratic attenuation
-    GLint *loc = shader->getUniformLocation(SHADER_NUMLIGHTS_NAME);
-    if(loc != NULL)
-    {
-        //glUniform1i(*loc, count);
-        jmpGLUniform1i(shader->getProgram(), *loc, count);
-    }
+    const GLint *loc = shader->getUniformLocation(SHADER_NUMLIGHTS_NAME);
+    //if(loc != NULL)
+    //{
+        glUniform1i(*loc, count);
+        //jmpGLUniform1i(shader->getProgram(), *loc, count);
+    //}
 }
 
 void PointLightProperty::fillUniformNames(std::vector<std::string> &uniformNames)

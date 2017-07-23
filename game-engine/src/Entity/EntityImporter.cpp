@@ -6,11 +6,16 @@
 
 #include "game-engine/Modules/Animation/JointEntity.h"
 
+
 const std::string EntityImporter::JOINT_TYPE = "joint";
+
+void EntityImporter::ImportAsynchronously(const std::string &path)
+{
+    mThread = std::thread(&EntityImporter::Import, this, path);
+}
 
 bool EntityImporter::Import(const std::string &path)
 {
-    
     std::ifstream file;
     file.open(path);
     if (!file)
@@ -18,7 +23,6 @@ bool EntityImporter::Import(const std::string &path)
         std::cout << "Unable to open file " << path << std::endl;
         return false;
     }
-    
     
     while(!file.eof())
     {

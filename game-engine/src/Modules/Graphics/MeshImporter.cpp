@@ -8,6 +8,11 @@
 
 #include "game-engine/Modules/Graphics/Mesh.h"
 
+void MeshImporter::ImportAsynchronously(const std::string &path)
+{
+    mThread = std::thread(&MeshImporter::Import, this, path);
+}
+
 bool MeshImporter::Import(const std::string &path)
 {
     

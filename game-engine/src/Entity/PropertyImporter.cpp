@@ -12,6 +12,11 @@
 const std::string PropertyImporter::MESH_TYPE = "mesh";
 const std::string PropertyImporter::ANIMATABLE_MESH_TYPE = "animatable_mesh";
 
+void PropertyImporter::ImportAsynchronously(const std::string &path)
+{
+    mThread = std::thread(&PropertyImporter::Import, this, path);
+}
+
 bool PropertyImporter::Import(const std::string &path)
 {
     

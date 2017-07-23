@@ -67,6 +67,7 @@ private:
 	Graphics(Graphics const&);              // Don't Implement
 	void operator=(Graphics const&);		// Don't implement
     
+    void render();
     bool draw(MeshProperty*);
 };
 
