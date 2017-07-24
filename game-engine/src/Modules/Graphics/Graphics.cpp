@@ -11,6 +11,9 @@
 
 #include "game-engine/Util/StringUtil.h"
 
+// Game Engine Core
+#include "game-engine/Core/GL/GLThread.h"
+
 bool Graphics::initalise()
 {
 	return true;
@@ -26,6 +29,8 @@ bool Graphics::deinitalise()
 
 bool Graphics::update()
 {
+    //GLThread::getInstance().giveJob(std::bind(&Graphics::render, this));
+    
     render();
     return true;
 }

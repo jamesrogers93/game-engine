@@ -9,6 +9,9 @@
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
+// Game Engine Core
+#include "game-engine/Core/GL/GLThread.h"
+
 // Game Engine Graphics
 #include "game-engine/Modules/Graphics/Shader.h"
 #include "game-engine/Modules/Graphics/Mesh.h"
@@ -75,8 +78,13 @@ CameraCapture::~CameraCapture()
 {
     
 }
-static bool test = true;
+
 void CameraCapture::display()
+{
+    draw();
+}
+
+void CameraCapture::draw()
 {
     if(capturing)
     {
@@ -85,27 +93,21 @@ void CameraCapture::display()
         shader->use();
         
         glActiveTexture(GL_TEXTURE0);
-        if(test)
-        {
+
         glUniform1i(*shader->getUniformLocation(SHADER_LUMA_NAME), 0);
         glBindTexture(GL_TEXTURE_2D, this->getLumaTextureID());
         
-        }
         glActiveTexture(GL_TEXTURE1);
-        if(test)
-        {
+
         glUniform1i(*shader->getUniformLocation(SHADER_CHROMA_NAME), 1);
         glBindTexture(GL_TEXTURE_2D, this->getChromaTextureID());
-        }
-        if(test)
-        {
+
         const GLint *loc = shader->getUniformLocation(SHADER_MODEL_NAME);
-        if(loc != NULL)
-        {
+        //if(loc != NULL)
+        //{
             glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->getScale()));
-        }
-        }
-        test = false;
+        //}
+
         geometry->draw();
         
         glEnable( GL_DEPTH_TEST );

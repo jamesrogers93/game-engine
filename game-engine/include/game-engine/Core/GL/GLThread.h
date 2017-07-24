@@ -6,7 +6,7 @@
 #include <queue>
 #include <iostream>
 
-class GLThread
+/*class GLThread
 {
 private:
     std::queue<std::function<void(void)> > mJobs;
@@ -24,6 +24,7 @@ public:
     {
         this->mJobs.push(job);
         sem_post(sem);
+        std::cout << "Job added!" << std::endl;
     }
     
 private:
@@ -50,18 +51,17 @@ private:
     }
     
     sem_t* getSemaphore() { return sem; }
-    
+
     static void *run(void*)
     {
         while(true)
         {
             sem_wait(GLThread::getInstance().getSemaphore());
+            std::cout << "Job processing!" << std::endl;
             std::function<void(void)> job = GLThread::getInstance().getNextJob();
             job();
         }
     }
-};
-
-//std::thread
+};*/
 
 #endif /* _GLTHREAD_H */

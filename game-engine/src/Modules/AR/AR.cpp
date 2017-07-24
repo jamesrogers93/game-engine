@@ -18,12 +18,20 @@ bool AR::deinitalise()
     return true;
 }
 
+// Game Engine Core
+#include "game-engine/Core/GL/GLThread.h"
+
 bool AR::update()
 {
     
     if(this->arEntities.find(this->activeAREntity) != this->arEntities.end())
     {
-        this->arEntities[this->activeAREntity]->draw();
+        AREntity *activeEntity = this->arEntities[this->activeAREntity];
+        
+        // Commented out because the camera is being drawn on the opengl thread inside it's method
+        //GLThread::getInstance().giveJob(std::bind(&AREntity::draw, activeEntity));
+        
+        activeEntity->draw();
     }
     
     return true;

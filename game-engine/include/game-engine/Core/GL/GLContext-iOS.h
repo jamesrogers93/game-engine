@@ -10,6 +10,8 @@
 -(BOOL)initalise;
 -(BOOL)deinitalise;
 -(void)makeCurrentContext;
+-(EAGLContext *)getContext;
+-(EAGLSharegroup *)getSharegroup;
 +(EAGLContext *)currentContext;
 
 @end
