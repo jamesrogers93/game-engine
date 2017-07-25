@@ -17,12 +17,13 @@ private:
     std::queue<Task> mTasks;
     sem_t *mSem;
     DispatchThread mThread;
+    unsigned int numTasks = 0;
     
 public:
     DispatchQueue()
     {}
     
-    void initialise();
+    void initialise(std::string name);
  
     void sendToQueue(const Task &task);
     
@@ -31,6 +32,10 @@ private:
     Task getNextTask();
     
     sem_t* getSemaphore() { return mSem; }
+    
+    std::string mName;
+    
+    void run();
     
  };
 

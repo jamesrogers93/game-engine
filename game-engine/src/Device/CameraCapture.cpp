@@ -71,7 +71,7 @@ const std::string CameraCapture::SHADER_FRAGMENT =
 
 CameraCapture::CameraCapture() : res(DEFAULT_RES), initialised(false), capturing(false)
 {
-    
+    delegateDispatchQueue.initialise("camera_capture");
 }
 
 CameraCapture::~CameraCapture()
@@ -201,8 +201,8 @@ void CameraCapture::initialiseView()
     
                    
     /*std::vector<Vertex3DPT> vertices;
-    //                           | Position      | Texture |
-    //                           | x     y    z  | u    v  |
+    //                           | Position           | Texture |
+    //                           | x       y       z  | u    v  |
     vertices.push_back(Vertex3DPT(-width, -height, 0.0, 0.0, 1.0));
     vertices.push_back(Vertex3DPT(-width,  height, 0.0, 0.0, 0.0));
     vertices.push_back(Vertex3DPT( width,  height, 0.0, 1.0, 0.0));
@@ -226,6 +226,12 @@ void CameraCapture::callDelegates(unsigned char *data, const float &width, const
     {
         if(delegates[i] != NULL)
         {
+            std::function<void()> frameRecievedFunc = std::bind(&CameraCaptureDelegate::frameRecieved,
+                                                                this->delegates[i],
+                                                                data, width, height, padding);
+            Task myTask = Task(frameRecievedFunc);
+            //delegateDispatchQueue.sendToQueue(myTask);
+            
             this->delegates[i]->frameRecieved(data, width, height, padding);
         }
     }

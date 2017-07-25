@@ -14,26 +14,16 @@ void DispatchThread::start(DispatchQueue* dispatchQueue)
 void* DispatchThread::run(void* context)
 {
     DispatchQueue *dispatchQueue = (DispatchQueue *)context;
+    dispatchQueue->run();
     
-    while(true)
+    /*while(true)
     {
         sem_wait(dispatchQueue->getSemaphore());
         
-        //std::cout << "Job processing!" << std::endl;
+        std::cout << "Job processing!" << std::endl;
         
         Task task = dispatchQueue->getNextTask();
         
         task.run();
-    }
+    }*/
 }
-
-/*void *run(void*)
- {
- while(true)
- {
- sem_wait(Thread::getInstance().getSemaphore());
-
- std::function<void(void)> job = GLThread::getInstance().getNextJob();
- job();
- }
- }*/

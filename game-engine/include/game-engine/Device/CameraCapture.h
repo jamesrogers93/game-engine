@@ -13,6 +13,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+// Game Engine Core
+#include "game-engine/Core/Dispatch/DispatchQueue.h"
+
 class Shader;
 class MeshGL;
 
@@ -93,6 +96,8 @@ private:
     void *self;
     
     std::vector<CameraCaptureDelegate*> delegates;
+    
+    DispatchQueue delegateDispatchQueue;
     
 };
 

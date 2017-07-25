@@ -6,11 +6,11 @@
 Engine::Engine()
 {
     this->sceneManager = &SceneManager::getInstance();
+    this->mDispatchQueue.initialise("Engine Queue");
 }
 
 Engine::~Engine()
 {
-    
 }
 
 bool Engine::addCoreModule(CoreModule *module)
@@ -71,11 +71,20 @@ CoreModule* Engine::getCoreModule(const CoreModuleType &module)
     }
 }
 
-void Engine::update(const CoreModuleType &module)
+void Engine::update(const CoreModuleType &module, const bool &dispatch)
 {
     if(this->modules.find(module) != this->modules.end())
     {
-        this->modules.at(module)->update();
+        if(dispatch)
+        {
+            std::function<void(void)> func = std::bind(&CoreModule::update, this->modules.at(module));
+            Task myTask(func);
+            mDispatchQueue.sendToQueue(myTask);
+        }
+        else
+        {
+            this->modules.at(module)->update();
+        }
     }
 }
 

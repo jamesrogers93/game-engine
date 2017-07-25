@@ -9,8 +9,8 @@ class KudanQuaternion;
 @interface GyroscopeIOS : NSObject
 
 @property (nonatomic, readonly) CMMotionManager *motionManager;
-//@property (nonatomic) CMAttitude *referenceAttitude;
-//@property (nonatomic) NSMutableArray *delegates;
+@property (nonatomic) CMAttitude *referenceAttitude;
+@property (nonatomic) NSMutableArray *delegates;
 
 - (void)initialise;
 
