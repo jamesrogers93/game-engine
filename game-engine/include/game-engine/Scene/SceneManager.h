@@ -30,7 +30,8 @@ private:
 	SceneManager();
 	~SceneManager();
 
-	std::string activeScene;
+	//std::string activeScene;
+    Scene* activeScene;
 	std::map<std::string, Scene*> scenes;
 };
 

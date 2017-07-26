@@ -30,6 +30,13 @@ void AnimatableMeshProperty::setJointKeys(const std::vector<std::string> &keys)
     {
         this->mJoints.push_back(toLower(keys[i]));
     }
+    
+    mJointUniformNames.empty();
+    mJointUniformNames.reserve(numJoints);
+    for(unsigned int i = 0; i < numJoints; i++)
+    {
+        mJointUniformNames.push_back(SHADER_JOINTS_NAME + "[" + std::to_string(i) + "]");
+    }
 }
 
 void AnimatableMeshProperty::loadToShader(Shader *shader)
@@ -38,26 +45,21 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
     MeshProperty::loadToShader(shader);
     
     // Load joints to shader
-    for(unsigned int i = 0; i < this->mJoints.size(); i++)
+    size_t numJoints = this->mJoints.size();
+    for(unsigned int i = 0; i < numJoints; i++)
     {
-        const GLint *loc =shader->getUniformLocation(SHADER_JOINTS_NAME + "[" + std::to_string(i) + "]");
+        const GLint *loc = shader->getUniformLocation(mJointUniformNames[i]);
         if(loc != NULL)
         {
-            if(this->mJointsMap.find(this->mJoints[i]) != this->mJointsMap.end())
-            {
-                Entity *joint = this->mJointsMap[this->mJoints[i]];
+            //if(this->mJointsMap.find(this->mJoints[i]) != this->mJointsMap.end())  // This is a big bottleneck!
+            //{
+                Entity *joint = this->mJointsMap.at(this->mJoints[i]);
                 const glm::mat4 *jointTransform = &joint->getLocalModel();
-                
-                //if(joint->getLocalTransformUpdate().getFlag())
-                //{
-                    //glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(*jointTransform));
-                //    joint->getLocalTransformUpdate().reset();
-                //}
-                
-                
-                //jmpGLUniformMatrix4fv(joint->getLocalTransformUpdate(), shader->getProgram(), *loc, 1, false, glm::value_ptr(*jointTransform));
-                jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(*jointTransform));
-            }
+            
+            
+                //jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(*jointTransform));
+                glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(*jointTransform));
+            //}
         } else
         {
             std::cout << "Problem!" << std::endl;

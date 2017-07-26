@@ -34,28 +34,102 @@ bool Graphics::update()
 
 void Graphics::render()
 {
-    for(auto const &mesh : this->meshProperties)
-    {
-        this->draw(mesh.second);
+    //for(auto const &mesh : this->meshProperties)
+    //{
+    //    this->draw(mesh.second);
         //if(!this->draw(mesh.second))
         //{
         //    return false;
         //}
+    //}
+    
+    // TEST
+    if(activeCameraEntity == NULL)
+    {
+        return;
     }
+    
+    for(auto const &shader : this->shaders)
+    {
+        shader.second->use();
+        
+        // Load the camera data to the shader
+        activeCameraEntity->loadToShader(shader.second);
+        
+        unsigned int pointLightCount = 0;
+        unsigned int dirLightCount = 0;
+        for(auto light : this->lightProperties)
+        {
+            switch(light.second->getType())
+            {
+                case Property::POINT_LIGHT:
+                {
+                    if(pointLightCount > PointLightProperty::MAX_LIGHTS)
+                    {
+                        continue;
+                    }
+                    else if(light.second->isOn())
+                    {
+                        light.second->loadToShader(shader.second, pointLightCount++);
+                    }
+                    break;
+                }
+                case Property::DIRECTIONAL_LIGHT:
+                {
+                    if(dirLightCount > DirectionalLightProperty::MAX_LIGHTS)
+                    {
+                        continue;
+                    }
+                    else if(light.second->isOn())
+                    {
+                        light.second->loadToShader(shader.second, dirLightCount++);
+                    }
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
+        }
+        
+        PointLightProperty::loadNumLightsToShader(shader.second, pointLightCount);
+        DirectionalLightProperty::loadNumLightsToShader(shader.second, dirLightCount);
+        
+        for(auto const &mesh : this->meshProperties)
+        {
+            if(mesh.second->getShaderKey() != shader.first)
+            {
+                continue;
+            }
+            
+            // Load the model to the shader
+            mesh.second->loadToShader(shader.second);         // Causes a 20% increase in cpu usage
+            
+            // Load the material data into shader
+            Material *m  = this->materials[mesh.second->getMaterialKey()];
+            m->loadToShader(shader.second);
+            
+            // Draw the geometry
+            MeshGL *go = this->meshes[mesh.second->getMeshKey()];
+            go->draw();
+        }
+    }
+    
 }
 
 bool Graphics::draw(MeshProperty* mesh)
 {
     
-	if (this->meshes.find(mesh->getMeshKey()) != this->meshes.end() &&
-        this->materials.find(mesh->getMaterialKey()) != this->materials.end() &&
-        this->shaders.find(mesh->getShaderKey()) != this->shaders.end() &&
-        this->cameraEntites.find(this->activeCameraEntity) != this->cameraEntites.end())
-	{
+	//if (this->meshes.find(mesh->getMeshKey()) != this->meshes.end() &&
+    //    this->materials.find(mesh->getMaterialKey()) != this->materials.end() &&
+    //    this->shaders.find(mesh->getShaderKey()) != this->shaders.end() &&
+    //    this->cameraEntites.find(this->activeCameraEntity) != this->cameraEntites.end())
+	//{
 		MeshGL *go = this->meshes[mesh->getMeshKey()];
         Material *m  = this->materials[mesh->getMaterialKey()];
         Shader   *s  = this->shaders[mesh->getShaderKey()];
-        CameraEntity *c = this->cameraEntites[this->activeCameraEntity];
+        //CameraEntity *c = this->cameraEntites[this->activeCameraEntity];
 
         s->use();
         
@@ -101,7 +175,7 @@ bool Graphics::draw(MeshProperty* mesh)
         DirectionalLightProperty::loadNumLightsToShader(s, dirLightCount);
         
         // Load the camera data to the shader
-        c->loadToShader(s);
+        activeCameraEntity->loadToShader(s);
         
         // Load the model to the shader
         mesh->loadToShader(s);
@@ -113,7 +187,7 @@ bool Graphics::draw(MeshProperty* mesh)
         go->draw();
 
 		return true;
-	}
+	//}
 
 	return false;
 }
@@ -206,7 +280,7 @@ bool Graphics::removeMeshProperty(const std::string& name)
 {
     std::string nameLow = toLower(name);
     
-    std::map<std::string, MeshProperty*>::iterator it = this->meshProperties.find(nameLow);
+    std::unordered_map<std::string, MeshProperty*>::iterator it = this->meshProperties.find(nameLow);
     if ( it != this->meshProperties.end())
     {
         this->meshProperties.erase(it);
@@ -220,7 +294,7 @@ bool Graphics::removeLightProperty(const std::string& name)
 {
     std::string nameLow = toLower(name);
     
-    std::map<std::string, LightProperty*>::iterator it = this->lightProperties.find(nameLow);
+    std::unordered_map<std::string, LightProperty*>::iterator it = this->lightProperties.find(nameLow);
     if ( it != this->lightProperties.end())
     {
         this->lightProperties.erase(it);
@@ -234,7 +308,7 @@ bool Graphics::removeCameraEntity(const std::string& name)
 {
     std::string nameLow = toLower(name);
     
-    std::map<std::string, CameraEntity*>::iterator it = this->cameraEntites.find(nameLow);
+    std::unordered_map<std::string, CameraEntity*>::iterator it = this->cameraEntites.find(nameLow);
     if ( it != this->cameraEntites.end())
     {
         this->cameraEntites.erase(it);
@@ -248,7 +322,7 @@ bool Graphics::removeShader(const std::string& name)
 {
     std::string nameLow = toLower(name);
     
-    std::map<std::string, Shader*>::iterator it = this->shaders.find(nameLow);
+    std::unordered_map<std::string, Shader*>::iterator it = this->shaders.find(nameLow);
     if ( it != this->shaders.end())
     {
         this->shaders.erase(it);
@@ -262,7 +336,7 @@ bool Graphics::removeMesh(const std::string& name)
 {
     std::string nameLow = toLower(name);
     
-    std::map<std::string, MeshGL*>::iterator it = this->meshes.find(nameLow);
+    std::unordered_map<std::string, MeshGL*>::iterator it = this->meshes.find(nameLow);
     if ( it != this->meshes.end())
     {
         this->meshes.erase(it);
@@ -276,7 +350,7 @@ bool Graphics::removeMaterial(const std::string& name)
 {
     std::string nameLow = toLower(name);
     
-    std::map<std::string, Material*>::iterator it = this->materials.find(nameLow);
+    std::unordered_map<std::string, Material*>::iterator it = this->materials.find(nameLow);
     if ( it != this->materials.end())
     {
         this->materials.erase(it);
@@ -312,12 +386,12 @@ bool Graphics::setActiveCameraEntity(const std::string &name)
     std::string nameLow = name;
     std::transform(nameLow.begin(), nameLow.end(), nameLow.begin(), ::tolower);
     
-    if(this->cameraEntites.find(nameLow) != this->cameraEntites.end())
+    if(this->cameraEntites.find(nameLow) == this->cameraEntites.end())
     {
         return false;
     }
     
-    this->activeCameraEntity = nameLow;
+    activeCameraEntity = cameraEntites.at(nameLow);
     return true;
 }
 

@@ -82,8 +82,6 @@ private:
     bool initialiseCamera();
     void initialiseView();
     
-    void draw();
-    
     Resolution res;
     bool initialised;
     bool capturing;

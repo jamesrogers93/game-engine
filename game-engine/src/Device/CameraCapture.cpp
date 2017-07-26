@@ -81,11 +81,6 @@ CameraCapture::~CameraCapture()
 
 void CameraCapture::display()
 {
-    draw();
-}
-
-void CameraCapture::draw()
-{
     if(capturing)
     {
         glDisable( GL_DEPTH_TEST );
@@ -93,21 +88,21 @@ void CameraCapture::draw()
         shader->use();
         
         glActiveTexture(GL_TEXTURE0);
-
+        
         glUniform1i(*shader->getUniformLocation(SHADER_LUMA_NAME), 0);
         glBindTexture(GL_TEXTURE_2D, this->getLumaTextureID());
         
         glActiveTexture(GL_TEXTURE1);
-
+        
         glUniform1i(*shader->getUniformLocation(SHADER_CHROMA_NAME), 1);
         glBindTexture(GL_TEXTURE_2D, this->getChromaTextureID());
-
+        
         const GLint *loc = shader->getUniformLocation(SHADER_MODEL_NAME);
         //if(loc != NULL)
         //{
-            glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->getScale()));
+        glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->getScale()));
         //}
-
+        
         geometry->draw();
         
         glEnable( GL_DEPTH_TEST );

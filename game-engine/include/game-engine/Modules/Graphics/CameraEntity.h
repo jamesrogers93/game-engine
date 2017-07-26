@@ -3,8 +3,7 @@
 
 // STD
 #include <string>
-#include <vector>
-#include <map>
+
 
 // Game Engine Core
 #include "game-engine/Core/GL/GLData.h"

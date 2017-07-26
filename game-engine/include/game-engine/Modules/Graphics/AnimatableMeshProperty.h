@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include <map>
+#include <unordered_map>
 
 #include "game-engine/Modules/Graphics/MeshProperty.h"
 #include "game-engine/Modules/Graphics/Shader.h"
@@ -26,7 +26,7 @@ public:
     //virtual bool makeUnactive();
     
     const std::vector<std::string>& getJointKeys() const {   return this->mJoints;  }
-    const std::map<std::string, Entity*> getLinkedJoints() const { return this->mJointsMap; }
+    const std::unordered_map<std::string, Entity*> getLinkedJoints() const { return this->mJointsMap; }
     
     void setJointKeys(const std::vector<std::string> &keys);
     void linkJoints(Entity *root);
@@ -36,7 +36,8 @@ public:
   
 private:
     std::vector<std::string> mJoints; // Key to joints (mesh influences)
-    std::map<std::string, Entity*> mJointsMap;
+    std::unordered_map<std::string, Entity*> mJointsMap;
+    std::vector<std::string> mJointUniformNames;
 };
 
 #endif /* _ANIMATABLEMESHPROPERTY_H */

@@ -29,7 +29,7 @@ public:
 private:
     
     std::map<std::string, AREntity *> arEntities;
-    std::string activeAREntity;
+    AREntity* activeAREntity;
     
     AR();
     AR(AR const&);              // Don't Implement

@@ -152,7 +152,6 @@ const std::string Entity::typeToString() const
             return "";
     }
 }
-
 void Entity::updateGlobalModel()
 {
     if(this->parent != NULL)
@@ -194,5 +193,6 @@ void Entity::updateLocalModel()
     this->localModel = model;*/
     
     this->localModel = this->T[1] * this->R[1] * this->S[1] * this->T[0] * this->R[0] * this->S[0];
+    updateGlobalModel();
     //mLocalTransformUpdate.notify();
 }

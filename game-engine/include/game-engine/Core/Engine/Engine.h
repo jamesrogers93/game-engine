@@ -39,7 +39,8 @@ private:
 	~Engine();
 
 	SceneManager *sceneManager;
-	std::map<CoreModuleType, CoreModule*> modules;
+	//std::unordered_map<CoreModuleType, CoreModule*, EnumClassHash> modules;
+    std::map<CoreModuleType, CoreModule*> modules;
     
     DispatchQueue mDispatchQueue;
 

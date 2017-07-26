@@ -1,10 +1,6 @@
 #ifndef _KEYFRAME_H
 #define _KEYFRAME_H
 
-// STD
-#include <string>
-#include <map>
-
 #include "game-engine/Modules/Animation/JointTransform.h"
 
 class KeyFrame

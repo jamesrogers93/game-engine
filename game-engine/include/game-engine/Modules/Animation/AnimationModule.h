@@ -34,7 +34,7 @@ public:
     bool removeAnimatorProperty(const std::string&);
     
 private:
-    AnimationModule() : CoreModule(CM_ANIMATION){}
+    AnimationModule() : CoreModule(CoreModuleType::CM_ANIMATION){}
     AnimationModule(AnimationModule const&);    // Don't Implement
     void operator=(AnimationModule const&);		// Don't implement
     

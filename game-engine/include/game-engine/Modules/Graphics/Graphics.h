@@ -3,7 +3,7 @@
 
 // STD
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <algorithm>
 
 // Game Engine
@@ -53,17 +53,17 @@ public:
     void enableBackfaceCulling();
 
 private:
-    std::map<std::string, MeshProperty*> meshProperties;
-    std::map<std::string, CameraEntity*> cameraEntites;
-    std::map<std::string, LightProperty*> lightProperties;
-	std::map<std::string, Shader*> shaders;
-	std::map<std::string, MeshGL*> meshes;
-    std::map<std::string, Material*> materials;
-	std::map<std::string, Texture*> textures;
+    std::unordered_map<std::string, MeshProperty*> meshProperties;
+    std::unordered_map<std::string, CameraEntity*> cameraEntites;
+    std::unordered_map<std::string, LightProperty*> lightProperties;
+	std::unordered_map<std::string, Shader*> shaders;
+	std::unordered_map<std::string, MeshGL*> meshes;
+    std::unordered_map<std::string, Material*> materials;
+	std::unordered_map<std::string, Texture*> textures;
     
-    std::string activeCameraEntity;
+    CameraEntity* activeCameraEntity;
 
-	Graphics() : CoreModule(CM_GRAPHICS){}
+    Graphics() : CoreModule(CoreModuleType::CM_GRAPHICS){}
 	Graphics(Graphics const&);              // Don't Implement
 	void operator=(Graphics const&);		// Don't implement
     

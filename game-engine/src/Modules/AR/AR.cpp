@@ -3,7 +3,7 @@
 // Game Engine Device
 #include "game-engine/Device/CameraCapture.h"
 
-AR::AR() : CoreModule(CM_AR)
+AR::AR() : CoreModule(CoreModuleType::CM_AR)
 {
     
 }
@@ -24,14 +24,12 @@ bool AR::deinitalise()
 bool AR::update()
 {
     
-    if(this->arEntities.find(this->activeAREntity) != this->arEntities.end())
+    if(activeAREntity != NULL)
     {
-        AREntity *activeEntity = this->arEntities[this->activeAREntity];
-        
         // Commented out because the camera is being drawn on the opengl thread inside it's method
         //GLThread::getInstance().giveJob(std::bind(&AREntity::draw, activeEntity));
         
-        activeEntity->draw();
+        activeAREntity->draw();
     }
     
     return true;
@@ -62,7 +60,7 @@ bool AR::setActiveAREntity(const std::string &name)
     
     if(this->arEntities.find(nameLow) != this->arEntities.end())
     {
-        this->activeAREntity = nameLow;
+        this->activeAREntity = this->arEntities.at(nameLow);
         return true;
     }
     

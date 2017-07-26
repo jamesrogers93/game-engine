@@ -1,7 +1,9 @@
 #ifndef _COREMODULE_H
 #define _COREMODULE_H
 
-enum CoreModuleType
+#include <cstddef>
+
+enum class CoreModuleType
 {
 	CM_GRAPHICS,
     CM_AR,
@@ -9,6 +11,15 @@ enum CoreModuleType
 	CM_AUDIO,
 	CM_PHYICS,
 	CM_INPUT,
+};
+
+struct EnumClassHash
+{
+    template <typename T>
+    std::size_t operator()(T t) const
+    {
+        return static_cast<std::size_t>(t);
+    }
 };
 
 class CoreModule

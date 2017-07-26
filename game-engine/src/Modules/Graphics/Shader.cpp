@@ -8,7 +8,7 @@ Shader::Shader()
 	this->program = 0;
 }
 
-Shader::Shader(const GLuint program, std::map<std::string, GLint> uniforms)
+Shader::Shader(const GLuint program, std::unordered_map<std::string, GLint> uniforms)
 {
 	this->program = program;
 	this->uniforms = uniforms;
@@ -135,7 +135,7 @@ Shader* Shader::loadShaderFromString(const std::string &vertex, const std::strin
 	}
 
 	// Get uniform locations.
-	std::map<std::string, GLint> uniforms;
+	std::unordered_map<std::string, GLint> uniforms;
 	for (std::vector<std::string>::iterator it = uniformNames.begin(); it != uniformNames.end(); ++it)
 	{
 		uniforms[*it] = glGetUniformLocation(program, it->c_str());

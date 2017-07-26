@@ -63,6 +63,9 @@ const glm::mat4& CameraEntity::getView()
 
 void CameraEntity::loadToShader(Shader *shader)
 {
+    updateView();
+    
+    
     // Load projection to shader
     const GLint *loc = shader->getUniformLocation(SHADER_PROJECTION_NAME);
     //jmpGLUniformMatrix4fv(shader->getProgram(), loc, 1, false, glm::value_ptr(this->projection));
@@ -76,7 +79,7 @@ void CameraEntity::loadToShader(Shader *shader)
     
     // load view to shader
     loc = shader->getUniformLocation(SHADER_VIEW_NAME);
-    jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(this->view));
+    glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->view));
     
     //if(mViewGLUpdate.getFlag())
     //{

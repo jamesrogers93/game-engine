@@ -7,7 +7,7 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
@@ -20,10 +20,10 @@ class Shader
 {
 private:
 	GLuint program;
-	std::map<std::string, GLint> uniforms;
+	std::unordered_map<std::string, GLint> uniforms;
 
 	Shader();
-	Shader(const GLuint program, std::map<std::string, GLint> uniforms);
+	Shader(const GLuint program, std::unordered_map<std::string, GLint> uniforms);
 
 	static bool compileShader(GLuint *shader, const int &type, std::string *file);
 	static bool linkProgram(GLuint *program);
