@@ -20,15 +20,28 @@ const KeyFrame* JointAnimation::getKeyFrame(const float &elapsedTime) const
         return &mKeyFrames[mKeyFramesCount-1];
     }
     
-    // Return the greatest keyframe that is less than elasped time
+    auto lower = std::lower_bound(mTimeStamps.begin(), mTimeStamps.end(), elapsedTime);
+    
+    if(lower != mTimeStamps.end())
+    {
+        auto idx = lower - mTimeStamps.begin();
+        return &mKeyFrames[idx-1];
+    }
+    else
+    {
+        // Return the first keyframe
+        return &mKeyFrames[0];
+    }
+}
+
+void JointAnimation::setKeyFrames(const std::vector<KeyFrame> &keyFrames)
+{
+    mKeyFrames = keyFrames;
+    
+    mKeyFramesCount = keyFrames.size();
+    
     for(unsigned int i = 0; i < mKeyFramesCount; i++)
     {
-        if(mKeyFrames[i].getTimeStamp() > elapsedTime)
-        {
-            return &mKeyFrames[i-1];
-        }
+        mTimeStamps.push_back(keyFrames[i].getTimeStamp());
     }
-    
-    // Return thes first keyframe
-    return &mKeyFrames[0];
 }

@@ -1,5 +1,9 @@
 #include "game-engine/Modules/Animation/AnimationModule.h"
 
+
+// STD
+#include <iostream>
+
 #include "game-engine/Util/StringUtil.h"
 
 #include "game-engine/Modules/Animation/AnimatorProperty.h"
@@ -25,12 +29,24 @@ bool AnimationModule::update()
             continue;
         }
         
-        if(this->mAnimations.find(animator.second->mAnimationKey) != this->mAnimations.end())
+        /*if(this->mAnimations.find(animator.second->mAnimationKey) != this->mAnimations.end())
         {
             Animation *a = this->mAnimations[animator.second->mAnimationKey];
             JointEntity *root = animator.second->mSkeletonRoot;
-            
             animator.second->animate(a, root);
+        }*/
+        
+        const Animation *a =  animator.second->getAnimationPtr();
+        JointEntity *root = animator.second->mSkeletonRoot;
+        
+        if(a != NULL && root != NULL)
+        {
+            animator.second->animate(a, root);
+        }
+        else
+        {
+            // LOG
+            std::cout << "Animation ptr or skeleton root ptrfor animator " << animator.second->getName() << " is NULL" << std::endl;
         }
     }
     
@@ -68,11 +84,44 @@ bool AnimationModule::addAnimatorProperty(const std::string &name, AnimatorPrope
     }
 }
 
+
+const Animation* AnimationModule::getAnimation(const std::string &name) const
+{
+    auto it = mAnimations.find(name);
+    
+    if(it != mAnimations.end())
+    {
+        return it->second;
+    }
+    else
+    {
+        // LOG
+        std::cout <<"Animation: " << name << " not found." << std::endl;
+        return NULL;
+    }
+}
+
+const AnimatorProperty* AnimationModule::getAnimatorProperty(const std::string &name) const
+{
+    auto it = mAnimatorProperties.find(name);
+    
+    if(it != mAnimatorProperties.end())
+    {
+        return it->second;
+    }
+    else
+    {
+        // LOG
+        std::cout <<"Animator Property: " << name << " not found." << std::endl;
+        return NULL;
+    }
+}
+
 bool AnimationModule::removeAnimation(const std::string &name)
 {
     std::string nameLow = toLower(name);
     
-    std::map<std::string, Animation*>::iterator it = this->mAnimations.find(nameLow);
+    auto it = this->mAnimations.find(nameLow);
     if ( it != this->mAnimations.end())
     {
         this->mAnimations.erase(it);
@@ -88,7 +137,7 @@ bool AnimationModule::removeAnimatorProperty(const std::string &name)
 {
     std::string nameLow = toLower(name);
     
-    std::map<std::string, AnimatorProperty*>::iterator it = this->mAnimatorProperties.find(nameLow);
+    auto it = this->mAnimatorProperties.find(nameLow);
     if ( it != this->mAnimatorProperties.end())
     {
         this->mAnimatorProperties.erase(it);

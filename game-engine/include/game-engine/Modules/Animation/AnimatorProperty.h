@@ -23,6 +23,8 @@ public:
     bool makeActive();
     bool makeUnactive();
     
+    const Animation* getAnimationPtr() const { return animationPtr; }
+    
     const float& getStartTime() { return mStartTime; }
     const bool& getLoop() { return mLoop; }
     const bool& getReverse() { return mReverse; }
@@ -32,6 +34,7 @@ private:
 
     JointEntity *mSkeletonRoot;
     std::string mAnimationKey;
+    const Animation *animationPtr;
     
     bool mAnimate;
     float mStartTime;

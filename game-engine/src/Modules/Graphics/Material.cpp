@@ -22,7 +22,7 @@ const std::string Material::SHADER_DIFF_SOLID_NAME = "material.diffuse";
 const std::string Material::SHADER_SPEC_SOLID_NAME = "material.specular";
 const std::string Material::SHADER_SHININESS_NAME = "material.shininess";
 
-bool Material::loadToShader(Shader *shader)
+bool Material::loadToShader(Shader *shader) const
 {
     //Shader *shader = Graphics::getInstance().getShader(this->shaderName);
     if(shader == NULL)

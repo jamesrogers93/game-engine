@@ -31,6 +31,30 @@ bool MeshProperty::makeActive()
     
     Graphics *g = &Graphics::getInstance();
     
+    // Set the mesh pointer
+    mMeshPtr = g->getMesh(mMesh);
+    if(mMeshPtr == NULL)
+    {
+        // LOG
+        std::cout << "MeshPtr in " << this->mName << " is null." << std::endl;
+    }
+    
+    // Set the material pointer
+    mMaterialPtr = g->getMaterial(mMaterial);
+    if(mMaterialPtr == NULL)
+    {
+        // LOG
+        std::cout << "MaterialPtr in " << this->mName << " is null." << std::endl;
+    }
+    
+    // Set the shader pointer
+    mShaderPtr = g->getShader(mShader);
+    if(mShaderPtr == NULL)
+    {
+        // LOG
+        std::cout << "ShaderPtr in " << this->mName << " is null." << std::endl;
+    }
+    
     return g->addMeshProperty(this->mName, this);
 }
 

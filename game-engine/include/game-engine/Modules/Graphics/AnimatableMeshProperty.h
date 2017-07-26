@@ -38,6 +38,9 @@ private:
     std::vector<std::string> mJoints; // Key to joints (mesh influences)
     std::unordered_map<std::string, Entity*> mJointsMap;
     std::vector<std::string> mJointUniformNames;
+    std::vector<Entity*> mJointsPtrs;
+    
+    void linkJoints2(Entity *root);
 };
 
 #endif /* _ANIMATABLEMESHPROPERTY_H */

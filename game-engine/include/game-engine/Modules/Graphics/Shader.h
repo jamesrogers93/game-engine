@@ -31,7 +31,22 @@ private:
 public:
 
 	const GLuint& getProgram();
-    inline const GLint* getUniformLocation(const std::string &name) const { return &this->uniforms.at(name); }
+    inline const GLint* getUniformLocation(const std::string &name) const
+    {
+        auto it = uniforms.find(name);
+        
+        if(it != uniforms.end())
+        {
+            return &it->second;
+            //return &this->uniforms.at(name);
+        }
+        else
+        {
+            // Log
+            std::cout << "Uniform: " << name << " does not exist in shader" << std::endl;;
+            return NULL;
+        }
+    }
 
 	void use();
 	static Shader* loadShaderFromFile(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames);

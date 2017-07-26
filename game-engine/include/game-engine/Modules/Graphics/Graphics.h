@@ -45,8 +45,13 @@ public:
     bool removeMesh(const std::string&);
     bool removeMaterial(const std::string&);
     
-	Shader* getShader(const std::string& name);
-    Texture* getTexture(const std::string &name);
+    const MeshProperty* getMeshProperty(const std::string& name) const;
+    const LightProperty* getLightProperty(const std::string& name) const;
+    const CameraEntity* getCameraEntity(const std::string& name) const;
+    const MeshGL* getMesh(const std::string& name) const;
+    const Material* getMaterial(const std::string& name) const;
+	const Shader* getShader(const std::string& name) const;
+    const Texture* getTexture(const std::string &name) const;
     
     bool setActiveCameraEntity(const std::string &name);
     

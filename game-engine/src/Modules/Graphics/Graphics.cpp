@@ -104,14 +104,16 @@ void Graphics::render()
             }
             
             // Load the model to the shader
-            mesh.second->loadToShader(shader.second);         // Causes a 20% increase in cpu usage
+            mesh.second->loadToShader(shader.second);         // Causes a ~7% increase in cpu usage
             
             // Load the material data into shader
-            Material *m  = this->materials[mesh.second->getMaterialKey()];
+            //Material *m  = this->materials[mesh.second->getMaterialKey()];
+            const Material *m = mesh.second->getMaterialPtr();
             m->loadToShader(shader.second);
             
             // Draw the geometry
-            MeshGL *go = this->meshes[mesh.second->getMeshKey()];
+            //MeshGL *go = this->meshes[mesh.second->getMeshKey()];
+            const MeshGL *go = mesh.second->getMeshPtr();
             go->draw();
         }
     }
@@ -360,21 +362,71 @@ bool Graphics::removeMaterial(const std::string& name)
     return false;
 }
 
-Shader* Graphics::getShader(const std::string& name)
+const MeshProperty* Graphics::getMeshProperty(const std::string &name) const
+{
+    if (this->meshProperties.find(name) != this->meshProperties.end())
+    {
+        return this->meshProperties.at(name);
+    }
+    
+    return NULL;
+}
+
+const LightProperty* Graphics::getLightProperty(const std::string &name) const
+{
+    if (this->lightProperties.find(name) != this->lightProperties.end())
+    {
+        return this->lightProperties.at(name);
+    }
+    
+    return NULL;
+}
+
+const CameraEntity* Graphics::getCameraEntity(const std::string &name) const
+{
+    if (this->cameraEntites.find(name) != this->cameraEntites.end())
+    {
+        return this->cameraEntites.at(name);
+    }
+    
+    return NULL;
+}
+
+const MeshGL* Graphics::getMesh(const std::string &name) const
+{
+    if (this->meshes.find(name) != this->meshes.end())
+    {
+        return this->meshes.at(name);
+    }
+    
+    return NULL;
+}
+
+const Material* Graphics::getMaterial(const std::string &name) const
+{
+    if (this->materials.find(name) != this->materials.end())
+    {
+        return this->materials.at(name);
+    }
+    
+    return NULL;
+}
+
+const Shader* Graphics::getShader(const std::string &name) const
 {
 	if (this->shaders.find(name) != this->shaders.end())
 	{
-		return this->shaders[name];
+		return this->shaders.at(name);
 	}
 
 	return NULL;
 }
 
-Texture* Graphics::getTexture(const std::string &name)
+const Texture* Graphics::getTexture(const std::string &name) const
 {
     if (this->textures.find(name) != this->textures.end())
     {
-        return this->textures[name];
+        return this->textures.at(name);
     }
     
     return NULL;

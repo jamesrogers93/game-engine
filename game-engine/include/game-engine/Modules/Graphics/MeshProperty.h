@@ -9,6 +9,8 @@
 #include "game-engine/Entity/Property.h"
 
 class Shader;
+class MeshGL;
+class Material;
 
 class MeshProperty : public Property
 {
@@ -34,6 +36,10 @@ public:
     const std::string& getMaterialKey() const {   return this->mMaterial;  }
     const std::string& getShaderKey() const {   return this->mShader;  }
     
+    const MeshGL* getMeshPtr() const { return mMeshPtr; }
+    const Material* getMaterialPtr() const { return mMaterialPtr; }
+    const Shader* getShaderPtr() const { return mShaderPtr; }
+    
     void setMeshKey(const std::string &key) { this->mMesh = key; mMeshKeySet = true; }
     void setMaterialKey(const std::string &key) { this->mMaterial = key; mMaterialKeySet = true; }
     void setShaderKey(const std::string &key) { this->mShader = key; mShaderKeySet = true; }
@@ -50,9 +56,15 @@ private:
     std::string mMaterial;   // Key to material in Graphics
     std::string mShader;     // Key to shader in Graphics
     
+    const MeshGL *mMeshPtr;           //
+    const Material *mMaterialPtr;     //  These are linked during makeActive() method to eliminate look ups every frame
+    const Shader *mShaderPtr;         //
+    
     bool mMeshKeySet;
     bool mMaterialKeySet;
     bool mShaderKeySet;
+    
+    
 };
 
 #endif /* _GRAPHICSENTITY_H */

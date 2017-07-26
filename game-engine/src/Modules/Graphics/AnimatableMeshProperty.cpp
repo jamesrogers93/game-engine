@@ -51,15 +51,7 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
         const GLint *loc = shader->getUniformLocation(mJointUniformNames[i]);
         if(loc != NULL)
         {
-            //if(this->mJointsMap.find(this->mJoints[i]) != this->mJointsMap.end())  // This is a big bottleneck!
-            //{
-                Entity *joint = this->mJointsMap.at(this->mJoints[i]);
-                const glm::mat4 *jointTransform = &joint->getLocalModel();
-            
-            
-                //jmpGLUniformMatrix4fv(shader->getProgram(), *loc, 1, false, glm::value_ptr(*jointTransform));
-                glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(*jointTransform));
-            //}
+            glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(mJointsPtrs[i]->getLocalModel()));
         } else
         {
             std::cout << "Problem!" << std::endl;
@@ -68,6 +60,16 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
 }
 
 void AnimatableMeshProperty::linkJoints(Entity *entity)
+{
+    linkJoints2(entity);
+    
+    for(unsigned int i = 0; i < mJoints.size(); i++)
+    {
+        mJointsPtrs.push_back(mJointsMap.at(mJoints[i]));
+    }
+}
+
+void AnimatableMeshProperty::linkJoints2(Entity *entity)
 {
     // Search for this entity name in the joints keys
     std::vector<std::string>::iterator it = std::find(this->mJoints.begin(), this->mJoints.end(), entity->getName());
@@ -97,7 +99,7 @@ void AnimatableMeshProperty::linkJoints(Entity *entity)
     size_t numChildren = children.size();
     for(unsigned int i = 0; i < numChildren; i++)
     {
-        linkJoints(children[i]);
+        linkJoints2(children[i]);
     }
 }
 

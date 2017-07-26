@@ -25,7 +25,7 @@ public:
     MeshGL() : VAO(0), VBO(0), EBO(0) {}
 	MeshGL(const GLuint VAO, const GLuint VBO, const GLuint EBO, const unsigned int &indexCount) : VAO(VAO), VBO(VBO), EBO(EBO), indexCount(indexCount) {}
     
-    void draw();
+    void draw() const;
     
     static MeshGL* loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
     //static Geometry* loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices);

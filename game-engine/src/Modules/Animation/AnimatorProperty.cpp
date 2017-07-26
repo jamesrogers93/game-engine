@@ -11,6 +11,10 @@
 
 void AnimatorProperty::play(const std::string &animationKey, const bool &loop, const float &speed, const bool &reverse)
 {
+    AnimationModule *a = &AnimationModule::getInstance();
+    
+    animationPtr = a->getAnimation(animationKey);
+    
     this->mAnimationKey = animationKey;
     this->mAnimate = true;
     this->mLoop = loop;
@@ -90,6 +94,7 @@ void AnimatorProperty::animate2(const Animation *animation, JointEntity *joint, 
     // Get the joint animation transformation
     if(jointAnimation != NULL)
     {
+        //const JointTransform *jointTransform = &jointAnimation->getKeyFrame(0)->getJointTransform();
         const JointTransform *jointTransform = &jointAnimation->getKeyFrame(elapsedTime)->getJointTransform();
         const glm::vec4 *position = &jointTransform->getPosition();
         const glm::fquat *rotation = &jointTransform->getRotation();

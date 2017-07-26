@@ -3,7 +3,7 @@
 
 // STD
 #include <string>
-#include <map>
+#include <unordered_map>
 
 #include "game-engine/Modules/CoreModule.h"
 
@@ -30,6 +30,9 @@ public:
     bool addAnimation(const std::string&, Animation*);
     bool addAnimatorProperty(const std::string&, AnimatorProperty*);
     
+    const Animation* getAnimation(const std::string&) const;
+    const AnimatorProperty* getAnimatorProperty(const std::string&) const;
+    
     bool removeAnimation(const std::string&);
     bool removeAnimatorProperty(const std::string&);
     
@@ -38,8 +41,8 @@ private:
     AnimationModule(AnimationModule const&);    // Don't Implement
     void operator=(AnimationModule const&);		// Don't implement
     
-    std::map<std::string, Animation*> mAnimations;
-    std::map<std::string, AnimatorProperty*> mAnimatorProperties;
+    std::unordered_map<std::string, Animation*> mAnimations;
+    std::unordered_map<std::string, AnimatorProperty*> mAnimatorProperties;
     
     void animate(Animation *animation, JointEntity *joint, const glm::mat4 &parentTransform);
 };

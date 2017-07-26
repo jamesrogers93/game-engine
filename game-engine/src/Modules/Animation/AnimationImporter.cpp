@@ -49,7 +49,7 @@ Animation* AnimationImporter::importAnimation(const std::string &path, std::ifst
     file >> numJointAnimations;
     
     // Get joint animations
-    std::map<std::string, JointAnimation> jointAnimations;
+    std::unordered_map<std::string, JointAnimation> jointAnimations;
     for(unsigned int i = 0; i < numJointAnimations; i++)
     {
         // Get joint animation name

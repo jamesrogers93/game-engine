@@ -48,7 +48,7 @@ public:
     
     const std::string& getName() const { return name; }
     
-    bool loadToShader(Shader *shader);
+    bool loadToShader(Shader *shader) const;
     
     static void fillUniformNames(std::vector<std::string> &uniformNames);
     
