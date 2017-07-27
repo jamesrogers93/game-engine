@@ -73,17 +73,18 @@ CoreModule* Engine::getCoreModule(const CoreModuleType &module)
 
 void Engine::update(const CoreModuleType &module, const bool &dispatch)
 {
-    if(this->modules.find(module) != this->modules.end())
+    auto it = this->modules.find(module);
+    if(it != this->modules.end())
     {
         if(dispatch)
         {
-            std::function<void(void)> func = std::bind(&CoreModule::update, this->modules.at(module));
+            std::function<void(void)> func = std::bind(&CoreModule::update, it->second);
             Task myTask(func);
             mDispatchQueue.sendToQueue(myTask);
         }
         else
         {
-            this->modules.at(module)->update();
+            it->second->update();
         }
     }
 }
