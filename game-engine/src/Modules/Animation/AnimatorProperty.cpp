@@ -20,7 +20,7 @@ void AnimatorProperty::play(const std::string &animationKey, const bool &loop, c
     this->mLoop = loop;
     this->mReverse = reverse;
     this->mSpeed = speed;
-    this->mStartTime = timeInSeconds();
+    this->mElapsedTime = 0.0; //this->mStartTime = timeInSeconds();
 }
 
 void AnimatorProperty::stop()
@@ -48,10 +48,12 @@ bool AnimatorProperty::makeUnactive()
 
 void AnimatorProperty::animate(const Animation *animation, JointEntity *joint)
 {
-    
     // Get Elapsed time
-    float currentTime = timeInSeconds();
-    float elapsedTime = currentTime - mStartTime;
+    
+    //float currentTime = timeInSeconds();
+    //float elapsedTime = currentTime - mStartTime;
+    mElapsedTime += timeSinceLastUpdate;
+    float elapsedTime = mElapsedTime;
     
     // Apply speed
     elapsedTime *= mSpeed;
@@ -62,7 +64,9 @@ void AnimatorProperty::animate(const Animation *animation, JointEntity *joint)
         // If animation is looping, reset animation timings
         if(mLoop)
         {
-            mStartTime = currentTime;
+            //mStartTime = currentTime;
+            //elapsedTime -= animation->getLength();
+            mElapsedTime = 0.0;
             elapsedTime -= animation->getLength();
         }
         else

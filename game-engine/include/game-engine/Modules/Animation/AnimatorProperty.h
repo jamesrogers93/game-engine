@@ -25,7 +25,7 @@ public:
     
     const Animation* getAnimationPtr() const { return animationPtr; }
     
-    const float& getStartTime() { return mStartTime; }
+    const double& getElapsedTime() { return mElapsedTime; }
     const bool& getLoop() { return mLoop; }
     const bool& getReverse() { return mReverse; }
     const float& getSpeed() { return mSpeed; }
@@ -37,7 +37,7 @@ private:
     const Animation *animationPtr;
     
     bool mAnimate;
-    float mStartTime;
+    double mElapsedTime;//double mStartTime;
     bool mLoop;
     bool mReverse;
     float mSpeed;

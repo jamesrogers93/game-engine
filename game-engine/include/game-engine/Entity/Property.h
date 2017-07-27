@@ -25,6 +25,7 @@ protected:
 public:
     Property(const std::string &name, const Type &type);
     
+    void setName(const std::string &name) { mName = name; }
     void setOwner(Entity *owner);
     
     const std::string& getName() const { return this->mName; }
