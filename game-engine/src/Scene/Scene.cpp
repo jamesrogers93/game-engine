@@ -1,6 +1,8 @@
 #include "game-engine/Scene/Scene.h"
+#include "game-engine/Scene/SceneLogic.h"
 #include "game-engine/Entity/Entity.h"
 #include "game-engine/Entity/Property.h"
+
 
 #include <iostream>
 
@@ -84,6 +86,19 @@ void Scene::update()
     for(auto &entity : this->entities)
     {
         //entity->updateGlobalModel();
-        //entity->update();
+        entity->update();
+    }
+    
+    if(mSceneLogic != NULL)
+    {
+        mSceneLogic->update();
+    }
+}
+
+void Scene::draw()
+{
+    if(mSceneLogic != NULL)
+    {
+        mSceneLogic->draw();
     }
 }

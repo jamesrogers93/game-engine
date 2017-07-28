@@ -23,7 +23,7 @@ void GLContext::initialise()
 {
     self = [[GLContextIOS alloc] init];
     
-    this->isInitialised = [(id)self initalise];
+    this->isInitialised = [(id)self initialise];
     
     // Now we should create the sharegroup with a reference to the context sharegroup
     //GLSharegroupIOS *sharegroup = [[GLSharegroupIOS alloc] initWithContext: [(id)self getContext]];
@@ -32,7 +32,7 @@ void GLContext::initialise()
 
 void GLContext::deinitialise()
 {
-    [(id)self deinitalise];
+    [(id)self deinitialise];
     
     [(id)self dealloc];
 }
@@ -42,7 +42,7 @@ void GLContext::makeCurrentContext()
     [(id)self makeCurrentContext];
 }
 
--(BOOL)initalise
+-(BOOL)initialise
 {
     if(!_context)
     {
@@ -60,7 +60,7 @@ void GLContext::makeCurrentContext()
     return true;
 }
 
--(BOOL)deinitalise
+-(BOOL)deinitialise
 {
     return true;
 }

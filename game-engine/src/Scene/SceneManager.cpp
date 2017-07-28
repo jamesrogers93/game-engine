@@ -18,7 +18,7 @@ bool SceneManager::addScene(Scene *scene)
         
     } else
     {
-        //scene->initalise();
+        //scene->initialise();
         this->scenes[scene->getName()] = scene;
         return true;
     }
@@ -88,15 +88,22 @@ void SceneManager::update()
     {
         activeScene->update();
     }
-    //if(this->scenes.find(this->activeScene) != this->scenes.end())
-    //{
-        //std::thread(&Scene::update,this->scenes.at(this->activeScene));
-    //    this->scenes.at(this->activeScene)->update();
-    
-    //} else
-    //{
+    else
+    {
         // LOG
-    //}
+    }
+}
+
+void SceneManager::draw()
+{
+    if(activeScene != NULL)
+    {
+        activeScene->draw();
+    }
+    else
+    {
+        // LOG
+    }
 }
 
 

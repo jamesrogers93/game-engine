@@ -27,8 +27,8 @@ public:
 		return instance;
 	}
 
-	bool initalise();
-	bool deinitalise();
+	bool initialise();
+	bool deinitialise();
     bool update();
 
     bool addMeshProperty(const std::string&, MeshProperty*);

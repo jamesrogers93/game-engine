@@ -11,12 +11,12 @@
 
 #include "game-engine/Util/StringUtil.h"
 
-bool Graphics::initalise()
+bool Graphics::initialise()
 {
 	return true;
 }
 
-bool Graphics::deinitalise()
+bool Graphics::deinitialise()
 {
 
 	// Delete shaders and geometry

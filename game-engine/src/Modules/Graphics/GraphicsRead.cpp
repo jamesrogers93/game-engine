@@ -1,4 +1,4 @@
-#include "game-engine/Modules/Graphics/GraphicsRead.h"
+/*#include "game-engine/Modules/Graphics/GraphicsRead.h"
 
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Vertex.h"
@@ -123,4 +123,4 @@ void GraphicsRead::readGeometry(std::ifstream &file)
     MeshGL *g = MeshGL::loadMeshGL(vertices, indices);
     
     Graphics::getInstance().addMesh(name, g);
-}
+}*/

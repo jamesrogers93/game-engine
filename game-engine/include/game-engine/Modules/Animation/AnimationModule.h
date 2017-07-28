@@ -23,8 +23,8 @@ public:
         return instance;
     }
     
-    bool initalise() { return true; }
-    bool deinitalise() { return true; }
+    bool initialise() { return true; }
+    bool deinitialise() { return true; }
     bool update();
     
     bool addAnimation(const std::string&, Animation*);

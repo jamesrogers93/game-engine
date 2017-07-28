@@ -16,6 +16,21 @@ struct VertexElement
     };
 };
 
+struct VertexPNUJ
+{
+    glm::vec3 position;
+    glm::vec3 normal;
+    glm::vec2 uv0;
+    glm::vec4 jointIds;
+    glm::vec4 jointWeights;
+};
+
+struct VertexPU
+{
+    glm::vec3 position;
+    glm::vec2 uv0;
+};
+
 class VertexBase
 {
 protected:

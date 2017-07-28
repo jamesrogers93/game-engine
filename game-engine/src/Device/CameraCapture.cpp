@@ -177,17 +177,17 @@ void CameraCapture::initialiseView()
     this->shader = Shader::loadShaderFromString(SHADER_VERTEX, SHADER_FRAGMENT, vertexAttribs, uniformNames);
     
     // Init geometry
-    std::vector<Vertex> vertices;
-    Vertex v1,v2,v3,v4;
-    v1.setPosition(glm::vec3(-width, -height, 0.0));
-    v2.setPosition(glm::vec3(-width,  height, 0.0));
-    v3.setPosition(glm::vec3( width,  height, 0.0));
-    v4.setPosition(glm::vec3( width, -height, 0.0));
+    std::vector<VertexPU> vertices;
+    VertexPU v1,v2,v3,v4;
+    v1.position = glm::vec3(-width, -height, 0.0);
+    v2.position = glm::vec3(-width,  height, 0.0);
+    v3.position = glm::vec3( width,  height, 0.0);
+    v4.position = glm::vec3( width, -height, 0.0);
     
-    v1.setUV0(glm::vec2(0.0, 1.0));
-    v2.setUV0(glm::vec2(0.0, 0.0));
-    v3.setUV0(glm::vec2(1.0, 0.0));
-    v4.setUV0(glm::vec2(1.0, 1.0));
+    v1.uv0 = glm::vec2(0.0, 1.0);
+    v2.uv0 = glm::vec2(0.0, 0.0);
+    v3.uv0 = glm::vec2(1.0, 0.0);
+    v4.uv0 = glm::vec2(1.0, 1.0);
     
     vertices.push_back(v1);
     vertices.push_back(v2);

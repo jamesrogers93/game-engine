@@ -25,7 +25,7 @@ void AREntity::initialise()
 {
     AR::getInstance().addAREntity(this->name, this);
     
-    tracker->initalise();
+    tracker->initialise();
 }
 
 void AREntity::startCapture()

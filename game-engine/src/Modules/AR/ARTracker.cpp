@@ -2,13 +2,13 @@
 
 #include <KudanCV/KudanCV.h>
 
-ARTracker::ARTracker() : state(UNINITALISED)
+ARTracker::ARTracker() : state(UNinitialiseD)
 {
 }
 
-void ARTracker::initalise()
+void ARTracker::initialise()
 {
-    if(state == UNINITALISED)
+    if(state == UNinitialiseD)
     {
         this->tracker = new KudanArbiTracker();
     
@@ -33,7 +33,7 @@ void ARTracker::initalise()
 
 void ARTracker::setOrientation(const glm::fquat &orientaton)
 {
-    if(state != UNINITALISED)
+    if(state != UNinitialiseD)
     {
         this->tracker->setSensedOrientation(KudanQuaternion(orientaton.x, orientaton.y, orientaton.z, orientaton.w));
     }
@@ -82,7 +82,7 @@ bool ARTracker::isTracking()
 
 glm::mat3 ARTracker::getCameraIntrictics()
 {
-    if(state != UNINITALISED)
+    if(state != UNinitialiseD)
     {
         KudanMatrix3 K = tracker->getCameraMatrix();
     
@@ -106,7 +106,7 @@ glm::mat3 ARTracker::getCameraIntrictics()
 
 glm::mat3 ARTracker::getCameraProjection(const float &nearPlane, const float &farPlane)
 {
-    if(state != UNINITALISED && tracker->hasCameraCalibration())
+    if(state != UNinitialiseD && tracker->hasCameraCalibration())
     {
         KudanMatrix4 P = tracker->getProjectionMatrix(nearPlane, farPlane);
         

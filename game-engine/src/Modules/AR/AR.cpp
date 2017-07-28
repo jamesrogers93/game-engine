@@ -8,12 +8,12 @@ AR::AR() : CoreModule(CoreModuleType::CM_AR)
     
 }
 
-bool AR::initalise()
+bool AR::initialise()
 {
     return true;
 }
 
-bool AR::deinitalise()
+bool AR::deinitialise()
 {
     return true;
 }

@@ -9,14 +9,14 @@ class KudanArbiTracker;
 class ARTracker
 {
 public:
-    enum State { UNINITALISED, INITIALISED, TRACKING};
+    enum State { UNinitialiseD, INITIALISED, TRACKING};
 private:
     State state;
     
 public:
     ARTracker();
     
-    void initalise();
+    void initialise();
     
     const State& getState() const { return state; }
     

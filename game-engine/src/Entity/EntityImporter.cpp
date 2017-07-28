@@ -17,7 +17,7 @@ void EntityImporter::ImportAsynchronously(const std::string &path)
 bool EntityImporter::Import(const std::string &path)
 {
     std::ifstream file;
-    file.open(path);
+    file.open(path, std::ios::binary);
     if (!file)
     {
         std::cout << "Unable to open file " << path << std::endl;

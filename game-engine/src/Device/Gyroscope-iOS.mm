@@ -26,7 +26,7 @@ glm::dquat Gyroscope::getOrientation()
 {
     if(self == NULL)
     {
-        std::cout << "Gyroscrope not initalised" << std::endl;
+        std::cout << "Gyroscrope not initialised" << std::endl;
         return glm::dquat();
     }
     

@@ -17,7 +17,7 @@ bool MeshImporter::Import(const std::string &path)
 {
     
     std::ifstream file;
-    file.open(path);
+    file.open(path, std::ios::binary);
     if (!file)
     {
         std::cout << "Unable to open file " << path << std::endl;
@@ -38,8 +38,9 @@ void MeshImporter::readMesh(std::ifstream &file)
     file >> name;
     
     // Read types of vertex information
-    std::map<std::string, unsigned int> sources;
+    std::map<std::string, bool> sources;
     std::string rowType;
+    unsigned int numVertexElements = 0;
     while(file >> rowType && rowType == "-S")
     {
         std::string sourceType;
@@ -47,70 +48,43 @@ void MeshImporter::readMesh(std::ifstream &file)
         
         file >> sourceType >> sourceStride;
         
-        sources[sourceType] = sourceStride;
+        sources[sourceType] = true;
+        
+        numVertexElements += sourceStride;
     }
     
-    std::vector<Vertex> vertices;
+    if(sources["position"] && sources["normal"] && sources["uv0"] && sources["joint_id"] && sources["joint_weight"])
+    {
+        //std::vector<VertexPNUJ> vertices;
+    }
+    else
+    {
+        std::cout << " Error: Unsupported vertex sources" << std::endl;
+        return;
+    }
     
+    std::vector<VertexPNUJ> vertices;
+    
+    std::cout << "starting" << std::endl;
     if(rowType == "-V")
     {
         unsigned int numVertices;
         file >> numVertices;
         
-        for(int i = 0; i < numVertices; i++)
-        {
-            Vertex vert;
-            
-            if(sources.find("position") != sources.end())
-            {
-                float x, y, z;
-                file >> x >> y >> z;
-                
-                vert.setPosition(glm::vec3(x, y, z));
-            }
-            
-            if(sources.find("normal") != sources.end())
-            {
-                float x, y, z;
-                file >> x >> y >> z;
-                
-                vert.setNormal(glm::vec3(x, y, z));
-            }
-            
-            if(sources.find("uv0") != sources.end())
-            {
-                float u, v;
-                file >> u >> v;
-                
-                vert.setUV0(glm::vec2(u, v));
-            }
-            
-            if(sources.find("colour") != sources.end())
-            {
-                float r, g, b, a;
-                file >> r >> g >> b >> a;
-                
-                vert.setColour(glm::vec4(r, g, b, a));
-            }
-            
-            if(sources.find("joint_id") != sources.end())
-            {
-                float x, y, z, w;
-                file >> x >> y >> z >> w;
-                
-                vert.setJointId(glm::vec4(x, y, z, w));
-            }
-            
-            if(sources.find("joint_weight") != sources.end())
-            {
-                float x, y, z, w;
-                file >> x >> y >> z >> w;
-                
-                vert.setJointWeight(glm::vec4(x, y, z, w));
-            }
-            vertices.push_back(vert);
-        }
+        // Read vertex data
+        //file.seekg(1, std::ios::cur);
+        //std::vector<float> v(numVertices);
+        
+        //file.read(reinterpret_cast<char*> (&v[0]), numVertices * sizeof(float));
+        
+        
+        // HARD CODE FOR NOW. MUST CHANGE!!!!!!!
+        // Read vertex data
+        file.seekg(1, std::ios::cur);
+        vertices.resize(numVertices);
+        file.read(reinterpret_cast<char*> (&vertices[0]), numVertices * sizeof(VertexPNUJ));
     }
+    std::cout << "ending" << std::endl;
     
     std::vector<unsigned int> indices;
     file >> rowType;
@@ -119,13 +93,10 @@ void MeshImporter::readMesh(std::ifstream &file)
         unsigned int numIndices;
         file >> numIndices;
         
-        for(int i = 0; i < numIndices; i++)
-        {
-            unsigned int index;
-            file >> index;
-            
-            indices.push_back(index);
-        }
+        file.seekg(1, std::ios::cur);
+        indices.resize(numIndices);
+        file.read(reinterpret_cast<char*> (&indices[0]), numIndices * sizeof(unsigned int));
+
     }
     
     Mesh *mesh =  new Mesh(name, vertices, indices);

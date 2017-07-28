@@ -9,7 +9,102 @@ void MeshGL::draw() const
     glBindVertexArray(0);
 }
 
-MeshGL* MeshGL::loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+MeshGL* MeshGL::loadMeshGL(std::vector<VertexPNUJ> vertices, std::vector<unsigned int> indices)
+{
+    if(vertices.size() == 0 || indices.size() == 0)
+    {
+        return NULL;
+    }
+    
+    GLuint VAO, VBO, EBO;
+    
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    
+    // Bind VAO and VBOs
+    glBindVertexArray(VAO);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(VertexPNUJ), &vertices[0], GL_STATIC_DRAW);
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    
+    // Set the vertex attribute pointers
+    size_t offset = 0;
+    
+    // Vertex Positions
+    glEnableVertexAttribArray(ATTRIB_POSITION);
+    glVertexAttribPointer(ATTRIB_POSITION, Vertex::POSITION_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)0);
+    offset += sizeof(glm::vec3);
+    
+    // Vertex Normals
+    glEnableVertexAttribArray(ATTRIB_NORMAL);
+    glVertexAttribPointer(ATTRIB_NORMAL, Vertex::NORMAL_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)offset);
+    offset += sizeof(glm::vec3);
+    
+    // Texture Coordinates
+    glEnableVertexAttribArray(ATTRIB_UV0);
+    glVertexAttribPointer(ATTRIB_UV0, Vertex::UV0_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)offset);
+    offset += sizeof(glm::vec2);
+    
+    // Joint ID
+    glEnableVertexAttribArray(ATTRIB_JOINT_ID);
+    glVertexAttribPointer(ATTRIB_JOINT_ID, Vertex::JOINT_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)offset);
+    offset += sizeof(glm::vec4);
+    
+    // Joint Weight
+    glEnableVertexAttribArray(ATTRIB_JOINT_WEIGHT);
+    glVertexAttribPointer(ATTRIB_JOINT_WEIGHT, Vertex::JOINT_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)offset);
+    offset += sizeof(glm::vec4);
+    
+    glBindVertexArray(0);
+    
+    return new MeshGL(VAO, VBO, EBO, (unsigned int)indices.size());
+}
+
+MeshGL* MeshGL::loadMeshGL(std::vector<VertexPU> vertices, std::vector<unsigned int> indices)
+{
+    if(vertices.size() == 0 || indices.size() == 0)
+    {
+        return NULL;
+    }
+    
+    GLuint VAO, VBO, EBO;
+    
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    
+    // Bind VAO and VBOs
+    glBindVertexArray(VAO);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(VertexPU), &vertices[0], GL_STATIC_DRAW);
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    
+    // Set the vertex attribute pointers
+    size_t offset = 0;
+    
+    // Vertex Positions
+    glEnableVertexAttribArray(ATTRIB_POSITION);
+    glVertexAttribPointer(ATTRIB_POSITION, Vertex::POSITION_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPU), (GLvoid*)0);
+    offset += sizeof(glm::vec3);
+    
+    // Texture Coordinates
+    glEnableVertexAttribArray(ATTRIB_UV0);
+    glVertexAttribPointer(ATTRIB_UV0, Vertex::UV0_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPU), (GLvoid*)offset);
+    offset += sizeof(glm::vec2);
+    
+    glBindVertexArray(0);
+    
+    return new MeshGL(VAO, VBO, EBO, (unsigned int)indices.size());
+}
+
+/*MeshGL* MeshGL::loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
 {
     if(vertices.size() == 0 || indices.size() == 0)
     {
@@ -27,39 +122,6 @@ MeshGL* MeshGL::loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned in
         std::vector<float> vertData = vertices[i].getData();
         data.insert(std::end(data), std::begin(vertData), std::end(vertData));
     }
-    
-    // Print out all joint ids and joint weights
-    /*unsigned int count = 0;
-    for(unsigned int i = 0; i < data.size(); i++)
-    {
-        if(count >= 16)
-        {
-            std::cout << std::endl;
-            count = 0;
-        }
-        
-        if(count == 8)
-        {
-            std::cout << "Joint ID: ";
-        }
-        
-        if(count == 12)
-        {
-            std::cout << std::endl << "Joint Weight: ";
-        }
-        
-        if(count >=12)
-        {
-            std::cout << data[i] << " ";
-        }
-        else if(count >= 8)
-        {
-            std::cout << int(data[i]) << " ";
-        }
-        
-        count++;
-    }*/
-    
     
     GLuint VAO, VBO, EBO;
     
@@ -130,7 +192,7 @@ MeshGL* MeshGL::loadMeshGL(std::vector<Vertex> vertices, std::vector<unsigned in
     glBindVertexArray(0);
     
     return new MeshGL(VAO, VBO, EBO, (unsigned int)indices.size());
-}
+}*/
 
 /*Geometry* Geometry::loadGeometry(std::vector<Vertex3DPN> vertices, std::vector<unsigned int> indices)
 {

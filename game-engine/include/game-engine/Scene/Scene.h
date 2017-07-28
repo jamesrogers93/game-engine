@@ -6,6 +6,7 @@
 #include <vector>
 
 class Entity;
+class SceneLogic;
 
 class Scene
 {
@@ -15,9 +16,11 @@ private:
     
     bool mHasPrepared;
     
+    SceneLogic *mSceneLogic;
+    
 public:
     
-    Scene(std::string name) : name(name), mHasPrepared(false) {}
+    Scene(std::string name) : name(name), mHasPrepared(false), mSceneLogic(NULL) {}
     ~Scene() {}
 
     void prepare();
@@ -26,8 +29,12 @@ public:
 	const std::string& getName();
     
     void addEntity(Entity *entity) {   this->entities.push_back(entity);   }
+    
+    void setSceneLogic(SceneLogic *sceneLogic) { mSceneLogic = sceneLogic; }
 
     void update();
+    
+    void draw();
 
 private:
     void prepare(Entity *);

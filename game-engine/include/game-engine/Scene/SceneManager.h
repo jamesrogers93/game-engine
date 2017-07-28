@@ -25,6 +25,7 @@ public:
     bool makeActiveScene(const std::string &name);
 
 	void update();
+    void draw();
 
 private:
 	SceneManager();
