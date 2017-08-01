@@ -29,6 +29,7 @@ public:
     void setLength(const float &length) { mLength = length; }
     void setKeyFrames(const std::vector<KeyFrame> &keyFrames);
     
+    const KeyFramePair getKeyFramePair(const float &elapsedTime) const;
     const KeyFrame* getKeyFrame(const float &elapsedTime) const;
     
 private:

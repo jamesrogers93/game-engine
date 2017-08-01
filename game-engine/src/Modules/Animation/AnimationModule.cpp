@@ -28,14 +28,7 @@ bool AnimationModule::update()
         {
             continue;
         }
-        
-        /*if(this->mAnimations.find(animator.second->mAnimationKey) != this->mAnimations.end())
-        {
-            Animation *a = this->mAnimations[animator.second->mAnimationKey];
-            JointEntity *root = animator.second->mSkeletonRoot;
-            animator.second->animate(a, root);
-        }*/
-        
+    
         const Animation *a =  animator.second->getAnimationPtr();
         JointEntity *root = animator.second->mSkeletonRoot;
         

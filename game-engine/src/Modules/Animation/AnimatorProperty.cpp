@@ -98,12 +98,33 @@ void AnimatorProperty::animate2(const Animation *animation, JointEntity *joint, 
     // Get the joint animation transformation
     if(jointAnimation != NULL)
     {
-        //const JointTransform *jointTransform = &jointAnimation->getKeyFrame(0)->getJointTransform();
-        const JointTransform *jointTransform = &jointAnimation->getKeyFrame(elapsedTime)->getJointTransform();
+        /*const JointTransform *jointTransform = &jointAnimation->getKeyFrame(elapsedTime)->getJointTransform();
         const glm::vec4 *position = &jointTransform->getPosition();
-        const glm::fquat *rotation = &jointTransform->getRotation();
+        const glm::fquat *rotation = &jointTransform->getRotation();*/
         
-        jointLocalTransform = glm::translate(glm::mat4(), glm::vec3(*position)) * glm::mat4_cast(*rotation);
+        KeyFramePair pair = jointAnimation->getKeyFramePair(elapsedTime);
+        glm::vec4 position;
+        glm::fquat rotation;
+        
+        if(pair.mIsPair)
+        {
+            const JointTransform *jointTransform1 = &pair.mKeyframe1->getJointTransform();
+            const JointTransform *jointTransform2 = &pair.mKeyframe2->getJointTransform();
+            
+            JointTransform jointTransform = JointTransform::interpolate(pair.mProgression, jointTransform1, jointTransform2);
+            
+            position = jointTransform.getPosition();
+            rotation = jointTransform.getRotation();
+        }
+        else
+        {
+            const JointTransform *jointTransform = &pair.mKeyframe1->getJointTransform();
+            position = jointTransform->getPosition();
+            rotation = jointTransform->getRotation();
+        }
+        
+        
+        jointLocalTransform = glm::translate(glm::mat4(), glm::vec3(position)) * glm::mat4_cast(rotation);
     }
     else
     {
@@ -113,6 +134,7 @@ void AnimatorProperty::animate2(const Animation *animation, JointEntity *joint, 
     
     glm::mat4 jointGlobalTransform = parentTransform * jointLocalTransform;
     joint->transformOW(jointGlobalTransform * joint->getInverseBindTransform());
+    //joint->transformOW(joint->getInverseBindTransform());
     
     for(unsigned int i = 0; i < joint->getChildren().size(); i++)
     {
