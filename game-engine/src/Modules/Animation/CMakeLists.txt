@@ -1,6 +1,7 @@
 
 list(APPEND GAME_ENGINE_SRC
 	"src/Modules/Animation/Animation.cpp"
+	"src/Modules/Animation/AnimationController.cpp"
 	"src/Modules/Animation/AnimationImporter.cpp"
 	"src/Modules/Animation/AnimationModule.cpp"
 	"src/Modules/Animation/AnimatorProperty.cpp"

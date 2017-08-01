@@ -24,25 +24,8 @@ bool AnimationModule::update()
     
     for(auto &animator : this->mAnimatorProperties)
     {
-        if(!animator.second->mAnimate)
-        {
-            continue;
-        }
-    
-        const Animation *a =  animator.second->getAnimationPtr();
-        JointEntity *root = animator.second->mSkeletonRoot;
-        
-        if(a != NULL && root != NULL)
-        {
-            animator.second->animate(a, root);
-        }
-        else
-        {
-            // LOG
-            std::cout << "Animation ptr or skeleton root ptrfor animator " << animator.second->getName() << " is NULL" << std::endl;
-        }
+        animator.second->animate();
     }
-    
     
     return true;
 }

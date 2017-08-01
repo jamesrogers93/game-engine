@@ -1,6 +1,7 @@
 
 list(APPEND GAME_ENGINE_INC
     "include/game-engine/Modules/Animation/Animation.h"
+    "include/game-engine/Modules/Animation/AnimationController.h"
     "include/game-engine/Modules/Animation/AnimationImporter.h"
     "include/game-engine/Modules/Animation/AnimationModule.h"
     "include/game-engine/Modules/Animation/AnimatorProperty.h"
