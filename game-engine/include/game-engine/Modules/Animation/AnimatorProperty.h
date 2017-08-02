@@ -35,7 +35,6 @@ private:
     
     void animate();
     
-    //void animate2(JointEntity *joint, const AnimationController &animationController, const glm::mat4 &parentTransform = glm::mat4());
     void animate2(JointEntity *joint, std::vector<AnimationController*> &animationControllers, const glm::mat4 &parentTransform = glm::mat4());
     
     void updateFrame(const Animation* animation);
