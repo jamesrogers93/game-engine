@@ -9,6 +9,91 @@ void MeshGL::draw() const
     glBindVertexArray(0);
 }
 
+MeshGL* MeshGL::loadMeshGL(std::vector<VertexPU> vertices, std::vector<unsigned int> indices)
+{
+    if(vertices.size() == 0 || indices.size() == 0)
+    {
+        return NULL;
+    }
+    
+    GLuint VAO, VBO, EBO;
+    
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    
+    // Bind VAO and VBOs
+    glBindVertexArray(VAO);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(VertexPU), &vertices[0], GL_STATIC_DRAW);
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    
+    // Set the vertex attribute pointers
+    size_t offset = 0;
+    
+    // Vertex Positions
+    glEnableVertexAttribArray(ATTRIB_POSITION);
+    glVertexAttribPointer(ATTRIB_POSITION, Vertex::POSITION_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPU), (GLvoid*)0);
+    offset += sizeof(glm::vec3);
+    
+    // Texture Coordinates
+    glEnableVertexAttribArray(ATTRIB_UV0);
+    glVertexAttribPointer(ATTRIB_UV0, Vertex::UV0_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPU), (GLvoid*)offset);
+    offset += sizeof(glm::vec2);
+    
+    glBindVertexArray(0);
+    
+    return new MeshGL(VAO, VBO, EBO, (unsigned int)indices.size());
+}
+
+MeshGL* MeshGL::loadMeshGL(std::vector<VertexPCU> vertices, std::vector<unsigned int> indices)
+{
+    if(vertices.size() == 0 || indices.size() == 0)
+    {
+        return NULL;
+    }
+    
+    GLuint VAO, VBO, EBO;
+    
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    
+    // Bind VAO and VBOs
+    glBindVertexArray(VAO);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(VertexPCU), &vertices[0], GL_STATIC_DRAW);
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    
+    // Set the vertex attribute pointers
+    size_t offset = 0;
+    
+    // Vertex Positions
+    glEnableVertexAttribArray(ATTRIB_POSITION);
+    glVertexAttribPointer(ATTRIB_POSITION, Vertex::POSITION_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPCU), (GLvoid*)0);
+    offset += sizeof(glm::vec3);
+    
+    // Colour
+    glEnableVertexAttribArray(ATTRIB_COLOUR);
+    glVertexAttribPointer(ATTRIB_COLOUR, Vertex::COLOUR_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPCU), (GLvoid*)offset);
+    offset += sizeof(glm::vec4);
+    
+    // Texture Coordinates
+    glEnableVertexAttribArray(ATTRIB_UV0);
+    glVertexAttribPointer(ATTRIB_UV0, Vertex::UV0_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPCU), (GLvoid*)offset);
+    offset += sizeof(glm::vec2);
+    
+    glBindVertexArray(0);
+    
+    return new MeshGL(VAO, VBO, EBO, (unsigned int)indices.size());
+}
+
 MeshGL* MeshGL::loadMeshGL(std::vector<VertexPNUJ> vertices, std::vector<unsigned int> indices)
 {
     if(vertices.size() == 0 || indices.size() == 0)
@@ -58,46 +143,6 @@ MeshGL* MeshGL::loadMeshGL(std::vector<VertexPNUJ> vertices, std::vector<unsigne
     glEnableVertexAttribArray(ATTRIB_JOINT_WEIGHT);
     glVertexAttribPointer(ATTRIB_JOINT_WEIGHT, Vertex::JOINT_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)offset);
     offset += sizeof(glm::vec4);
-    
-    glBindVertexArray(0);
-    
-    return new MeshGL(VAO, VBO, EBO, (unsigned int)indices.size());
-}
-
-MeshGL* MeshGL::loadMeshGL(std::vector<VertexPU> vertices, std::vector<unsigned int> indices)
-{
-    if(vertices.size() == 0 || indices.size() == 0)
-    {
-        return NULL;
-    }
-    
-    GLuint VAO, VBO, EBO;
-    
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-    
-    // Bind VAO and VBOs
-    glBindVertexArray(VAO);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(VertexPU), &vertices[0], GL_STATIC_DRAW);
-    
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-    
-    // Set the vertex attribute pointers
-    size_t offset = 0;
-    
-    // Vertex Positions
-    glEnableVertexAttribArray(ATTRIB_POSITION);
-    glVertexAttribPointer(ATTRIB_POSITION, Vertex::POSITION_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPU), (GLvoid*)0);
-    offset += sizeof(glm::vec3);
-    
-    // Texture Coordinates
-    glEnableVertexAttribArray(ATTRIB_UV0);
-    glVertexAttribPointer(ATTRIB_UV0, Vertex::UV0_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPU), (GLvoid*)offset);
-    offset += sizeof(glm::vec2);
     
     glBindVertexArray(0);
     

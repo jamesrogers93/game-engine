@@ -16,6 +16,19 @@ struct VertexElement
     };
 };
 
+struct VertexPU
+{
+    glm::vec3 position;
+    glm::vec2 uv0;
+};
+
+struct VertexPCU
+{
+    glm::vec3 position;
+    glm::vec2 uv0;
+    glm::vec4 colour;
+};
+
 struct VertexPNUJ
 {
     glm::vec3 position;
@@ -23,12 +36,6 @@ struct VertexPNUJ
     glm::vec2 uv0;
     glm::vec4 jointIds;
     glm::vec4 jointWeights;
-};
-
-struct VertexPU
-{
-    glm::vec3 position;
-    glm::vec2 uv0;
 };
 
 class VertexBase

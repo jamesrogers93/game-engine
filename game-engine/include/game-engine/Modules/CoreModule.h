@@ -11,6 +11,7 @@ enum class CoreModuleType
 	CM_AUDIO,
 	CM_PHYICS,
 	CM_INPUT,
+    CM_GUI
 };
 
 struct EnumClassHash
