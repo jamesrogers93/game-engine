@@ -10,6 +10,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "game-engine/Defines/OpenGL.h"
+
 
 const std::string vertex =
 "#version 300 es\n"
@@ -64,7 +66,9 @@ bool GUI::initialise()
     
     shader = Shader::loadShaderFromString(vertex, fragment, vertexAttribs, uniformNames);
     
-    projection = glm::ortho(0.0f, (float)System::screenWidth, (float)System::screenHeight, 0.0f);
+    float screenWidth = (float)System::screenWidth;
+    float screenHeight = (float)System::screenHeight;
+    projection = glm::ortho(0.0f, screenWidth*0.5f, 0.0f, screenHeight*0.5f); // Dont know why half
     
     return true;
 }
@@ -76,6 +80,8 @@ bool GUI::deinitialise()
 
 bool GUI::update()
 {
+    
+    glDisable(GL_DEPTH_TEST);
     
     shader->use();
     
@@ -91,7 +97,33 @@ bool GUI::update()
         guiProperty.second->update(shader);
     }
     
+    glEnable(GL_DEPTH_TEST);
+    
     return true;
+}
+
+void GUI::touchDown(const float &x, const float &y)
+{
+    for(auto &prop : guiProperties)
+    {
+        prop.second->touchDown(x, y);
+    }
+}
+
+void GUI::touchMove(const float &x, const float &y)
+{
+    for(auto &prop : guiProperties)
+    {
+        prop.second->touchMove(x, y);
+    }
+}
+
+void GUI::touchUp(const float &x, const float &y)
+{
+    for(auto &prop : guiProperties)
+    {
+        prop.second->touchUp(x, y);
+    }
 }
 
 bool GUI::addGUIProperty(const std::string &name, GUIProperty* guiProperty)

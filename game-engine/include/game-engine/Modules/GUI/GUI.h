@@ -29,6 +29,10 @@ public:
     bool deinitialise();
     bool update();
     
+    void touchDown(const float &x, const float &y);
+    void touchMove(const float &x, const float &y);
+    void touchUp(const float &x, const float &y);
+    
     bool addGUIProperty(const std::string &name, GUIProperty* guiProperty);
     bool removeGUIProperty(const std::string &name);
     GUIProperty* getGUIProperty(const std::string &name);

@@ -27,6 +27,8 @@ public:
 
     virtual void draw(Shader *shader) = 0;
     
+    virtual bool containsPoint(const float &x, const float &y) = 0;
+    
 };
 
 #endif /* _GUISHAPE_H */

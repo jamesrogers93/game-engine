@@ -20,9 +20,23 @@ public:
     bool makeActive();
     bool makeUnactive();
     
-    void update(Shader *shader);
+    virtual void update(Shader *shader);
     
-private:
+    void addShape(GUIShape *shape) { shapes.push_back(shape); }
+    
+    virtual void touchDown(const float &x, const float &y);
+    virtual void touchMove(const float &x, const float &y);
+    virtual void touchUp(const float &x, const float &y);
+    
+    //bool isTouched() { return touched; }
+    
+protected:
+    
+    //bool touched;
+    
+    bool hasTouchDown;
+    bool hasTouchMove;
+    bool hasTouchUp;
     
     std::vector<GUIShape*> shapes;
 };

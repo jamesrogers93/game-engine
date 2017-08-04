@@ -13,6 +13,8 @@ public:
     
     void draw(Shader *shader);
     
+    bool containsPoint(const float &x, const float &y);
+    
 private:
     
     static const unsigned int TRIANGLES;

@@ -19,6 +19,25 @@ void GUIRectangle::draw(Shader *shader)
     mesh->draw();
 }
 
+bool GUIRectangle::containsPoint(const float &x, const float &y)
+{
+    float halfX = this->bounds.x * 0.5;
+    float halfY = this->bounds.y * 0.5;
+    
+    float left = this->position.x - (halfX);
+    float right = this->position.x + (halfX);
+    float bottom = this->position.y - (halfY);
+    float top = this->position.y + (halfY);
+    
+    if(x > left && x < right &&
+       y > bottom && y < top)
+    {
+        return true;
+    }
+    
+    return false;
+}
+
 void GUIRectangle::initialise()
 {
     

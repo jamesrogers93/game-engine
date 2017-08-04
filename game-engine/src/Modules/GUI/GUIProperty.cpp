@@ -1,33 +1,11 @@
 #include "game-engine/Modules/GUI/GUIProperty.h"
 #include "game-engine/Modules/GUI/GUI.h"
 
-#include "game-engine/Defines/OpenGL.h"
-
 #include "game-engine/Modules/Graphics/Shader.h"
 
-// GLM
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
-// TEST
-#include "game-engine/Modules/GUI/GUIRectangle.h"
-#include "game-engine/Modules/GUI/GUICircle.h"
-// END TEST
-
-#include "game-engine/Device/System.h"
-
-GUIProperty::GUIProperty(const std::string &name) : Property(name, Property::GUI)
+GUIProperty::GUIProperty(const std::string &name) : Property(name, Property::GUI), hasTouchDown(false), hasTouchMove(false), hasTouchUp(false)
 {
-    GUIShape *rect = new GUIRectangle(glm::vec2(200.0f, 200.0f));
-    rect->translateOW(glm::vec2(400.0f, 400.0f));
-    rect->setColour(glm::vec4(1.0, 0.0, 0.0, 1.0));
-    shapes.push_back(rect);
-    
-    
-    GUIShape *circle = new GUICircle(100.0f);
-    circle->translateOW(glm::vec2(1000.0f, 400.0f));
-    circle->setColour(glm::vec4(0.0, 1.0, 0.0, 1.0));
-    shapes.push_back(circle);
 
 }
 
@@ -48,4 +26,57 @@ bool GUIProperty::makeActive()
 bool GUIProperty::makeUnactive()
 {
     return GUI::getInstance().removeGUIProperty(this->getName());
+}
+
+void GUIProperty::touchDown(const float &x, const float &y)
+{
+    // Loop over shapes to see if the point touches them
+    
+    for(auto *shape : shapes)
+    {
+        if(shape->containsPoint(x, y))
+        {
+            hasTouchDown = true;
+            return;
+        }
+    }
+}
+
+void GUIProperty::touchMove(const float &x, const float &y)
+{
+    // Loop over shapes to see if the point still touches them
+    if(hasTouchDown)
+    {
+        bool stillTouched = false;
+        for(auto *shape : shapes)
+        {
+            if(shape->containsPoint(x, y))
+            {
+                stillTouched = true;
+            }
+        }
+        
+        if(stillTouched)
+        {
+            hasTouchMove = true;
+        }
+        else
+        {
+            hasTouchDown = false;
+        }
+    }
+}
+
+void GUIProperty::touchUp(const float &x, const float &y)
+{
+    if(hasTouchDown)
+    {
+        hasTouchUp = true;
+        hasTouchDown = false;
+    }
+    else
+    {
+        hasTouchUp = false;
+        hasTouchDown = false;
+    }
 }

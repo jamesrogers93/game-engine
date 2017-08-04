@@ -21,6 +21,20 @@ void GUICircle::draw(Shader *shader)
     mesh->draw();
 }
 
+bool GUICircle::containsPoint(const float &x, const float &y)
+{
+    glm::vec2 point(x,y);
+    
+    float distance = glm::length(point - position);
+    
+    if((distance * distance) < (radius * radius))
+    {
+        return true;
+    }
+    
+    return false;
+}
+
 void GUICircle::initialise()
 {
     
