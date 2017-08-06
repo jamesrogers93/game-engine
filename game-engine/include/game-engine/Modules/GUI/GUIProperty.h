@@ -28,15 +28,24 @@ public:
     virtual void touchMove(const float &x, const float &y);
     virtual void touchUp(const float &x, const float &y);
     
-    virtual void setCallBack( std::function<void()> functionPtr, const bool &callbackOnTouchDown,  const bool &callbackOnTouchMove,  const bool &callbackOnTouchUp);
+    void setCallbackOnTouchDown(std::function<void()> callback);
+    void setCallbackOnTouchMove(std::function<void()> callback);
+    void setCallbackOnTouchUp(std::function<void()> callback);
+    
+    void removeCallbackOnTouchDown() { callbackOnTouchDownFlag = false; }
+    void removeCallbackOnTouchMove() { callbackOnTouchMoveFlag = false; }
+    void removeCallbackOnTouchUp() { callbackOnTouchUpFlag = false; }
+    
     
 protected:
     
-    std::function<void()> functionPtr;
+    std::function<void()> callbackOnTouchDown;
+    std::function<void()> callbackOnTouchMove;
+    std::function<void()> callbackOnTouchUp;
     
-    bool callbackOnTouchDown;
-    bool callbackOnTouchMove;
-    bool callbackOnTouchUp;
+    bool callbackOnTouchDownFlag;
+    bool callbackOnTouchMoveFlag;
+    bool callbackOnTouchUpFlag;
     
     bool hasTouchDown;
     bool hasTouchMove;

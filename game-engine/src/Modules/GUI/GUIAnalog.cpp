@@ -62,6 +62,11 @@ void GUIAnalog::touchDown(const float &x, const float &y)
             shapes[0]->translateOW(glm::vec2(x, y));
             shapes[1]->translateOW(glm::vec2(x, y));
             hasTouchDown = true;
+            
+            if(callbackOnTouchDownFlag)
+            {
+                callbackOnTouchDown();
+            }
         }
         else
         {
@@ -73,6 +78,11 @@ void GUIAnalog::touchDown(const float &x, const float &y)
     else if(shapes[0]->containsPoint(x, y))
     {
         hasTouchDown = true;
+        
+        if(callbackOnTouchDownFlag)
+        {
+            callbackOnTouchDown();
+        }
     }
     else
     {
@@ -99,7 +109,14 @@ void GUIAnalog::touchMove(const float &x, const float &y)
         {
             shapes[1]->translateOW(glm::vec2(x, y));
         }
+        
         hasTouchMove = true;
+        
+        if(callbackOnTouchMoveFlag)
+        {
+            callbackOnTouchMove();
+        }
+        
     }
     else
     {
@@ -115,6 +132,11 @@ void GUIAnalog::touchUp(const float &x, const float &y)
         hasTouchDown = false;
         
         shapes[1]->translateOW(shapes[0]->position);
+        
+        if(callbackOnTouchUpFlag)
+        {
+            callbackOnTouchUp();
+        }
     }
     else
     {
@@ -127,16 +149,29 @@ glm::vec2 GUIAnalog::getOffset()
 {
     if(hasTouchMove)
     {
-        glm::vec3 position1Norm;
-        glm::vec3 position2Norm;
+        GUICircle *circle = (GUICircle*)shapes[0];
         
-        position1Norm.x = position1Norm.x / (float)System::screenWidth;
-        position2Norm.x = position2Norm.x / (float)System::screenWidth;
+        glm::vec2 position0 = shapes[0]->position;
+        glm::vec2 position1 = shapes[1]->position;
         
-        position1Norm.y = position1Norm.y / (float)System::screenHeight;
-        position2Norm.y = position2Norm.y / (float)System::screenHeight;
+        glm::vec2 direction = position1 - position0;
         
-        return position1Norm - position2Norm;
+        glm::vec2 result;
+        result.x = direction.x / circle->radius;
+        result.y = direction.y / circle->radius;
+        
+        return result;
+        
+        glm::vec2 position0Norm;
+        glm::vec2 position1Norm;
+        
+        position0Norm.x = position0.x / (float)System::screenWidth;
+        position1Norm.x = position1.x / (float)System::screenWidth;
+        
+        position0Norm.y = position0.y / (float)System::screenHeight;
+        position1Norm.y = position1.y / (float)System::screenHeight;
+        
+        return position0Norm - position1Norm;
     }
     
     return glm::vec2(0.0);

@@ -77,6 +77,8 @@ bool ARTracker::processFrame(unsigned char *data, const float &width, const floa
 
 bool ARTracker::isTracking()
 {
+    //return tracker->isTracking();
+    
     if(!tracker->isTracking())
     {
         state = ARTracker::NOT_TRACKING;

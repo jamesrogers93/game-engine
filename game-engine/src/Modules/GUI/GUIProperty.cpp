@@ -4,7 +4,7 @@
 #include "game-engine/Modules/Graphics/Shader.h"
 
 
-GUIProperty::GUIProperty(const std::string &name) : Property(name, Property::GUI), hasTouchDown(false), hasTouchMove(false), hasTouchUp(false)
+GUIProperty::GUIProperty(const std::string &name) : Property(name, Property::GUI), hasTouchDown(false), hasTouchMove(false), hasTouchUp(false), callbackOnTouchDownFlag(false), callbackOnTouchMoveFlag(false), callbackOnTouchUpFlag(false)
 {
 
 }
@@ -28,13 +28,22 @@ bool GUIProperty::makeUnactive()
     return GUI::getInstance().removeGUIProperty(this->getName());
 }
 
-
-void GUIProperty::setCallBack( std::function<void()> functionPtr, const bool &callbackOnTouchDown,  const bool &callbackOnTouchMove,  const bool &callbackOnTouchUp)
+void GUIProperty::setCallbackOnTouchDown(std::function<void()> callback)
 {
-    this->functionPtr = functionPtr;
-    this->callbackOnTouchDown = callbackOnTouchDown;
-    this->callbackOnTouchMove = callbackOnTouchMove;
-    this->callbackOnTouchUp = callbackOnTouchUp;
+    callbackOnTouchDown = callback;
+    callbackOnTouchDownFlag = true;
+}
+
+void GUIProperty::setCallbackOnTouchMove(std::function<void()> callback)
+{
+    callbackOnTouchMove = callback;
+    callbackOnTouchMoveFlag = true;
+}
+
+void GUIProperty::setCallbackOnTouchUp(std::function<void()> callback)
+{
+    callbackOnTouchUp = callback;
+    callbackOnTouchUpFlag = true;
 }
 
 void GUIProperty::touchDown(const float &x, const float &y)
@@ -50,9 +59,9 @@ void GUIProperty::touchDown(const float &x, const float &y)
         }
     }
     
-    if(hasTouchDown && callbackOnTouchDown)
+    if(hasTouchDown && callbackOnTouchDownFlag)
     {
-        functionPtr();
+        callbackOnTouchDown();
     }
 }
 
@@ -63,9 +72,9 @@ void GUIProperty::touchMove(const float &x, const float &y)
     {
         hasTouchMove = true;
         
-        if(callbackOnTouchMove)
+        if(callbackOnTouchMoveFlag)
         {
-            functionPtr();
+            callbackOnTouchMove();
         }
     }
 }
@@ -107,8 +116,8 @@ void GUIProperty::touchUp(const float &x, const float &y)
         shape->isDown = false;
     }
     
-    if(hasTouchUp && callbackOnTouchUp)
+    if(hasTouchUp && callbackOnTouchUpFlag)
     {
-        functionPtr();
+        callbackOnTouchUp();
     }
 }
