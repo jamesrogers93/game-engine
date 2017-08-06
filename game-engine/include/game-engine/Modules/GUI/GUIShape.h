@@ -8,6 +8,8 @@
 #include "game-engine/Modules/Graphics/Vertex.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
+#include "game-engine/Core/GL/GLTexture.h"
+
 class GUIShape
 {
 protected:
@@ -18,6 +20,8 @@ public:
     glm::vec2 position;
     glm::vec4 colourUp;
     glm::vec4 colourDown;
+    GLTexture mapUp;
+    GLTexture mapDown;
     bool isDown;
     
     GUIShape() : isDown(false)
@@ -27,6 +31,8 @@ public:
     void translate(const glm::vec2 &position) { this->position += position; }
     void setColourUp(const glm::vec4 &colour) { this->colourUp = colour; }
     void setColourDown(const glm::vec4 &colour) { this->colourDown = colour; }
+    void setMapUp(const GLTexture &map) { this->mapUp = map; }
+    void setMapDown(const GLTexture &map) { this->mapDown = map; }
 
     virtual void draw(Shader *shader);
     

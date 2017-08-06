@@ -3,7 +3,7 @@
 #include "game-engine/Modules/Graphics/Material.h"
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Shader.h"
-#include "game-engine/Modules/Graphics/Texture.h"
+#include "game-engine/Core/GL/GLTexture.h"
 
 // Game Engine Core
 #include "game-engine/Core/GL/GL.h"
@@ -30,12 +30,12 @@ bool Material::loadToShader(Shader *shader) const
         return false;
     }
     
-    /*if(this->isDiffuseTexture)
+    if(this->isDiffuseTexture)
     {
-        GLint *loc = shader->getUniformLocation(SHADER_DIFF_TEX_NAME);
+        const GLint *loc = shader->getUniformLocation(SHADER_DIFF_TEX_NAME);
         if(loc != NULL)
         {
-            Texture *tex = Graphics::getInstance().getTexture("");
+            const GLTexture *tex = Graphics::getInstance().getTexture(diffuseTexture);
             
             if(tex != NULL)
             {
@@ -48,10 +48,10 @@ bool Material::loadToShader(Shader *shader) const
     
     if(this->isSpecularTexture)
     {
-        GLint *loc = shader->getUniformLocation(SHADER_SPEC_TEX_NAME);
+        const GLint *loc = shader->getUniformLocation(SHADER_SPEC_TEX_NAME);
         if(loc != NULL)
         {
-            Texture *tex = Graphics::getInstance().getTexture("");
+            const GLTexture *tex = Graphics::getInstance().getTexture(specularTexture);
             
             if(tex != NULL)
             {
@@ -60,7 +60,7 @@ bool Material::loadToShader(Shader *shader) const
                 glBindTexture(GL_TEXTURE_2D, tex->getTextureID());
             }
         }
-    }*/
+    }
     
     //if(this->isDiffuseSolid)
     //{

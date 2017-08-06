@@ -44,11 +44,14 @@ endif()
 find_package (GLM REQUIRED)
 include_directories(${GLM_INCLUDE_DIRS})
 
+# Include stb_image (same for all platforms)
+include_directories("${CMAKE_CURRENT_LIST_DIR}/../external/stb/")
+
 # AR Module Stuff (Only for IOS)
 if(IOS)
 
 	# KudanCV
-	include_directories("${CMAKE_CURRENT_LIST_DIR}/../external/")
+	include_directories("${CMAKE_CURRENT_LIST_DIR}/../external/KudanCV/")
 	list(APPEND PLATFORM_LIBRARIES
 		"${CMAKE_CURRENT_LIST_DIR}/../external/KudanCV/libKudanCV-iOS.a")
 

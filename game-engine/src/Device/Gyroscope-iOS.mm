@@ -11,7 +11,7 @@
 #import <glm/gtx/quaternion.hpp>
 
 // Kudan CV
-#import <KudanCV/KudanCV.h>
+#import <KudanCV.h>
 
 @implementation GyroscopeIOS
 

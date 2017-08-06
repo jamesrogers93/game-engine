@@ -9,6 +9,8 @@
 #include "game-engine/Modules/Graphics/Material.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
+#include "game-engine/Core/GL/GLTexture.h"
+
 #include "game-engine/Util/StringUtil.h"
 
 bool Graphics::initialise()
@@ -278,6 +280,20 @@ bool Graphics::addMaterial(const std::string& name, Material *material)
     return false;
 }
 
+bool Graphics::addTexture(const std::string &name, GLTexture *texture)
+{
+    // Make name lower case
+    std::string nameLow = toLower(name);
+    
+    if (this->textures.find(nameLow) == this->textures.end())
+    {
+        this->textures[nameLow] = texture;
+        return true;
+    }
+    
+    return false;
+}
+
 bool Graphics::removeMeshProperty(const std::string& name)
 {
     std::string nameLow = toLower(name);
@@ -362,6 +378,20 @@ bool Graphics::removeMaterial(const std::string& name)
     return false;
 }
 
+bool Graphics::removeTexture(const std::string &name)
+{
+    std::string nameLow = toLower(name);
+    
+    std::unordered_map<std::string, GLTexture*>::iterator it = this->textures.find(nameLow);
+    if ( it != this->textures.end())
+    {
+        this->textures.erase(it);
+        return true;
+    }
+    
+    return false;
+}
+
 const MeshProperty* Graphics::getMeshProperty(const std::string &name) const
 {
     if (this->meshProperties.find(name) != this->meshProperties.end())
@@ -422,7 +452,7 @@ const Shader* Graphics::getShader(const std::string &name) const
 	return NULL;
 }
 
-const Texture* Graphics::getTexture(const std::string &name) const
+const GLTexture* Graphics::getTexture(const std::string &name) const
 {
     if (this->textures.find(name) != this->textures.end())
     {

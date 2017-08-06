@@ -14,6 +14,5 @@ list(APPEND GAME_ENGINE_INC
 	"include/game-engine/Modules/Graphics/PointLightProperty.h"
 	"include/game-engine/Modules/Graphics/Shader.h"
 	"include/game-engine/Modules/Graphics/Shaders.h"
-	"include/game-engine/Modules/Graphics/Texture.h"
 	"include/game-engine/Modules/Graphics/Vertex.h"
 )

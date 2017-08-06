@@ -15,7 +15,7 @@ class LightProperty;
 class Shader;
 class MeshGL;
 class Material;
-class Texture;
+class GLTexture;
 
 class Graphics : public CoreModule
 {
@@ -37,6 +37,7 @@ public:
     bool addShader(const std::string&, Shader*);
 	bool addMesh(const std::string&, MeshGL*);
     bool addMaterial(const std::string&, Material*);
+    bool addTexture(const std::string&, GLTexture*);
     
     bool removeMeshProperty(const std::string&);
     bool removeLightProperty(const std::string&);
@@ -44,6 +45,7 @@ public:
     bool removeShader(const std::string&);
     bool removeMesh(const std::string&);
     bool removeMaterial(const std::string&);
+    bool removeTexture(const std::string&);
     
     const MeshProperty* getMeshProperty(const std::string& name) const;
     const LightProperty* getLightProperty(const std::string& name) const;
@@ -51,7 +53,7 @@ public:
     const MeshGL* getMesh(const std::string& name) const;
     const Material* getMaterial(const std::string& name) const;
 	const Shader* getShader(const std::string& name) const;
-    const Texture* getTexture(const std::string &name) const;
+    const GLTexture* getTexture(const std::string &name) const;
     
     bool setActiveCameraEntity(const std::string &name);
     
@@ -64,7 +66,7 @@ private:
 	std::unordered_map<std::string, Shader*> shaders;
 	std::unordered_map<std::string, MeshGL*> meshes;
     std::unordered_map<std::string, Material*> materials;
-	std::unordered_map<std::string, Texture*> textures;
+	std::unordered_map<std::string, GLTexture*> textures;
     
     CameraEntity* activeCameraEntity;
 
