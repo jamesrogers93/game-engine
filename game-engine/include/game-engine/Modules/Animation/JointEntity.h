@@ -17,6 +17,7 @@ public:
     {}
 
     void initialise() {}
+    void deinitialise() {}
     //void update() { }//this->localModel = this->mInverseBindTransform; }
     
     void setLocalBindTransform(const glm::mat4 localBindTransform) { this->mLocalBindTransform = localBindTransform; }

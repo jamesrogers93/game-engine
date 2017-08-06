@@ -120,7 +120,7 @@ void GUI::touchMove(const float &x, const float &y)
 
 void GUI::touchUp(const float &x, const float &y)
 {
-    for(auto &prop : guiProperties)
+    for(auto const &prop : guiProperties)
     {
         prop.second->touchUp(x, y);
     }

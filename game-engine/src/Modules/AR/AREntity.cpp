@@ -28,6 +28,13 @@ void AREntity::initialise()
     tracker->initialise();
 }
 
+void AREntity::deinitialise()
+{
+    AR::getInstance().removeAREntity(this->name);
+    
+    //tracker->deinitialise();
+}
+
 void AREntity::startCapture()
 {
     CameraCapture::getInstance().startCapture();

@@ -9,7 +9,8 @@ public:
     GameObject(const std::string &name) : Entity(name, Entity::GAME_OBJECT)
     {}
     
-    void initialise(){}
+    virtual void initialise(){}
+    virtual void deinitialise(){}
     //void update(){}
 };
 

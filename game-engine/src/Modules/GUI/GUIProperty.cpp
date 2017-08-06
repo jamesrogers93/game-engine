@@ -28,6 +28,15 @@ bool GUIProperty::makeUnactive()
     return GUI::getInstance().removeGUIProperty(this->getName());
 }
 
+
+void GUIProperty::setCallBack( std::function<void()> functionPtr, const bool &callbackOnTouchDown,  const bool &callbackOnTouchMove,  const bool &callbackOnTouchUp)
+{
+    this->functionPtr = functionPtr;
+    this->callbackOnTouchDown = callbackOnTouchDown;
+    this->callbackOnTouchMove = callbackOnTouchMove;
+    this->callbackOnTouchUp = callbackOnTouchUp;
+}
+
 void GUIProperty::touchDown(const float &x, const float &y)
 {
     // Loop over shapes to see if the point touches them
@@ -37,14 +46,32 @@ void GUIProperty::touchDown(const float &x, const float &y)
         if(shape->containsPoint(x, y))
         {
             hasTouchDown = true;
-            return;
+            shape->isDown = true;
         }
+    }
+    
+    if(hasTouchDown && callbackOnTouchDown)
+    {
+        functionPtr();
     }
 }
 
 void GUIProperty::touchMove(const float &x, const float &y)
 {
     // Loop over shapes to see if the point still touches them
+    if(hasTouchDown)
+    {
+        hasTouchMove = true;
+        
+        if(callbackOnTouchMove)
+        {
+            functionPtr();
+        }
+    }
+}
+
+void GUIProperty::touchUp(const float &x, const float &y)
+{
     if(hasTouchDown)
     {
         bool stillTouched = false;
@@ -58,25 +85,30 @@ void GUIProperty::touchMove(const float &x, const float &y)
         
         if(stillTouched)
         {
-            hasTouchMove = true;
+            hasTouchUp = true;
         }
         else
         {
-            hasTouchDown = false;
+            hasTouchUp = false;
         }
-    }
-}
-
-void GUIProperty::touchUp(const float &x, const float &y)
-{
-    if(hasTouchDown)
-    {
-        hasTouchUp = true;
+        
         hasTouchDown = false;
+        hasTouchMove = false;
     }
     else
     {
         hasTouchUp = false;
         hasTouchDown = false;
+        hasTouchMove = false;
+    }
+    
+    for(auto *shape : shapes)
+    {
+        shape->isDown = false;
+    }
+    
+    if(hasTouchUp && callbackOnTouchUp)
+    {
+        functionPtr();
     }
 }

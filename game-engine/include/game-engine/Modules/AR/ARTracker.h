@@ -9,7 +9,7 @@ class KudanArbiTracker;
 class ARTracker
 {
 public:
-    enum State { UNinitialiseD, INITIALISED, TRACKING};
+    enum State { UNINITIALISED, INITIALISED, TRACKING, NOT_TRACKING};
 private:
     State state;
     

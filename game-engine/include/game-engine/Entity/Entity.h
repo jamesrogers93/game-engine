@@ -55,6 +55,7 @@ protected:
 public:
     
     virtual void initialise() = 0;
+    virtual void deinitialise() = 0;
     virtual void update();
     //void updateChildren();
     
@@ -63,6 +64,7 @@ public:
     const std::vector<Entity*>& getChildren() const     {   return this->children;  }
     const std::vector<Property*>& getProperties() const {   return this->properties; }
     const Entity* getParent() const                     {   return this->parent;    }
+    const Property* getProperty(const std::string &name);
     
     const glm::mat4& getLocalModel() const { return this->localModel; }
     const glm::mat4& getGlobalModel() const { return this->globalModel; }

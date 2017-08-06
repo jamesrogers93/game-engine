@@ -24,6 +24,7 @@ public:
     bool update();
     
     bool addAREntity(const std::string &name, AREntity *entity);
+    bool removeAREntity(const std::string &name);
     bool setActiveAREntity(const std::string &name);
     
 private:

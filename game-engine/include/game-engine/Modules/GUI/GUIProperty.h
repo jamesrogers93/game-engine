@@ -28,11 +28,15 @@ public:
     virtual void touchMove(const float &x, const float &y);
     virtual void touchUp(const float &x, const float &y);
     
-    //bool isTouched() { return touched; }
+    virtual void setCallBack( std::function<void()> functionPtr, const bool &callbackOnTouchDown,  const bool &callbackOnTouchMove,  const bool &callbackOnTouchUp);
     
 protected:
     
-    //bool touched;
+    std::function<void()> functionPtr;
+    
+    bool callbackOnTouchDown;
+    bool callbackOnTouchMove;
+    bool callbackOnTouchUp;
     
     bool hasTouchDown;
     bool hasTouchMove;

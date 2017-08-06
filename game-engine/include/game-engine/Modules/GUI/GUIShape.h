@@ -16,16 +16,19 @@ protected:
 public:
     
     glm::vec2 position;
-    glm::vec4 colour;
+    glm::vec4 colourUp;
+    glm::vec4 colourDown;
+    bool isDown;
     
-    GUIShape()
+    GUIShape() : isDown(false)
     {}
     
     void translateOW(const glm::vec2 &position) { this->position = position; }
     void translate(const glm::vec2 &position) { this->position += position; }
-    void setColour(const glm::vec4 &colour) { this->colour = colour; }
+    void setColourUp(const glm::vec4 &colour) { this->colourUp = colour; }
+    void setColourDown(const glm::vec4 &colour) { this->colourDown = colour; }
 
-    virtual void draw(Shader *shader) = 0;
+    virtual void draw(Shader *shader);
     
     virtual bool containsPoint(const float &x, const float &y) = 0;
     

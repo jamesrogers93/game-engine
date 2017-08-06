@@ -1,24 +1,10 @@
 #include "game-engine/Modules/GUI/GUICircle.h"
 
-// GLM
-#include <glm/gtc/type_ptr.hpp>
-
 const unsigned int GUICircle::TRIANGLES = 1;
 
 GUICircle::GUICircle(const float &radius) : GUIShape() , radius(radius)
 {
     initialise();
-}
-
-void GUICircle::draw(Shader *shader)
-{
-    const GLint *loc = shader->getUniformLocation("translation");
-    glUniform2fv(*loc, 1, glm::value_ptr(position));
-    
-    loc = shader->getUniformLocation("Colour");
-    glUniform4fv(*loc, 1, glm::value_ptr(colour));
-    
-    mesh->draw();
 }
 
 bool GUICircle::containsPoint(const float &x, const float &y)

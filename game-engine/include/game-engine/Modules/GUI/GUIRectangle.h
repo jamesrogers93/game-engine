@@ -11,8 +11,6 @@ public:
     
     GUIRectangle(const glm::vec2 &bounds);
     
-    void draw(Shader *shader);
-    
     bool containsPoint(const float &x, const float &y);
     
 private:

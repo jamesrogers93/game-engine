@@ -12,7 +12,8 @@ public:
     
     GUIAnalog(const std::string &name, const float &radiusA, const float radiusB, const glm::vec2 position = glm::vec2(0.0));
     
-    void setColour(const glm::vec4 &colourA, const glm::vec4 &colourB);
+    void setColourUp(const glm::vec4 &colourA, const glm::vec4 &colourB);
+    void setColourDown(const glm::vec4 &colourA, const glm::vec4 &colourB);
     void setDrawOnTouched(const float &left, const float &right, const float &top, const float &bottom);
     
     void update(Shader *shader);

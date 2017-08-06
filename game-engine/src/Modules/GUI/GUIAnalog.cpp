@@ -30,10 +30,16 @@ void GUIAnalog::update(Shader *shader)
     }
 }
 
-void GUIAnalog::setColour(const glm::vec4 &colourA, const glm::vec4 &colourB)
+void GUIAnalog::setColourUp(const glm::vec4 &colourA, const glm::vec4 &colourB)
 {
-    shapes[0]->setColour(colourA);
-    shapes[1]->setColour(colourB);
+    shapes[0]->setColourUp(colourA);
+    shapes[1]->setColourUp(colourB);
+}
+
+void GUIAnalog::setColourDown(const glm::vec4 &colourA, const glm::vec4 &colourB)
+{
+    shapes[0]->setColourDown(colourA);
+    shapes[1]->setColourDown(colourB);
 }
 
 void GUIAnalog::setDrawOnTouched(const float &left, const float &right, const float &top, const float &bottom)

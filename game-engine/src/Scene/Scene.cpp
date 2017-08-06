@@ -3,12 +3,36 @@
 #include "game-engine/Entity/Entity.h"
 #include "game-engine/Entity/Property.h"
 
-
 #include <iostream>
 
 const std::string & Scene::getName()
 {
 	return this->name;
+}
+
+void Scene::removeEntity(const std::string &name)
+{
+    for(unsigned int i = 0; i < this->entities.size(); i++)
+    {
+        if(name == entities[i]->getName())
+        {
+            entities[i]->deinitialise();
+            entities.erase(entities.begin() + i);
+        }
+    }
+}
+
+Entity* Scene::getEntity(const std::string &name)
+{
+    for(unsigned int i = 0; i < this->entities.size(); i++)
+    {
+        if(name == entities[i]->getName())
+        {
+            return entities[i];
+        }
+    }
+    
+    return NULL;
 }
 
 void Scene::prepare()

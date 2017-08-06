@@ -19,6 +19,7 @@ Entity::Entity(const std::string &name, const Type &type) :  mType(type), name(n
 void Entity::addChild(Entity *child)
 {
     child->parent = this;
+    child->updateGlobalModel();
     this->children.push_back(child);
 }
 
@@ -26,6 +27,19 @@ void Entity::addProperty(Property *property)
 {
     property->setOwner(this);
     this->properties.push_back(property);
+}
+
+const Property* Entity::getProperty(const std::string &name)
+{
+    for(auto property : properties)
+    {
+        if(name == property->getName())
+        {
+            return property;
+        }
+    }
+    
+    return NULL;
 }
 
 void Entity::update()

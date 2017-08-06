@@ -11,8 +11,6 @@ public:
     
     GUICircle(const float &radius);
     
-    void draw(Shader *shader);
-    
     bool containsPoint(const float &x, const float &y);
     
 private:

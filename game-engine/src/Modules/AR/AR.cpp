@@ -3,6 +3,8 @@
 // Game Engine Device
 #include "game-engine/Device/CameraCapture.h"
 
+#include "game-engine/Util/StringUtil.h"
+
 AR::AR() : CoreModule(CoreModuleType::CM_AR)
 {
     
@@ -50,6 +52,25 @@ bool AR::addAREntity(const std::string &name, AREntity *entity)
         this->arEntities[nameLow] = entity;
         return true;
     }
+}
+
+bool AR::removeAREntity(const std::string &name)
+{
+    std::string nameLow = toLower(name);
+    
+    auto it = arEntities.find(nameLow);
+    
+    if(it != arEntities.end())
+    {
+        // remove
+        arEntities.erase(it);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
 }
 
 bool AR::setActiveAREntity(const std::string &name)

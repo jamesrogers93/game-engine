@@ -35,6 +35,7 @@ public:
     CameraEntity(const std::string &name, const glm::mat4& projection, const glm::vec3 &front = DEFAULT_FRONT);
     
     void initialise();
+    void deinitialise();
     void update();
     void updateView();
     

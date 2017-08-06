@@ -106,6 +106,13 @@ void CameraEntity::initialise()
     g->addCameraEntity(this->name, this);
 }
 
+void CameraEntity::deinitialise()
+{
+    Graphics *g = &Graphics::getInstance();
+    
+    g->removeCameraEntity(this->name);
+}
+
 void CameraEntity::fillUniformNames(std::vector<std::string> &uniformNames)
 {
     uniformNames.push_back(SHADER_PROJECTION_NAME);

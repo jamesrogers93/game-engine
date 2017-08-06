@@ -8,17 +8,6 @@ GUIRectangle::GUIRectangle(const glm::vec2 &bounds) : GUIShape() , bounds(bounds
     initialise();
 }
 
-void GUIRectangle::draw(Shader *shader)
-{
-    const GLint *loc = shader->getUniformLocation("translation");
-    glUniform2fv(*loc, 1, glm::value_ptr(position));
-    
-    loc = shader->getUniformLocation("Colour");
-    glUniform4fv(*loc, 1, glm::value_ptr(colour));
-    
-    mesh->draw();
-}
-
 bool GUIRectangle::containsPoint(const float &x, const float &y)
 {
     float halfX = this->bounds.x * 0.5;
