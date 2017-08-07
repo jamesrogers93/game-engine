@@ -42,7 +42,7 @@ void GUIShape::draw(Shader *shader)
         glUniform1i(*loc, colourDownBitwise);
         
         // Texture Map
-        if(colourUpBitwise & COLOUR_MAP_BIT)
+        if(colourDownBitwise & COLOUR_MAP_BIT)
         {
             loc = shader->getUniformLocation("colour_map");
             glUniform1i(*loc, 0);
@@ -51,7 +51,7 @@ void GUIShape::draw(Shader *shader)
         }
         
         // Colour vector
-        if(colourUpBitwise & COLOUR_BIT)
+        if(colourDownBitwise & COLOUR_BIT)
         {
             loc = shader->getUniformLocation("colour");
             glUniform4fv(*loc, 1, glm::value_ptr(colourDown));
