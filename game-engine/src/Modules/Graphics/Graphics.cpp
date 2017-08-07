@@ -484,4 +484,10 @@ void Graphics::enableBackfaceCulling()
     glCullFace(GL_BACK);
 }
 
+void Graphics::enableBlend()
+{
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
 

@@ -58,6 +58,7 @@ public:
     bool setActiveCameraEntity(const std::string &name);
     
     void enableBackfaceCulling();
+    void enableBlend();
 
 private:
     std::unordered_map<std::string, MeshProperty*> meshProperties;

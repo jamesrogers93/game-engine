@@ -22,7 +22,13 @@ public:
     : data(data), width(width), height(height), stride(stride)
     {}
     
-    static bool loadFromFile(Texture &texture, const std::string &file);
+    Texture(const Texture &texture);
+    
+    ~Texture();
+    
+    Texture & operator=(const Texture &texture);
+    
+    static Texture* loadFromFile(const std::string &file, const bool &flip = false);
     
     const unsigned char* getData() const { return data; }
     const int& getWidth() const { return width; }

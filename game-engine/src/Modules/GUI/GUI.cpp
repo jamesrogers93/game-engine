@@ -36,18 +36,33 @@ const std::string vertex =
 const std::string fragment =
 "#version 300 es\n"
 "\n"
+"// Constants \n"
+"const int COLOUR_BIT     = 0x01;\n"
+"const int COLOUR_MAP_BIT = 0x02;\n"
+"\n"
 "// In variables\n"
 "in mediump vec2 UV0;\n"
 "\n"
 "// Out variables\n"
-"out mediump vec4 colour;\n"
+"out mediump vec4 Colour;\n"
 "\n"
 "// Uniform variables\n"
-"uniform mediump vec4 Colour;\n"
+"uniform mediump vec4 colour;\n"
+"uniform sampler2D colour_map;\n"
+"uniform int colour_bit; \n"
 "\n"
 "void main()\n"
 "{\n"
-"    colour = Colour;\n"
+"   Colour = vec4(0.0);\n"
+"   if((colour_bit & COLOUR_BIT) == COLOUR_BIT)\n"
+"   {\n"
+"       Colour += colour;\n"
+"   }\n"
+"\n"
+"   if((colour_bit & COLOUR_MAP_BIT) == COLOUR_MAP_BIT)\n"
+"   {\n"
+"       Colour += texture(colour_map, UV0);\n"
+"   }\n"
 "}\n";
 
 GUI::GUI() : CoreModule(CoreModuleType::CM_GUI){}
@@ -62,7 +77,9 @@ bool GUI::initialise()
     std::vector<std::string> uniformNames;
     uniformNames.push_back("projection");
     uniformNames.push_back("translation");
-    uniformNames.push_back("Colour");
+    uniformNames.push_back("colour");
+    uniformNames.push_back("colour_map");
+    uniformNames.push_back("colour_bit");
     
     shader = Shader::loadShaderFromString(vertex, fragment, vertexAttribs, uniformNames);
     
