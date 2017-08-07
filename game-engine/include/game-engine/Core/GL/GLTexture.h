@@ -3,6 +3,8 @@
 
 #include "game-engine/Defines/OpenGL.h"
 
+#include "game-engine/Util/TextureUtil.h"
+
 class GLTexture
 {
 private:
@@ -15,7 +17,7 @@ public:
     
     const GLuint& getTextureID() const {   return this->textureID; }
     
-    static GLTexture* loadGLTexture(unsigned char *data, unsigned int width, unsigned int height);
+    static GLTexture loadFromData(const Texture &texture);
     
 };
 
