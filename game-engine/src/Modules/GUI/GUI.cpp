@@ -25,12 +25,13 @@ const std::string vertex =
 "\n"
 "uniform mat4 projection;\n"
 "uniform mediump vec2 translation;\n"
+"uniform mediump vec2 scale;\n"
 "\n"
 "void main()\n"
 "{\n"
 "    UV0 = uv0;\n"
 "\n"
-"    gl_Position = projection * (vec4(translation, 0.0, 1.0) + vec4(position, 1.0));\n"
+"    gl_Position = projection * (vec4(translation, 0.0, 1.0) + ( vec4(scale, 0.0f, 1.0f) * vec4(position, 1.0)));\n"
 "}\n";
 
 const std::string fragment =
@@ -77,6 +78,7 @@ bool GUI::initialise()
     std::vector<std::string> uniformNames;
     uniformNames.push_back("projection");
     uniformNames.push_back("translation");
+    uniformNames.push_back("scale");
     uniformNames.push_back("colour");
     uniformNames.push_back("colour_map");
     uniformNames.push_back("colour_bit");
@@ -123,7 +125,10 @@ void GUI::touchDown(const float &x, const float &y)
 {
     for(auto &prop : guiProperties)
     {
-        prop.second->touchDown(x, y);
+        if(prop.second->isTouchable)
+        {
+            prop.second->touchDown(x, y);
+        }
     }
 }
 
@@ -131,7 +136,10 @@ void GUI::touchMove(const float &x, const float &y)
 {
     for(auto &prop : guiProperties)
     {
-        prop.second->touchMove(x, y);
+        if(prop.second->isTouchable)
+        {
+            prop.second->touchMove(x, y);
+        }
     }
 }
 
@@ -139,7 +147,10 @@ void GUI::touchUp(const float &x, const float &y)
 {
     for(auto const &prop : guiProperties)
     {
-        prop.second->touchUp(x, y);
+        if(prop.second->isTouchable)
+        {
+            prop.second->touchUp(x, y);
+        }
     }
 }
 

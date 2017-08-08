@@ -11,7 +11,7 @@ bool GUICircle::containsPoint(const float &x, const float &y)
 {
     glm::vec2 point(x,y);
     
-    float distance = glm::length(point - position);
+    float distance = glm::length(point - P);
     
     if((distance * distance) < (radius * radius))
     {

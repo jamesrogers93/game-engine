@@ -15,6 +15,8 @@ class GUIProperty : public Property
 {
 public:
     
+    bool isTouchable;
+    
     GUIProperty(const std::string &name);
     
     bool makeActive();
@@ -35,8 +37,6 @@ public:
     void removeCallbackOnTouchDown() { callbackOnTouchDownFlag = false; }
     void removeCallbackOnTouchMove() { callbackOnTouchMoveFlag = false; }
     void removeCallbackOnTouchUp() { callbackOnTouchUpFlag = false; }
-    
-    
 protected:
     
     std::function<void()> callbackOnTouchDown;

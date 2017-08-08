@@ -33,7 +33,10 @@ void GUIShape::setMapDown(const GLTexture &map)
 void GUIShape::draw(Shader *shader)
 {
     const GLint *loc = shader->getUniformLocation("translation");
-    glUniform2fv(*loc, 1, glm::value_ptr(position));
+    glUniform2fv(*loc, 1, glm::value_ptr(P));
+    
+    loc = shader->getUniformLocation("scale");
+    glUniform2fv(*loc, 1, glm::value_ptr(S));
     
     loc = shader->getUniformLocation("colour_bit");
     

@@ -4,7 +4,7 @@
 #include "game-engine/Modules/Graphics/Shader.h"
 
 
-GUIProperty::GUIProperty(const std::string &name) : Property(name, Property::GUI), hasTouchDown(false), hasTouchMove(false), hasTouchUp(false), callbackOnTouchDownFlag(false), callbackOnTouchMoveFlag(false), callbackOnTouchUpFlag(false)
+GUIProperty::GUIProperty(const std::string &name) : Property(name, Property::GUI), isTouchable(false),callbackOnTouchDownFlag(false), callbackOnTouchMoveFlag(false), callbackOnTouchUpFlag(false), hasTouchDown(false), hasTouchMove(false), hasTouchUp(false)
 {
 
 }

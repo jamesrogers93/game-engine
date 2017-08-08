@@ -96,14 +96,14 @@ void GUIAnalog::touchMove(const float &x, const float &y)
     {
         glm::vec2 touchPoint(x, y);
         
-        glm::vec2 direction = shapes[0]->position - touchPoint;
+        glm::vec2 direction = shapes[0]->P - touchPoint;
         
         float length = glm::length(direction);
         
         GUICircle *circle = (GUICircle*)shapes[0];
         if((length * length) > (circle->radius * circle->radius))
         {
-            shapes[1]->translateOW(circle->position - (glm::normalize(direction) * circle->radius));
+            shapes[1]->translateOW(circle->P - (glm::normalize(direction) * circle->radius));
         }
         else
         {
@@ -131,7 +131,7 @@ void GUIAnalog::touchUp(const float &x, const float &y)
         hasTouchUp = true;
         hasTouchDown = false;
         
-        shapes[1]->translateOW(shapes[0]->position);
+        shapes[1]->translateOW(shapes[0]->P);
         
         if(callbackOnTouchUpFlag)
         {
@@ -151,8 +151,8 @@ glm::vec2 GUIAnalog::getOffset()
     {
         GUICircle *circle = (GUICircle*)shapes[0];
         
-        glm::vec2 position0 = shapes[0]->position;
-        glm::vec2 position1 = shapes[1]->position;
+        glm::vec2 position0 = shapes[0]->P;
+        glm::vec2 position1 = shapes[1]->P;
         
         glm::vec2 direction = position1 - position0;
         
@@ -161,17 +161,6 @@ glm::vec2 GUIAnalog::getOffset()
         result.y = direction.y / circle->radius;
         
         return result;
-        
-        glm::vec2 position0Norm;
-        glm::vec2 position1Norm;
-        
-        position0Norm.x = position0.x / (float)System::screenWidth;
-        position1Norm.x = position1.x / (float)System::screenWidth;
-        
-        position0Norm.y = position0.y / (float)System::screenHeight;
-        position1Norm.y = position1.y / (float)System::screenHeight;
-        
-        return position0Norm - position1Norm;
     }
     
     return glm::vec2(0.0);
