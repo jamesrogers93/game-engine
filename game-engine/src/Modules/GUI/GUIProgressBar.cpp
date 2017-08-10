@@ -2,7 +2,7 @@
 
 #include "game-engine/Modules/GUI/GUIRectangle.h"
 
-GUIProgressBar::GUIProgressBar(const std::string &name, const glm::vec2 &bounds, const glm::vec2 &position) : GUIProperty(name), progression(0.0f)
+GUIProgressBar::GUIProgressBar(const std::string &name, const glm::vec2 &bounds, const glm::vec2 &position) : GUIProperty(name), progression(0.0f), reverse(false)
 {
     
     GUIRectangle *guiRectangle1 = new GUIRectangle(bounds);
@@ -36,7 +36,17 @@ void GUIProgressBar::setProgression(const float &progression)
     // Now we need to translate and scale shape[1] accordinginly
     
     GUIRectangle *backRect = (GUIRectangle*)shapes[0];
-    float Tx = (backRect->P.x - (backRect->bounds.x * 0.5f)) + ( (backRect->bounds.x * 0.5f) * progression);
+    
+    float Tx;
+    
+    if(reverse)
+    {
+        Tx = (backRect->P.x + (backRect->bounds.x * 0.5f)) - ( (backRect->bounds.x * 0.5f) * progression);
+    }
+    else
+    {
+        Tx = (backRect->P.x - (backRect->bounds.x * 0.5f)) + ( (backRect->bounds.x * 0.5f) * progression);
+    }
     float Sx = progression;
     
     shapes[1]->translateOW(glm::vec2(Tx, backRect->P.y));

@@ -17,11 +17,12 @@ public:
     
     void setProgression(const float &progression);
     
+    void setReverse(const bool &reverse) { this->reverse = reverse; }
+    
 private:
     
-    glm::vec2 position;
-    
     float progression;
+    bool reverse;
 };
 
 #endif /* _GUIPROGRESSBAR_H */

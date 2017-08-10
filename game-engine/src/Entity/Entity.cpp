@@ -66,6 +66,18 @@ const void Entity::translate(const glm::vec3 &p, const unsigned int &order)
     this->updateLocalModel();
 }
 
+const void Entity::translateLocalAxis(const float &x, const float &y, const float &z, const unsigned int &order)
+{
+    translateLocalAxis(glm::vec3(x,y,z), order);
+}
+
+const void Entity::translateLocalAxis(const glm::vec3 &p, const unsigned int &order)
+{
+    glm::mat4 test = R[order] * glm::translate(glm::mat4(), p);
+    this->T[order] = glm::translate(this->T[order], glm::vec3(test[3]));
+    this->updateLocalModel();
+}
+
 const void Entity::scale(const float &x, const float &y, const float &z, const unsigned int &order)
 {
     scale(glm::vec3(x,y,z), order);

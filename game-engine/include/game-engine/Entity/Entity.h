@@ -12,6 +12,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 //#include "game-engine/Entity/EntityObserver.h"
 
@@ -68,6 +69,7 @@ public:
     
     const glm::mat4& getLocalModel() const { return this->localModel; }
     const glm::mat4& getGlobalModel() const { return this->globalModel; }
+    const glm::vec3 getPosition() const { return glm::vec3(this->globalModel[3]); }
     
     //UpdateNotification& getLocalTransformUpdate() { return mLocalTransformUpdate; }
     //UpdateNotification& getGlobalTransformUpdate() { return mGlobalTransformUpdate; }
@@ -80,6 +82,8 @@ public:
     const void transform(const glm::mat4 &t);
     const void translate(const float &x, const float &y, const float &z, const unsigned int &order = 0);
     const void translate(const glm::vec3 &p, const unsigned int &order = 0);
+    const void translateLocalAxis(const float &x, const float &y, const float &z, const unsigned int &order = 0);
+    const void translateLocalAxis(const glm::vec3 &p, const unsigned int &order = 0);
     const void scale(const float &x, const float &y, const float &z, const unsigned int &order = 0);
     const void scale(const glm::vec3 &p, const unsigned int &order = 0);
     const void rotate(const float &a, const float &x, const float &y, const float &z, const unsigned int &order = 0);
@@ -97,6 +101,20 @@ public:
     
     
     const std::string typeToString() const;
+    
+    const void faceTarget(const glm::vec3 &target)
+    {
+        // Get the origin
+        glm::vec3 origin = glm::vec3(globalModel[3]);
+        
+        // Get the direction of the entity
+        glm::vec3 dir = glm::mat3(globalModel) * glm::vec3(0.0f, 0.0f, 1.0f);
+        
+        glm::vec3 a = glm::normalize(dir);
+        glm::vec3 b = glm::normalize(target-origin);
+
+        rotate(glm::rotation(a, b));        
+    }
     
     //void attachObserver(EntityObserver* observer) { mObservers.push_back(observer); }
     

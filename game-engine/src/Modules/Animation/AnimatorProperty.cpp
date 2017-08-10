@@ -32,16 +32,34 @@ void AnimatorProperty::animate()
     
     std::vector<AnimationController*> animationControllers;
     
-    if(mAnimationController1.isPlaying() && mAnimationController1.getAnimationPtr() != NULL)
+   if( !mAnimationController1.isPlaying())
+   {
+       int er = 34;
+       er +=34;
+   }
+    
+    if(mAnimationController1.getAnimationPtr() != NULL)
     {
+        // Update the time in the animation
         mAnimationController1.updateElapsedTime(timeSinceLastUpdate);
-        animationControllers.push_back(&mAnimationController1);
+        
+        // If it is still playing, add it to the vector to be processed
+        if(mAnimationController1.isPlaying())
+        {
+            animationControllers.push_back(&mAnimationController1);
+        }
     }
     
-    if(mAnimationController2.isPlaying() && mAnimationController2.getAnimationPtr() != NULL)
+    if(mAnimationController2.getAnimationPtr() != NULL)
     {
+        // Update the time in the animation
         mAnimationController2.updateElapsedTime(timeSinceLastUpdate);
-        animationControllers.push_back(&mAnimationController2);
+        
+        // If it is still playing, add it to the vector to be processed
+        if(mAnimationController2.isPlaying())
+        {
+            animationControllers.push_back(&mAnimationController2);
+        }
     }
     
     
