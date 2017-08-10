@@ -16,9 +16,9 @@ public:
     {}
     
     JointAnimation(const float &length, const std::vector<KeyFrame> &keyFrames)
-    : mLength(length), mKeyFrames(keyFrames)
+    : mLength(length)
     {
-        mKeyFramesCount = keyFrames.size();
+        setKeyFrames(keyFrames);
     }
     
     const float& getLength() const { return this->mLength; }
@@ -27,13 +27,15 @@ public:
     const size_t& getKeyFrameCount() const { return mKeyFramesCount; }
     
     void setLength(const float &length) { mLength = length; }
-    void setKeyFrames(const std::vector<KeyFrame> &keyFrames) { mKeyFrames = keyFrames; mKeyFramesCount = keyFrames.size(); }
+    void setKeyFrames(const std::vector<KeyFrame> &keyFrames);
     
+    const KeyFramePair getKeyFramePair(const float &elapsedTime) const;
     const KeyFrame* getKeyFrame(const float &elapsedTime) const;
     
 private:
     float mLength;
     std::vector<KeyFrame> mKeyFrames;
+    std::vector<float> mTimeStamps;
     size_t mKeyFramesCount;
 };
 

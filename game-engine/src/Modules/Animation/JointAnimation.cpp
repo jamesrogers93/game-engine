@@ -20,15 +20,69 @@ const KeyFrame* JointAnimation::getKeyFrame(const float &elapsedTime) const
         return &mKeyFrames[mKeyFramesCount-1];
     }
     
-    // Return the greatest keyframe that is less than elasped time
-    for(unsigned int i = 0; i < mKeyFramesCount; i++)
+    auto lower = std::lower_bound(mTimeStamps.begin(), mTimeStamps.end(), elapsedTime);
+    
+    if(lower != mTimeStamps.end())
     {
-        if(mKeyFrames[i].getTimeStamp() > elapsedTime)
-        {
-            return &mKeyFrames[i-1];
-        }
+        auto idx = lower - mTimeStamps.begin();
+        return &mKeyFrames[idx-1];
+    }
+    else
+    {
+        // Return the first keyframe
+        return &mKeyFrames[0];
+    }
+}
+
+const KeyFramePair JointAnimation::getKeyFramePair(const float &elapsedTime) const
+{
+    
+    float time = elapsedTime;
+    while(time > mLength)
+    {
+        time -= mLength;
     }
     
-    // Return thes first keyframe
-    return &mKeyFrames[0];
+    auto lower = std::lower_bound(mTimeStamps.begin(), mTimeStamps.end(), time);
+    
+    if(lower != mTimeStamps.end())
+    {
+        auto idx = lower - mTimeStamps.begin();
+        
+        if(idx != 0)
+        {
+        
+            const KeyFrame* keyFrame1 = &mKeyFrames[idx-1];
+            const KeyFrame* keyFrame2 = &mKeyFrames[idx];
+            const bool isPair = true;
+        
+            float lowerBound = mTimeStamps[idx-1];
+            float upperBound = mTimeStamps[idx] - lowerBound;
+            float progression = elapsedTime - lowerBound;
+            progression = progression / upperBound;
+        
+            KeyFramePair pair(keyFrame1, keyFrame2, isPair, progression);
+            return pair;
+        }
+    }
+
+    // Return the first keyframe
+    const KeyFrame* keyFrame1 = &mKeyFrames[0];
+    const KeyFrame* keyFrame2 = &mKeyFrames[0];
+    const bool isPair = false;
+        
+    KeyFramePair pair(keyFrame1, keyFrame2, isPair, 0.0);
+    return pair;
+}
+
+void JointAnimation::setKeyFrames(const std::vector<KeyFrame> &keyFrames)
+{
+    mKeyFrames = keyFrames;
+    
+    mKeyFramesCount = keyFrames.size();
+    
+    for(unsigned int i = 0; i < mKeyFramesCount; i++)
+    {
+        mTimeStamps.push_back(keyFrames[i].getTimeStamp());
+    }
 }

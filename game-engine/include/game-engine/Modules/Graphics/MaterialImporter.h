@@ -11,6 +11,7 @@ public:
     MaterialImporter() : JMPImporter()
     {}
     
+    void ImportAsynchronously(const std::string &path);
     bool Import(const std::string &path);
 };
 

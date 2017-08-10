@@ -2,6 +2,8 @@
 #import "game-engine/Core/GL/GLContext-iOS.h"
 #import "game-engine/Core/GL/GLContext.h"
 
+#import "game-engine/Core/GL/GLSharegroup-iOS.h"
+
 @interface GLContextIOS()
 {
     
@@ -21,12 +23,16 @@ void GLContext::initialise()
 {
     self = [[GLContextIOS alloc] init];
     
-    this->isInitalised = [(id)self initalise];
+    this->isInitialised = [(id)self initialise];
+    
+    // Now we should create the sharegroup with a reference to the context sharegroup
+    //GLSharegroupIOS *sharegroup = [[GLSharegroupIOS alloc] initWithContext: [(id)self getContext]];
+    //mSharegroup.setSharegroup(sharegroup);
 }
 
 void GLContext::deinitialise()
 {
-    [(id)self deinitalise];
+    [(id)self deinitialise];
     
     [(id)self dealloc];
 }
@@ -36,7 +42,7 @@ void GLContext::makeCurrentContext()
     [(id)self makeCurrentContext];
 }
 
--(BOOL)initalise
+-(BOOL)initialise
 {
     if(!_context)
     {
@@ -54,14 +60,25 @@ void GLContext::makeCurrentContext()
     return true;
 }
 
--(BOOL)deinitalise
+-(BOOL)deinitialise
 {
     return true;
 }
 
 -(void)makeCurrentContext
 {
+    [EAGLContext setCurrentContext:_context];
     currentContext = _context;
+}
+
+-(EAGLContext *)getContext
+{
+    return _context;
+}
+
+-(EAGLSharegroup *)getSharegroup
+{
+    return _context.sharegroup;
 }
 
 @end

@@ -11,7 +11,7 @@
 #import <glm/gtx/quaternion.hpp>
 
 // Kudan CV
-#import <KudanCV/KudanCV.h>
+#import <KudanCV.h>
 
 @implementation GyroscopeIOS
 
@@ -24,6 +24,12 @@ void Gyroscope::initialise()
 
 glm::dquat Gyroscope::getOrientation()
 {
+    if(self == NULL)
+    {
+        std::cout << "Gyroscrope not initialised" << std::endl;
+        return glm::dquat();
+    }
+    
     return [(id)self getGyroOrientation];
 }
 

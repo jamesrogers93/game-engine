@@ -25,7 +25,14 @@ void AREntity::initialise()
 {
     AR::getInstance().addAREntity(this->name, this);
     
-    tracker->initalise();
+    tracker->initialise();
+}
+
+void AREntity::deinitialise()
+{
+    AR::getInstance().removeAREntity(this->name);
+    
+    //tracker->deinitialise();
 }
 
 void AREntity::startCapture()
@@ -63,9 +70,13 @@ void AREntity::draw()
     CameraCapture::getInstance().display();
 }
 
-static float degrees = 0.0f;
 void AREntity::frameRecieved(unsigned char *data, const float &width, const float &height, const float &padding)
 {
+    if(tracker->getState() != ARTracker::TRACKING)
+    {
+        return;
+    }
+    
     // Get gyroscope orientation
     Gyroscope *gyro = &Gyroscope::getInstance();
     glm::fquat gyroOrientation = gyro->getOrientation();

@@ -18,7 +18,7 @@ bool SceneManager::addScene(Scene *scene)
         
     } else
     {
-        //scene->initalise();
+        //scene->initialise();
         this->scenes[scene->getName()] = scene;
         return true;
     }
@@ -55,16 +55,24 @@ Scene* SceneManager::getScene(const std::string &name)
 bool SceneManager::makeActiveScene(const std::string &name)
 {
     // Unprepare active scene
-    if(this->scenes.find(this->activeScene) != this->scenes.end())
+    if(activeScene != NULL)
     {
-        this->scenes[this->activeScene]->unPrepare();
+        activeScene->unPrepare();
     }
+    
+    //if(this->scenes.find(this->activeScene) != this->scenes.end())
+    //{
+    //    this->scenes[this->activeScene]->unPrepare();
+    //}
     
     // If the scene exists, make it active and prepare it.
     if(this->scenes.find(name) != this->scenes.end())
     {
-        this->activeScene = name;
-        this->scenes[this->activeScene]->prepare();
+        activeScene = scenes.at(name);
+        activeScene->prepare();
+        
+        //this->activeScene = name;
+        //this->scenes[this->activeScene]->prepare();
         return true;
         
     } else
@@ -73,13 +81,26 @@ bool SceneManager::makeActiveScene(const std::string &name)
     }
 }
 
+//#include <thread>
 void SceneManager::update()
 {
-    if(this->scenes.find(this->activeScene) != this->scenes.end())
+    if(activeScene != NULL)
     {
-        this->scenes.at(this->activeScene)->update();
-    
-    } else
+        activeScene->update();
+    }
+    else
+    {
+        // LOG
+    }
+}
+
+void SceneManager::draw()
+{
+    if(activeScene != NULL)
+    {
+        activeScene->draw();
+    }
+    else
     {
         // LOG
     }

@@ -8,14 +8,17 @@ class KudanArbiTracker;
 
 class ARTracker
 {
+public:
+    enum State { UNINITIALISED, INITIALISED, TRACKING, NOT_TRACKING};
 private:
-    enum State { UNINITALISED, INITIALISED, TRACKING};
     State state;
     
 public:
     ARTracker();
     
-    void initalise();
+    void initialise();
+    
+    const State& getState() const { return state; }
     
     void setOrientation(const glm::fquat &orientaton);
     

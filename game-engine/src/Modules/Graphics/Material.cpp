@@ -1,9 +1,12 @@
 
-// Game Engine Core
+// Game Engine Graphics
 #include "game-engine/Modules/Graphics/Material.h"
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Shader.h"
-#include "game-engine/Modules/Graphics/Texture.h"
+#include "game-engine/Core/GL/GLTexture.h"
+
+// Game Engine Core
+#include "game-engine/Core/GL/GL.h"
 
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
@@ -19,7 +22,7 @@ const std::string Material::SHADER_DIFF_SOLID_NAME = "material.diffuse";
 const std::string Material::SHADER_SPEC_SOLID_NAME = "material.specular";
 const std::string Material::SHADER_SHININESS_NAME = "material.shininess";
 
-bool Material::loadToShader(Shader *shader)
+bool Material::loadToShader(Shader *shader) const
 {
     //Shader *shader = Graphics::getInstance().getShader(this->shaderName);
     if(shader == NULL)
@@ -27,12 +30,12 @@ bool Material::loadToShader(Shader *shader)
         return false;
     }
     
-    /*if(this->isDiffuseTexture)
+    if(this->isDiffuseTexture)
     {
-        GLint *loc = shader->getUniformLocation(SHADER_DIFF_TEX_NAME);
+        const GLint *loc = shader->getUniformLocation(SHADER_DIFF_TEX_NAME);
         if(loc != NULL)
         {
-            Texture *tex = Graphics::getInstance().getTexture("");
+            const GLTexture *tex = Graphics::getInstance().getTexture(diffuseTexture);
             
             if(tex != NULL)
             {
@@ -45,10 +48,10 @@ bool Material::loadToShader(Shader *shader)
     
     if(this->isSpecularTexture)
     {
-        GLint *loc = shader->getUniformLocation(SHADER_SPEC_TEX_NAME);
+        const GLint *loc = shader->getUniformLocation(SHADER_SPEC_TEX_NAME);
         if(loc != NULL)
         {
-            Texture *tex = Graphics::getInstance().getTexture("");
+            const GLTexture *tex = Graphics::getInstance().getTexture(specularTexture);
             
             if(tex != NULL)
             {
@@ -57,31 +60,34 @@ bool Material::loadToShader(Shader *shader)
                 glBindTexture(GL_TEXTURE_2D, tex->getTextureID());
             }
         }
-    }*/
+    }
     
-    if(this->isDiffuseSolid)
-    {
-        GLint *loc = shader->getUniformLocation(SHADER_DIFF_SOLID_NAME);
-        if(loc != NULL)
-        {
+    //if(this->isDiffuseSolid)
+    //{
+        const GLint *loc = shader->getUniformLocation(SHADER_DIFF_SOLID_NAME);
+        //if(loc != NULL)
+        //{
             glUniform4fv(*loc, 1, glm::value_ptr(this->diffuseSolid));
-        }
-    }
+            //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->diffuseSolid));
+        //}
+    //}
     
-    if(this->isSpecularSolid)
-    {
-        GLint *loc = shader->getUniformLocation(SHADER_SPEC_SOLID_NAME);
-        if(loc != NULL)
-        {
+    //if(this->isSpecularSolid)
+    //{
+        loc = shader->getUniformLocation(SHADER_SPEC_SOLID_NAME);
+        //if(loc != NULL)
+        //{
             glUniform4fv(*loc, 1, glm::value_ptr(this->specularSolid));
-        }
-    }
+            //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->specularSolid));
+        //}
+    //}
     
-    GLint *shininess = shader->getUniformLocation(SHADER_SHININESS_NAME);
-    if(shininess != NULL)
-    {
-        glUniform1f(*shininess, this->shininess);
-    }
+    loc = shader->getUniformLocation(SHADER_SHININESS_NAME);
+    //if(shininess != NULL)
+    //{
+        glUniform1f(*loc, this->shininess);
+        //jmpGLUniform1f(shader->getProgram(), *loc, this->shininess);
+    //}
     
     return true;
 }

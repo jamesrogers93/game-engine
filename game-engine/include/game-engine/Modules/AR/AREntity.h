@@ -19,7 +19,8 @@ public:
     AREntity(const std::string &name);
     
     void initialise();
-    void update(){}
+    void deinitialise();
+    //void update(){}
     
     void startCapture();
     void stopCapture();
@@ -32,6 +33,8 @@ public:
     void draw();
     
     void frameRecieved(unsigned char *data, const float &width, const float &height, const float &padding);
+    
+    ARTracker* getTracker() { return tracker; }
     
 private:
     

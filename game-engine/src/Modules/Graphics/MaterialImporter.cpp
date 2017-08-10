@@ -7,11 +7,16 @@
 
 #include "game-engine/Modules/Graphics/Material.h"
 
+void MaterialImporter::ImportAsynchronously(const std::string &path)
+{
+    mThread = std::thread(&MaterialImporter::Import, this, path);
+}
+
 bool MaterialImporter::Import(const std::string &path)
 {
     
     std::ifstream file;
-    file.open(path);
+    file.open(path, std::ios::binary);
     if (!file)
     {
         std::cout << "Unable to open file " << path << std::endl;

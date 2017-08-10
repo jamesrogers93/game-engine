@@ -9,7 +9,7 @@ class Property
 public:
     enum Type
     {
-        MESH, ANIMATABLE_MESH, DIRECTIONAL_LIGHT, POINT_LIGHT, ANIMATOR
+        MESH, ANIMATABLE_MESH, DIRECTIONAL_LIGHT, POINT_LIGHT, ANIMATOR, GUI
     };
 private:
     static const bool DEFAULT_ACTIVE;
@@ -25,6 +25,7 @@ protected:
 public:
     Property(const std::string &name, const Type &type);
     
+    void setName(const std::string &name) { mName = name; }
     void setOwner(Entity *owner);
     
     const std::string& getName() const { return this->mName; }

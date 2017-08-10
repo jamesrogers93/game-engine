@@ -7,6 +7,7 @@
 
 // Engine
 #include "game-engine/Modules/CoreModule.h"
+#include "game-engine/Core/Dispatch/DispatchQueue.h"
 
 class SceneManager;
 
@@ -28,16 +29,20 @@ public:
     //T* getCoreModule(const CoreModuleType &module);
     CoreModule* getCoreModule(const CoreModuleType &module);
     
-    void updateAll();
-    void updateIncluding(const std::vector<CoreModuleType> modules);
-    void updateExcluding(const std::vector<CoreModuleType> modules);
+    void update(const CoreModuleType &module, const bool &dispatch = false);
+    //void updateAll();
+    //void updateIncluding(const std::vector<CoreModuleType> modules);
+    //void updateExcluding(const std::vector<CoreModuleType> modules);
 
 private:
 	Engine();
 	~Engine();
 
 	SceneManager *sceneManager;
-	std::map<CoreModuleType, CoreModule*> modules;
+	//std::unordered_map<CoreModuleType, CoreModule*, EnumClassHash> modules;
+    std::map<CoreModuleType, CoreModule*> modules;
+    
+    DispatchQueue mDispatchQueue;
 
 };
 

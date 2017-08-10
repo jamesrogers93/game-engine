@@ -1,4 +1,5 @@
 #include "game-engine/Scene/Scene.h"
+#include "game-engine/Scene/SceneLogic.h"
 #include "game-engine/Entity/Entity.h"
 #include "game-engine/Entity/Property.h"
 
@@ -7,6 +8,31 @@
 const std::string & Scene::getName()
 {
 	return this->name;
+}
+
+void Scene::removeEntity(const std::string &name)
+{
+    for(unsigned int i = 0; i < this->entities.size(); i++)
+    {
+        if(name == entities[i]->getName())
+        {
+            entities[i]->deinitialise();
+            entities.erase(entities.begin() + i);
+        }
+    }
+}
+
+Entity* Scene::getEntity(const std::string &name)
+{
+    for(unsigned int i = 0; i < this->entities.size(); i++)
+    {
+        if(name == entities[i]->getName())
+        {
+            return entities[i];
+        }
+    }
+    
+    return NULL;
 }
 
 void Scene::prepare()
@@ -83,8 +109,20 @@ void Scene::update()
     
     for(auto &entity : this->entities)
     {
-        entity->updateGlobalModel();
-        entity->updateChildren();
+        //entity->updateGlobalModel();
         entity->update();
+    }
+    
+    if(mSceneLogic != NULL)
+    {
+        mSceneLogic->update();
+    }
+}
+
+void Scene::draw()
+{
+    if(mSceneLogic != NULL)
+    {
+        mSceneLogic->draw();
     }
 }

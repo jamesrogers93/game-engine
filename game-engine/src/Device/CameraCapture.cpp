@@ -9,6 +9,9 @@
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
+// Game Engine Core
+#include "game-engine/Core/GL/GLThread.h"
+
 // Game Engine Graphics
 #include "game-engine/Modules/Graphics/Shader.h"
 #include "game-engine/Modules/Graphics/Mesh.h"
@@ -68,7 +71,7 @@ const std::string CameraCapture::SHADER_FRAGMENT =
 
 CameraCapture::CameraCapture() : res(DEFAULT_RES), initialised(false), capturing(false)
 {
-    
+    delegateDispatchQueue.initialise("camera_capture");
 }
 
 CameraCapture::~CameraCapture()
@@ -85,18 +88,20 @@ void CameraCapture::display()
         shader->use();
         
         glActiveTexture(GL_TEXTURE0);
+        
         glUniform1i(*shader->getUniformLocation(SHADER_LUMA_NAME), 0);
         glBindTexture(GL_TEXTURE_2D, this->getLumaTextureID());
         
         glActiveTexture(GL_TEXTURE1);
+        
         glUniform1i(*shader->getUniformLocation(SHADER_CHROMA_NAME), 1);
         glBindTexture(GL_TEXTURE_2D, this->getChromaTextureID());
         
-        GLint *loc =shader->getUniformLocation(SHADER_MODEL_NAME);
-        if(loc != NULL)
-        {
-            glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->getScale()));
-        }
+        const GLint *loc = shader->getUniformLocation(SHADER_MODEL_NAME);
+        //if(loc != NULL)
+        //{
+        glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->getScale()));
+        //}
         
         geometry->draw();
         
@@ -172,17 +177,17 @@ void CameraCapture::initialiseView()
     this->shader = Shader::loadShaderFromString(SHADER_VERTEX, SHADER_FRAGMENT, vertexAttribs, uniformNames);
     
     // Init geometry
-    std::vector<Vertex> vertices;
-    Vertex v1,v2,v3,v4;
-    v1.setPosition(glm::vec3(-width, -height, 0.0));
-    v2.setPosition(glm::vec3(-width,  height, 0.0));
-    v3.setPosition(glm::vec3( width,  height, 0.0));
-    v4.setPosition(glm::vec3( width, -height, 0.0));
+    std::vector<VertexPU> vertices;
+    VertexPU v1,v2,v3,v4;
+    v1.position = glm::vec3(-width, -height, 0.0);
+    v2.position = glm::vec3(-width,  height, 0.0);
+    v3.position = glm::vec3( width,  height, 0.0);
+    v4.position = glm::vec3( width, -height, 0.0);
     
-    v1.setUV0(glm::vec2(0.0, 1.0));
-    v2.setUV0(glm::vec2(0.0, 0.0));
-    v3.setUV0(glm::vec2(1.0, 0.0));
-    v4.setUV0(glm::vec2(1.0, 1.0));
+    v1.uv0 = glm::vec2(0.0, 1.0);
+    v2.uv0 = glm::vec2(0.0, 0.0);
+    v3.uv0 = glm::vec2(1.0, 0.0);
+    v4.uv0 = glm::vec2(1.0, 1.0);
     
     vertices.push_back(v1);
     vertices.push_back(v2);
@@ -191,8 +196,8 @@ void CameraCapture::initialiseView()
     
                    
     /*std::vector<Vertex3DPT> vertices;
-    //                           | Position      | Texture |
-    //                           | x     y    z  | u    v  |
+    //                           | Position           | Texture |
+    //                           | x       y       z  | u    v  |
     vertices.push_back(Vertex3DPT(-width, -height, 0.0, 0.0, 1.0));
     vertices.push_back(Vertex3DPT(-width,  height, 0.0, 0.0, 0.0));
     vertices.push_back(Vertex3DPT( width,  height, 0.0, 1.0, 0.0));
@@ -216,6 +221,12 @@ void CameraCapture::callDelegates(unsigned char *data, const float &width, const
     {
         if(delegates[i] != NULL)
         {
+            std::function<void()> frameRecievedFunc = std::bind(&CameraCaptureDelegate::frameRecieved,
+                                                                this->delegates[i],
+                                                                data, width, height, padding);
+            Task myTask = Task(frameRecievedFunc);
+            //delegateDispatchQueue.sendToQueue(myTask);
+            
             this->delegates[i]->frameRecieved(data, width, height, padding);
         }
     }

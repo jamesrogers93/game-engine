@@ -1,11 +1,16 @@
 #ifndef _TIMEUTIL_H
 #define _TIMEUTIL_H
 
-#include <ctime>
+#include <time.h>
 
-float timeInSeconds()
+double timeSinceLastUpdate = 0.0;
+
+double timeInSeconds()
 {
-    return (float)clock() / (float)CLOCKS_PER_SEC;
+    static clock_t start = clock();
+    
+    return (double)(clock() - start ) / (double) CLOCKS_PER_SEC;
+    //return difftime(time(0), startTime);
 }
 
 #endif /* _TIMEUTIL_H */

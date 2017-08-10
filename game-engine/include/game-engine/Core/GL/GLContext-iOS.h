@@ -7,9 +7,11 @@
 
 @property (readwrite, nonatomic, strong) EAGLContext *context;
 
--(BOOL)initalise;
--(BOOL)deinitalise;
+-(BOOL)initialise;
+-(BOOL)deinitialise;
 -(void)makeCurrentContext;
+-(EAGLContext *)getContext;
+-(EAGLSharegroup *)getSharegroup;
 +(EAGLContext *)currentContext;
 
 @end

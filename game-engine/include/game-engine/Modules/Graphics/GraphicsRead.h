@@ -1,4 +1,4 @@
-#ifndef _GRAPHICSREAD_H
+/*#ifndef _GRAPHICSREAD_H
 #define _GRAPHICSREAD_H
 
 #include <string>
@@ -15,4 +15,4 @@ private:
     static void readGeometry(std::ifstream &file);
 };
 
-#endif /* _GRAPHICSREAD_H */
+#endif *//* _GRAPHICSREAD_H */

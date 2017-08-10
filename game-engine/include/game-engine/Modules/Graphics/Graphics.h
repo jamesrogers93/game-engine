@@ -3,7 +3,7 @@
 
 // STD
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <algorithm>
 
 // Game Engine
@@ -15,7 +15,7 @@ class LightProperty;
 class Shader;
 class MeshGL;
 class Material;
-class Texture;
+class GLTexture;
 
 class Graphics : public CoreModule
 {
@@ -27,8 +27,8 @@ public:
 		return instance;
 	}
 
-	bool initalise();
-	bool deinitalise();
+	bool initialise();
+	bool deinitialise();
     bool update();
 
     bool addMeshProperty(const std::string&, MeshProperty*);
@@ -37,6 +37,7 @@ public:
     bool addShader(const std::string&, Shader*);
 	bool addMesh(const std::string&, MeshGL*);
     bool addMaterial(const std::string&, Material*);
+    bool addTexture(const std::string&, GLTexture*);
     
     bool removeMeshProperty(const std::string&);
     bool removeLightProperty(const std::string&);
@@ -44,29 +45,37 @@ public:
     bool removeShader(const std::string&);
     bool removeMesh(const std::string&);
     bool removeMaterial(const std::string&);
+    bool removeTexture(const std::string&);
     
-	Shader* getShader(const std::string& name);
-    Texture* getTexture(const std::string &name);
+    const MeshProperty* getMeshProperty(const std::string& name) const;
+    const LightProperty* getLightProperty(const std::string& name) const;
+    const CameraEntity* getCameraEntity(const std::string& name) const;
+    const MeshGL* getMesh(const std::string& name) const;
+    const Material* getMaterial(const std::string& name) const;
+	const Shader* getShader(const std::string& name) const;
+    const GLTexture* getTexture(const std::string &name) const;
     
     bool setActiveCameraEntity(const std::string &name);
     
     void enableBackfaceCulling();
+    void enableBlend();
 
 private:
-    std::map<std::string, MeshProperty*> meshProperties;
-    std::map<std::string, CameraEntity*> cameraEntites;
-    std::map<std::string, LightProperty*> lightProperties;
-	std::map<std::string, Shader*> shaders;
-	std::map<std::string, MeshGL*> meshes;
-    std::map<std::string, Material*> materials;
-	std::map<std::string, Texture*> textures;
+    std::unordered_map<std::string, MeshProperty*> meshProperties;
+    std::unordered_map<std::string, CameraEntity*> cameraEntites;
+    std::unordered_map<std::string, LightProperty*> lightProperties;
+	std::unordered_map<std::string, Shader*> shaders;
+	std::unordered_map<std::string, MeshGL*> meshes;
+    std::unordered_map<std::string, Material*> materials;
+	std::unordered_map<std::string, GLTexture*> textures;
     
-    std::string activeCameraEntity;
+    CameraEntity* activeCameraEntity;
 
-	Graphics() : CoreModule(CM_GRAPHICS){}
+    Graphics() : CoreModule(CoreModuleType::CM_GRAPHICS){}
 	Graphics(Graphics const&);              // Don't Implement
 	void operator=(Graphics const&);		// Don't implement
     
+    void render();
     bool draw(MeshProperty*);
 };
 

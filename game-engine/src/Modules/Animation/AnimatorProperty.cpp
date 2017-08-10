@@ -9,21 +9,6 @@
 
 #include <iostream>
 
-void AnimatorProperty::play(const std::string &animationKey, const bool &loop, const float &speed, const bool &reverse)
-{
-    this->mAnimationKey = animationKey;
-    this->mAnimate = true;
-    this->mLoop = loop;
-    this->mReverse = reverse;
-    this->mSpeed = speed;
-    this->mStartTime = timeInSeconds();
-}
-
-void AnimatorProperty::stop()
-{
-    this->mAnimate = false;
-}
-
 bool AnimatorProperty::makeActive()
 {
     this->mActive = true;
@@ -42,65 +27,166 @@ bool AnimatorProperty::makeUnactive()
     return a->removeAnimatorProperty(this->mName);
 }
 
-void AnimatorProperty::animate(const Animation *animation, JointEntity *joint)
+void AnimatorProperty::animate()
 {
     
-    // Get Elapsed time
-    float currentTime = timeInSeconds();
-    float elapsedTime = currentTime - mStartTime;
+    std::vector<AnimationController*> animationControllers;
     
-    // Apply speed
-    elapsedTime *= mSpeed;
+   if( !mAnimationController1.isPlaying())
+   {
+       int er = 34;
+       er +=34;
+   }
     
-    // Check if elapsed time has passed animation length
-    if(elapsedTime > animation->getLength())
+    if(mAnimationController1.getAnimationPtr() != NULL)
     {
-        // If animation is looping, reset animation timings
-        if(mLoop)
+        // Update the time in the animation
+        mAnimationController1.updateElapsedTime(timeSinceLastUpdate);
+        
+        // If it is still playing, add it to the vector to be processed
+        if(mAnimationController1.isPlaying())
         {
-            mStartTime = currentTime;
-            elapsedTime -= animation->getLength();
-        }
-        else
-        {
-            stop();
-            return;
+            animationControllers.push_back(&mAnimationController1);
         }
     }
     
-    // Reverse animation
-    if(mReverse)
+    if(mAnimationController2.getAnimationPtr() != NULL)
     {
-        elapsedTime = animation->getLength() - elapsedTime;
+        // Update the time in the animation
+        mAnimationController2.updateElapsedTime(timeSinceLastUpdate);
+        
+        // If it is still playing, add it to the vector to be processed
+        if(mAnimationController2.isPlaying())
+        {
+            animationControllers.push_back(&mAnimationController2);
+        }
     }
     
-    //std::cout << "elapsed time:" << elapsedTime << std::endl;
     
-    animate2(animation, joint, elapsedTime);
+    if(animationControllers.size() > 0)
+    {
+        animate2(mSkeletonRoot, animationControllers);
+    }
 }
 
-void AnimatorProperty::animate2(const Animation *animation, JointEntity *joint, const float &elapsedTime, const glm::mat4 &parentTransform)
+void AnimatorProperty::animate2(JointEntity *joint, std::vector<AnimationController*> &animationControllers, const glm::mat4 &parentTransform)
 {
     
-    // Get animation transform;
-    const JointAnimation *jointAnimation = animation->getJointAnimation(joint->getName());
+    std::vector<JointTransform> jointTransforms;
+    std::vector<float> blendAlphas;
+    
+    size_t numAnimationControllers = animationControllers.size();
+    
+    for(unsigned int i = 0; i < numAnimationControllers; i++)
+    {
+        
+        const AnimationController *animationController = animationControllers[i];
+        
+        // Store the blend alpha of the animation
+        blendAlphas.push_back(animationController->getAlpha());
+        
+        // Get animation transform;
+        const JointAnimation *jointAnimation = animationController->getAnimationPtr()->getJointAnimation(joint->getName());
+        
+        // Get the joint animation transformation
+        if(jointAnimation != NULL)
+        {
+            KeyFramePair pair = jointAnimation->getKeyFramePair(animationController->getAnimationTime());
+            
+            if(pair.mIsPair)
+            {
+                // Get the joint transforms from the keyframes
+                const JointTransform *jointTransform1 = &pair.mKeyframe1->getJointTransform();
+                const JointTransform *jointTransform2 = &pair.mKeyframe2->getJointTransform();
+                
+                // Interpolate the joint transforms
+                JointTransform jointTransform = JointTransform::interpolate(pair.mProgression, jointTransform1, jointTransform2);
+                
+                // Store the jointTransform for blending later
+                jointTransforms.push_back(jointTransform);
+            }
+            else
+            {
+                // Get the joint transforms from the keyframe
+                const JointTransform *jointTransform = &pair.mKeyframe1->getJointTransform();
+                
+                // Store the jointTransform for blending later
+                jointTransforms.push_back(*jointTransform);
+            }
+        }
+        
+        // If we dont have any jointTransforms, just use the localBind transform of the joint?
+        // Keep this here just in case I'm wrong
+        
+        //else
+        //{
+            // Or get the local bind transform
+        //    jointLocalTransform = joint->getLocalBindTransform();
+        //}
+    }
+    
+    
+    // We have now finished finding all of the jointTransforms for the animation controllers
+    
+    // Three scenarios: (I think)
+    // 1. No JointTransforms have been found - use the localBindTransform of the joint.
+    // 2. One JointTransform has been found - use that as the localTransform without blending.
+    // 3. More than one JointTransfom has been found - blend them using the blend alphas.
     
     glm::mat4 jointLocalTransform;
+    size_t numJointTransforms = jointTransforms.size();
     
-    // Get the joint animation transformation
-    if(jointAnimation != NULL)
+    // Scenario 1
+    if(numJointTransforms == 0)
     {
-        const JointTransform *jointTransform = &jointAnimation->getKeyFrame(elapsedTime)->getJointTransform();
-        const glm::vec4 *position = &jointTransform->getPosition();
-        const glm::fquat *rotation = &jointTransform->getRotation();
-        
-        jointLocalTransform = glm::translate(glm::mat4(), glm::vec3(*position)) * glm::mat4_cast(*rotation);
-    }
-    else
-    {
-        // Or get the local bind transform
         jointLocalTransform = joint->getLocalBindTransform();
     }
+    
+    // Scenario 2
+    else if(numJointTransforms == 1)
+    {
+        glm::vec3 position = jointTransforms[0].getPosition();
+        glm::fquat rotation = jointTransforms[0].getRotation();
+        
+        jointLocalTransform = glm::translate(glm::mat4(), glm::vec3(position)) * glm::mat4_cast(rotation);
+    }
+    
+    // Scenario 3
+    else
+    {
+        // Loop over JointTransforms
+        for(unsigned int i = 1; i < numJointTransforms; i++)
+        {
+            // Get the two joint transforms
+            JointTransform *jointTransformA = &jointTransforms[i-1];
+            JointTransform *jointTransformB = &jointTransforms[i];
+            
+            // Get the two blend alphas
+            float alphaA = blendAlphas[i-1];
+            float alphaB = blendAlphas[i];
+            
+            // Normalise the blend alphas
+            float sum = alphaA + alphaB;
+            
+            //float alphaAA = alphaA / sum;
+            float alphaBB = alphaB / sum;
+            
+            
+            // Interpolate the joint transforms
+            JointTransform jointTransform = JointTransform::interpolate(alphaBB, jointTransformA, jointTransformB);
+            
+            // Add the new jointTransform to the current index
+            // This is so that on the next iteration, we want to interpolate with this jointTransform
+            jointTransforms[i] = jointTransform;
+            blendAlphas[i] = sum;
+            
+            glm::vec3 position = jointTransform.getPosition();
+            glm::fquat rotation = jointTransform.getRotation();
+            
+            jointLocalTransform = glm::translate(glm::mat4(), glm::vec3(position)) * glm::mat4_cast(rotation);
+        }
+    }
+    
     
     glm::mat4 jointGlobalTransform = parentTransform * jointLocalTransform;
     joint->transformOW(jointGlobalTransform * joint->getInverseBindTransform());
@@ -109,10 +195,11 @@ void AnimatorProperty::animate2(const Animation *animation, JointEntity *joint, 
     {
         if(joint->getChildren()[i]->getType() == Entity::JOINT)
         {
-            animate2(animation, (JointEntity*)joint->getChildren()[i], elapsedTime, jointGlobalTransform);
+            animate2((JointEntity*)joint->getChildren()[i], animationControllers, jointGlobalTransform);
         }
     }
 }
+
 
 void AnimatorProperty::updateFrame(const Animation* animation)
 {

@@ -13,5 +13,4 @@ list(APPEND GAME_ENGINE_SRC
 	"src/Modules/Graphics/MeshProperty.cpp"
 	"src/Modules/Graphics/PointLightProperty.cpp"
 	"src/Modules/Graphics/Shader.cpp"
-	"src/Modules/Graphics/Texture.cpp"
 )

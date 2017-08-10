@@ -1,11 +1,14 @@
 #include "game-engine/Modules/Graphics/Shader.h"
 
+// Game Engine Core
+#include "game-engine/Core/GL/GL.h"
+
 Shader::Shader()
 {
 	this->program = 0;
 }
 
-Shader::Shader(const GLuint program, std::map<std::string, GLint> uniforms)
+Shader::Shader(const GLuint program, std::unordered_map<std::string, GLint> uniforms)
 {
 	this->program = program;
 	this->uniforms = uniforms;
@@ -13,7 +16,8 @@ Shader::Shader(const GLuint program, std::map<std::string, GLint> uniforms)
 
 void Shader::use()
 {
-	glUseProgram(this->program);
+	//glUseProgram(this->program);
+    jmpGLUseProgram(this->program);
 }
 
 const GLuint& Shader::getProgram()
@@ -21,15 +25,17 @@ const GLuint& Shader::getProgram()
 	return this->program;
 }
 
-GLint* Shader::getUniformLocation(const std::string &name)
+/*inline const GLint* Shader::getUniformLocation(const std::string &name) const
 {
-    if (this->uniforms.find(name) != this->uniforms.end())
-    {
-        return &this->uniforms[name];
-    }
+    //if (this->uniforms.find(name) != this->uniforms.end())
+    //{
+    //    return &this->uniforms[name];
+    //}
     
-    return NULL;
-}
+    return &this->uniforms.at(name);
+    
+    //return NULL;
+}*/
 
 Shader* Shader::loadShaderFromFile(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames)
 {
@@ -129,7 +135,7 @@ Shader* Shader::loadShaderFromString(const std::string &vertex, const std::strin
 	}
 
 	// Get uniform locations.
-	std::map<std::string, GLint> uniforms;
+	std::unordered_map<std::string, GLint> uniforms;
 	for (std::vector<std::string>::iterator it = uniformNames.begin(); it != uniformNames.end(); ++it)
 	{
 		uniforms[*it] = glGetUniformLocation(program, it->c_str());

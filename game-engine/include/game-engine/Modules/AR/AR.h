@@ -19,17 +19,18 @@ public:
         return instance;
     }
     
-    bool initalise();
-    bool deinitalise();
+    bool initialise();
+    bool deinitialise();
     bool update();
     
     bool addAREntity(const std::string &name, AREntity *entity);
+    bool removeAREntity(const std::string &name);
     bool setActiveAREntity(const std::string &name);
     
 private:
     
     std::map<std::string, AREntity *> arEntities;
-    std::string activeAREntity;
+    AREntity* activeAREntity;
     
     AR();
     AR(AR const&);              // Don't Implement

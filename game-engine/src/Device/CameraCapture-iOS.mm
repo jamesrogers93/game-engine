@@ -4,6 +4,7 @@
 #import "game-engine/Device/CameraCapture.h"
 #import "game-engine/Device/System.h"
 #import "game-engine/Core/GL/GLContext-iOS.h"
+#import "game-engine/Core/GL/GL.h"
 
 @interface CameraCaptureIOS()
 {
@@ -137,7 +138,14 @@ GLuint CameraCapture::getChromaTextureID(void)
     AVCaptureDevice *device = nil;
     NSError *error = nil;
     
-    for (AVCaptureDevice *dev in [AVCaptureDevice devices])
+    AVCaptureDeviceDiscoverySession *captureDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession
+                                                                      discoverySessionWithDeviceTypes:@[AVCaptureDeviceTypeBuiltInWideAngleCamera]
+                                                                      mediaType:AVMediaTypeVideo
+                                                                      position:AVCaptureDevicePositionBack];
+    
+    //NSArray *captureDevices = [captureDeviceDiscoverySession devices];
+    
+    for (AVCaptureDevice *dev in [captureDeviceDiscoverySession devices])
     {
         // Discard non-cameras.
         if ([dev hasMediaType:AVMediaTypeVideo] == NO)
@@ -226,75 +234,6 @@ void callDelegates(unsigned char *data, const float &width, const float &height,
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-
-    /*CVReturn err;
-    CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    _camWidth = CVPixelBufferGetWidth(pixelBuffer);
-    _camHeight = CVPixelBufferGetHeight(pixelBuffer);
-    
-    // Do something with data
-    if (!_videoTextureCache)
-    {
-        NSLog(@"No video texture cache");
-        return;
-    }
-    
-    [self cleanUpTextures];
-    
-    // Y-plane
-    glActiveTexture(GL_TEXTURE0);
-    err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
-                                                       _videoTextureCache,
-                                                       pixelBuffer,
-                                                       NULL,
-                                                       GL_TEXTURE_2D,
-                                                       GL_LUMINANCE,
-                                                       _camWidth,
-                                                       _camHeight,
-                                                       GL_LUMINANCE,
-                                                       GL_UNSIGNED_BYTE,
-                                                       0,
-                                                       &_lumaTexture);
-    if (err)
-    {
-        NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
-    }
-    
-    glBindTexture(CVOpenGLESTextureGetTarget(_lumaTexture), CVOpenGLESTextureGetName(_lumaTexture));
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    
-    // UV-plane
-    glActiveTexture(GL_TEXTURE1);
-    err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
-                                                       _videoTextureCache,
-                                                       pixelBuffer,
-                                                       NULL,
-                                                       GL_TEXTURE_2D,
-                                                       GL_LUMINANCE_ALPHA,
-                                                       _camWidth/2,
-                                                       _camHeight/2,
-                                                       GL_LUMINANCE_ALPHA,
-                                                       GL_UNSIGNED_BYTE,
-                                                       1,
-                                                       &_chromaTexture);
-    if (err)
-    {
-        NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
-    }
-    
-    glBindTexture(CVOpenGLESTextureGetTarget(_chromaTexture), CVOpenGLESTextureGetName(_chromaTexture));
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    
-    // Get the luma data from the image buffer
-    void *ypBuffer = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);
-    NSData *ypData = [NSData dataWithBytesNoCopy:ypBuffer length:CVPixelBufferGetDataSize(pixelBuffer) freeWhenDone:NO];
-    
-    _padding = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, 0) - _camWidth;*/
-    
-    // Call the delegates
-    //callDelegates((unsigned char *)ypData.bytes, _camWidth, _camHeight, _padding);
     
     CVReturn err;
     finished = NO;
@@ -302,7 +241,7 @@ void callDelegates(unsigned char *data, const float &width, const float &height,
     CFRetain(sampleBuffer);
     
     
-    double timeStamp = CMTimeGetSeconds(CMSampleBufferGetPresentationTimeStamp(sampleBuffer));
+    //double timeStamp = CMTimeGetSeconds(CMSampleBufferGetPresentationTimeStamp(sampleBuffer));
     
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CFRetain(imageBuffer);
@@ -353,8 +292,11 @@ void callDelegates(unsigned char *data, const float &width, const float &height,
         }
         
         glBindTexture(CVOpenGLESTextureGetTarget(_lumaTexture), CVOpenGLESTextureGetName(_lumaTexture));
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        
+        jmpGLTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        jmpGLTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         
         // UV-plane
         glActiveTexture(GL_TEXTURE1);
@@ -376,8 +318,11 @@ void callDelegates(unsigned char *data, const float &width, const float &height,
         }
         
         glBindTexture(CVOpenGLESTextureGetTarget(_chromaTexture), CVOpenGLESTextureGetName(_chromaTexture));
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        
+        jmpGLTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        jmpGLTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         
         // Call the delegates
         callDelegates((unsigned char *)ypData.bytes, _camWidth, _camHeight, _padding);

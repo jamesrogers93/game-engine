@@ -3,10 +3,14 @@
 
 // STD
 #include <string>
-#include <vector>
+
 
 // Game Engine Core
+#include "game-engine/Core/GL/GLData.h"
+
+// Game Engine Graphics
 #include "game-engine/Entity/Entity.h"
+#include "game-engine/Modules/Graphics/Shader.h"
 
 // GLM
 #include <glm/glm.hpp>
@@ -31,6 +35,7 @@ public:
     CameraEntity(const std::string &name, const glm::mat4& projection, const glm::vec3 &front = DEFAULT_FRONT);
     
     void initialise();
+    void deinitialise();
     void update();
     void updateView();
     
@@ -50,6 +55,10 @@ private:
     
     //float yaw;
     //float pitch;
+    
+    UpdateNotification mViewGLUpdate;
+    UpdateNotification mProjectionGLUpdate;
+    
 };
 
 #endif /* _CAMERAENTITY_H */

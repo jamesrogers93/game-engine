@@ -19,6 +19,7 @@ Entity::Entity(const std::string &name, const Type &type) :  mType(type), name(n
 void Entity::addChild(Entity *child)
 {
     child->parent = this;
+    child->updateGlobalModel();
     this->children.push_back(child);
 }
 
@@ -28,11 +29,23 @@ void Entity::addProperty(Property *property)
     this->properties.push_back(property);
 }
 
-void Entity::updateChildren()
+const Property* Entity::getProperty(const std::string &name)
+{
+    for(auto property : properties)
+    {
+        if(name == property->getName())
+        {
+            return property;
+        }
+    }
+    
+    return NULL;
+}
+
+void Entity::update()
 {
     for(unsigned int i = 0; i < this->children.size(); i++)
     {
-        this->children[i]->updateChildren();
         this->children[i]->update();
     }
 }
@@ -50,6 +63,18 @@ const void Entity::translate(const float &x, const float &y, const float &z, con
 const void Entity::translate(const glm::vec3 &p, const unsigned int &order)
 {
     this->T[order] = glm::translate(this->T[order], p);
+    this->updateLocalModel();
+}
+
+const void Entity::translateLocalAxis(const float &x, const float &y, const float &z, const unsigned int &order)
+{
+    translateLocalAxis(glm::vec3(x,y,z), order);
+}
+
+const void Entity::translateLocalAxis(const glm::vec3 &p, const unsigned int &order)
+{
+    glm::mat4 test = R[order] * glm::translate(glm::mat4(), p);
+    this->T[order] = glm::translate(this->T[order], glm::vec3(test[3]));
     this->updateLocalModel();
 }
 
@@ -153,16 +178,25 @@ const std::string Entity::typeToString() const
             return "";
     }
 }
-
 void Entity::updateGlobalModel()
 {
     if(this->parent != NULL)
     {
-        this->globalModel = this->parent->globalModel * this->localModel;
+        
+        //if(this->parent->getGlobalTransformUpdate().getFlag() || this->getLocalTransformUpdate().getFlag())
+        //{
+            this->globalModel = this->parent->globalModel * this->localModel;
+        //    this->mGlobalTransformUpdate.notify();
+        //}
+        
     }
     else
     {
-        this->globalModel = this->localModel;
+        //if(this->getLocalTransformUpdate().getFlag())
+        //{
+            this->globalModel = this->localModel;
+        //    this->mGlobalTransformUpdate.notify();
+        //}
     }
     
     for(auto &child : this->children)
@@ -185,4 +219,6 @@ void Entity::updateLocalModel()
     this->localModel = model;*/
     
     this->localModel = this->T[1] * this->R[1] * this->S[1] * this->T[0] * this->R[0] * this->S[0];
+    updateGlobalModel();
+    //mLocalTransformUpdate.notify();
 }

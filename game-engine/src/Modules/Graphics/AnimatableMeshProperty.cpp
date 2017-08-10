@@ -6,6 +6,9 @@
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
+// Game Engine Core
+#include "game-engine/Core/GL/GL.h"
+
 // Game Engine
 #include "game-engine/Modules/Graphics/Shader.h"
 #include "game-engine/Entity/Entity.h"
@@ -27,6 +30,13 @@ void AnimatableMeshProperty::setJointKeys(const std::vector<std::string> &keys)
     {
         this->mJoints.push_back(toLower(keys[i]));
     }
+    
+    mJointUniformNames.empty();
+    mJointUniformNames.reserve(numJoints);
+    for(unsigned int i = 0; i < numJoints; i++)
+    {
+        mJointUniformNames.push_back(SHADER_JOINTS_NAME + "[" + std::to_string(i) + "]");
+    }
 }
 
 void AnimatableMeshProperty::loadToShader(Shader *shader)
@@ -35,22 +45,13 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
     MeshProperty::loadToShader(shader);
     
     // Load joints to shader
-    for(unsigned int i = 0; i < this->mJoints.size(); i++)
+    size_t numJoints = this->mJoints.size();
+    for(unsigned int i = 0; i < numJoints; i++)
     {
-        GLint *loc =shader->getUniformLocation(SHADER_JOINTS_NAME + "[" + std::to_string(i) + "]");
+        const GLint *loc = shader->getUniformLocation(mJointUniformNames[i]);
         if(loc != NULL)
         {
-            if(this->mJointsMap.find(this->mJoints[i]) != this->mJointsMap.end())
-            {
-                glm::mat4 jointTransform = this->mJointsMap[this->mJoints[i]]->getLocalModel();
-                
-                //jointTransform = glm::mat4();
-                /*std::cout << "[" << jointTransform[0][0] << ",\t\t" << jointTransform[1][0] << ",\t\t" << jointTransform[2][0] << ",\t\t" << jointTransform[3][0] << "]" << std::endl;
-                std::cout << "[" << jointTransform[0][1] << ",\t\t" << jointTransform[1][1] << ",\t\t" << jointTransform[2][1] << ",\t\t" << jointTransform[3][1] << "]" << std::endl;
-                std::cout << "[" << jointTransform[0][2] << ",\t\t" << jointTransform[1][2] << ",\t\t" << jointTransform[2][2] << ",\t\t" << jointTransform[3][2] << "]" << std::endl;
-                std::cout << "[" << jointTransform[0][3] << ",\t\t" << jointTransform[1][3] << ",\t\t" << jointTransform[2][3] << ",\t\t" << jointTransform[3][3] << "]\n" << std::endl;*/
-                glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(jointTransform));
-            }
+            glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(mJointsPtrs[i]->getLocalModel()));
         } else
         {
             std::cout << "Problem!" << std::endl;
@@ -58,7 +59,17 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
     }
 }
 
-void AnimatableMeshProperty::linkJoints(const Entity *entity)
+void AnimatableMeshProperty::linkJoints(Entity *entity)
+{
+    linkJoints2(entity);
+    
+    for(unsigned int i = 0; i < mJoints.size(); i++)
+    {
+        mJointsPtrs.push_back(mJointsMap.at(mJoints[i]));
+    }
+}
+
+void AnimatableMeshProperty::linkJoints2(Entity *entity)
 {
     // Search for this entity name in the joints keys
     std::vector<std::string>::iterator it = std::find(this->mJoints.begin(), this->mJoints.end(), entity->getName());
@@ -88,7 +99,7 @@ void AnimatableMeshProperty::linkJoints(const Entity *entity)
     size_t numChildren = children.size();
     for(unsigned int i = 0; i < numChildren; i++)
     {
-        linkJoints(children[i]);
+        linkJoints2(children[i]);
     }
 }
 

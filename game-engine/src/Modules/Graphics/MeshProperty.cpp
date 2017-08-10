@@ -6,6 +6,9 @@
 #include "game-engine/Entity/Entity.h"
 
 // Game Engine Core
+#include "game-engine/Core/GL/GL.h"
+
+// Game Engine Graphics
 #include "game-engine/Modules/Graphics/Graphics.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
@@ -28,6 +31,30 @@ bool MeshProperty::makeActive()
     
     Graphics *g = &Graphics::getInstance();
     
+    // Set the mesh pointer
+    mMeshPtr = g->getMesh(mMesh);
+    if(mMeshPtr == NULL)
+    {
+        // LOG
+        std::cout << "MeshPtr in " << this->mName << " is null." << std::endl;
+    }
+    
+    // Set the material pointer
+    mMaterialPtr = g->getMaterial(mMaterial);
+    if(mMaterialPtr == NULL)
+    {
+        // LOG
+        std::cout << "MaterialPtr in " << this->mName << " is null." << std::endl;
+    }
+    
+    // Set the shader pointer
+    mShaderPtr = g->getShader(mShader);
+    if(mShaderPtr == NULL)
+    {
+        // LOG
+        std::cout << "ShaderPtr in " << this->mName << " is null." << std::endl;
+    }
+    
     return g->addMeshProperty(this->mName, this);
 }
 
@@ -43,7 +70,7 @@ bool MeshProperty::makeUnactive()
 void MeshProperty::loadToShader(Shader *shader)
 {
     // Load projection to shader
-    GLint *loc =shader->getUniformLocation(SHADER_MODEL_NAME);
+    const GLint *loc = shader->getUniformLocation(SHADER_MODEL_NAME);
     if(loc != NULL)
     {
         glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->mOwner->getGlobalModel()));
@@ -52,7 +79,7 @@ void MeshProperty::loadToShader(Shader *shader)
     loc = shader->getUniformLocation(SHADER_NORMAL_MATRIX_NAME);
     if(loc != NULL)
     {
-        glUniformMatrix3fv(*loc, 1, false, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse(this->mOwner->getGlobalModel())))));
+        glUniformMatrix3fv(*loc, 1, false, glm::value_ptr(glm::mat3(glm::transpose(glm::inverse(this->mOwner->getGlobalModel())))));    
     }
 }
 

@@ -1,6 +1,8 @@
 #ifndef _CONTEXT_H
 #define _CONTEXT_H
 
+//#include "game-engine/Core/GL/GLSharegroup.h"
+
 class GLContext
 {
 public:
@@ -15,6 +17,8 @@ public:
     void deinitialise();
     void makeCurrentContext();
     
+    //const GLSharegroup* getSharegroup() const {  return isInitialised ? &mSharegroup : 0; }
+    
 private:
     
     GLContext();
@@ -24,8 +28,12 @@ private:
     void operator=(GLContext const&);		// Don't implement
     
     void *self;
-    bool isInitalised;
     
+    //GLSharegroup mSharegroup;
+    
+    bool isInitialised;
+    
+    void initialise2();
 };
 
 #endif /* _CONTEXT_H */

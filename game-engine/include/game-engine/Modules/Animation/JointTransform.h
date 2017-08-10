@@ -15,6 +15,8 @@ public:
     const glm::vec4& getPosition() const { return this->mPosition; }
     const glm::fquat& getRotation() const { return this->mRotation; }
     
+    static const JointTransform interpolate(const float &progression, const JointTransform* jointTransform1, const JointTransform* jointTransform2);
+    
 private:
     glm::vec4 mPosition;
     glm::fquat mRotation;
