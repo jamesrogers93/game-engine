@@ -8,6 +8,10 @@
 #include "game-engine/Modules/Graphics/MeshProperty.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
+// HACK
+class JointEntity;
+// END Hack
+
 //class Shader;
 class Entity;
 
@@ -26,21 +30,21 @@ public:
     //virtual bool makeUnactive();
     
     const std::vector<std::string>& getJointKeys() const {   return this->mJoints;  }
-    const std::unordered_map<std::string, Entity*> getLinkedJoints() const { return this->mJointsMap; }
+    const std::unordered_map<std::string, JointEntity*> getLinkedJoints() const { return this->mJointsMap; }
     
     void setJointKeys(const std::vector<std::string> &keys);
-    void linkJoints(Entity *root);
+    void linkJoints(JointEntity *root);
     
     void loadToShader(Shader *shader);
     static void fillUniformNames(std::vector<std::string> &uniformNames);
   
 private:
     std::vector<std::string> mJoints; // Key to joints (mesh influences)
-    std::unordered_map<std::string, Entity*> mJointsMap;
+    std::unordered_map<std::string, JointEntity*> mJointsMap; // This should be Entity, not JointEntity to keep the graphics and animation modules seperate. But this is needed and I have no time to redesign.
     std::vector<std::string> mJointUniformNames;
-    std::vector<Entity*> mJointsPtrs;
+    std::vector<JointEntity*> mJointsPtrs;
     
-    void linkJoints2(Entity *root);
+    void linkJoints2(JointEntity *root);
 };
 
 #endif /* _ANIMATABLEMESHPROPERTY_H */

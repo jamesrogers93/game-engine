@@ -27,6 +27,7 @@ public:
     
     void draw() const;
     
+    static MeshGL* loadMeshGL(std::vector<VertexP> vertices, std::vector<unsigned int> indices);
     static MeshGL* loadMeshGL(std::vector<VertexPU> vertices, std::vector<unsigned int> indices);
     static MeshGL* loadMeshGL(std::vector<VertexPCU> vertices, std::vector<unsigned int> indices);
     static MeshGL* loadMeshGL(std::vector<VertexPNUJ> vertices, std::vector<unsigned int> indices);

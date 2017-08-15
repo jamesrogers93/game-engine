@@ -3,12 +3,12 @@
 // Game Engine Core
 #include "game-engine/Core/GL/GL.h"
 
-Shader::Shader()
+Shader::Shader() : hasLighting(false), hasCamera(false)
 {
 	this->program = 0;
 }
 
-Shader::Shader(const GLuint program, std::unordered_map<std::string, GLint> uniforms)
+Shader::Shader(const GLuint program, std::unordered_map<std::string, GLint> uniforms) : hasLighting(false), hasCamera(false)
 {
 	this->program = program;
 	this->uniforms = uniforms;

@@ -16,6 +16,11 @@ struct VertexElement
     };
 };
 
+struct VertexP
+{
+    glm::vec3 position;
+};
+
 struct VertexPU
 {
     glm::vec3 position;

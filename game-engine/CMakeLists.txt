@@ -15,14 +15,23 @@ if(IOS OR ANDROID)
 	#include_directories("${OPENGLES_INCLUDE_DIR}")
 	list(APPEND PLATFORM_LIBRARIES
             ${OPENGLES_LIBRARIES}
-        )
+		)
+
 else()
 	# Include OpenGL
 	find_package(OpenGL REQUIRED)
 	include_directories("${OPENGL_INCLUDE_DIR}")
 	list(APPEND PLATFORM_LIBRARIES
             ${OPENGL_LIBRARY}
-        )
+		)
+
+	# Include Bullet Physics
+	find_package (BULLET REQUIRED)
+	include_directories(${BULLET_INCLUDE_DIRS})
+	list(APPEND PLATFORM_LIBRARIES
+    	${BULLET_LIBRARIES}
+	)
+
 endif()
 
 if(LINUX OR WIN32)
@@ -55,15 +64,8 @@ if(IOS)
 	list(APPEND PLATFORM_LIBRARIES
 		"${CMAKE_CURRENT_LIST_DIR}/../external/KudanCV/libKudanCV-iOS.a")
 
-	#find_package(Camera REQUIRED)
-	#list(APPEND PLATFORM_LIBRARIES
-    #        ${CAMERA_LIBRARIES}
-    #    )
-
-	#find_package(Motion REQUIRED)
-	#list(APPEND PLATFORM_LIBRARIES
-    #        ${MOTION_LIBRARIES}
-    #    )
+	# Bullet Physics
+    include_directories("${CMAKE_CURRENT_LIST_DIR}/../external/bullet3/src/")
 endif()
 
 

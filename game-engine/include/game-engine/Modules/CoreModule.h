@@ -9,7 +9,7 @@ enum class CoreModuleType
     CM_AR,
     CM_ANIMATION,
 	CM_AUDIO,
-	CM_PHYICS,
+	CM_PHYSICS,
 	CM_INPUT,
     CM_GUI
 };

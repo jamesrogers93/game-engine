@@ -65,6 +65,7 @@ public:
     const std::vector<Entity*>& getChildren() const     {   return this->children;  }
     const std::vector<Property*>& getProperties() const {   return this->properties; }
     const Entity* getParent() const                     {   return this->parent;    }
+    Entity* getDescendant(const std::string &name);
     const Property* getProperty(const std::string &name);
     
     const glm::mat4& getLocalModel() const { return this->localModel; }
@@ -117,8 +118,6 @@ public:
     }
     
     //void attachObserver(EntityObserver* observer) { mObservers.push_back(observer); }
-    
-private:
     
     void updateGlobalModel();
     void updateLocalModel();

@@ -9,7 +9,7 @@ class Property
 public:
     enum Type
     {
-        MESH, ANIMATABLE_MESH, DIRECTIONAL_LIGHT, POINT_LIGHT, ANIMATOR, GUI
+        MESH, ANIMATABLE_MESH, DIRECTIONAL_LIGHT, POINT_LIGHT, ANIMATOR, GUI, PHYSICS
     };
 private:
     static const bool DEFAULT_ACTIVE;

@@ -56,47 +56,54 @@ void Graphics::render()
         shader.second->use();
         
         // Load the camera data to the shader
-        activeCameraEntity->loadToShader(shader.second);
-        
-        unsigned int pointLightCount = 0;
-        unsigned int dirLightCount = 0;
-        for(auto light : this->lightProperties)
+        if(shader.second->getHasCamera())
         {
-            switch(light.second->getType())
-            {
-                case Property::POINT_LIGHT:
-                {
-                    if(pointLightCount > PointLightProperty::MAX_LIGHTS)
-                    {
-                        continue;
-                    }
-                    else if(light.second->isOn())
-                    {
-                        light.second->loadToShader(shader.second, pointLightCount++);
-                    }
-                    break;
-                }
-                case Property::DIRECTIONAL_LIGHT:
-                {
-                    if(dirLightCount > DirectionalLightProperty::MAX_LIGHTS)
-                    {
-                        continue;
-                    }
-                    else if(light.second->isOn())
-                    {
-                        light.second->loadToShader(shader.second, dirLightCount++);
-                    }
-                    break;
-                }
-                default:
-                {
-                    break;
-                }
-            }
+            activeCameraEntity->loadToShader(shader.second);
         }
         
-        PointLightProperty::loadNumLightsToShader(shader.second, pointLightCount);
-        DirectionalLightProperty::loadNumLightsToShader(shader.second, dirLightCount);
+        if(shader.second->getHasLighting())
+        {
+            unsigned int pointLightCount = 0;
+            unsigned int dirLightCount = 0;
+            for(auto light : this->lightProperties)
+            {
+                switch(light.second->getType())
+                {
+                    case Property::POINT_LIGHT:
+                    {
+                        if(pointLightCount > PointLightProperty::MAX_LIGHTS)
+                        {
+                            continue;
+                        }
+                        else if(light.second->isOn())
+                        {
+                            light.second->loadToShader(shader.second, pointLightCount++);
+                        }
+                        break;
+                    }
+                    case Property::DIRECTIONAL_LIGHT:
+                    {
+                        if(dirLightCount > DirectionalLightProperty::MAX_LIGHTS)
+                        {
+                            continue;
+                        }
+                        else if(light.second->isOn())
+                        {
+                            light.second->loadToShader(shader.second, dirLightCount++);
+                        }
+                        break;
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
+            }
+        
+            PointLightProperty::loadNumLightsToShader(shader.second, pointLightCount);
+            DirectionalLightProperty::loadNumLightsToShader(shader.second, dirLightCount);
+        
+        }
         
         for(auto const &mesh : this->meshProperties)
         {

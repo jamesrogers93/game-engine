@@ -20,6 +20,7 @@ void GUIProperty::update(Shader *shader)
 
 bool GUIProperty::makeActive()
 {
+    
     return GUI::getInstance().addGUIProperty(this->getName(), this);
 }
 

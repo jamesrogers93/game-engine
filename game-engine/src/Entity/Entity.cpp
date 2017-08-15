@@ -10,6 +10,7 @@
 
 const glm::vec3 Entity::DEFAULT_POSITION = glm::vec3(0.0);
 
+#include <btBulletCollisionCommon.h>
 Entity::Entity(const std::string &name, const Type &type) :  mType(type), name(name), parent(NULL)
 {
     // Make name lower case
@@ -27,6 +28,33 @@ void Entity::addProperty(Property *property)
 {
     property->setOwner(this);
     this->properties.push_back(property);
+}
+
+Entity* Entity::getDescendant(const std::string &name)
+{
+    for(unsigned int i = 0; i < children.size(); i++)
+    {
+        // If the childs name matches, return it.
+        // Else recursively search children using depth first search
+        if(children[i]->getName() == name)
+        {
+            return children[i];
+        }
+        else
+        {
+            Entity *descendant = children[i]->getDescendant(name);
+            if(descendant != NULL)
+            {
+                return descendant;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+    
+    return NULL;
 }
 
 const Property* Entity::getProperty(const std::string &name)
@@ -116,6 +144,7 @@ const void Entity::rotate(const glm::fquat &q, const unsigned int &order)
 const void Entity::transformOW(const glm::mat4 &t)
 {
     this->localModel = t;
+    updateGlobalModel();
 }
 
 const void Entity::translateOW(const float &x, const float &y, const float &z, const unsigned int &order)
@@ -178,6 +207,7 @@ const std::string Entity::typeToString() const
             return "";
     }
 }
+
 void Entity::updateGlobalModel()
 {
     if(this->parent != NULL)

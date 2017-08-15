@@ -2,6 +2,7 @@
 include(include/game-engine/Modules/Animation/CMakeLists.txt)
 include(include/game-engine/Modules/Graphics/CMakeLists.txt)
 include(include/game-engine/Modules/GUI/CMakeLists.txt)
+include(include/game-engine/Modules/Physics/CMakeLists.txt)
 
 # AR only supported on IOS 
 if(IOS)

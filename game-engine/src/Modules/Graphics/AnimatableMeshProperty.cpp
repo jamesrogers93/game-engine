@@ -12,6 +12,7 @@
 // Game Engine
 #include "game-engine/Modules/Graphics/Shader.h"
 #include "game-engine/Entity/Entity.h"
+#include "game-engine/Modules/Animation/JointEntity.h"  // HACK
 
 // Game Engine Defines
 #include "game-engine/Defines/OpenGL.h"
@@ -51,7 +52,7 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
         const GLint *loc = shader->getUniformLocation(mJointUniformNames[i]);
         if(loc != NULL)
         {
-            glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(mJointsPtrs[i]->getLocalModel()));
+            glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(mJointsPtrs[i]->getLocalJointModel()));
         } else
         {
             std::cout << "Problem!" << std::endl;
@@ -59,7 +60,7 @@ void AnimatableMeshProperty::loadToShader(Shader *shader)
     }
 }
 
-void AnimatableMeshProperty::linkJoints(Entity *entity)
+void AnimatableMeshProperty::linkJoints(JointEntity *entity)
 {
     linkJoints2(entity);
     
@@ -69,7 +70,7 @@ void AnimatableMeshProperty::linkJoints(Entity *entity)
     }
 }
 
-void AnimatableMeshProperty::linkJoints2(Entity *entity)
+void AnimatableMeshProperty::linkJoints2(JointEntity *entity)
 {
     // Search for this entity name in the joints keys
     std::vector<std::string>::iterator it = std::find(this->mJoints.begin(), this->mJoints.end(), entity->getName());
@@ -99,7 +100,7 @@ void AnimatableMeshProperty::linkJoints2(Entity *entity)
     size_t numChildren = children.size();
     for(unsigned int i = 0; i < numChildren; i++)
     {
-        linkJoints2(children[i]);
+        linkJoints2((JointEntity*)children[i]);
     }
 }
 
