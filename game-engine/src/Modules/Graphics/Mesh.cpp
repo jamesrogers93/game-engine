@@ -2,10 +2,10 @@
 #include "game-engine/Modules/Graphics/Vertex.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
-void MeshGL::draw() const
+void MeshGL::draw(const int &mode) const
 {
     glBindVertexArray(this->VAO);
-    glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
+    glDrawElements(mode, this->indexCount, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 

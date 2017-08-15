@@ -5,7 +5,7 @@
 // Bullet
 #include <btBulletCollisionCommon.h>
 
-PhysicsProperty::PhysicsProperty(const std::string &name, PhysicsShape* shape) : Property(name, Property::PHYSICS), mShape(shape)
+PhysicsProperty::PhysicsProperty(const std::string &name, PhysicsShape* shape) : Property(name, Property::PHYSICS), mShape(shape), maskSet(false)
 {
     collisionObject = new btCollisionObject();
     collisionObject->setUserPointer(this);

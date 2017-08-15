@@ -103,7 +103,7 @@ void CameraCapture::display()
         glUniformMatrix4fv(*loc, 1, false, glm::value_ptr(this->getScale()));
         //}
         
-        geometry->draw();
+        geometry->draw(GL_TRIANGLES);
         
         glEnable( GL_DEPTH_TEST );
     }

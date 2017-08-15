@@ -22,6 +22,11 @@ public:
     PhysicsShape *mShape;
     btCollisionObject* collisionObject;
     std::function<void(PhysicsProperty*, PhysicsProperty*, btManifoldPoint*)> collisionCallback;
+    std::function<void(PhysicsProperty*)> beforeCollisionTestCallback;
+    
+    unsigned short collisionMask;
+    unsigned short collidesWithMask;
+    bool maskSet;
     
     PhysicsProperty(const std::string &name, PhysicsShape* shape);
     
@@ -30,12 +35,20 @@ public:
     
     const int getCollisionFlags();
     
-    void callback(PhysicsProperty* objA, PhysicsProperty* objB, btManifoldPoint* pt)
-        { collisionCallback(objA, objB, pt); }
+    std::function<void(PhysicsProperty*, PhysicsProperty*, btManifoldPoint*)> getCollisionCallback() { return collisionCallback; }
+    std::function<void(PhysicsProperty*)> getBeforeCollisionTestCallback() { return beforeCollisionTestCallback; }
+    
+    bool getIsMaskSet() { return maskSet;  }
+    unsigned short getCollisionMask() { return collisionMask; }
+    unsigned short getCollidesWithMask() { return collidesWithMask; }
     
     void setWorldTransform(const glm::vec3 &transform);
     void setCollisionFlags(const int flags);
     void setCollisionCallback(const std::function<void(PhysicsProperty*, PhysicsProperty*, btManifoldPoint*)> collisionCallback) { this->collisionCallback = collisionCallback; }
+    void setBeforeCollisionTestCallback(const std::function<void(PhysicsProperty*)> callback) { this->beforeCollisionTestCallback = callback; }
+    
+    void setMask(unsigned short collisionMask, unsigned short collidesWithMask)
+    { this->collisionMask = collisionMask; this->collidesWithMask = collidesWithMask; maskSet = true; }
 };
 
 #endif /* _PHYSICSPROPERTY_H */

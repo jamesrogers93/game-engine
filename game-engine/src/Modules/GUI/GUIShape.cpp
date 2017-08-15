@@ -83,7 +83,7 @@ void GUIShape::draw(Shader *shader)
 
     
     
-    mesh->draw();
+    mesh->draw(GL_TRIANGLES);
 }
 
 void GUIShape::setColourDownBit()

@@ -25,7 +25,7 @@ public:
     MeshGL() : VAO(0), VBO(0), EBO(0) {}
 	MeshGL(const GLuint VAO, const GLuint VBO, const GLuint EBO, const unsigned int &indexCount) : VAO(VAO), VBO(VBO), EBO(EBO), indexCount(indexCount) {}
     
-    void draw() const;
+    void draw(const int &mode) const;
     
     static MeshGL* loadMeshGL(std::vector<VertexP> vertices, std::vector<unsigned int> indices);
     static MeshGL* loadMeshGL(std::vector<VertexPU> vertices, std::vector<unsigned int> indices);

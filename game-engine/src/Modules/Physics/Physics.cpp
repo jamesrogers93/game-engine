@@ -40,7 +40,7 @@ bool Physics::deinitialise()
 bool Physics::update()
 {
     
-    // Update property positions
+    // Update property positions and call before collision test callbacks
     
     for(auto property : physicsProperties)
     {
@@ -48,11 +48,13 @@ bool Physics::update()
         
         property.second->setWorldTransform(glm::vec3(owner->getGlobalModel()[3]));
 
+        // Before collision test callback function
+        property.second->getBeforeCollisionTestCallback()(property.second);
     }
     
     // TEST
-    //static unsigned int test_counter = 0;
-    // END TEST
+    //static unsigned int test_counter = 0; btSimdFloat4) mVec128 = (152.579819, 129.840393, -0.722387075, 0)
+    // END TEST                             btSimdFloat4) mVec128 = (152.579819, 129.840393, -0.722387075, 0)
     
     // Perform collision detection
     bt_collision_world->performDiscreteCollisionDetection();
@@ -70,10 +72,6 @@ bool Physics::update()
         for (int j = 0; j < numContacts; j++) {
             //Get the contact information
             btManifoldPoint& pt = contactManifold->getContactPoint(j);
-            btVector3 ptA = pt.getPositionWorldOnA();
-            btVector3 ptB = pt.getPositionWorldOnB();
-            double ptdist = pt.getDistance();
-            
             
             //std::cout << "COLLISION!!! " << test_counter << std::endl;
             //test_counter++;
@@ -82,9 +80,8 @@ bool Physics::update()
             PhysicsProperty *obAA = (PhysicsProperty*)obA->getUserPointer();
             PhysicsProperty *obBB = (PhysicsProperty*)obB->getUserPointer();
             
-            
-            obAA->callback(obAA, obBB, &pt);
-            obBB->callback(obAA, obBB, &pt);
+            obAA->getCollisionCallback()(obAA, obBB, &pt);
+            obBB->getCollisionCallback()(obAA, obBB, &pt);
             
         }
     }
@@ -100,7 +97,15 @@ bool Physics::addPhysicsProperty(const std::string &name, PhysicsProperty *entit
     if(it == physicsProperties.end())
     {
         physicsProperties[name] = entity;
-        bt_collision_world->addCollisionObject(entity->collisionObject);
+        if(entity->getIsMaskSet())
+        {
+            bt_collision_world->addCollisionObject(entity->collisionObject, entity->getCollisionMask(), entity->getCollidesWithMask());
+        }
+        else
+        {
+            bt_collision_world->addCollisionObject(entity->collisionObject);
+        }
+        
         return true;
     }
 

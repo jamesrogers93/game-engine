@@ -29,33 +29,12 @@ bool MeshProperty::makeActive()
 {
     Property::makeActive();
     
-    Graphics *g = &Graphics::getInstance();
     
-    // Set the mesh pointer
-    mMeshPtr = g->getMesh(mMesh);
-    if(mMeshPtr == NULL)
-    {
-        // LOG
-        std::cout << "MeshPtr in " << this->mName << " is null." << std::endl;
-    }
-    
-    // Set the material pointer
-    mMaterialPtr = g->getMaterial(mMaterial);
-    if(mMaterialPtr == NULL)
-    {
-        // LOG
-        std::cout << "MaterialPtr in " << this->mName << " is null." << std::endl;
-    }
-    
-    // Set the shader pointer
-    mShaderPtr = g->getShader(mShader);
-    if(mShaderPtr == NULL)
-    {
-        // LOG
-        std::cout << "ShaderPtr in " << this->mName << " is null." << std::endl;
-    }
-    
-    return g->addMeshProperty(this->mName, this);
+    linkMeshPtr();
+    linkMaterialPtr();
+    linkShaderPtr();
+
+    return Graphics::getInstance().addMeshProperty(this->mName, this);
 }
 
 bool MeshProperty::makeUnactive()
@@ -65,6 +44,39 @@ bool MeshProperty::makeUnactive()
     Graphics *g = &Graphics::getInstance();
     
     return g->removeMeshProperty(this->mName);
+}
+
+void MeshProperty::linkMeshPtr()
+{
+    // Set the mesh pointer
+    mMeshPtr = Graphics::getInstance().getMesh(mMesh);
+    if(mMeshPtr == NULL)
+    {
+        // LOG
+        std::cout << "MeshPtr in " << this->mName << " is null." << std::endl;
+    }
+}
+
+void MeshProperty::linkMaterialPtr()
+{
+    // Set the material pointer
+    mMaterialPtr = Graphics::getInstance().getMaterial(mMaterial);
+    if(mMaterialPtr == NULL)
+    {
+        // LOG
+        std::cout << "MaterialPtr in " << this->mName << " is null." << std::endl;
+    }
+}
+
+void MeshProperty::linkShaderPtr()
+{
+    // Set the shader pointer
+    mShaderPtr = Graphics::getInstance().getShader(mShader);
+    if(mShaderPtr == NULL)
+    {
+        // LOG
+        std::cout << "ShaderPtr in " << this->mName << " is null." << std::endl;
+    }
 }
 
 void MeshProperty::loadToShader(Shader *shader)

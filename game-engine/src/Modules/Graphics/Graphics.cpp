@@ -13,6 +13,8 @@
 
 #include "game-engine/Util/StringUtil.h"
 
+#include "game-engine/Defines/OpenGL.h"
+
 bool Graphics::initialise()
 {
 	return true;
@@ -123,7 +125,9 @@ void Graphics::render()
             // Draw the geometry
             //MeshGL *go = this->meshes[mesh.second->getMeshKey()];
             const MeshGL *go = mesh.second->getMeshPtr();
-            go->draw();
+            
+            //glPolygonMode( GL_FRONT_AND_BACK, GL_FILL);
+            go->draw(mesh.second->getDrawMode());
         }
     }
     
@@ -137,7 +141,7 @@ bool Graphics::draw(MeshProperty* mesh)
     //    this->shaders.find(mesh->getShaderKey()) != this->shaders.end() &&
     //    this->cameraEntites.find(this->activeCameraEntity) != this->cameraEntites.end())
 	//{
-		MeshGL *go = this->meshes[mesh->getMeshKey()];
+	/*	MeshGL *go = this->meshes[mesh->getMeshKey()];
         Material *m  = this->materials[mesh->getMaterialKey()];
         Shader   *s  = this->shaders[mesh->getShaderKey()];
         //CameraEntity *c = this->cameraEntites[this->activeCameraEntity];
@@ -199,7 +203,7 @@ bool Graphics::draw(MeshProperty* mesh)
 
 		return true;
 	//}
-
+*/
 	return false;
 }
 
