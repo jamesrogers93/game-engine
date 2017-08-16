@@ -72,10 +72,10 @@ void AREntity::draw()
 
 void AREntity::frameRecieved(unsigned char *data, const float &width, const float &height, const float &padding)
 {
-    if(tracker->getState() != ARTracker::TRACKING)
-    {
-        return;
-    }
+    //if(tracker->getState() != ARTracker::TRACKING)
+    //{
+    //    return;
+    //}
     
     // Get gyroscope orientation
     Gyroscope *gyro = &Gyroscope::getInstance();
