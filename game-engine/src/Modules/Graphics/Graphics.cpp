@@ -341,6 +341,12 @@ bool Graphics::removeCameraEntity(const std::string& name)
     if ( it != this->cameraEntites.end())
     {
         this->cameraEntites.erase(it);
+        
+        if(name == activeCameraEntity->getName())
+        {
+            activeCameraEntity = NULL;
+        }
+        
         return true;
     }
     

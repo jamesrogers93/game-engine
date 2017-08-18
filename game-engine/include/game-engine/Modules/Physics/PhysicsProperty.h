@@ -29,6 +29,7 @@ public:
     bool maskSet;
     
     PhysicsProperty(const std::string &name, PhysicsShape* shape);
+    ~PhysicsProperty();
     
     bool makeActive();
     bool makeUnactive();

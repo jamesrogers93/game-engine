@@ -51,12 +51,12 @@ protected:
     glm::fquat Q[MAX_TRANSFORMATIONS];    // Quaternion
     
     Entity(const std::string &name, const Type &type);
-    ~Entity(){}
+    virtual ~Entity();
     
 public:
     
     virtual void initialise() = 0;
-    virtual void deinitialise() = 0;
+    virtual void deinitialise() {}
     virtual void update();
     //void updateChildren();
     

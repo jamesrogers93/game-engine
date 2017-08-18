@@ -215,6 +215,17 @@ void CameraCapture::addDelegate(CameraCaptureDelegate* delegate)
     this->delegates.push_back(delegate);
 }
 
+void CameraCapture::removeDelegate(CameraCaptureDelegate* delegate)
+{
+    for(auto it = delegates.begin(); it != delegates.end(); )
+    {
+        if((*it) == delegate)
+        {
+            it = delegates.erase(it);
+        }
+    }
+}
+
 void CameraCapture::callDelegates(unsigned char *data, const float &width, const float &height, const float &padding)
 {
     for(unsigned int i = 0; i < this->delegates.size(); i++)

@@ -62,8 +62,13 @@ bool AR::removeAREntity(const std::string &name)
     
     if(it != arEntities.end())
     {
+        if(name == it->second->getName())
+        {
+            activeAREntity = NULL;
+        }
         // remove
         arEntities.erase(it);
+        
         return true;
     }
     else

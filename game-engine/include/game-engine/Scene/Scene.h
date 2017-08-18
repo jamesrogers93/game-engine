@@ -24,6 +24,9 @@ public:
     
     Scene(std::string name) : name(name), mHasPrepared(false), mSceneLogic(NULL) {}
     ~Scene() {}
+    
+    void initialise();
+    void deinitialise();
 
     void prepare();
     void unPrepare();

@@ -12,6 +12,12 @@ PhysicsProperty::PhysicsProperty(const std::string &name, PhysicsShape* shape) :
     collisionObject->setCollisionShape(shape->shape);
 }
 
+PhysicsProperty::~PhysicsProperty()
+{
+    delete collisionObject;
+    delete mShape;
+}
+
 bool PhysicsProperty::makeActive()
 {
     this->mActive = true;

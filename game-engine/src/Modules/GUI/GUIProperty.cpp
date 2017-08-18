@@ -9,6 +9,17 @@ GUIProperty::GUIProperty(const std::string &name) : Property(name, Property::GUI
 
 }
 
+GUIProperty::~GUIProperty()
+{
+    makeUnactive();
+    
+    for ( auto it = shapes.begin(); it != shapes.end(); )
+    {
+        delete *it;
+        it = shapes.erase(it);
+    }
+}
+
 void GUIProperty::update(Shader *shader)
 {
     

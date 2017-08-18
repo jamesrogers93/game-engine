@@ -21,6 +21,13 @@ AREntity::AREntity(const std::string &name) : Entity(name, Entity::AR_TRACKER)
     this->tracker = new ARTracker();
 }
 
+AREntity::~AREntity()
+{
+    CameraCapture::getInstance().removeDelegate(this);
+    
+    AR::getInstance().removeAREntity(name);
+}
+
 void AREntity::initialise()
 {
     AR::getInstance().addAREntity(this->name, this);

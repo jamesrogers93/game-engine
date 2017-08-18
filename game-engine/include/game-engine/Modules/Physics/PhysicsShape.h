@@ -11,6 +11,7 @@ class PhysicsShape
 public:
     PhysicsShape()
     {}
+    ~PhysicsShape();
     
     btCollisionShape *shape;
 };

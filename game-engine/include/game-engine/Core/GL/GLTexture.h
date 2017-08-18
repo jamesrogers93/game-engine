@@ -13,11 +13,11 @@ private:
 public:
     
     GLTexture(const GLuint &textureID = 0) : textureID(textureID) {}
-    ~GLTexture(){}
+    ~GLTexture();
     
     const GLuint& getTextureID() const {   return this->textureID; }
     
-    static GLTexture loadFromData(const Texture &texture);
+    static GLTexture* loadFromData(const Texture &texture);
     
 };
 

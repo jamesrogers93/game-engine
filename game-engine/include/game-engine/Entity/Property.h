@@ -24,6 +24,7 @@ protected:
     
 public:
     Property(const std::string &name, const Type &type);
+    virtual ~Property();
     
     void setName(const std::string &name) { mName = name; }
     void setOwner(Entity *owner);

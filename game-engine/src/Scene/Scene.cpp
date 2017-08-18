@@ -1,9 +1,34 @@
 #include "game-engine/Scene/Scene.h"
+#include "game-engine/Scene/SceneManager.h"
 #include "game-engine/Scene/SceneLogic.h"
 #include "game-engine/Entity/Entity.h"
 #include "game-engine/Entity/Property.h"
 
 #include <iostream>
+
+void Scene::initialise()
+{
+    if(mSceneLogic != NULL)
+    {
+        mSceneLogic->initialise();
+    }
+}
+
+void Scene::deinitialise()
+{
+    unPrepare();
+    
+    for ( auto it = entities.begin(); it != entities.end(); )
+    {
+        delete *it;
+        it = entities.erase(it);
+    }
+    
+    if(mSceneLogic != NULL)
+    {
+        mSceneLogic->deinitialise();
+    }
+}
 
 const std::string & Scene::getName()
 {

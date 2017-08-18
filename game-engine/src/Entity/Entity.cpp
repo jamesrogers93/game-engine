@@ -17,6 +17,24 @@ Entity::Entity(const std::string &name, const Type &type) :  mType(type), name(n
     std::transform(this->name.begin(), this->name.end(), this->name.begin(), ::tolower);
 }
 
+Entity::~Entity()
+{
+    for ( auto it1 = children.begin(); it1 != children.end(); )
+    {
+        
+        //(*it1)->deinitialise();
+        
+        delete * it1;
+        it1 = children.erase(it1);
+    }
+    
+    for ( auto it2 = properties.begin(); it2 != properties.end(); )
+    {
+        delete *it2;
+        it2 = properties.erase(it2);
+    }
+}
+
 void Entity::addChild(Entity *child)
 {
     child->parent = this;

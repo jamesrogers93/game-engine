@@ -24,6 +24,7 @@ public:
 
     MeshGL() : VAO(0), VBO(0), EBO(0) {}
 	MeshGL(const GLuint VAO, const GLuint VBO, const GLuint EBO, const unsigned int &indexCount) : VAO(VAO), VBO(VBO), EBO(EBO), indexCount(indexCount) {}
+    ~MeshGL();
     
     void draw(const int &mode) const;
     

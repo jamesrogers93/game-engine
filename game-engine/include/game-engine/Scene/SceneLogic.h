@@ -5,6 +5,8 @@ class Scene;
 
 class SceneLogic
 {
+    friend class Scene;
+    
 protected:
     
     Scene* mScene;
@@ -14,11 +16,11 @@ protected:
     ~SceneLogic()
     {}
     
-public:
-    
     virtual void initialise() = 0;
+    virtual void deinitialise() = 0;
     virtual void update() = 0;
     virtual void draw() = 0;
+
 };
 
 #endif /* _SCENELOGIC_H */

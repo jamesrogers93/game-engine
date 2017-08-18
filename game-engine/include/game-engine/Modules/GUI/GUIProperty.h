@@ -18,6 +18,7 @@ public:
     bool isTouchable;
     
     GUIProperty(const std::string &name);
+    ~GUIProperty();
     
     bool makeActive();
     bool makeUnactive();

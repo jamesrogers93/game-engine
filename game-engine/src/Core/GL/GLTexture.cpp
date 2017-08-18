@@ -2,11 +2,16 @@
 
 #include "game-engine/Defines/OpenGL.h"
 
-GLTexture GLTexture::loadFromData(const Texture &texture)
+GLTexture::~GLTexture()
+{
+    glDeleteTextures(1, &textureID);
+}
+
+GLTexture* GLTexture::loadFromData(const Texture &texture)
 {
     if (!texture.getData())
     {
-        return GLTexture(0);
+        return NULL;
     }
     
     GLuint textureId;
@@ -35,5 +40,5 @@ GLTexture GLTexture::loadFromData(const Texture &texture)
     
     glGenerateMipmap(GL_TEXTURE_2D);
     
-    return GLTexture(textureId);
+    return new GLTexture(textureId);
 }

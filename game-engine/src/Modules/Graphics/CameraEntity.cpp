@@ -32,6 +32,11 @@ CameraEntity::CameraEntity(const std::string &name, const glm::mat4& projection,
     this->updateView();
 }
 
+CameraEntity::~CameraEntity()
+{
+    Graphics::getInstance().removeCameraEntity(name);
+}
+
 void CameraEntity::update()
 {
     updateView();

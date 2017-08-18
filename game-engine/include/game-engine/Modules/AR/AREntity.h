@@ -17,6 +17,7 @@ class AREntity : public Entity, public CameraCaptureDelegate
     
 public:
     AREntity(const std::string &name);
+    ~AREntity();
     
     void initialise();
     void deinitialise();

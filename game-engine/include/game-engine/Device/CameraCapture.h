@@ -68,6 +68,7 @@ public:
     bool isCapturing()  { return this->capturing;   }
     
     void addDelegate(CameraCaptureDelegate* delegate);
+    void removeDelegate(CameraCaptureDelegate* delegate);
     
     void callDelegates(unsigned char *data, const float &width, const float &height, const float &padding);
     

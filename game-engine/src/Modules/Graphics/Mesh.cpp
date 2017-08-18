@@ -2,6 +2,13 @@
 #include "game-engine/Modules/Graphics/Vertex.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
+MeshGL::~MeshGL()
+{
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+}
+
 void MeshGL::draw(const int &mode) const
 {
     glBindVertexArray(this->VAO);
