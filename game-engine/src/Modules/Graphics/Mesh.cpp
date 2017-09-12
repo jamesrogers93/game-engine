@@ -176,8 +176,8 @@ MeshGL* MeshGL::loadMeshGL(std::vector<VertexPNUJ> vertices, std::vector<unsigne
     
     // Joint ID
     glEnableVertexAttribArray(ATTRIB_JOINT_ID);
-    glVertexAttribPointer(ATTRIB_JOINT_ID, Vertex::JOINT_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)offset);
-    offset += sizeof(glm::vec4);
+    glVertexAttribPointer(ATTRIB_JOINT_ID, Vertex::JOINT_STRIDE, GL_INT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)offset);
+    offset += sizeof(glm::ivec4);
     
     // Joint Weight
     glEnableVertexAttribArray(ATTRIB_JOINT_WEIGHT);

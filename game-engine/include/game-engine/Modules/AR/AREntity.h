@@ -26,7 +26,7 @@ public:
     void startCapture();
     void stopCapture();
     
-    void startTracking();
+    void startTracking(const glm::vec3 &position);
     void stopTracking();
     
     glm::mat4 getCameraProjection(const float &nearPlane, const float &farPlane);

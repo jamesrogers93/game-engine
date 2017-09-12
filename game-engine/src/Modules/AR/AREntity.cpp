@@ -52,10 +52,8 @@ void AREntity::stopCapture()
     CameraCapture::getInstance().stopCapture();
 }
 
-void AREntity::startTracking()
+void AREntity::startTracking(const glm::vec3 &position)
 {
-
-    glm::vec3 position(0.0, 0.0, 100.0);
     glm::fquat orientation;
     
     // Start the tracker
