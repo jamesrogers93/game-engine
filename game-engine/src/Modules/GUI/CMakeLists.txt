@@ -1,5 +1,5 @@
 
-list(APPEND GAME_ENGINE_INC
+list(APPEND GAME_ENGINE_SRC
     "src/Modules/GUI/GUI.cpp"
     "src/Modules/GUI/GUIAnalog.cpp"
     "src/Modules/GUI/GUICircle.cpp"

@@ -5,13 +5,13 @@
 
 enum class CoreModuleType
 {
-	CM_GRAPHICS,
-    CM_AR,
+    CM_AI,
     CM_ANIMATION,
+    CM_AR,
 	CM_AUDIO,
-	CM_PHYSICS,
-	CM_INPUT,
-    CM_GUI
+    CM_GRAPHICS,
+    CM_GUI,
+    CM_PHYSICS
 };
 
 struct EnumClassHash

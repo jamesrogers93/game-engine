@@ -18,6 +18,7 @@ void AnimationController::updateElapsedTime(const double &elapsedTime)
         }
         else
         {
+            mCallback();
             stop();
             return;
         }
