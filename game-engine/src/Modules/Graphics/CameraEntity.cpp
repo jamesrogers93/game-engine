@@ -23,7 +23,7 @@ const glm::vec3 CameraEntity::DEFAULT_WORLDUP = glm::vec3(0.0, 1.0, 0.0);
 const glm::vec3 CameraEntity::DEFAULT_FRONT = glm::vec3(0.0, 0.0, 1.0);
 const float CameraEntity::DEFAULT_FOV = 75.0f;
 const float CameraEntity::DEFAULT_CLIPNEAR = 1.0f;
-const float CameraEntity::DEFAULT_CLIPFAR = 1000.0f;
+const float CameraEntity::DEFAULT_CLIPFAR = 10000.0f;
 
 CameraEntity::CameraEntity(const std::string &name, const glm::mat4& projection, const glm::vec3 &front) : Entity(name, Entity::CAMERA), projection(projection), front(front)
 {

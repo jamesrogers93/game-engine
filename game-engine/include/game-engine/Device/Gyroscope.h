@@ -14,6 +14,7 @@ public:
     }
     
     void initialise();
+    void deinitialise();
     
     glm::dquat getOrientation();
     

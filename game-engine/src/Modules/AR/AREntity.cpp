@@ -54,6 +54,10 @@ void AREntity::stopCapture()
 
 void AREntity::startTracking(const glm::vec3 &position)
 {
+    
+    // Initialise Gyroscope
+    Gyroscope::getInstance().deinitialise();
+    Gyroscope::getInstance().initialise();
     glm::fquat orientation;
     
     // Start the tracker

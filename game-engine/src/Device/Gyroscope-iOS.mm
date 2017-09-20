@@ -22,6 +22,11 @@ void Gyroscope::initialise()
     [(id)self initialise];
 }
 
+void Gyroscope::deinitialise()
+{
+    [(id)self deinitialise];
+}
+
 glm::dquat Gyroscope::getOrientation()
 {
     if(self == NULL)
