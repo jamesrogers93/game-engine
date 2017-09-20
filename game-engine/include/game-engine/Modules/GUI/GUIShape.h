@@ -24,8 +24,8 @@ public:
     glm::vec2 S;
     glm::vec4 colourUp;
     glm::vec4 colourDown;
-    GLTexture colourMapUp;
-    GLTexture colourMapDown;
+    GLTexture *colourMapUp;
+    GLTexture *colourMapDown;
     
     bool colourUpSet;
     bool colourDownSet;
@@ -38,17 +38,37 @@ public:
     bool isDown;
     
     
-    GUIShape() : P(glm::vec2(0.0f)), S(glm::vec2(1.0f)), colourUpSet(false), colourDownSet(false), colourMapUpSet(false), colourMapDownSet(false), colourUpBitwise(0), colourDownBitwise(0), isDown(false)
+    GUIShape() :
+    P(glm::vec2(0.0f)),
+    S(glm::vec2(1.0f)),
+    colourMapUp(NULL),
+    colourMapDown(NULL),
+    colourUpSet(false),
+    colourDownSet(false),
+    colourMapUpSet(false),
+    colourMapDownSet(false),
+    colourUpBitwise(0),
+    colourDownBitwise(0),
+    isDown(false)
     {}
+    
+    virtual ~GUIShape();
+    
+    // Copy constructor.
+    GUIShape(const GUIShape& A);
+    
+    // Assignment operator.
+    GUIShape& operator=(const GUIShape& A);
     
     void translateOW(const glm::vec2 &position) { this->P = position; }
     void translate(const glm::vec2 &position) { this->P += position; }
     void scaleOW(const glm::vec2 &scale) { this->S = scale; }
     void scale(const glm::vec2 &scale) { this->S += scale; }
+    
     void setColourUp(const glm::vec4 &colour);
     void setColourDown(const glm::vec4 &colour);
-    void setMapUp(const GLTexture &map);
-    void setMapDown(const GLTexture &map);
+    void setMapUp(GLTexture *map);
+    void setMapDown(GLTexture *map);
 
     virtual void draw(Shader *shader);
     

@@ -7,7 +7,7 @@
 #include "game-engine/Modules/Animation/AnimationModule.h"
 #include "game-engine/Modules/Animation/Animation.h"
 #include "game-engine/Modules/Animation/AnimationController.h"
-#include "game-engine/Entity/Property.h"
+#include "game-engine/Core/Main/Property.h"
 
 class JointEntity;
 class Animation;

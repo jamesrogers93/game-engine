@@ -6,6 +6,7 @@ list(APPEND GAME_ENGINE_INC
     "include/game-engine/Core/GL/GLSharegroup.h"
     "include/game-engine/Core/GL/GLTexture.h"
     "include/game-engine/Core/GL/GLThread.h"
+    "include/game-engine/Core/GL/OpenGL.h"
 )
 
 if(IOS)

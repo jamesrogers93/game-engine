@@ -1,9 +1,9 @@
 #include "game-engine/Modules/AR/AR.h"
 
 // Game Engine Device
-#include "game-engine/Device/CameraCapture.h"
+#include "game-engine/Peripherals/CameraCapture.h"
 
-#include "game-engine/Util/StringUtil.h"
+#include "game-engine/Core/Utilities/StringUtil.h"
 
 AR::AR() : CoreModule(CoreModuleType::CM_AR)
 {
@@ -62,8 +62,13 @@ bool AR::removeAREntity(const std::string &name)
     
     if(it != arEntities.end())
     {
+        if(name == it->second->getName())
+        {
+            activeAREntity = NULL;
+        }
         // remove
         arEntities.erase(it);
+        
         return true;
     }
     else

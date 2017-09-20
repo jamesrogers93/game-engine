@@ -11,7 +11,7 @@
 #include "game-engine/Modules/Graphics/Shader.h"
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 const unsigned int DirectionalLightProperty::MAX_LIGHTS = 2;
 const std::string DirectionalLightProperty::SHADER_NUMLIGHTS_NAME = "num_directional_lights";
@@ -24,48 +24,48 @@ void DirectionalLightProperty::loadToShader(Shader *shader, const unsigned int &
     
     // Direction
     const GLint *loc = shader->getUniformLocation(lightName + SHADER_DIRECTION_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform3fv(*loc, 1, glm::value_ptr(this->direction));
         //jmpGLUniform3fv(shader->getProgram(), *loc, 1, glm::value_ptr(this->direction));
-    //}
+    }
     
     
     
     // Ambient colour
     loc = shader->getUniformLocation(lightName + SHADER_AMBIENT_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
         //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
-    //}
+    }
     
     // Diffuse colour
     loc = shader->getUniformLocation(lightName + SHADER_DIFFUSE_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
         //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
-    //}
+    }
     
     // Specular colour
     loc = shader->getUniformLocation(lightName + SHADER_SPECULAR_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
         //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
-    //}
+    }
 }
 
 void DirectionalLightProperty::loadNumLightsToShader(Shader *shader, const unsigned int &count)
 {
     // Quadratic attenuation
     const GLint *loc = shader->getUniformLocation(SHADER_NUMLIGHTS_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform1i(*loc, count);
         //jmpGLUniform1i(shader->getProgram(), *loc, count);
-    //}
+    }
 }
 
 void DirectionalLightProperty::fillUniformNames(std::vector<std::string> &uniformNames)

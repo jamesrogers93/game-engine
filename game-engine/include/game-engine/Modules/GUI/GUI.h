@@ -6,7 +6,7 @@
 #include <unordered_map>
 
 // Game Engine
-#include "game-engine/Modules/CoreModule.h"
+#include "game-engine/Core/Main/CoreModule.h"
 
 #include "game-engine/Modules/GUI/GUIProperty.h"
 

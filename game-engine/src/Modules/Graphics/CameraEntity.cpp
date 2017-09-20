@@ -12,7 +12,7 @@
 #include "game-engine/Core/GL/GL.h"
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 const std::string CameraEntity::SHADER_PROJECTION_NAME = "camera_projection";
 const std::string CameraEntity::SHADER_VIEW_NAME = "camera_view";
@@ -23,13 +23,18 @@ const glm::vec3 CameraEntity::DEFAULT_WORLDUP = glm::vec3(0.0, 1.0, 0.0);
 const glm::vec3 CameraEntity::DEFAULT_FRONT = glm::vec3(0.0, 0.0, 1.0);
 const float CameraEntity::DEFAULT_FOV = 75.0f;
 const float CameraEntity::DEFAULT_CLIPNEAR = 1.0f;
-const float CameraEntity::DEFAULT_CLIPFAR = 1000.0f;
+const float CameraEntity::DEFAULT_CLIPFAR = 10000.0f;
 
 CameraEntity::CameraEntity(const std::string &name, const glm::mat4& projection, const glm::vec3 &front) : Entity(name, Entity::CAMERA), projection(projection), front(front)
 {
     glm::vec3 right = glm::normalize(glm::cross(this->front, DEFAULT_WORLDUP));
     this->up = glm::normalize(glm::cross(right, this->front));
     this->updateView();
+}
+
+CameraEntity::~CameraEntity()
+{
+    Graphics::getInstance().removeCameraEntity(name);
 }
 
 void CameraEntity::update()

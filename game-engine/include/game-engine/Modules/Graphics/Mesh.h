@@ -6,7 +6,7 @@
 #include <string>
 
 // Engine defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 #include "game-engine/Modules/Graphics/Vertex.h"
 
@@ -24,9 +24,11 @@ public:
 
     MeshGL() : VAO(0), VBO(0), EBO(0) {}
 	MeshGL(const GLuint VAO, const GLuint VBO, const GLuint EBO, const unsigned int &indexCount) : VAO(VAO), VBO(VBO), EBO(EBO), indexCount(indexCount) {}
+    ~MeshGL();
     
-    void draw() const;
+    void draw(const int &mode) const;
     
+    static MeshGL* loadMeshGL(std::vector<VertexP> vertices, std::vector<unsigned int> indices);
     static MeshGL* loadMeshGL(std::vector<VertexPU> vertices, std::vector<unsigned int> indices);
     static MeshGL* loadMeshGL(std::vector<VertexPCU> vertices, std::vector<unsigned int> indices);
     static MeshGL* loadMeshGL(std::vector<VertexPNUJ> vertices, std::vector<unsigned int> indices);

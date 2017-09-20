@@ -7,7 +7,7 @@
 
 #include "game-engine/Modules/Animation/Animation.h"
 
-#include "game-engine/Util/StringUtil.h"
+#include "game-engine/Core/Utilities/StringUtil.h"
 
 void AnimationImporter::ImportAsynchronously(const std::string &path)
 {

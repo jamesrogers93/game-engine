@@ -10,7 +10,7 @@
 #include <unordered_map>
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 struct ShaderFlag {
     bool flag = true;
@@ -21,7 +21,9 @@ class Shader
 private:
 	GLuint program;
 	std::unordered_map<std::string, GLint> uniforms;
-
+    
+    bool hasLighting;
+    bool hasCamera;
 	Shader();
 	Shader(const GLuint program, std::unordered_map<std::string, GLint> uniforms);
 
@@ -49,6 +51,13 @@ public:
     }
 
 	void use();
+    
+    void setHasLighting(const bool &b) { hasLighting = b; }
+    void setHasCamera(const bool &b) { hasCamera = b; }
+    
+    const bool& getHasLighting() { return hasLighting; }
+    const bool& getHasCamera() { return hasCamera; }
+    
 	static Shader* loadShaderFromFile(const std::string &vertexPath, const std::string &fragmentPath, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames);
     
     static Shader* loadShaderFromString(const std::string &vertex, const std::string &fragment, std::vector<std::pair<GLint, std::string> > vertexAttribs, std::vector<std::string> uniformNames);

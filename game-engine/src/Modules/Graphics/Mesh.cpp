@@ -2,11 +2,51 @@
 #include "game-engine/Modules/Graphics/Vertex.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
-void MeshGL::draw() const
+MeshGL::~MeshGL()
+{
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+}
+
+void MeshGL::draw(const int &mode) const
 {
     glBindVertexArray(this->VAO);
-    glDrawElements(GL_TRIANGLES, this->indexCount, GL_UNSIGNED_INT, 0);
+    glDrawElements(mode, this->indexCount, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+}
+
+MeshGL* MeshGL::loadMeshGL(std::vector<VertexP> vertices, std::vector<unsigned int> indices)
+{
+    if(vertices.size() == 0 || indices.size() == 0)
+    {
+        return NULL;
+    }
+    
+    GLuint VAO, VBO, EBO;
+    
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    
+    // Bind VAO and VBOs
+    glBindVertexArray(VAO);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(VertexP), &vertices[0], GL_STATIC_DRAW);
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    
+    // Set the vertex attribute pointers
+
+    // Vertex Positions
+    glEnableVertexAttribArray(ATTRIB_POSITION);
+    glVertexAttribPointer(ATTRIB_POSITION, Vertex::POSITION_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexP), (GLvoid*)0);
+    
+    glBindVertexArray(0);
+    
+    return new MeshGL(VAO, VBO, EBO, (unsigned int)indices.size());
 }
 
 MeshGL* MeshGL::loadMeshGL(std::vector<VertexPU> vertices, std::vector<unsigned int> indices)
@@ -136,8 +176,8 @@ MeshGL* MeshGL::loadMeshGL(std::vector<VertexPNUJ> vertices, std::vector<unsigne
     
     // Joint ID
     glEnableVertexAttribArray(ATTRIB_JOINT_ID);
-    glVertexAttribPointer(ATTRIB_JOINT_ID, Vertex::JOINT_STRIDE, GL_FLOAT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)offset);
-    offset += sizeof(glm::vec4);
+    glVertexAttribPointer(ATTRIB_JOINT_ID, Vertex::JOINT_STRIDE, GL_INT, GL_FALSE, sizeof(VertexPNUJ), (GLvoid*)offset);
+    offset += sizeof(glm::ivec4);
     
     // Joint Weight
     glEnableVertexAttribArray(ATTRIB_JOINT_WEIGHT);

@@ -18,6 +18,12 @@ void AnimationController::updateElapsedTime(const double &elapsedTime)
         }
         else
         {
+            //mCallback();
+            try {
+                mCallback();
+            } catch(const std::bad_function_call& e) {
+                // Ignore
+            }
             stop();
             return;
         }

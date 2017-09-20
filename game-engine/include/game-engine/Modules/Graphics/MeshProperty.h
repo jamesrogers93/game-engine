@@ -6,7 +6,10 @@
 #include <vector>
 
 // Game Engine Core
-#include "game-engine/Entity/Property.h"
+#include "game-engine/Core/Main/Property.h"
+
+// OpenGL
+#include "game-engine/Core/GL/OpenGL.h"
 
 class Shader;
 class MeshGL;
@@ -18,11 +21,11 @@ protected:
     static const std::string SHADER_MODEL_NAME;
     static const std::string SHADER_NORMAL_MATRIX_NAME;
     
-    MeshProperty(const std::string &name, const Type &type) : Property(name, type), mMeshKeySet(false), mMaterialKeySet(false), mShaderKeySet(false)
+    MeshProperty(const std::string &name, const Type &type) : Property(name, type), mMeshKeySet(false), mMaterialKeySet(false), mShaderKeySet(false), drawMode(GL_TRIANGLES)
     {}
     
 public:
-    MeshProperty(const std::string &name) : Property(name, Property::MESH)
+    MeshProperty(const std::string &name) : Property(name, Property::MESH), drawMode(GL_TRIANGLES)
     {}
     
     ~MeshProperty(){}
@@ -51,6 +54,14 @@ public:
     virtual void loadToShader(Shader *shader);
     static void fillUniformNames(std::vector<std::string> &uniformNames);
     
+    void setDrawMode(const int &flag) {drawMode = flag; }
+    
+    const int getDrawMode() { return drawMode; }
+    
+    void linkMeshPtr();
+    void linkMaterialPtr();
+    void linkShaderPtr();
+    
 private:
     std::string mMesh;   // Key to geometry in Graphics
     std::string mMaterial;   // Key to material in Graphics
@@ -63,6 +74,8 @@ private:
     bool mMeshKeySet;
     bool mMaterialKeySet;
     bool mShaderKeySet;
+    
+    int drawMode;
     
     
 };

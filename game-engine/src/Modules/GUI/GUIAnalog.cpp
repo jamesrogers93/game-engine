@@ -2,7 +2,7 @@
 
 #include "game-engine/Modules/GUI/GUICircle.h"
 
-#include "game-engine/Device/System.h"
+#include "game-engine/Peripherals/System.h"
 
 GUIAnalog::GUIAnalog(const std::string &name, const float &radiusA, const float radiusB, const glm::vec2 position) : GUIProperty(name), drawOnTouched(false)
 {

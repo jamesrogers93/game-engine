@@ -11,7 +11,9 @@
 
 #include "game-engine/Core/GL/GLTexture.h"
 
-#include "game-engine/Util/StringUtil.h"
+#include "game-engine/Core/Utilities/StringUtil.h"
+
+#include "game-engine/Core/GL/OpenGL.h"
 
 bool Graphics::initialise()
 {
@@ -56,47 +58,54 @@ void Graphics::render()
         shader.second->use();
         
         // Load the camera data to the shader
-        activeCameraEntity->loadToShader(shader.second);
-        
-        unsigned int pointLightCount = 0;
-        unsigned int dirLightCount = 0;
-        for(auto light : this->lightProperties)
+        if(shader.second->getHasCamera())
         {
-            switch(light.second->getType())
-            {
-                case Property::POINT_LIGHT:
-                {
-                    if(pointLightCount > PointLightProperty::MAX_LIGHTS)
-                    {
-                        continue;
-                    }
-                    else if(light.second->isOn())
-                    {
-                        light.second->loadToShader(shader.second, pointLightCount++);
-                    }
-                    break;
-                }
-                case Property::DIRECTIONAL_LIGHT:
-                {
-                    if(dirLightCount > DirectionalLightProperty::MAX_LIGHTS)
-                    {
-                        continue;
-                    }
-                    else if(light.second->isOn())
-                    {
-                        light.second->loadToShader(shader.second, dirLightCount++);
-                    }
-                    break;
-                }
-                default:
-                {
-                    break;
-                }
-            }
+            activeCameraEntity->loadToShader(shader.second);
         }
         
-        PointLightProperty::loadNumLightsToShader(shader.second, pointLightCount);
-        DirectionalLightProperty::loadNumLightsToShader(shader.second, dirLightCount);
+        if(shader.second->getHasLighting())
+        {
+            unsigned int pointLightCount = 0;
+            unsigned int dirLightCount = 0;
+            for(auto light : this->lightProperties)
+            {
+                switch(light.second->getType())
+                {
+                    case Property::POINT_LIGHT:
+                    {
+                        if(pointLightCount > PointLightProperty::MAX_LIGHTS)
+                        {
+                            continue;
+                        }
+                        else if(light.second->isOn())
+                        {
+                            light.second->loadToShader(shader.second, pointLightCount++);
+                        }
+                        break;
+                    }
+                    case Property::DIRECTIONAL_LIGHT:
+                    {
+                        if(dirLightCount > DirectionalLightProperty::MAX_LIGHTS)
+                        {
+                            continue;
+                        }
+                        else if(light.second->isOn())
+                        {
+                            light.second->loadToShader(shader.second, dirLightCount++);
+                        }
+                        break;
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
+            }
+        
+            PointLightProperty::loadNumLightsToShader(shader.second, pointLightCount);
+            DirectionalLightProperty::loadNumLightsToShader(shader.second, dirLightCount);
+        
+        }
         
         for(auto const &mesh : this->meshProperties)
         {
@@ -116,7 +125,9 @@ void Graphics::render()
             // Draw the geometry
             //MeshGL *go = this->meshes[mesh.second->getMeshKey()];
             const MeshGL *go = mesh.second->getMeshPtr();
-            go->draw();
+            
+            //glPolygonMode( GL_FRONT_AND_BACK, GL_FILL);
+            go->draw(mesh.second->getDrawMode());
         }
     }
     
@@ -130,7 +141,7 @@ bool Graphics::draw(MeshProperty* mesh)
     //    this->shaders.find(mesh->getShaderKey()) != this->shaders.end() &&
     //    this->cameraEntites.find(this->activeCameraEntity) != this->cameraEntites.end())
 	//{
-		MeshGL *go = this->meshes[mesh->getMeshKey()];
+	/*	MeshGL *go = this->meshes[mesh->getMeshKey()];
         Material *m  = this->materials[mesh->getMaterialKey()];
         Shader   *s  = this->shaders[mesh->getShaderKey()];
         //CameraEntity *c = this->cameraEntites[this->activeCameraEntity];
@@ -192,7 +203,7 @@ bool Graphics::draw(MeshProperty* mesh)
 
 		return true;
 	//}
-
+*/
 	return false;
 }
 
@@ -330,6 +341,12 @@ bool Graphics::removeCameraEntity(const std::string& name)
     if ( it != this->cameraEntites.end())
     {
         this->cameraEntites.erase(it);
+        
+        if(name == activeCameraEntity->getName())
+        {
+            activeCameraEntity = NULL;
+        }
+        
         return true;
     }
     

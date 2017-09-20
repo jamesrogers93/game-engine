@@ -5,10 +5,10 @@
 #include <string>
 
 // Game Engine
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Core/Main/Entity.h"
 
 // Game Engine Device
-#include "game-engine/Device/CameraCapture.h"
+#include "game-engine/Peripherals/CameraCapture.h"
 
 class ARTracker;
 
@@ -17,6 +17,7 @@ class AREntity : public Entity, public CameraCaptureDelegate
     
 public:
     AREntity(const std::string &name);
+    ~AREntity();
     
     void initialise();
     void deinitialise();
@@ -25,7 +26,7 @@ public:
     void startCapture();
     void stopCapture();
     
-    void startTracking();
+    void startTracking(const glm::vec3 &position);
     void stopTracking();
     
     glm::mat4 getCameraProjection(const float &nearPlane, const float &farPlane);

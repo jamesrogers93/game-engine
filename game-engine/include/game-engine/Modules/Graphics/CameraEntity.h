@@ -9,7 +9,7 @@
 #include "game-engine/Core/GL/GLData.h"
 
 // Game Engine Graphics
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Core/Main/Entity.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
 // GLM
@@ -33,6 +33,7 @@ private:
     
 public:
     CameraEntity(const std::string &name, const glm::mat4& projection, const glm::vec3 &front = DEFAULT_FRONT);
+    ~CameraEntity();
     
     void initialise();
     void deinitialise();

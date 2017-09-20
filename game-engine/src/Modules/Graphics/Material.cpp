@@ -9,7 +9,7 @@
 #include "game-engine/Core/GL/GL.h"
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 // GLM
 #include <glm/gtc/type_ptr.hpp>

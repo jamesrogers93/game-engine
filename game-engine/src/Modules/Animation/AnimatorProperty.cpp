@@ -5,7 +5,7 @@
 #include "game-engine/Modules/Animation/KeyFrame.h"
 #include "game-engine/Modules/Animation/JointTransform.h"
 
-#include "game-engine/Util/TimeUtil.h"
+#include "game-engine/Core/Utilities/TimeUtil.h"
 
 #include <iostream>
 
@@ -189,7 +189,9 @@ void AnimatorProperty::animate2(JointEntity *joint, std::vector<AnimationControl
     
     
     glm::mat4 jointGlobalTransform = parentTransform * jointLocalTransform;
-    joint->transformOW(jointGlobalTransform * joint->getInverseBindTransform());
+    joint->transformLocalJointModel(jointGlobalTransform * joint->getInverseBindTransform());
+    joint->transformOW(jointLocalTransform);
+    //joint->transformOW(jointGlobalTransform * joint->getInverseBindTransform());
     
     for(unsigned int i = 0; i < joint->getChildren().size(); i++)
     {

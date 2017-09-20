@@ -1,7 +1,7 @@
 #ifndef _MATERIALIMPORTER_H
 #define _MATERIALIMPORTER_H
 
-#include "game-engine/JMPImporter.h"
+#include "game-engine/Core/Utilities/JMPImporter.h"
 
 class Material;
 

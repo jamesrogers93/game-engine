@@ -1,7 +1,7 @@
 #ifndef _GL_H
 #define _GL_H
 
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 #include "game-engine/Core/GL/GLData.h"
 

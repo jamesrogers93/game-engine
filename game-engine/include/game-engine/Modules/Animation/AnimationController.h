@@ -3,6 +3,7 @@
 #define _ANIMATIONCONTROLLER_H
 
 #include <string>
+#include <functional>
 
 class Animation;
 
@@ -18,6 +19,8 @@ private:
     double mElapsedTime;
     double mAnimationTime;
     bool mPlay;
+    std::function<void()> mCallback;
+    
 public:
     AnimationController() : mAnimationKey(""), mAnimationPtr(NULL), mLoop(false), mReverse(false), mSpeed(1.0), mAlpha(1.0), mElapsedTime(0.0), mPlay(false)
     {}
@@ -41,6 +44,7 @@ public:
     void setReverse(const bool &reverse) { mReverse = reverse; }
     void setSpeed(const float &speed) { mSpeed = speed; }
     void setAlpha(const float &alpha) { mAlpha = alpha; }
+    void setCallback(std::function<void()> callback) { mCallback = callback; }
     
     void updateElapsedTime(const double &elapsedTime);
     

@@ -4,7 +4,7 @@
 // STD
 #include <iostream>
 
-#include "game-engine/Util/StringUtil.h"
+#include "game-engine/Core/Utilities/StringUtil.h"
 
 #include "game-engine/Modules/Animation/AnimatorProperty.h"
 #include "game-engine/Modules/Animation/JointEntity.h"

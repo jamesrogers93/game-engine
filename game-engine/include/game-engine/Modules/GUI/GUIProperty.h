@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "game-engine/Entity/Property.h"
+#include "game-engine/Core/Main/Property.h"
 
 #include "game-engine/Modules/GUI/GUIShape.h"
 
@@ -18,6 +18,7 @@ public:
     bool isTouchable;
     
     GUIProperty(const std::string &name);
+    ~GUIProperty();
     
     bool makeActive();
     bool makeUnactive();

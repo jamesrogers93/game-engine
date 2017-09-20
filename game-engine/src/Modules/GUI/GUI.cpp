@@ -2,15 +2,15 @@
 
 #include "game-engine/Modules/Graphics/Shader.h"
 
-#include "game-engine/Util/StringUtil.h"
+#include "game-engine/Core/Utilities/StringUtil.h"
 
-#include "game-engine/Device/System.h"
+#include "game-engine/Peripherals/System.h"
 
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 
 const std::string vertex =

@@ -5,8 +5,8 @@
 #include "game-engine/Modules/AR/ARTracker.h"
 
 // Game Engine Device
-#include "game-engine/Device/CameraCapture.h"
-#include "game-engine/Device/Gyroscope.h"
+#include "game-engine/Peripherals/CameraCapture.h"
+#include "game-engine/Peripherals/Gyroscope.h"
 
 // STD
 #include <iostream>
@@ -19,6 +19,13 @@
 AREntity::AREntity(const std::string &name) : Entity(name, Entity::AR_TRACKER)
 {
     this->tracker = new ARTracker();
+}
+
+AREntity::~AREntity()
+{
+    CameraCapture::getInstance().removeDelegate(this);
+    
+    AR::getInstance().removeAREntity(name);
 }
 
 void AREntity::initialise()
@@ -45,10 +52,12 @@ void AREntity::stopCapture()
     CameraCapture::getInstance().stopCapture();
 }
 
-void AREntity::startTracking()
+void AREntity::startTracking(const glm::vec3 &position)
 {
-
-    glm::vec3 position(0.0, 0.0, 100.0);
+    
+    // Initialise Gyroscope
+    Gyroscope::getInstance().deinitialise();
+    Gyroscope::getInstance().initialise();
     glm::fquat orientation;
     
     // Start the tracker
@@ -72,10 +81,10 @@ void AREntity::draw()
 
 void AREntity::frameRecieved(unsigned char *data, const float &width, const float &height, const float &padding)
 {
-    if(tracker->getState() != ARTracker::TRACKING)
-    {
-        return;
-    }
+    //if(tracker->getState() != ARTracker::TRACKING)
+    //{
+    //    return;
+    //}
     
     // Get gyroscope orientation
     Gyroscope *gyro = &Gyroscope::getInstance();

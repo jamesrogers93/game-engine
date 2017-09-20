@@ -1,7 +1,7 @@
 #ifndef _ANIMATIONIMPORTER_H
 #define _ANIMATIONIMPORTER_H
 
-#include "game-engine/JMPImporter.h"
+#include "game-engine/Core/Utilities/JMPImporter.h"
 
 #include "game-engine/Modules/Animation/Animation.h"
 #include "game-engine/Modules/Animation/JointAnimation.h"

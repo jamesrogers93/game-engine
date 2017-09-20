@@ -3,7 +3,7 @@
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Core/Main/Entity.h"
 
 // Game Engine Core
 #include "game-engine/Core/GL/GL.h"
@@ -13,7 +13,7 @@
 #include "game-engine/Modules/Graphics/Shader.h"
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 const Attenuation Attenuation::ATT_7 = Attenuation(1.0, 0.7, 1.8);
 const Attenuation Attenuation::ATT_13 = Attenuation(1.0, 0.35, 0.44);
@@ -42,72 +42,72 @@ void PointLightProperty::loadToShader(Shader *shader, const unsigned int &index)
     
     // Position
     const GLint *loc = shader->getUniformLocation(lightName + SHADER_POSITION_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glm::vec3 position = glm::vec3(this->mOwner->getGlobalModel()[4]);
         glUniform3fv(*loc, 1, glm::value_ptr(position));
         
         //jmpGLUniform3fv(shader->getProgram(), *loc, 1, glm::value_ptr(position));
-    //}
+    }
     
     // Ambient colour
     loc = shader->getUniformLocation(lightName + SHADER_AMBIENT_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
         //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->ambient, 1.0f)));
-    //}
+    }
     
     // Diffuse colour
     loc = shader->getUniformLocation(lightName + SHADER_DIFFUSE_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
         //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->diffuse, 1.0f)));
-    //}
+    }
     
     // Specular colour
     loc = shader->getUniformLocation(lightName + SHADER_SPECULAR_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform4fv(*loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
         //jmpGLUniform4fv(shader->getProgram(), *loc, 1, glm::value_ptr(glm::vec4(this->specular, 1.0f)));
-    //}
+    }
     
     // Constant attenuation
     loc = shader->getUniformLocation(lightName + SHADER_CONSTANT_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform1f(*loc, this->attenuation.constant);
         //jmpGLUniform1f(shader->getProgram(), *loc, this->attenuation.constant);
-    //}
+    }
     
     // Linear attenuation
     loc = shader->getUniformLocation(lightName + SHADER_LINEAR_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform1f(*loc, this->attenuation.linear);
         //jmpGLUniform1f(shader->getProgram(), *loc, this->attenuation.linear);
-    //}
+    }
     
     // Quadratic attenuation
     loc = shader->getUniformLocation(lightName + SHADER_QUADRATIC_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform1f(*loc, this->attenuation.quadratic);
         //jmpGLUniform1f(shader->getProgram(), *loc, this->attenuation.quadratic);
-    //}
+    }
 }
 
 void PointLightProperty::loadNumLightsToShader(Shader *shader, const unsigned int &count)
 {
     // Quadratic attenuation
     const GLint *loc = shader->getUniformLocation(SHADER_NUMLIGHTS_NAME);
-    //if(loc != NULL)
-    //{
+    if(loc != NULL)
+    {
         glUniform1i(*loc, count);
         //jmpGLUniform1i(shader->getProgram(), *loc, count);
-    //}
+    }
 }
 
 void PointLightProperty::fillUniformNames(std::vector<std::string> &uniformNames)

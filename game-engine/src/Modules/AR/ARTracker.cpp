@@ -67,27 +67,35 @@ void ARTracker::stop()
 
 bool ARTracker::processFrame(unsigned char *data, const float &width, const float &height, const float &padding)
 {
-    if(state == TRACKING)
+    //if(state == TRACKING)
+    //{
+    if(tracker->processFrame(data, width, height, 1 , padding, false))
     {
-        return tracker->processFrame(data, width, height, 1 , padding, false);
+        state = TRACKING;
+        return true;
     }
+    else
+    {
+        state = NOT_TRACKING;
+        return false;
+    }
+        
+    //}
     
-    return false;
+    //return false;
 }
 
 bool ARTracker::isTracking()
 {
-    //return tracker->isTracking();
-    
-    if(!tracker->isTracking())
-    {
-        state = ARTracker::NOT_TRACKING;
-        return false;
-    }
-    else
+    if(tracker->isTracking())
     {
         state = ARTracker::TRACKING;
         return true;
+    }
+    else
+    {
+        state = ARTracker::NOT_TRACKING;
+        return false;
     }
 }
 

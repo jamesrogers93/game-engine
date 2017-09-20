@@ -6,7 +6,7 @@
 #include <vector>
 
 // Engine
-#include "game-engine/Entity/Property.h"
+#include "game-engine/Core/Main/Property.h"
 
 // GLM
 #include <glm/glm.hpp>
