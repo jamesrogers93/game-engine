@@ -35,6 +35,7 @@ public:
     {
         RES_NOT_SET, RES_640x480, RES_1280x720, RES_1920x1080
     };
+    
     static const Resolution DEFAULT_RES;
     static const std::string SHADER_VERTEX;
     static const std::string SHADER_FRAGMENT;

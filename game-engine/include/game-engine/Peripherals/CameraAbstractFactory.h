@@ -12,7 +12,7 @@ public:
     ~CameraAbstractFactory()
     {}
     
-    CameraAbstract* createCamera() = 0;
+    virtual CameraAbstract* createCamera() = 0;
     
 };
 
