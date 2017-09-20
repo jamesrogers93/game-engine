@@ -1,7 +1,7 @@
 #ifndef _AIDT_H
 #define _AIDT_H
 
-#include "game-engine/Entity/Property.h"
+#include "game-engine/Core/Main/Property.h"
 
 class AIDT : public Property
 {

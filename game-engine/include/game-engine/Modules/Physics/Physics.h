@@ -6,7 +6,7 @@
 #include <map>
 
 // Game Engine AR
-#include "game-engine/Modules/CoreModule.h"
+#include "game-engine/Core/Main/CoreModule.h"
 
 class PhysicsProperty;
 class btCollisionConfiguration;

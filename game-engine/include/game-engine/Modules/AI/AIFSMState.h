@@ -4,7 +4,7 @@
 // STD
 #include <string>
 
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Core/Main/Entity.h"
 
 
 class AIFSMState

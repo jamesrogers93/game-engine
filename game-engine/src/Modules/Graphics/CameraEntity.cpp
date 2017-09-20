@@ -12,7 +12,7 @@
 #include "game-engine/Core/GL/GL.h"
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 const std::string CameraEntity::SHADER_PROJECTION_NAME = "camera_projection";
 const std::string CameraEntity::SHADER_VIEW_NAME = "camera_view";

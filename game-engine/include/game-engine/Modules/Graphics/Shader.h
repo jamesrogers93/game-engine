@@ -10,7 +10,7 @@
 #include <unordered_map>
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 struct ShaderFlag {
     bool flag = true;

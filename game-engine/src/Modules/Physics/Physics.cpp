@@ -1,7 +1,7 @@
 #include "game-engine/Modules/Physics/Physics.h"
 #include "game-engine/Modules/Physics/PhysicsProperty.h"
 
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Core/Main/Entity.h"
 
 #include <iostream>
 

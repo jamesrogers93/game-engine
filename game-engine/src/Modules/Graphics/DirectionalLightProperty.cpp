@@ -11,7 +11,7 @@
 #include "game-engine/Modules/Graphics/Shader.h"
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 const unsigned int DirectionalLightProperty::MAX_LIGHTS = 2;
 const std::string DirectionalLightProperty::SHADER_NUMLIGHTS_NAME = "num_directional_lights";

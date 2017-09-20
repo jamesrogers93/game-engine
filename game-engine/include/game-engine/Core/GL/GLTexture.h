@@ -1,9 +1,9 @@
 #ifndef _TEXTURE_H
 #define _TEXTURE_H
 
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
-#include "game-engine/Util/TextureUtil.h"
+#include "game-engine/Core/Utilities/TextureUtil.h"
 
 class GLTexture
 {

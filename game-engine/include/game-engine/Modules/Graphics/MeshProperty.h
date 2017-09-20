@@ -6,10 +6,10 @@
 #include <vector>
 
 // Game Engine Core
-#include "game-engine/Entity/Property.h"
+#include "game-engine/Core/Main/Property.h"
 
 // OpenGL
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 class Shader;
 class MeshGL;

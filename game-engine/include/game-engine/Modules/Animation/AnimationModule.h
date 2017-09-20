@@ -5,7 +5,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "game-engine/Modules/CoreModule.h"
+#include "game-engine/Core/Main/CoreModule.h"
 
 #include <glm/glm.hpp>
 

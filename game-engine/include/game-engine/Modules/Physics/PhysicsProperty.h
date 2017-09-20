@@ -8,7 +8,7 @@
 // GLM
 #include <glm/glm.hpp>
 
-#include "game-engine/Entity/Property.h"
+#include "game-engine/Core/Main/Property.h"
 
 
 class PhysicsShape;

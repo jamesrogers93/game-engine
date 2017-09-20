@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 // Main Core
-#include "game-engine/Entity/Property.h"
+#include "game-engine/Core/Main/Property.h"
 
 // AI
 #include "game-engine/Modules/AI/AIFSMState.h"

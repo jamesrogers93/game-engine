@@ -5,10 +5,10 @@
 #include <string>
 
 // Game Engine
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Core/Main/Entity.h"
 
 // Game Engine Device
-#include "game-engine/Device/CameraCapture.h"
+#include "game-engine/Peripherals/CameraCapture.h"
 
 class ARTracker;
 

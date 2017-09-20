@@ -6,7 +6,7 @@
 #include <string>
 
 // Engine defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 #include "game-engine/Modules/Graphics/Vertex.h"
 

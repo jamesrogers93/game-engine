@@ -7,7 +7,7 @@
 #include <algorithm>
 
 // Game Engine
-#include "game-engine/Modules/CoreModule.h"
+#include "game-engine/Core/Main/CoreModule.h"
 
 class MeshProperty;
 class CameraEntity;

@@ -1,6 +1,6 @@
 #include "game-engine/Core/GL/GLTexture.h"
 
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 GLTexture::~GLTexture()
 {

@@ -11,9 +11,9 @@
 
 #include "game-engine/Core/GL/GLTexture.h"
 
-#include "game-engine/Util/StringUtil.h"
+#include "game-engine/Core/Utilities/StringUtil.h"
 
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 bool Graphics::initialise()
 {

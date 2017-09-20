@@ -10,7 +10,3 @@ include(include/game-engine/Modules/Physics/CMakeLists.txt)
 if(IOS)
 	include(include/game-engine/Modules/AR/CMakeLists.txt)
 endif()
-
-list(APPEND GAME_ENGINE_INC
-	"include/game-engine/Modules/CoreModule.h"
-)

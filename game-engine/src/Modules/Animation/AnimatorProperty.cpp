@@ -5,7 +5,7 @@
 #include "game-engine/Modules/Animation/KeyFrame.h"
 #include "game-engine/Modules/Animation/JointTransform.h"
 
-#include "game-engine/Util/TimeUtil.h"
+#include "game-engine/Core/Utilities/TimeUtil.h"
 
 #include <iostream>
 

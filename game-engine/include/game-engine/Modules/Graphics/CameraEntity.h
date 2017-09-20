@@ -9,7 +9,7 @@
 #include "game-engine/Core/GL/GLData.h"
 
 // Game Engine Graphics
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Core/Main/Entity.h"
 #include "game-engine/Modules/Graphics/Shader.h"
 
 // GLM

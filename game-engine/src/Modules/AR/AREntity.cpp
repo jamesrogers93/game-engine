@@ -5,8 +5,8 @@
 #include "game-engine/Modules/AR/ARTracker.h"
 
 // Game Engine Device
-#include "game-engine/Device/CameraCapture.h"
-#include "game-engine/Device/Gyroscope.h"
+#include "game-engine/Peripherals/CameraCapture.h"
+#include "game-engine/Peripherals/Gyroscope.h"
 
 // STD
 #include <iostream>

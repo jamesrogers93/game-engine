@@ -3,7 +3,7 @@
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Core/Main/Entity.h"
 
 // Game Engine Core
 #include "game-engine/Core/GL/GL.h"
@@ -13,7 +13,7 @@
 #include "game-engine/Modules/Graphics/Shader.h"
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 const Attenuation Attenuation::ATT_7 = Attenuation(1.0, 0.7, 1.8);
 const Attenuation Attenuation::ATT_13 = Attenuation(1.0, 0.35, 0.44);

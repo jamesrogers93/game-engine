@@ -9,7 +9,3 @@ include(src/Modules/Physics/CMakeLists.txt)
 if(IOS)
 	include(src/Modules/AR/CMakeLists.txt)
 endif()
-
-list(APPEND GAME_ENGINE_SRC
-	"src/Modules/CoreModule.cpp"
-)

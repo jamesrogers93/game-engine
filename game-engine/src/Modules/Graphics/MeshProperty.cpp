@@ -3,7 +3,7 @@
 // GLM
 #include <glm/gtc/type_ptr.hpp>
 
-#include "game-engine/Entity/Entity.h"
+#include "game-engine/Core/Main/Entity.h"
 
 // Game Engine Core
 #include "game-engine/Core/GL/GL.h"
@@ -13,7 +13,7 @@
 #include "game-engine/Modules/Graphics/Shader.h"
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 const std::string MeshProperty::SHADER_MODEL_NAME = "model";
 const std::string MeshProperty::SHADER_NORMAL_MATRIX_NAME = "normal_matrix";

@@ -11,14 +11,14 @@
 
 // Game Engine
 #include "game-engine/Modules/Graphics/Shader.h"
-#include "game-engine/Entity/Entity.h"
-#include "game-engine/Modules/Animation/JointEntity.h"  // HACK
+#include "game-engine/Core/Main/Entity.h"
+#include "game-engine/Modules/Animation/JointEntity.h" 
 
 // Game Engine Defines
-#include "game-engine/Defines/OpenGL.h"
+#include "game-engine/Core/GL/OpenGL.h"
 
 #include "game-engine/Modules/Graphics/Graphics.h"
-#include "game-engine/Util/StringUtil.h"
+#include "game-engine/Core/Utilities/StringUtil.h"
 
 const unsigned int AnimatableMeshProperty::MAX_JOINTS = 60;
 const std::string AnimatableMeshProperty::SHADER_JOINTS_NAME = "joints";

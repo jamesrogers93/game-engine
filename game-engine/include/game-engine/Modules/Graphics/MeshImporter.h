@@ -3,7 +3,7 @@
 
 #include <fstream>
 
-#include "game-engine/JMPImporter.h"
+#include "game-engine/Core/Utilities/JMPImporter.h"
 
 class Mesh;
 
